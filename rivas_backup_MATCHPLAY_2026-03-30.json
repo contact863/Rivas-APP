@@ -1,0 +1,3812 @@
+{
+  "dw": 14,
+  "curP": 0,
+  "projects": [
+    {
+      "name": "MATCHPLAY",
+      "phase": "Second Oeuvre",
+      "pct": 58,
+      "clientEmails": [
+        "matchplay@client.com"
+      ],
+      "partnerEmails": [],
+      "startDate": "2025-12-15",
+      "endDate": "2026-05-08"
+    },
+    {
+      "name": "Résidence Les Pins",
+      "phase": "Gros Oeuvre",
+      "pct": 68,
+      "clientEmails": [
+        "lespins@client.com"
+      ],
+      "partnerEmails": []
+    },
+    {
+      "name": "Villa Moderna",
+      "phase": "Finitions",
+      "pct": 91,
+      "clientEmails": [
+        "moderna@client.com"
+      ],
+      "partnerEmails": []
+    },
+    {
+      "name": "Abehsera",
+      "phase": "Gros Oeuvre",
+      "pct": 0,
+      "clientEmails": [],
+      "partnerEmails": [],
+      "startDate": "2026-04-07",
+      "endDate": "2026-07-17"
+    }
+  ],
+  "tasks": [
+    {
+      "id": 14,
+      "pi": 1,
+      "name": "Terrassement",
+      "cat": "VRD",
+      "assignee": "EXTERIORS",
+      "status": "done",
+      "start": "2025-01-10",
+      "end": "2025-01-28",
+      "pct": 100
+    },
+    {
+      "id": 15,
+      "pi": 1,
+      "name": "Fondations béton armé",
+      "cat": "Gros Oeuvre",
+      "assignee": "BATIPRO",
+      "status": "done",
+      "start": "2025-01-25",
+      "end": "2025-02-22",
+      "pct": 100
+    },
+    {
+      "id": 16,
+      "pi": 1,
+      "name": "Élévation R+1",
+      "cat": "Gros Oeuvre",
+      "assignee": "BATIPRO",
+      "status": "inprogress",
+      "start": "2025-02-25",
+      "end": "2025-04-15",
+      "pct": 75
+    },
+    {
+      "id": 17,
+      "pi": 1,
+      "name": "Dalle béton R+1",
+      "cat": "Gros Oeuvre",
+      "assignee": "BATIPRO",
+      "status": "inprogress",
+      "start": "2025-04-10",
+      "end": "2025-04-30",
+      "pct": 30
+    },
+    {
+      "id": 18,
+      "pi": 1,
+      "name": "Charpente toiture",
+      "cat": "Menuiserie",
+      "assignee": "ARTBOIS",
+      "status": "todo",
+      "start": "2025-05-05",
+      "end": "2025-05-28",
+      "pct": 0
+    },
+    {
+      "id": 19,
+      "pi": 2,
+      "name": "Peintures intérieures",
+      "cat": "Finitions",
+      "assignee": "COLOREX",
+      "status": "inprogress",
+      "start": "2025-03-01",
+      "end": "2025-04-15",
+      "pct": 82
+    },
+    {
+      "id": 20,
+      "pi": 2,
+      "name": "Cuisine — pose",
+      "cat": "Menuiserie",
+      "assignee": "KITCH+",
+      "status": "inprogress",
+      "start": "2025-03-20",
+      "end": "2025-04-10",
+      "pct": 65
+    },
+    {
+      "id": 21,
+      "pi": 2,
+      "name": "Plomberie cuisine",
+      "cat": "Plomberie",
+      "assignee": "AQUAPRO",
+      "status": "done",
+      "start": "2025-02-05",
+      "end": "2025-03-10",
+      "pct": 100
+    },
+    {
+      "id": 22,
+      "pi": 2,
+      "name": "Nettoyage & réception",
+      "cat": "Autre",
+      "assignee": "TRI",
+      "status": "todo",
+      "start": "2025-04-15",
+      "end": "2025-04-22",
+      "pct": 0
+    },
+    {
+      "id": 303,
+      "pi": 3,
+      "name": "LOT 01 - Protection",
+      "cat": "Peinture",
+      "assignee": "Tourtoulou",
+      "status": "todo",
+      "pct": 75,
+      "start": "2026-04-06",
+      "end": "2026-04-10",
+      "notes": "Protection des sols et surfaces avant démarrage chantier. Durée 1 semaine S01. Terminé selon planning.",
+      "subtasks": [
+        {
+          "id": 1774520928264,
+          "text": "Protection sols réception",
+          "done": true,
+          "start": "2026-04-06",
+          "end": "2026-04-06"
+        },
+        {
+          "id": 1774520928265,
+          "text": "Protection sols cuisines",
+          "done": true,
+          "start": "2026-04-07",
+          "end": "2026-04-07"
+        },
+        {
+          "id": 1774520928266,
+          "text": "Protection sols chambres & dégagements",
+          "done": true,
+          "start": "2026-04-08",
+          "end": "2026-04-08"
+        },
+        {
+          "id": 1774520928267,
+          "text": "Protection SDB & WC",
+          "done": false,
+          "start": "2026-04-09",
+          "end": "2026-04-09"
+        }
+      ]
+    },
+    {
+      "id": 304,
+      "pi": 3,
+      "name": "LOT 02 - Peinture",
+      "cat": "Peinture",
+      "assignee": "Tourtoulou",
+      "status": "",
+      "pct": 35,
+      "start": "2026-04-10",
+      "end": "2026-05-23",
+      "notes": "Peinture séquencée par zone sur 7 semaines. Réception et cuisine en cours. Suite parentale, chambres, SDB à venir. Vérifier raccords et reprises entre zones.",
+      "subtasks": [
+        {
+          "id": 376,
+          "text": "Peinture Réception (S02→S04)",
+          "done": false,
+          "start": "2026-04-10",
+          "end": "2026-04-14"
+        },
+        {
+          "id": 377,
+          "text": "Peinture Cuisine (S03→S04)",
+          "done": false,
+          "start": "2026-04-15",
+          "end": "2026-04-19"
+        },
+        {
+          "id": 378,
+          "text": "Peinture Dégagement (S05)",
+          "done": false,
+          "start": "2026-04-20",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 379,
+          "text": "Peinture Suite Parentale (S05→S07)",
+          "done": false,
+          "start": "2026-04-25",
+          "end": "2026-04-29"
+        },
+        {
+          "id": 1774520928268,
+          "text": "Peinture Chambre 01 (S06→S07)",
+          "done": false,
+          "start": "2026-04-30",
+          "end": "2026-05-04"
+        },
+        {
+          "id": 1774520928269,
+          "text": "Peinture Chambre 02 (S08)",
+          "done": false,
+          "start": "2026-05-05",
+          "end": "2026-05-09"
+        },
+        {
+          "id": 1774520928270,
+          "text": "Peinture SDB & WC (S08→S09)",
+          "done": false,
+          "start": "2026-05-10",
+          "end": "2026-05-14"
+        },
+        {
+          "id": 1774520928271,
+          "text": "Contrôle qualité & reprises finales toutes zones",
+          "done": false,
+          "start": "2026-05-15",
+          "end": "2026-05-19"
+        }
+      ]
+    },
+    {
+      "id": 305,
+      "pi": 3,
+      "name": "LOT 03 - Plomberie",
+      "cat": "Plomberie",
+      "assignee": "AJIPEC",
+      "status": "in_progress",
+      "pct": 0,
+      "start": "2026-03-30",
+      "end": "2026-04-25",
+      "notes": "Plomberie en cours S02→S03. Vérifier passage des alimentations SDB, WC, cuisine avant fermeture des cloisons. Coordination avec peinture SDB. | Remplacement ballon Thermor Duralis 200l mural — version longue durée de vie. Remplacement groupe de sécurité. Vérifier compatibilité avec installation existante avant dépose. Couper alimentation eau et électricité avant intervention. | Détartrage complet de l'ensemble de l'installation. À réaliser avant remplacement des équipements de robinetterie pour éviter re-contamination. Vérification de l'état général des canalisations. | Dépose mitigeur existant — pose mitigeur Villeroy & Boch Umbrella extractible pivotant inox brossé. Vérifier compatibilité fixation sous-évier. Coordonner avec travaux de menuiserie cuisine si plan de travail concerné. | Vérification et test de la baignoire existante. Contrôle étanchéité, évacuation et robinetterie associée. À réaliser avant peinture et pose de finitions salle de bain. Signaler tout défaut constaté à LMP DESIGN avant validation.",
+      "subtasks": [
+        {
+          "id": 1774535173147,
+          "text": "Dépose ancien ballon d'eau chaude",
+          "start": "2026-03-30",
+          "end": "2026-03-30",
+          "done": false
+        },
+        {
+          "id": 380,
+          "text": "Cuisine — Dépose robinet mitigeur existant",
+          "start": "2026-03-31",
+          "end": "2026-03-31",
+          "done": false
+        },
+        {
+          "id": 381,
+          "text": "Plomberie cuisine — alimentation & évacuation",
+          "done": false,
+          "start": "2026-04-01",
+          "end": "2026-04-01"
+        },
+        {
+          "id": 382,
+          "text": "Plomberie SDB suite parentale",
+          "done": false,
+          "start": "2026-04-02",
+          "end": "2026-04-02"
+        },
+        {
+          "id": 383,
+          "text": "Plomberie SDB chambre 01",
+          "done": false,
+          "start": "2026-04-03",
+          "end": "2026-04-03"
+        },
+        {
+          "id": 384,
+          "text": "Plomberie WC",
+          "done": false,
+          "start": "2026-04-04",
+          "end": "2026-04-04"
+        },
+        {
+          "id": 1774535173148,
+          "text": "Salle de bain — Test évacuation et robinetterie baignoire",
+          "start": "2026-04-05",
+          "end": "2026-04-05",
+          "done": false
+        },
+        {
+          "id": 385,
+          "text": "Pose nouveau ballon Thermor Duralis 200l mural",
+          "start": "2026-04-06",
+          "end": "2026-04-06",
+          "done": false
+        },
+        {
+          "id": 386,
+          "text": "Cuisine — Pose mitigeur Villeroy & Boch Umbrella inox brossé",
+          "start": "2026-04-07",
+          "end": "2026-04-07",
+          "done": false
+        },
+        {
+          "id": 387,
+          "text": "Détartrage réseau eau froide — cuisine",
+          "start": "2026-04-08",
+          "end": "2026-04-08",
+          "done": false
+        },
+        {
+          "id": 1774535173149,
+          "text": "Cuisine — Test étanchéité et vérification fonctionnement extractible/pivotant",
+          "start": "2026-04-09",
+          "end": "2026-04-09",
+          "done": false
+        },
+        {
+          "id": 388,
+          "text": "Détartrage réseau eau chaude — salle de bain",
+          "start": "2026-04-10",
+          "end": "2026-04-10",
+          "done": false
+        },
+        {
+          "id": 389,
+          "text": "Salle de bain — Vérification étanchéité baignoire et joints périphériques",
+          "start": "2026-04-11",
+          "end": "2026-04-11",
+          "done": false
+        },
+        {
+          "id": 390,
+          "text": "Salle de bain — Rapport de vérification et transmission à LMP DESIGN",
+          "start": "2026-04-12",
+          "end": "2026-04-12",
+          "done": false
+        },
+        {
+          "id": 391,
+          "text": "Nettoyage et rinçage de l'ensemble des canalisations",
+          "start": "2026-04-13",
+          "end": "2026-04-13",
+          "done": false
+        },
+        {
+          "id": 392,
+          "text": "Test étanchéité & mise en eau",
+          "done": false,
+          "start": "2026-04-14",
+          "end": "2026-04-14"
+        },
+        {
+          "id": 393,
+          "text": "Remplacement groupe de sécurité",
+          "start": "2026-04-15",
+          "end": "2026-04-15",
+          "done": false
+        },
+        {
+          "id": 1774535173150,
+          "text": "Adaptation et raccordement installation existante",
+          "start": "2026-04-16",
+          "end": "2026-04-16",
+          "done": false
+        },
+        {
+          "id": 1774535173151,
+          "text": "Mise en eau et vérification étanchéité — test de fonctionnement",
+          "start": "2026-04-17",
+          "end": "2026-04-17",
+          "done": false
+        },
+        {
+          "id": 394,
+          "text": "Vérification état général de l'installation après détartrage",
+          "start": "2026-04-18",
+          "end": "2026-04-18",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 307,
+      "pi": 3,
+      "name": "LOT 05 - Menuiserie",
+      "cat": "Menuiserie",
+      "assignee": "",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-05-09",
+      "end": "2026-05-23",
+      "notes": "Menuiserie intérieure S08→S09. Portes, placards, habillages. Coordination avec peinture finitions et parquet. Vérifier délais fabrication sur mesure.",
+      "subtasks": [
+        {
+          "id": 395,
+          "text": "Pose portes intérieures — dégagement & couloir",
+          "done": false,
+          "start": "2026-05-09",
+          "end": "2026-05-10"
+        },
+        {
+          "id": 396,
+          "text": "Pose porte suite parentale",
+          "done": false,
+          "start": "2026-05-11",
+          "end": "2026-05-12"
+        },
+        {
+          "id": 397,
+          "text": "Pose portes chambres 01 & 02",
+          "done": false,
+          "start": "2026-05-13",
+          "end": "2026-05-14"
+        },
+        {
+          "id": 398,
+          "text": "Pose placards & dressing",
+          "done": false,
+          "start": "2026-05-15",
+          "end": "2026-05-16"
+        },
+        {
+          "id": 399,
+          "text": "Habillages & boiseries réception",
+          "done": false,
+          "start": "2026-05-17",
+          "end": "2026-05-18"
+        },
+        {
+          "id": 400,
+          "text": "Contrôle géométrie & quincaillerie",
+          "done": false,
+          "start": "2026-05-19",
+          "end": "2026-05-20"
+        }
+      ]
+    },
+    {
+      "id": 308,
+      "pi": 3,
+      "name": "LOT 06 - Staff / Verre",
+      "cat": "Second Oeuvre",
+      "assignee": "",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-25",
+      "end": "2026-05-09",
+      "notes": "Staff et cloisons verre S04→S05. Verrière ou cloison vitrée réception probable. Coordination avec plomberie et électricité avant pose.",
+      "subtasks": [
+        {
+          "id": 401,
+          "text": "Cloison / verrière verre réception",
+          "done": false,
+          "start": "2026-04-25",
+          "end": "2026-04-27"
+        },
+        {
+          "id": 402,
+          "text": "Staff décoratif réception",
+          "done": false,
+          "start": "2026-04-28",
+          "end": "2026-04-30"
+        },
+        {
+          "id": 403,
+          "text": "Contrôle aplombs & joints",
+          "done": false,
+          "start": "2026-05-01",
+          "end": "2026-05-03"
+        },
+        {
+          "id": 404,
+          "text": "Staff / habillage dégagement",
+          "done": false,
+          "start": "2026-05-04",
+          "end": "2026-05-06"
+        }
+      ]
+    },
+    {
+      "id": 309,
+      "pi": 3,
+      "name": "LOT 07 - Parquet",
+      "cat": "Finitions",
+      "assignee": "",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-05-16",
+      "end": "2026-05-30",
+      "notes": "Parquet S08→S09 après menuiserie. Pose sur zones sèches uniquement. Vérifier hygrométrie avant pose. Coordination critique avec peinture (éviter éclaboussures).",
+      "subtasks": [
+        {
+          "id": 405,
+          "text": "Pose parquet réception / salon",
+          "done": false,
+          "start": "2026-05-16",
+          "end": "2026-05-17"
+        },
+        {
+          "id": 406,
+          "text": "Pose parquet dégagement / couloir",
+          "done": false,
+          "start": "2026-05-18",
+          "end": "2026-05-19"
+        },
+        {
+          "id": 407,
+          "text": "Pose parquet suite parentale",
+          "done": false,
+          "start": "2026-05-20",
+          "end": "2026-05-21"
+        },
+        {
+          "id": 408,
+          "text": "Pose parquet chambres 01 & 02",
+          "done": false,
+          "start": "2026-05-22",
+          "end": "2026-05-23"
+        },
+        {
+          "id": 409,
+          "text": "Préparation & ragréage sols réception",
+          "done": false,
+          "start": "2026-05-24",
+          "end": "2026-05-25"
+        },
+        {
+          "id": 410,
+          "text": "Vitrification / huilage & séchage",
+          "done": false,
+          "start": "2026-05-26",
+          "end": "2026-05-27"
+        }
+      ]
+    },
+    {
+      "id": 310,
+      "pi": 3,
+      "name": "LOT 08 - Fourniture & Mobilier",
+      "cat": "Finitions",
+      "assignee": "",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-05-23",
+      "end": "2026-06-06",
+      "notes": "Livraison et installation mobilier S10→S11. Coordonner accès chantier avec entreprises finitions. Vérifier conformité mobilier avec DOE et plans Rivas.",
+      "subtasks": [
+        {
+          "id": 411,
+          "text": "Livraison & installation mobilier réception",
+          "done": false,
+          "start": "2026-05-23",
+          "end": "2026-05-24"
+        },
+        {
+          "id": 412,
+          "text": "Livraison & installation mobilier cuisine",
+          "done": false,
+          "start": "2026-05-25",
+          "end": "2026-05-26"
+        },
+        {
+          "id": 413,
+          "text": "Livraison & installation mobilier suite parentale",
+          "done": false,
+          "start": "2026-05-27",
+          "end": "2026-05-28"
+        },
+        {
+          "id": 414,
+          "text": "Livraison & installation mobilier chambres 01 & 02",
+          "done": false,
+          "start": "2026-05-29",
+          "end": "2026-05-30"
+        },
+        {
+          "id": 415,
+          "text": "Raccordements électroménager cuisine",
+          "done": false,
+          "start": "2026-05-31",
+          "end": "2026-06-01"
+        },
+        {
+          "id": 416,
+          "text": "Contrôle conformité mobilier vs plans Rivas",
+          "done": false,
+          "start": "2026-06-02",
+          "end": "2026-06-03"
+        }
+      ]
+    },
+    {
+      "id": 311,
+      "pi": 3,
+      "name": "LOT 08 - Nettoyage",
+      "cat": "Finitions",
+      "assignee": "",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-05-30",
+      "end": "2026-06-13",
+      "notes": "Nettoyage fin de chantier S11→S12. Nettoyage de chantier puis nettoyage livraison luxe. Prévoir protection parquet pendant opérations.",
+      "subtasks": [
+        {
+          "id": 417,
+          "text": "Évacuation déchets & gravats toutes zones",
+          "done": false,
+          "start": "2026-05-30",
+          "end": "2026-05-31"
+        },
+        {
+          "id": 418,
+          "text": "Nettoyage livraison luxe (vitres, parquet, mobilier)",
+          "done": false,
+          "start": "2026-06-01",
+          "end": "2026-06-02"
+        },
+        {
+          "id": 419,
+          "text": "Nettoyage chantier réception & cuisine",
+          "done": false,
+          "start": "2026-06-03",
+          "end": "2026-06-04"
+        },
+        {
+          "id": 420,
+          "text": "Nettoyage chantier chambres & dégagements",
+          "done": false,
+          "start": "2026-06-05",
+          "end": "2026-06-06"
+        },
+        {
+          "id": 421,
+          "text": "Nettoyage SDB & WC",
+          "done": false,
+          "start": "2026-06-07",
+          "end": "2026-06-08"
+        },
+        {
+          "id": 422,
+          "text": "Levée des réserves & réception chantier",
+          "done": false,
+          "start": "2026-06-09",
+          "end": "2026-06-10"
+        }
+      ]
+    },
+    {
+      "id": 312,
+      "pi": 3,
+      "name": "Installation chantier",
+      "cat": "Coordination",
+      "assignee": "",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-16",
+      "end": "2026-04-21",
+      "notes": "Mise en place du chantier Abehsera — Gros Oeuvre",
+      "subtasks": [
+        {
+          "id": 1774521039690,
+          "text": "Branchements provisoires eau et électricité",
+          "done": false,
+          "start": "2026-04-16",
+          "end": "2026-04-16"
+        },
+        {
+          "id": 1774521039688,
+          "text": "Installation des vestiaires et sanitaires de chantier",
+          "done": false,
+          "start": "2026-04-17",
+          "end": "2026-04-17"
+        },
+        {
+          "id": 1774521039687,
+          "text": "Mise en place des clôtures et signalétique de chantier",
+          "done": false,
+          "start": "2026-04-18",
+          "end": "2026-04-18"
+        },
+        {
+          "id": 1774521039689,
+          "text": "Mise en place du bureau de chantier",
+          "done": false,
+          "start": "2026-04-19",
+          "end": "2026-04-19"
+        },
+        {
+          "id": 1774521039691,
+          "text": "Réunion de démarrage avec intervenants",
+          "done": false,
+          "start": "2026-04-20",
+          "end": "2026-04-20"
+        }
+      ]
+    },
+    {
+      "id": 321,
+      "pi": 3,
+      "name": "LOT 04 - Electricité – Réseau RJ45 & Wifi",
+      "cat": "",
+      "assignee": "",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-13",
+      "end": "2026-04-24",
+      "notes": "Devis N°237 AJIPEC – Création prises RJ45 Cat6A depuis switch dans chambre du fond (x2), petite chambre (x1), chambre parentale (x2), bureau (x2), cuisine (x1), salon (x2). Tableau télécommunication Grade 3 + switch TP-link. Réseau Wifi Mesh TP-link WiFi 6 avec 3 bornes et switch POE câblés en RJ45 CAT6A. ATTENTION : câblage encastré à réaliser AVANT rebouchage et peinture. Coordonner avec LMP DESIGN pour emplacement des bornes Wifi. | 17 télérupteurs à remplacer — modèles existants très bruyants. Remplacement par télérupteurs silencieux électroniques Legrand. Intervention pièce par pièce pour limiter coupures. Coordonner avec Tourtoulou (peinture) pour ne pas intervenir après finition des murs. Vérifier compatibilité avec variateurs existants si présents. | Electricité en deux phases : première passe S02→S03 (encastrements, gaines), deuxième passe finitions S10→S11 (appareillage, luminaires). Coordination critique avec peinture. | Devis N°237 AJIPEC – Pose boîtes multimédia Legrand TV + prise 2P+T 16A dans chambre du fond, chambre parentale, cuisine et salon. À réaliser en parallèle du câblage RJ45, avant rebouchage. Coordonner emplacement TV avec LMP DESIGN. | Trace d'échauffement détectée sur tableau existant — intervention prioritaire. Respect norme NFC15-100. Protection différentielle 30mA Type A et AC. Contacteur de puissance à prévoir. Coordination avec les autres lots électriques en cours. Couper alimentation générale pendant intervention.",
+      "subtasks": [
+        {
+          "id": 1774532976073,
+          "text": "Dépose tableau cuisine existant et diagnostic échauffement",
+          "done": false,
+          "start": "2026-04-13",
+          "end": "2026-04-13"
+        },
+        {
+          "id": 423,
+          "text": "Passage gaines & boîtes encastrées — réception/cuisine",
+          "done": false,
+          "start": "2026-04-14",
+          "end": "2026-04-14"
+        },
+        {
+          "id": 424,
+          "text": "Passage gaines & boîtes encastrées — chambres & dégagement",
+          "done": false,
+          "start": "2026-04-15",
+          "end": "2026-04-15"
+        },
+        {
+          "id": 425,
+          "text": "Passage gaines SDB & WC",
+          "done": false,
+          "start": "2026-04-16",
+          "end": "2026-04-16"
+        },
+        {
+          "id": 1774530233991,
+          "text": "Installation tableau télécommunication Grade 3 + switch TP-link",
+          "done": false,
+          "start": "2026-04-17",
+          "end": "2026-04-17"
+        },
+        {
+          "id": 1774530233998,
+          "text": "Déploiement réseau Wifi Mesh TP-link WiFi 6 – 3 bornes câblées RJ45 CAT6A",
+          "done": false,
+          "start": "2026-04-18",
+          "end": "2026-04-18"
+        },
+        {
+          "id": 426,
+          "text": "Pose luminaires toutes zones (S10→S11)",
+          "done": false,
+          "start": "2026-04-19",
+          "end": "2026-04-19"
+        },
+        {
+          "id": 427,
+          "text": "Tableau électrique & essais conformité",
+          "done": false,
+          "start": "2026-04-20",
+          "end": "2026-04-20"
+        },
+        {
+          "id": 1774532976074,
+          "text": "Fourniture et pose nouveau tableau électrique NFC15-100 — cuisine",
+          "done": false,
+          "start": "2026-04-21",
+          "end": "2026-04-21"
+        },
+        {
+          "id": 1774532976075,
+          "text": "Câblage disjoncteurs, peigne vertical et horizontal, contacteur de puissance — cuisine",
+          "done": false,
+          "start": "2026-04-22",
+          "end": "2026-04-22"
+        },
+        {
+          "id": 1774532976076,
+          "text": "Test, mise en service et vérification conformité tableau cuisine",
+          "done": false,
+          "start": "2026-04-23",
+          "end": "2026-04-23"
+        },
+        {
+          "id": 1774530233996,
+          "text": "Cuisine – Création 1 prise RJ45 Cat6A depuis switch",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 428,
+          "text": "Remplacement télérupteurs silencieux — cuisine (x2)",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 429,
+          "text": "Appareillage & interrupteurs — réception/cuisine (S10)",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774530233993,
+          "text": "Cuisine – Boîte multimédia Legrand TV + prise 2P+T 16A",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774530233992,
+          "text": "Chambre du fond – Création 2 prises RJ45 Cat6A depuis switch",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 430,
+          "text": "Petite chambre – Création 1 prise RJ45 Cat6A depuis switch",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774530233994,
+          "text": "Chambre parentale – Création 2 prises RJ45 Cat6A depuis switch",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774530233995,
+          "text": "Bureau – Création 2 prises RJ45 Cat6A depuis switch",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774530233997,
+          "text": "Salon – Création 2 prises RJ45 Cat6A depuis switch",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 431,
+          "text": "Chambre du fond – Boîte multimédia Legrand TV + prise 2P+T 16A",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 432,
+          "text": "Chambre parentale – Boîte multimédia Legrand TV + prise 2P+T 16A",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 433,
+          "text": "Salon – Boîte multimédia Legrand TV + prise 2P+T 16A",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774530233999,
+          "text": "Tests et recette réseau ethernet + Wifi",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 434,
+          "text": "Remplacement télérupteur silencieux — entrée / couloir",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 435,
+          "text": "Remplacement télérupteurs silencieux — salon / séjour (x3)",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 436,
+          "text": "Remplacement télérupteurs silencieux — chambre principale (x2)",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774532976077,
+          "text": "Remplacement télérupteurs silencieux — chambres secondaires (x3)",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774532976078,
+          "text": "Remplacement télérupteurs silencieux — SDB / WC (x3)",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774532976079,
+          "text": "Remplacement télérupteurs silencieux — bureau (x2)",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774532976080,
+          "text": "Remplacement télérupteur silencieux — terrasse / extérieur (x1)",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 1774532976081,
+          "text": "Test fonctionnel général de l'ensemble des télérupteurs remplacés — toutes pièces",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        }
+      ]
+    },
+    {
+      "id": 323,
+      "pi": 3,
+      "name": "LOT 04 - Electricité – Alimentations & Appareillage",
+      "cat": "",
+      "assignee": "",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-07",
+      "end": "2026-04-17",
+      "notes": "Devis N°237 AJIPEC – Alimentation liseuses chambre du fond (x2) et petite chambre (x0 – quantité 0 au devis, vérifier avec client). Déplacement double interrupteur petite chambre. Complément et remplacement appareillage Jung identique à l'existant. ATTENTION : quantité 0 pour alimentation liseuse petite chambre à confirmer avant exécution.",
+      "subtasks": [
+        {
+          "id": 437,
+          "text": "Chambre du fond – Pose alimentation 2 liseuses",
+          "done": false,
+          "start": "2026-04-07",
+          "end": "2026-04-08"
+        },
+        {
+          "id": 438,
+          "text": "Petite chambre – Alimentation liseuse (quantité 0 au devis – À CONFIRMER CLIENT)",
+          "done": false,
+          "start": "2026-04-09",
+          "end": "2026-04-10"
+        },
+        {
+          "id": 439,
+          "text": "Petite chambre – Déplacement double interrupteur",
+          "done": false,
+          "start": "2026-04-11",
+          "end": "2026-04-12"
+        },
+        {
+          "id": 440,
+          "text": "Ensemble logement – Remplacement & complément appareillage Jung",
+          "done": false,
+          "start": "2026-04-13",
+          "end": "2026-04-14"
+        },
+        {
+          "id": 441,
+          "text": "Vérification conformité et essais appareillage",
+          "done": false,
+          "start": "2026-04-15",
+          "end": "2026-04-16"
+        }
+      ]
+    },
+    {
+      "id": 324,
+      "pi": 3,
+      "name": "LOT 04 - Electricité – Luminaires & Spots",
+      "cat": "",
+      "assignee": "AJIPEC",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-14",
+      "end": "2026-04-24",
+      "notes": "Devis N°237 AJIPEC – Pose liseuses SLV Karpo 30 (noir ou blanc) : chambre du fond x2, petite chambre x1, chambre parentale x2. Cuisine : remplacement 6 spots sous meuble 12V 3000K + pose 8 mini spots Arkos Swap M 2700K. ATTENTION : liseuses et spots à poser APRÈS peinture finitions. Coordonner teinte (noir ou blanc) avec LMP DESIGN avant commande. Dépose/repose luminaires suspensions et appliques fragiles à planifier avec Tourtoulou Peinture.",
+      "subtasks": [
+        {
+          "id": 442,
+          "text": "Dépose et repose ensemble luminaires suspensions et appliques fragiles – coordination Tourtoulou Peinture",
+          "done": false,
+          "start": "2026-04-14",
+          "end": "2026-04-14"
+        },
+        {
+          "id": 443,
+          "text": "Tests allumage et réglages luminaires",
+          "done": false,
+          "start": "2026-04-15",
+          "end": "2026-04-15"
+        },
+        {
+          "id": 444,
+          "text": "Chambre du fond – Pose 2 liseuses SLV Karpo 30 noir ou blanc",
+          "done": false,
+          "start": "2026-04-16",
+          "end": "2026-04-16"
+        },
+        {
+          "id": 445,
+          "text": "Petite chambre – Pose 1 liseuse SLV Karpo 30 noir ou blanc",
+          "done": false,
+          "start": "2026-04-17",
+          "end": "2026-04-17"
+        },
+        {
+          "id": 446,
+          "text": "Chambre parentale – Pose 2 liseuses SLV Karpo 30 noir ou blanc",
+          "done": false,
+          "start": "2026-04-18",
+          "end": "2026-04-18"
+        },
+        {
+          "id": 447,
+          "text": "Cuisine – Pose 8 mini spots Arkos Swap M 2700K",
+          "done": false,
+          "start": "2026-04-19",
+          "end": "2026-04-19"
+        },
+        {
+          "id": 448,
+          "text": "Cuisine – Remplacement 6 spots sous meuble 12V 3000K",
+          "done": false,
+          "start": "2026-04-20",
+          "end": "2026-04-20"
+        }
+      ]
+    },
+    {
+      "id": 325,
+      "pi": 3,
+      "name": "LOT 04 - Electricité – Coordination & Réception",
+      "cat": "Coordination",
+      "assignee": "SARL TRI / AJIPEC SARL",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-24",
+      "end": "2026-04-28",
+      "notes": "Réception du lot électricité complet. Vérification DOE, tests réseaux RJ45/Wifi, contrôle appareillage Jung, validation teintes liseuses avec LMP DESIGN. Levée des réserves avant peinture finitions. Total devis :– :– TVA 10%. Devis valide jusqu'au 03/05/2026.",
+      "subtasks": [
+        {
+          "id": 449,
+          "text": "Vérification coordination dépose/repose luminaires fragiles avec Tourtoulou Peinture",
+          "done": false,
+          "start": "2026-04-24",
+          "end": "2026-04-24"
+        },
+        {
+          "id": 450,
+          "text": "Réunion de réception électricité avec AJIPEC et M. Rivas (SARL TRI)",
+          "done": false,
+          "start": "2026-04-25",
+          "end": "2026-04-25"
+        },
+        {
+          "id": 451,
+          "text": "Confirmation teinte liseuses SLV Karpo 30 (noir ou blanc) – bon de commande",
+          "done": false,
+          "start": "2026-04-26",
+          "end": "2026-04-26"
+        },
+        {
+          "id": 452,
+          "text": "Validation emplacement bornes Wifi et prises RJ45 avec LMP DESIGN",
+          "done": false,
+          "start": "2026-04-27",
+          "end": "2026-04-27"
+        },
+        {
+          "id": 453,
+          "text": "Levée des réserves et validation DOE",
+          "done": false,
+          "start": "2026-04-28",
+          "end": "2026-04-28"
+        }
+      ]
+    },
+    {
+      "id": 333,
+      "pi": 3,
+      "name": "LOT 03 - Plomberie – VMC",
+      "cat": "Second Oeuvre",
+      "assignee": "AJIPEC",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-09",
+      "end": "2026-04-13",
+      "notes": "Vérification installation VMC existante. Remplacement bouches d'extraction. Vérification moteur — si moteur défaillant, prévoir délai approvisionnement. Coordonner avec LOT 02 Peinture (plafonds) pour ne pas intervenir après peinture finition.",
+      "subtasks": [
+        {
+          "id": 457,
+          "text": "Vérification moteur VMC — contrôle débit et pression",
+          "start": "2026-04-09",
+          "end": "2026-04-09",
+          "done": false
+        },
+        {
+          "id": 458,
+          "text": "Test fonctionnement global — réception VMC",
+          "start": "2026-04-10",
+          "end": "2026-04-10",
+          "done": false
+        },
+        {
+          "id": 456,
+          "text": "Cuisine — Vérification bouche d'extraction et remplacement",
+          "start": "2026-04-11",
+          "end": "2026-04-11",
+          "done": false
+        },
+        {
+          "id": 454,
+          "text": "Salle de bain — Vérification bouche d'extraction et remplacement",
+          "start": "2026-04-12",
+          "end": "2026-04-12",
+          "done": false
+        },
+        {
+          "id": 455,
+          "text": "WC — Vérification bouche d'extraction et remplacement",
+          "start": "2026-04-13",
+          "end": "2026-04-13",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 335,
+      "pi": 3,
+      "name": "LOT 03 - Plomberie – Réception & Levée de réserves",
+      "cat": "Coordination",
+      "assignee": "AJIPEC",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-16",
+      "end": "2026-04-17",
+      "notes": "Réception finale de l'ensemble des travaux plomberie. Contrôle par LMP DESIGN. Établissement PV de réception. Vérifier absence de fuites sur l'ensemble de l'installation après interventions cumulées.",
+      "subtasks": [
+        {
+          "id": 459,
+          "text": "Visite de réception plomberie complète avec LMP DESIGN",
+          "start": "2026-04-16",
+          "end": "2026-04-16",
+          "done": false
+        },
+        {
+          "id": 461,
+          "text": "Signature PV de réception — transmission SARL TRI",
+          "start": "2026-04-17",
+          "end": "2026-04-17",
+          "done": false
+        },
+        {
+          "id": 460,
+          "text": "Levée des réserves éventuelles",
+          "start": "2026-04-17",
+          "end": "2026-04-17",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 336,
+      "pi": 0,
+      "name": "LOT 07 PEINTURE — Retouches finales",
+      "cat": "Peinture",
+      "assignee": "WORLDBAT",
+      "status": "inprogress",
+      "pct": 22,
+      "start": "2026-01-19",
+      "end": "2026-04-27",
+      "notes": "Phase retouches visible sur planning avril. Mise en peinture principale terminée, retouches en cours sur zones finitions. | Préparation et peinture des plafonds, mise en peinture puis retouches",
+      "subtasks": [
+        {
+          "id": 1774535704878,
+          "text": "Retouches peinture R+1",
+          "start": "2026-01-19",
+          "end": "2026-01-28",
+          "done": true
+        },
+        {
+          "id": 1774537511118,
+          "text": "Préparation et peinture des plafonds",
+          "start": "2026-01-29",
+          "end": "2026-02-07",
+          "done": true
+        },
+        {
+          "id": 1774535704877,
+          "text": "Retouches peinture RDC",
+          "start": "2026-02-08",
+          "end": "2026-02-17",
+          "done": false
+        },
+        {
+          "id": 1774535704879,
+          "text": "Retouches peinture couloir / circulations",
+          "start": "2026-02-18",
+          "end": "2026-02-27",
+          "done": false
+        },
+        {
+          "id": 1774535704880,
+          "text": "Retouches peinture salle de bain",
+          "start": "2026-02-28",
+          "end": "2026-03-09",
+          "done": false
+        },
+        {
+          "id": 1774535704881,
+          "text": "Retouches peinture WC",
+          "start": "2026-03-10",
+          "end": "2026-03-19",
+          "done": false
+        },
+        {
+          "id": 1774535704882,
+          "text": "Retouches peinture zone bar / restaurant",
+          "start": "2026-03-20",
+          "end": "2026-03-29",
+          "done": false
+        },
+        {
+          "id": 1774537511119,
+          "text": "Mise en peinture",
+          "start": "2026-03-29",
+          "end": "2026-04-07",
+          "done": false
+        },
+        {
+          "id": 1774537511120,
+          "text": "Retouches",
+          "start": "2026-04-08",
+          "end": "2026-04-17",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 337,
+      "pi": 0,
+      "name": "LOT 08 CARRELAGE — Sanitaires",
+      "cat": "Carrelage",
+      "assignee": "WORLDBAT",
+      "status": "inprogress",
+      "pct": 50,
+      "start": "2026-02-16",
+      "end": "2026-04-24",
+      "notes": "Phase sanitaires carrelage démarrée selon planning. Sol principal en cours de finalisation. | Sol puis sanitaires",
+      "subtasks": [
+        {
+          "id": 462,
+          "text": "Carrelage sol WC R+1",
+          "start": "2026-02-16",
+          "end": "2026-02-22",
+          "done": true
+        },
+        {
+          "id": 463,
+          "text": "Carrelage mural WC R+1",
+          "start": "2026-02-23",
+          "end": "2026-03-01",
+          "done": true
+        },
+        {
+          "id": 464,
+          "text": "Carrelage sol vestiaires / sanitaires communs",
+          "start": "2026-03-02",
+          "end": "2026-03-08",
+          "done": true
+        },
+        {
+          "id": 465,
+          "text": "Sanitaires",
+          "start": "2026-03-09",
+          "end": "2026-03-15",
+          "done": false
+        },
+        {
+          "id": 466,
+          "text": "Carrelage sol RDC",
+          "start": "2026-03-16",
+          "end": "2026-03-22",
+          "done": true,
+          "pct": 100
+        },
+        {
+          "id": 467,
+          "text": "Carrelage mural RDC",
+          "start": "2026-03-23",
+          "end": "2026-03-29",
+          "done": false
+        },
+        {
+          "id": 468,
+          "text": "Joints et finitions carrelage ensemble des zones",
+          "start": "2026-03-29",
+          "end": "2026-04-04",
+          "done": false
+        },
+        {
+          "id": 469,
+          "text": "Sol",
+          "start": "2026-04-05",
+          "end": "2026-04-11",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 338,
+      "pi": 0,
+      "name": "LOT 06 PLOMBERIE — Sanitaires",
+      "cat": "Plomberie",
+      "assignee": "",
+      "status": "inprogress",
+      "pct": 50,
+      "start": "2025-12-15",
+      "end": "2026-04-20",
+      "notes": "Pose appareils sanitaires prévue en avril. Avenant en cours d'intégration au planning. | Réseaux/attentes, plomberie, avenant puis sanitaires",
+      "subtasks": [
+        {
+          "id": 470,
+          "text": "Pose sanitaires salle de bain principale",
+          "start": "2025-12-15",
+          "end": "2025-12-28",
+          "done": true
+        },
+        {
+          "id": 471,
+          "text": "Réseaux / attentes",
+          "start": "2025-12-29",
+          "end": "2026-01-11",
+          "done": true
+        },
+        {
+          "id": 472,
+          "text": "Plomberie",
+          "start": "2026-01-12",
+          "end": "2026-01-25",
+          "done": true
+        },
+        {
+          "id": 473,
+          "text": "Pose sanitaires WC",
+          "start": "2026-01-26",
+          "end": "2026-02-08",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 474,
+          "text": "Raccordements évacuations sanitaires",
+          "start": "2026-02-09",
+          "end": "2026-02-22",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 1774537511121,
+          "text": "Sanitaires",
+          "start": "2026-02-23",
+          "end": "2026-03-08",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 475,
+          "text": "Pose robinetterie cuisine / bar",
+          "start": "2026-03-09",
+          "end": "2026-03-22",
+          "done": false
+        },
+        {
+          "id": 476,
+          "text": "Test étanchéité et mise en eau",
+          "start": "2026-03-23",
+          "end": "2026-04-04",
+          "done": false
+        },
+        {
+          "id": 477,
+          "text": "Avenant",
+          "start": "2026-04-05",
+          "end": "2026-04-18",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 339,
+      "pi": 0,
+      "name": "LOT 04 CVC — Mise en service",
+      "cat": "VRD",
+      "assignee": "CLIMADANE",
+      "status": "todo",
+      "pct": 13,
+      "start": "2026-04-20",
+      "end": "2026-05-04",
+      "notes": "Mise en service CVC planifiée avril. Décalage noté suite versement acompte. Réseaux ext. quasi terminés. | Réseaux intérieurs, réseaux extérieurs puis mise en service",
+      "subtasks": [
+        {
+          "id": 478,
+          "text": "Réseaux int.",
+          "start": "2026-04-20",
+          "end": "2026-04-20",
+          "done": true
+        },
+        {
+          "id": 479,
+          "text": "Réseaux ext.",
+          "start": "2026-04-21",
+          "end": "2026-04-21",
+          "done": false
+        },
+        {
+          "id": 480,
+          "text": "Contrôle réglage températures et débits",
+          "start": "2026-04-22",
+          "end": "2026-04-22",
+          "done": false
+        },
+        {
+          "id": 481,
+          "text": "Réception CVC avec conducteur de travaux",
+          "start": "2026-04-23",
+          "end": "2026-04-23",
+          "done": false
+        },
+        {
+          "id": 482,
+          "text": "Mise en service CVC zone salon / restaurant",
+          "start": "2026-04-24",
+          "end": "2026-04-24",
+          "done": false
+        },
+        {
+          "id": 483,
+          "text": "Mise en service CVC zone bar",
+          "start": "2026-04-25",
+          "end": "2026-04-25",
+          "done": false
+        },
+        {
+          "id": 484,
+          "text": "Mise en service CVC chambres / vestiaires",
+          "start": "2026-04-26",
+          "end": "2026-04-26",
+          "done": false
+        },
+        {
+          "id": 485,
+          "text": "Mise en service",
+          "start": "2026-04-27",
+          "end": "2026-04-27",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 340,
+      "pi": 0,
+      "name": "LOT 05 ELECTRICITE — Luminaires",
+      "cat": "Electricité",
+      "assignee": "",
+      "status": "inprogress",
+      "pct": 70,
+      "start": "2025-12-08",
+      "end": "2026-03-07",
+      "notes": "Pose luminaires prévue sur la période mars-avril. Câblage plafonds et prises terminés. | Gaines, câblage, câblage plafond/prises puis luminaires",
+      "subtasks": [
+        {
+          "id": 486,
+          "text": "Gaines",
+          "start": "2025-12-08",
+          "end": "2025-12-20",
+          "done": true
+        },
+        {
+          "id": 487,
+          "text": "Câblage",
+          "start": "2025-12-21",
+          "end": "2026-01-02",
+          "done": true
+        },
+        {
+          "id": 488,
+          "text": "Câblage plafond / Prises",
+          "start": "2026-01-03",
+          "end": "2026-01-15",
+          "done": true
+        },
+        {
+          "id": 489,
+          "text": "Luminaire",
+          "start": "2026-01-16",
+          "end": "2026-01-28",
+          "done": true
+        },
+        {
+          "id": 490,
+          "text": "Pose luminaires salon / espace principal",
+          "start": "2026-01-29",
+          "end": "2026-02-10",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 491,
+          "text": "Pose luminaires bar",
+          "start": "2026-02-11",
+          "end": "2026-02-23",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 492,
+          "text": "Pose luminaires couloirs et circulations",
+          "start": "2026-02-24",
+          "end": "2026-03-08",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 493,
+          "text": "Pose luminaires salle de bain / WC",
+          "start": "2026-03-09",
+          "end": "2026-03-21",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 494,
+          "text": "Pose luminaires zones techniques et back-office",
+          "start": "2026-03-22",
+          "end": "2026-04-02",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 495,
+          "text": "Tests électriques et levée réserves CONSUEL",
+          "start": "2026-04-03",
+          "end": "2026-04-15",
+          "done": false,
+          "pct": 50
+        }
+      ]
+    },
+    {
+      "id": 341,
+      "pi": 0,
+      "name": "LOT 10 MENUISERIE INT. — Mobilier & Bars",
+      "cat": "Menuiserie",
+      "assignee": "WORLDBAT",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-13",
+      "end": "2026-04-20",
+      "notes": "Banquettes, bars et mobilier en cours de pose. Phase mobilier démarrant mi-avril selon planning.",
+      "subtasks": [
+        {
+          "id": 496,
+          "text": "Pose arbres / éléments décoratifs structurels",
+          "start": "2026-04-13",
+          "end": "2026-04-13",
+          "done": false
+        },
+        {
+          "id": 497,
+          "text": "Pose menuiseries bar principal",
+          "start": "2026-04-14",
+          "end": "2026-04-14",
+          "done": false
+        },
+        {
+          "id": 498,
+          "text": "Pose banquettes zone restauration",
+          "start": "2026-04-15",
+          "end": "2026-04-15",
+          "done": false
+        },
+        {
+          "id": 499,
+          "text": "Pose mobilier salon / lounge",
+          "start": "2026-04-16",
+          "end": "2026-04-16",
+          "done": false
+        },
+        {
+          "id": 500,
+          "text": "Ajustements et finitions menuiseries toutes zones",
+          "start": "2026-04-17",
+          "end": "2026-04-17",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 343,
+      "pi": 0,
+      "name": "LOT 12 FOURNITURE (HORS CUISINE)",
+      "cat": "Finitions",
+      "assignee": "WORLDBAT",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-06",
+      "end": "2026-04-27",
+      "notes": "Livraison et mise en place des fournitures hors cuisine planifiée fin avril. Coordonner avec menuiserie et plomberie. | Fournitures hors cuisine — livraison et mise en place en fin de chantier",
+      "subtasks": [
+        {
+          "id": 501,
+          "text": "Mise en place fournitures sanitaires et salle de bain",
+          "start": "2026-04-06",
+          "end": "2026-04-08",
+          "done": false
+        },
+        {
+          "id": 502,
+          "text": "Finitions cuisine",
+          "done": false,
+          "start": "2026-04-09",
+          "end": "2026-04-11"
+        },
+        {
+          "id": 503,
+          "text": "Réception et contrôle livraison fournitures",
+          "start": "2026-04-12",
+          "end": "2026-04-14",
+          "done": false
+        },
+        {
+          "id": 504,
+          "text": "Mise en place fournitures zone bar / lounge",
+          "start": "2026-04-15",
+          "end": "2026-04-17",
+          "done": false
+        },
+        {
+          "id": 505,
+          "text": "Mise en place fournitures chambres / vestiaires",
+          "start": "2026-04-18",
+          "end": "2026-04-20",
+          "done": false
+        },
+        {
+          "id": 506,
+          "text": "Inventaire final et réserves éventuelles",
+          "start": "2026-04-21",
+          "end": "2026-04-23",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 344,
+      "pi": 0,
+      "name": "LOT 02 MAÇONNERIE — Structures Golf & Flèches",
+      "cat": "Gros Oeuvre",
+      "assignee": "WORLDBAT",
+      "status": "done",
+      "pct": 94,
+      "start": "2025-12-08",
+      "end": "2026-04-10",
+      "notes": "Travaux structures golf et flèches en cours selon planning mars. Coordonner avec faux-plafond et peinture. | Tracé puis RDC/R+1 en première phase",
+      "subtasks": [
+        {
+          "id": 507,
+          "text": "Tracage",
+          "start": "2025-12-08",
+          "end": "2025-12-22",
+          "done": true,
+          "pct": 100
+        },
+        {
+          "id": 508,
+          "text": "RDC / R+1",
+          "start": "2025-12-23",
+          "end": "2026-01-06",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 509,
+          "text": "RDC / R+1 (reprise)",
+          "start": "2026-01-07",
+          "end": "2026-01-21",
+          "done": true
+        },
+        {
+          "id": 510,
+          "text": "Bandes",
+          "start": "2026-01-22",
+          "end": "2026-02-05",
+          "done": true
+        },
+        {
+          "id": 511,
+          "text": "Structures maçonnerie zone golf intérieur",
+          "start": "2026-02-06",
+          "end": "2026-02-20",
+          "done": true
+        },
+        {
+          "id": 512,
+          "text": "Pose flèches et éléments signalétiques structurels",
+          "start": "2026-02-21",
+          "end": "2026-03-07",
+          "done": true
+        },
+        {
+          "id": 513,
+          "text": "Contrôle et réception maçonnerie avant finitions",
+          "start": "2026-03-08",
+          "end": "2026-03-22",
+          "done": true
+        },
+        {
+          "id": 514,
+          "text": "Finitions ragréage et enduits périphériques",
+          "start": "2026-03-23",
+          "end": "2026-04-05",
+          "done": true
+        }
+      ]
+    },
+    {
+      "id": 345,
+      "pi": 0,
+      "name": "COORDINATION — Réception chantier & Levée réserves",
+      "cat": "Coordination",
+      "assignee": "SARL TRI",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-04-15",
+      "end": "2026-04-25",
+      "notes": "Réception globale à planifier fin avril. Toute demande complémentaire impacte le planning global (mention planning Rivas).",
+      "subtasks": [
+        {
+          "id": 515,
+          "text": "Levée réserves lot électricité / CVC",
+          "start": "2026-04-15",
+          "end": "2026-04-15",
+          "done": false
+        },
+        {
+          "id": 516,
+          "text": "Levée réserves lot carrelage / parquet",
+          "start": "2026-04-16",
+          "end": "2026-04-16",
+          "done": false
+        },
+        {
+          "id": 517,
+          "text": "Levée réserves lot peinture",
+          "start": "2026-04-17",
+          "end": "2026-04-17",
+          "done": false
+        },
+        {
+          "id": 518,
+          "text": "OPR (Opérations Préalables à la Réception) tous lots",
+          "start": "2026-04-18",
+          "end": "2026-04-18",
+          "done": false
+        },
+        {
+          "id": 519,
+          "text": "Levée réserves lot menuiserie / miroiterie",
+          "start": "2026-04-19",
+          "end": "2026-04-19",
+          "done": false
+        },
+        {
+          "id": 520,
+          "text": "Remise des clés et DOE (Dossier des Ouvrages Exécutés)",
+          "start": "2026-04-20",
+          "end": "2026-04-20",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 346,
+      "pi": 0,
+      "name": "LOT 09 CHAPE — RDC / R+1",
+      "cat": "Second Oeuvre",
+      "assignee": "CHAPES EXPERTS",
+      "status": "done",
+      "pct": 100,
+      "start": "2026-03-30",
+      "end": "2026-04-17",
+      "notes": "Autoliquidation TVA art. 283-2 CGI — ChapeC20 selon DTA n°0060-32 CF038 — RDC 8cm sur 240m², R+1 6cm sur 202m² — Séchage chape à surveiller avant pose carrelage — Planéité laser obligatoire — Intervention en 1 fois — Assurance décennale SMABTP C40245J8632000/003/124872/50",
+      "subtasks": [
+        {
+          "id": 1774535804390,
+          "text": "Pose film bâtiment 150 microns + isolant périphérique 8mm — RDC (ensemble du plateau)",
+          "start": "2026-03-30",
+          "end": "2026-03-31",
+          "done": true
+        },
+        {
+          "id": 1774535804391,
+          "text": "Pose film bâtiment 150 microns + isolant périphérique 8mm — R+1 (ensemble du plateau)",
+          "start": "2026-04-01",
+          "end": "2026-04-01",
+          "done": true
+        },
+        {
+          "id": 1774535804392,
+          "text": "Contrôle niveaux laser + coulage mortier par pompe RDC — Salon / Accueil / Couloirs",
+          "start": "2026-04-02",
+          "end": "2026-04-03",
+          "done": true
+        },
+        {
+          "id": 1774535804393,
+          "text": "Contrôle niveaux laser + coulage mortier par pompe RDC — Zones Bar / Cuisine / Vestiaires",
+          "start": "2026-04-03",
+          "end": "2026-04-04",
+          "done": true
+        },
+        {
+          "id": 1774535804394,
+          "text": "Réglage planéité barre de finition RDC — ensemble plateau",
+          "start": "2026-04-04",
+          "end": "2026-04-05",
+          "done": true
+        },
+        {
+          "id": 1774535804395,
+          "text": "Contrôle niveaux laser + coulage mortier par pompe R+1 — Salles activités / Golf",
+          "start": "2026-04-06",
+          "end": "2026-04-07",
+          "done": true
+        },
+        {
+          "id": 1774535804396,
+          "text": "Contrôle niveaux laser + coulage mortier par pompe R+1 — Bureaux / Couloirs / Sanitaires",
+          "start": "2026-04-07",
+          "end": "2026-04-08",
+          "done": true
+        },
+        {
+          "id": 1774535804397,
+          "text": "Réglage planéité barre de finition R+1 — ensemble plateau",
+          "start": "2026-04-08",
+          "end": "2026-04-09",
+          "done": true
+        },
+        {
+          "id": 1774535804398,
+          "text": "Période de séchage chape RDC et R+1 — accès restreint au chantier",
+          "start": "2026-04-09",
+          "end": "2026-04-13",
+          "done": true
+        },
+        {
+          "id": 1774535804399,
+          "text": "Ponçage / Discage chape RDC — salon, accueil, bar, cuisine, vestiaires, couloirs",
+          "start": "2026-04-14",
+          "end": "2026-04-15",
+          "done": true
+        },
+        {
+          "id": 1774535804400,
+          "text": "Ponçage / Discage chape R+1 — salles activités, golf, bureaux, couloirs, sanitaires",
+          "start": "2026-04-15",
+          "end": "2026-04-16",
+          "done": true
+        },
+        {
+          "id": 1774535804401,
+          "text": "Transports matériaux et matériels — rotations chantier (RDC + R+1)",
+          "start": "2026-03-30",
+          "end": "2026-04-17",
+          "done": true
+        },
+        {
+          "id": 1774535804402,
+          "text": "Contrôle final planéité et réception chape — RDC et R+1",
+          "start": "2026-04-17",
+          "end": "2026-04-17",
+          "done": true
+        }
+      ]
+    },
+    {
+      "id": 347,
+      "pi": 0,
+      "name": "LOT 11 MIROITERIE — Séparations & Châssis Aluminium",
+      "cat": "Second Oeuvre",
+      "assignee": "FERREIRA MIROITERIE-SERRURERIE",
+      "status": "inprogress",
+      "pct": 56,
+      "start": "2026-04-06",
+      "end": "2026-04-24",
+      "notes": "Aluminium thermolaqué 9005 mat — Verre feuilleté 55/2 et 66/2 JPA — Pose après finition gros œuvre et chape sèche — Vérifier aplombs et réservations avant intervention — Accès chantier 73 rue Mstislav Rostropovitch 75017 Paris",
+      "subtasks": [
+        {
+          "id": 1774536680123,
+          "text": "P01/PV01 — Livraison et contrôle dimensionnel séparation aluminium H3200 x L3740",
+          "start": "2026-04-06",
+          "end": "2026-04-07",
+          "done": false,
+          "pct": 0
+        },
+        {
+          "id": 1774536680124,
+          "text": "P01/PV01 — Pose porte sur paumelle avec imposte et partie fixe biais — Zone séparation principale",
+          "start": "2026-04-08",
+          "end": "2026-04-13",
+          "done": false,
+          "pct": 0
+        },
+        {
+          "id": 1774536680125,
+          "text": "P01/PV01 — Remplissage verre feuilleté 55/2 et réglages étanchéité",
+          "start": "2026-04-14",
+          "end": "2026-04-15",
+          "done": false,
+          "pct": 0
+        },
+        {
+          "id": 1774536680126,
+          "text": "PV02 — Pose châssis fixe aluminium 3 verres H800 x L2000 — Zone vitrée fixe",
+          "start": "2026-04-16",
+          "end": "2026-04-17",
+          "done": true
+        },
+        {
+          "id": 1774536680127,
+          "text": "PV02 — Remplissage verre feuilleté 66/2 et contrôle joints",
+          "start": "2026-04-17",
+          "end": "2026-04-17",
+          "done": true
+        },
+        {
+          "id": 1774536680128,
+          "text": "G01 — Fourniture et pose cadre aluminium renforcé — Vitrage 1/3 — H2930 x L4500",
+          "start": "2026-04-20",
+          "end": "2026-04-21",
+          "done": true
+        },
+        {
+          "id": 1774536680129,
+          "text": "G02 — Fourniture et pose cadre aluminium renforcé — Vitrage 2/3 — H2930 x L4500",
+          "start": "2026-04-21",
+          "end": "2026-04-22",
+          "done": true
+        },
+        {
+          "id": 1774536680130,
+          "text": "G01 & G02 — Pose des 6 vitrages feuilletés 66/2 JPA — Contrôle alignement et planéité",
+          "start": "2026-04-22",
+          "end": "2026-04-23",
+          "done": true
+        },
+        {
+          "id": 1774536680131,
+          "text": "Ensemble lots — Nettoyage vitrages, contrôle silicones, levée des points de finition miroiterie",
+          "start": "2026-04-24",
+          "end": "2026-04-24",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 348,
+      "pi": 0,
+      "name": "LOT 04 CVC — Climatisation / Extraction / Air Neuf",
+      "cat": "Second Oeuvre",
+      "assignee": "CLIMADANE",
+      "status": "inprogress",
+      "pct": 39,
+      "start": "2026-03-26",
+      "end": "2026-05-15",
+      "notes": "Grutage des 2 groupes extérieurs sur toiture obligatoire — Option levageur à confirmer après RDV sur site. Autorisations administratives à la charge du client. Carottage et corde à nœud hors lot. Plateforme hors lot. Alimentation électrique triphasée 380V et monophasée 220V à laisser en attente par lot électricité avant branchement CVC. Condensats : vidange en attente à prévoir par lot plomberie. Validation bureau de contrôle requise pour passage réseaux aérauliques zone cuisine/préparation. Prix et délai valables 1 mois à compter du devis.",
+      "subtasks": [
+        {
+          "id": 521,
+          "text": "Grutage et mise en place groupes extérieurs toiture (40.0 kW + 22.4 kW) — levageur",
+          "start": "2026-03-26",
+          "end": "2026-03-27",
+          "done": false
+        },
+        {
+          "id": 522,
+          "text": "Pose réseaux tubes frigorifiques calorifugés — liaison unités intérieures / groupes extérieurs (2 réseaux)",
+          "start": "2026-03-28",
+          "end": "2026-04-08",
+          "done": false,
+          "pct": 0
+        },
+        {
+          "id": 523,
+          "text": "Pose gainables climatisation MITSUBISHI 9.0 kW — zones RDC (x3)",
+          "start": "2026-04-01",
+          "end": "2026-04-10",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 524,
+          "text": "Pose gainables climatisation MITSUBISHI 7.1 kW — zones R+1 (x4)",
+          "start": "2026-04-06",
+          "end": "2026-04-17",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 525,
+          "text": "Pose gainable climatisation MITSUBISHI 5.6 kW — zone dédiée (x1)",
+          "start": "2026-04-13",
+          "end": "2026-04-17",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 526,
+          "text": "Pose gainables climatisation MITSUBISHI 3.6 kW — zones secondaires (x2)",
+          "start": "2026-04-13",
+          "end": "2026-04-20",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 527,
+          "text": "Pose mural climatisation MITSUBISHI 2.2 kW — zone bureau / accueil",
+          "start": "2026-04-20",
+          "end": "2026-04-22",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 528,
+          "text": "Pose réseaux gaines circulaires tôle galvanisée — distribution air (7 réseaux, différents diamètres)",
+          "start": "2026-04-01",
+          "end": "2026-04-22",
+          "done": true
+        },
+        {
+          "id": 529,
+          "text": "Pose grilles soufflage et reprise air — appareils de climatisation",
+          "start": "2026-04-17",
+          "end": "2026-04-24",
+          "done": true
+        },
+        {
+          "id": 1774536680132,
+          "text": "Pose plénums fiberglass isolés — appareils sans réseau gaine galvanisée (x3)",
+          "start": "2026-04-17",
+          "end": "2026-04-24",
+          "done": true
+        },
+        {
+          "id": 1774536680134,
+          "text": "Pose câbles bus communication appareils / groupes climatisation",
+          "start": "2026-04-22",
+          "end": "2026-04-28",
+          "done": true,
+          "pct": 100
+        },
+        {
+          "id": 1774536680135,
+          "text": "Pose câbles communication thermostats filaires — appareils climatisation",
+          "start": "2026-04-22",
+          "end": "2026-04-28",
+          "done": false
+        },
+        {
+          "id": 1774536680136,
+          "text": "Ventilation — Extraction hygiénique sanitaires / local poubelle : caisson 1980 m³/h, réseaux gaines rejet et extraction, bouches hygroréglables, clapet coupe-feu local poubelle",
+          "start": "2026-04-06",
+          "end": "2026-04-22",
+          "done": false
+        },
+        {
+          "id": 1774536680137,
+          "text": "Ventilation — Pose 2 clapets coupe-feu (installation générale)",
+          "start": "2026-04-06",
+          "end": "2026-04-08",
+          "done": true
+        },
+        {
+          "id": 1774536680138,
+          "text": "Ventilation — Air neuf : caisson 1200 m³/h, caisson filtre, caisson batterie préchauffage, réseaux aspiration et insufflation isolés, diffuseurs air",
+          "start": "2026-04-13",
+          "end": "2026-04-29",
+          "done": false
+        },
+        {
+          "id": 1774536680139,
+          "text": "Branchements électriques unités intérieures — à partir amenées protégées monophasé 220V 3G2.5mm² / 16A laissées en attente (lot électricité)",
+          "start": "2026-04-28",
+          "end": "2026-05-05",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 1774536680140,
+          "text": "Branchements électriques groupes extérieurs — amenées triphasé 380V+N, Pabs 15kW et 7kW, différentiel 300mA courbe D / 32A (lot électricité)",
+          "start": "2026-04-28",
+          "end": "2026-05-05",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 1774536680141,
+          "text": "Réalisation réseau complexe sortie toiture / entrée local — extraction hygiénique",
+          "start": "2026-04-20",
+          "end": "2026-04-28",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 1774536680142,
+          "text": "Mise sous pression azote — contrôle étanchéité réseaux frigorifiques",
+          "start": "2026-05-05",
+          "end": "2026-05-07",
+          "done": false
+        },
+        {
+          "id": 1774536680143,
+          "text": "Tirage au vide — contrôle vacuomètre",
+          "start": "2026-05-07",
+          "end": "2026-05-08",
+          "done": false
+        },
+        {
+          "id": 1774536680144,
+          "text": "Mise en service et essais — relevé paramètres de fonctionnement",
+          "start": "2026-05-08",
+          "end": "2026-05-12",
+          "done": false
+        },
+        {
+          "id": 1774536680145,
+          "text": "Fiche auto-contrôle avant OPR — mise en service définitive et formation exploitants",
+          "start": "2026-05-12",
+          "end": "2026-05-14",
+          "done": false
+        },
+        {
+          "id": 1774536680146,
+          "text": "Mise en service système avec assistance technique CLIMADANE",
+          "start": "2026-05-14",
+          "end": "2026-05-15",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 349,
+      "pi": 0,
+      "name": "LOT 06b PLOMBERIE — Travaux Supplémentaires WC Personnel & Relevage",
+      "cat": "Plomberie",
+      "assignee": "JEAN LUCY",
+      "status": "inprogress",
+      "pct": 75,
+      "start": "2026-03-30",
+      "end": "2026-04-17",
+      "notes": "Attente électrique à prévoir par DANELEC avant pose fosse de relevage — Lave-mains et robinet fournis par Maître d'Ouvrage — Vérifier accessibilité sol pour tube viccu alimentation EF/EC — Coordonner avec DANELEC pour alimentation pompe de relevage",
+      "subtasks": [
+        {
+          "id": 530,
+          "text": "Réseaux — Pose et installation tube viccu au sol alimentation EF/EC WC personnel",
+          "start": "2026-04-06",
+          "end": "2026-04-09",
+          "done": true
+        },
+        {
+          "id": 531,
+          "text": "Relevage — Vérification attente électrique par DANELEC avant intervention",
+          "start": "2026-04-08",
+          "end": "2026-04-08",
+          "done": true
+        },
+        {
+          "id": 532,
+          "text": "Relevage — Fourniture et pose d'une pompe de relevage",
+          "start": "2026-04-09",
+          "end": "2026-04-14",
+          "done": false
+        },
+        {
+          "id": 533,
+          "text": "Relevage — Réalisation évacuations pompe de relevage avec raccordement",
+          "start": "2026-04-14",
+          "end": "2026-04-17",
+          "done": true
+        }
+      ]
+    },
+    {
+      "id": 350,
+      "pi": 0,
+      "name": "LOT 06 PLOMBERIE — Installation de chantier & Réseaux",
+      "cat": "Plomberie",
+      "assignee": "JEAN LUCY",
+      "status": "done",
+      "pct": 100,
+      "start": "2026-03-30",
+      "end": "2026-04-17",
+      "notes": "Intervention préalable à tout carrelage et finitions — Réseaux PVC et cuivre à poser avant chapes — Coordination avec CLIMADANE pour passages VMC — Système Geberit WC PMR à valider en amont — Siphons de sol Ø150mm selon pente collecteur — Branchements PVC Ø125 sur collecteur existant vide sanitaire",
+      "subtasks": [
+        {
+          "id": 534,
+          "text": "Installation de chantier — WC chantier & lave-mains temporaires",
+          "start": "2026-03-30",
+          "end": "2026-03-30",
+          "done": true
+        },
+        {
+          "id": 535,
+          "text": "Réseaux — Création branchements PVC Ø125 sur collecteur vide sanitaire (x6)",
+          "start": "2026-03-31",
+          "end": "2026-03-31",
+          "done": true
+        },
+        {
+          "id": 536,
+          "text": "Réseaux — Canalisation PVC Ø100 (8 ml) — évacuations principales",
+          "start": "2026-04-01",
+          "end": "2026-04-01",
+          "done": true
+        },
+        {
+          "id": 537,
+          "text": "Réseaux — Canalisation PVC Ø50 (10 ml) — évacuations secondaires",
+          "start": "2026-04-02",
+          "end": "2026-04-02",
+          "done": true
+        },
+        {
+          "id": 538,
+          "text": "Réseaux — Canalisation PVC Ø40 (13 ml) — évacuations appareils",
+          "start": "2026-04-03",
+          "end": "2026-04-03",
+          "done": true
+        },
+        {
+          "id": 539,
+          "text": "Réseaux — Tube cuivre Ø20x22 eau chaude/froide (28 ml)",
+          "start": "2026-04-04",
+          "end": "2026-04-04",
+          "done": true
+        },
+        {
+          "id": 540,
+          "text": "Réseaux — Tube cuivre Ø16x18 (20 ml)",
+          "start": "2026-04-05",
+          "end": "2026-04-05",
+          "done": true
+        },
+        {
+          "id": 541,
+          "text": "Réseaux — Tube cuivre Ø14x16 (16 ml)",
+          "start": "2026-04-06",
+          "end": "2026-04-06",
+          "done": true
+        },
+        {
+          "id": 542,
+          "text": "Siphons de sol Ø150mm — pose x2 (RDC / R+1)",
+          "start": "2026-04-07",
+          "end": "2026-04-07",
+          "done": true
+        },
+        {
+          "id": 1774536680133,
+          "text": "Cuisine — Alimentation & raccordement robinet, évier, lave-main, lave-vaisselle, lave-verre, lave-linge",
+          "start": "2026-04-08",
+          "end": "2026-04-08",
+          "done": true
+        },
+        {
+          "id": 543,
+          "text": "SAS WC RDC — Pose vasque sur meuble, robinetterie encastrée, accessoires",
+          "start": "2026-04-09",
+          "end": "2026-04-09",
+          "done": true
+        },
+        {
+          "id": 544,
+          "text": "WC 01 PMR — Système Geberit, cuvette, abattant, plaque, vasque, robinetterie",
+          "start": "2026-04-10",
+          "end": "2026-04-10",
+          "done": true
+        },
+        {
+          "id": 545,
+          "text": "WC 02 — Système Geberit, cuvette, abattant, plaque, vasque, robinetterie, sèche-serviette",
+          "start": "2026-04-11",
+          "end": "2026-04-11",
+          "done": true
+        },
+        {
+          "id": 546,
+          "text": "WC 03 — Système Geberit, cuvette, abattant, plaque, accessoires",
+          "start": "2026-04-12",
+          "end": "2026-04-12",
+          "done": true
+        },
+        {
+          "id": 547,
+          "text": "WC 04 — Système Geberit, cuvette, abattant, plaque, accessoires",
+          "start": "2026-04-13",
+          "end": "2026-04-13",
+          "done": true
+        },
+        {
+          "id": 548,
+          "text": "SAS WC R+1 — Pose vasque sur meuble, robinetterie encastrée, accessoires",
+          "start": "2026-04-14",
+          "end": "2026-04-14",
+          "done": true
+        }
+      ]
+    },
+    {
+      "id": 351,
+      "pi": 0,
+      "name": "LOT 04 CVC — Réseau VMC Simple Flux",
+      "cat": "Second Oeuvre",
+      "assignee": "CLIMADANE",
+      "status": "inprogress",
+      "pct": 55,
+      "start": "2026-04-06",
+      "end": "2026-04-24",
+      "notes": "VMC simple flux complet bâtiment — 8 bouches Atlantic (cuisine, local poubelle, WC PMR, WC02, WC03, WC04, local stockage RDC, local stockage R+1) — Coordination avec JEAN LUCY pour passages réseaux — Réseau à finaliser avant fermeture des plafonds et cloisons — Hors lot VMC selon annotation manuscrite sur devis",
+      "subtasks": [
+        {
+          "id": 549,
+          "text": "Création réseau VMC simple flux complet bâtiment",
+          "start": "2026-04-06",
+          "end": "2026-04-17",
+          "done": true
+        },
+        {
+          "id": 550,
+          "text": "Pose bouche VMC — Cuisine (Atlantic)",
+          "start": "2026-04-14",
+          "end": "2026-04-16",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 551,
+          "text": "Pose bouche VMC — Local poubelle (Atlantic)",
+          "start": "2026-04-14",
+          "end": "2026-04-16",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 552,
+          "text": "Pose bouche VMC — WC PMR (Atlantic)",
+          "start": "2026-04-16",
+          "end": "2026-04-17",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 553,
+          "text": "Pose bouche VMC — WC 02 (Atlantic)",
+          "start": "2026-04-16",
+          "end": "2026-04-17",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 554,
+          "text": "Pose bouche VMC — WC 03 (Atlantic)",
+          "start": "2026-04-20",
+          "end": "2026-04-21",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 555,
+          "text": "Pose bouche VMC — WC 04 (Atlantic)",
+          "start": "2026-04-20",
+          "end": "2026-04-21",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 556,
+          "text": "Pose bouche VMC — Local stockage RDC (Atlantic)",
+          "start": "2026-04-21",
+          "end": "2026-04-22",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 557,
+          "text": "Pose bouche VMC — Local stockage R+1 (Atlantic)",
+          "start": "2026-04-21",
+          "end": "2026-04-22",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 558,
+          "text": "Mise en service VMC & équilibrage débits",
+          "start": "2026-04-22",
+          "end": "2026-04-24",
+          "done": false,
+          "pct": 50
+        }
+      ]
+    },
+    {
+      "id": 352,
+      "pi": 0,
+      "name": "LOT 05 ELECTRICITE — Installation provisoire de chantier",
+      "cat": "Electricité",
+      "assignee": "DANELEC",
+      "status": "done",
+      "pct": 100,
+      "start": "2026-02-21",
+      "end": "2026-02-24",
+      "notes": "Ruban LED provisoire + tableau de chantier — prérequis à tous les autres lots électricité. Mettre en place avant tout démarrage des autres corps d'état.",
+      "subtasks": [
+        {
+          "id": 559,
+          "text": "Fourniture et pose ruban LED provisoire chantier",
+          "start": "2026-03-30",
+          "end": "2026-04-01",
+          "done": true
+        },
+        {
+          "id": 560,
+          "text": "Fourniture et raccordement tableau de chantier",
+          "start": "2026-04-01",
+          "end": "2026-04-03",
+          "done": true
+        }
+      ]
+    },
+    {
+      "id": 353,
+      "pi": 0,
+      "name": "LOT 05 ELECTRICITE — Chemin de câbles",
+      "cat": "Electricité",
+      "assignee": "DANELEC",
+      "status": "done",
+      "pct": 100,
+      "start": "2026-02-26",
+      "end": "2026-03-10",
+      "notes": "Pose des CC 300x51 et CC 196x51 type NIEDAX — à réaliser avant fermeture des cloisons et chapes. Coordination impérative avec WORLDBAT pour réservations.",
+      "subtasks": [
+        {
+          "id": 561,
+          "text": "Pose CC 300x51 type NIEDAX — RDC",
+          "start": "2026-04-06",
+          "end": "2026-04-13",
+          "done": true
+        },
+        {
+          "id": 562,
+          "text": "Pose CC 300x51 type NIEDAX — R+1",
+          "start": "2026-04-13",
+          "end": "2026-04-17",
+          "done": true
+        },
+        {
+          "id": 563,
+          "text": "Pose CC 196x51 type NIEDAX — RDC",
+          "start": "2026-04-17",
+          "end": "2026-04-21",
+          "done": true
+        },
+        {
+          "id": 564,
+          "text": "Pose CC 196x51 type NIEDAX — R+1",
+          "start": "2026-04-21",
+          "end": "2026-04-24",
+          "done": true
+        }
+      ]
+    },
+    {
+      "id": 356,
+      "pi": 0,
+      "name": "LOT 05 ELECTRICITE — Éclairage R+1",
+      "cat": "",
+      "assignee": "DANELEC",
+      "status": "inprogress",
+      "pct": 59,
+      "start": "2026-03-02",
+      "end": "2026-05-04",
+      "notes": "Alimentation et raccordement luminaires R+1 — spots sur rail avec rail compris. Appliques et suspensions fournies par client. Coordination avec LOT 10 MENUISERIE. | Alimentation et raccordement luminaires RDC — suspensions et appliques fournies par le client. Coordination avec LOT 10 MENUISERIE pour pose mobilier et bars. Bandeau LED transfot compris. | Blocs de secours ambiance et balisage type ZEMPER + télécommande BS — obligatoire réglementairement avant réception. Vérifier conformité normes ERP si applicable.",
+      "subtasks": [
+        {
+          "id": 565,
+          "text": "Salle principale — Alimentation suspensions (fourni client)",
+          "start": "2026-02-23",
+          "end": "2026-02-24",
+          "done": true
+        },
+        {
+          "id": 566,
+          "text": "Salle principale — Alimentation appliques (fourni client)",
+          "start": "2026-02-25",
+          "end": "2026-02-26",
+          "done": true
+        },
+        {
+          "id": 567,
+          "text": "Pose blocs de secours d'ambiance type ZEMPER — RDC",
+          "start": "2026-02-27",
+          "end": "2026-02-28",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 568,
+          "text": "Pose blocs de secours d'ambiance type ZEMPER — R+1",
+          "start": "2026-03-01",
+          "end": "2026-03-02",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 569,
+          "text": "Pose blocs de secours balisage type ZEMPER — RDC",
+          "start": "2026-03-03",
+          "end": "2026-03-04",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 570,
+          "text": "Pose blocs de secours balisage type ZEMPER — R+1",
+          "start": "2026-03-05",
+          "end": "2026-03-06",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 571,
+          "text": "Pose télécommande BS",
+          "start": "2026-03-07",
+          "end": "2026-03-08",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 572,
+          "text": "Cuisine — Réglette étanche LED",
+          "start": "2026-03-09",
+          "end": "2026-03-10",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 573,
+          "text": "WC RDC — Spots encastrés + détecteurs de présence",
+          "start": "2026-03-11",
+          "end": "2026-03-12",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 574,
+          "text": "Local stockage RDC — Hublot à détecteur",
+          "start": "2026-03-13",
+          "end": "2026-03-14",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 575,
+          "text": "Vestiaire — Spot encastré + détecteur de présence",
+          "start": "2026-03-15",
+          "end": "2026-03-16",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 576,
+          "text": "Escalier de service — Hublots à détecteur",
+          "start": "2026-03-17",
+          "end": "2026-03-18",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 577,
+          "text": "Escalier principal — Spots de balisage",
+          "start": "2026-03-19",
+          "end": "2026-03-20",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 578,
+          "text": "Salle principale R+1 — Spots sur rail (rail compris)",
+          "start": "2026-03-21",
+          "end": "2026-03-22",
+          "done": true,
+          "pct": 100
+        },
+        {
+          "id": 579,
+          "text": "Salle principale R+1 — Suspensions (fourni client)",
+          "start": "2026-03-23",
+          "end": "2026-03-24",
+          "done": true,
+          "pct": 100
+        },
+        {
+          "id": 580,
+          "text": "Salle principale R+1 — Appliques (fourni client)",
+          "start": "2026-03-25",
+          "end": "2026-03-26",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 581,
+          "text": "Salle principale R+1 — Éclairage meuble + bandeau LED transfot",
+          "start": "2026-03-27",
+          "end": "2026-03-28",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 582,
+          "text": "Coworking R+1 — Spots sur rail + appliques",
+          "start": "2026-03-29",
+          "end": "2026-03-29",
+          "done": true,
+          "pct": 100
+        },
+        {
+          "id": 583,
+          "text": "SAS R+1 — Spots encastrés + détecteur de présence",
+          "start": "2026-03-30",
+          "end": "2026-03-31",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 584,
+          "text": "WC R+1 — Spots encastrés + détecteurs de présence",
+          "start": "2026-04-01",
+          "end": "2026-04-02",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 585,
+          "text": "Local stockage R+1 — Hublot à détecteur",
+          "start": "2026-04-03",
+          "end": "2026-04-04",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 586,
+          "text": "Salle principale — Spots encastrés",
+          "start": "2026-04-05",
+          "end": "2026-04-06",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 587,
+          "text": "Salle principale — Éclairage meuble",
+          "start": "2026-04-07",
+          "end": "2026-04-08",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 588,
+          "text": "Salle principale — Bandeau LED transfot",
+          "start": "2026-04-09",
+          "end": "2026-04-10",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 589,
+          "text": "Local poubelle — Hublot à détecteur",
+          "start": "2026-04-11",
+          "end": "2026-04-12",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 590,
+          "text": "Dégagement RDC — Spots encastrés",
+          "start": "2026-04-13",
+          "end": "2026-04-14",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 591,
+          "text": "SAS RDC — Spots encastrés + détecteur de présence",
+          "start": "2026-04-15",
+          "end": "2026-04-16",
+          "done": false,
+          "pct": 50
+        }
+      ]
+    },
+    {
+      "id": 357,
+      "pi": 0,
+      "name": "LOT 05 ELECTRICITE — Alimentations RDC",
+      "cat": "Electricité",
+      "assignee": "DANELEC",
+      "status": "inprogress",
+      "pct": 57,
+      "start": "2026-03-21",
+      "end": "2026-04-17",
+      "notes": "Alimentations prises et équipements spéciaux RDC — PRACTICE, ECRAN, BAR, CAISSE, PC DIVERSES, HP RONDSON. Coordination avec intégrateur AV pour positionnement précis des PC/HDMI/RJ45. | Alimentations PC Ménage dans locaux secondaires RDC — local poubelle, dégagement, SAS, local stockage, vestiaire, escalier de service.",
+      "subtasks": [
+        {
+          "id": 592,
+          "text": "Salle principale RDC — PRACTICE : 2PC + 2HDMI + 2RJ45",
+          "start": "2026-05-11",
+          "end": "2026-05-14",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 593,
+          "text": "Salle principale RDC — ECRAN : 2PC + 1HDMI + 1RJ45",
+          "start": "2026-05-14",
+          "end": "2026-05-19",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 594,
+          "text": "Salle principale RDC — BAR : PC DOUBLE",
+          "start": "2026-05-19",
+          "end": "2026-05-22",
+          "done": true,
+          "pct": 100
+        },
+        {
+          "id": 595,
+          "text": "Salle principale RDC — CAISSE : 1PC + 1RJ45",
+          "start": "2026-05-22",
+          "end": "2026-05-23",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 596,
+          "text": "Salle principale RDC — PC DIVERSES",
+          "start": "2026-05-23",
+          "end": "2026-05-27",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 597,
+          "text": "Salle principale RDC — HP type RONDSON",
+          "start": "2026-05-27",
+          "end": "2026-05-29",
+          "done": true,
+          "pct": 100
+        },
+        {
+          "id": 598,
+          "text": "Cuisine RDC — FRIGO, Congélateur, Cave à vin",
+          "start": "2026-05-29",
+          "end": "2026-06-01",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 599,
+          "text": "Cuisine RDC — Machine à glaçon, Lave vaisselle, Micro-onde/Four",
+          "start": "2026-06-01",
+          "end": "2026-06-03",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 600,
+          "text": "Cuisine RDC — PC Plan de travail TRIPLE + DOUBLE",
+          "start": "2026-06-03",
+          "end": "2026-06-05",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 601,
+          "text": "Local poubelle RDC — PC Ménage",
+          "start": "2026-06-08",
+          "end": "2026-06-09",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 602,
+          "text": "Dégagement RDC — PC Ménage",
+          "start": "2026-06-09",
+          "end": "2026-06-10",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 603,
+          "text": "SAS RDC — HP RONDSON + Alimentation sèche-mains",
+          "start": "2026-06-10",
+          "end": "2026-06-12",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 604,
+          "text": "Local stockage RDC — PC Ménage",
+          "start": "2026-06-12",
+          "end": "2026-06-13",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 605,
+          "text": "Vestiaire RDC — PC Ménage",
+          "start": "2026-06-13",
+          "end": "2026-06-15",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 606,
+          "text": "Escalier de service — PC Ménage",
+          "start": "2026-06-15",
+          "end": "2026-06-16",
+          "done": false,
+          "pct": 50
+        }
+      ]
+    },
+    {
+      "id": 359,
+      "pi": 0,
+      "name": "LOT 02B MAÇONNERIE — Travaux Complémentaires N°1",
+      "cat": "Second Oeuvre",
+      "assignee": "WORLDBAT",
+      "status": "inprogress",
+      "pct": 70,
+      "start": "2026-03-30",
+      "end": "2026-04-17",
+      "notes": "Travaux complémentaires à coordonner avec LOT 02 MAÇONNERIE Structures Golf & Flèches déjà planifié — Garde-corps BA13 selon plan architecte : prévoir réservations pour vitrages avant coulage — Trappe de sol 80x80 alu à carreler : coordination avec LOT 09 CHAPE pour étanchéité périphérique — Bandes podotactiles sur 2 escaliers à poser en fin de lot, après chape — Bloc porte stockage à: confirmation fourniture client à valider avant démarrage",
+      "subtasks": [
+        {
+          "id": 607,
+          "text": "Création faux plafond sous dalle R+1 côté escalier — 7 unités",
+          "start": "2026-03-30",
+          "end": "2026-04-01",
+          "done": true
+        },
+        {
+          "id": 608,
+          "text": "Doublage escalier côté gauche en montant — BA13",
+          "start": "2026-03-30",
+          "end": "2026-04-01",
+          "done": true
+        },
+        {
+          "id": 609,
+          "text": "Création cloison pour porte accès escalier au RDC",
+          "start": "2026-04-01",
+          "end": "2026-04-03",
+          "done": false
+        },
+        {
+          "id": 610,
+          "text": "Cloison et bloc porte pour alignement à 90° espace golf R+1",
+          "start": "2026-04-01",
+          "end": "2026-04-03",
+          "done": true
+        },
+        {
+          "id": 611,
+          "text": "Cloison pour local stockage",
+          "start": "2026-04-03",
+          "end": "2026-04-06",
+          "done": true
+        },
+        {
+          "id": 612,
+          "text": "Bloc porte isoplane pour local stockage — fourniture client à confirmer",
+          "start": "2026-04-06",
+          "end": "2026-04-07",
+          "done": true
+        },
+        {
+          "id": 613,
+          "text": "Création garde-corps BA13 selon plan architecte — 35 ml — R+1 (y compris réservations vitrages)",
+          "start": "2026-04-07",
+          "end": "2026-04-13",
+          "done": true
+        },
+        {
+          "id": 614,
+          "text": "Fourniture et pose trappe de sol 80x80 alu à carreler — y compris joint d'étanchéité",
+          "start": "2026-04-13",
+          "end": "2026-04-14",
+          "done": false
+        },
+        {
+          "id": 615,
+          "text": "Peinture de l'ensemble garde-corps BA13",
+          "start": "2026-04-14",
+          "end": "2026-04-16",
+          "done": true
+        },
+        {
+          "id": 616,
+          "text": "Pose bandes podotactiles début et fin d'escalier — 2 escaliers",
+          "start": "2026-04-16",
+          "end": "2026-04-17",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 360,
+      "pi": 0,
+      "name": "LOT 03 MAÇONNERIE — Rampe escalier & Cloisons R+1",
+      "cat": "Second Oeuvre",
+      "assignee": "WORLDBAT",
+      "status": "inprogress",
+      "pct": 50,
+      "start": "2026-03-30",
+      "end": "2026-04-17",
+      "notes": "Rampe inox réf. Leroy Merlin 800L x 1060H — vérifier aplomb et fixations murales avant pose. Cloisons R+1 doivent être réceptionnées sèches avant application primaire. Chassis vitré à protéger pendant travaux périphériques.",
+      "subtasks": [
+        {
+          "id": 617,
+          "text": "Fourniture & pose rampe d'escalier inoxidable — Escalier B",
+          "start": "2026-03-30",
+          "end": "2026-04-03",
+          "done": false
+        },
+        {
+          "id": 618,
+          "text": "Application primaire d'accrochage — Cloisons R+1",
+          "start": "2026-04-06",
+          "end": "2026-04-08",
+          "done": true
+        },
+        {
+          "id": 619,
+          "text": "Peinture abouts nouvelles cloisons R+1 (recto verso)",
+          "start": "2026-04-09",
+          "end": "2026-04-14",
+          "done": true
+        },
+        {
+          "id": 620,
+          "text": "Baguettes de finition périphérie chassis vitré — R+1",
+          "start": "2026-04-09",
+          "end": "2026-04-10",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 361,
+      "pi": 0,
+      "name": "LOT 01 MAÇONNERIE — Bar et Bancs",
+      "cat": "Gros Oeuvre",
+      "assignee": "WORLDBAT",
+      "status": "inprogress",
+      "pct": 64,
+      "start": "2026-02-09",
+      "end": "2026-05-15",
+      "notes": "Fermacell — respecter séchage bandes de joints avant enduit. Barre repose-pied laiton non inclus dans lot maçonnerie. Faille LED à prévoir avec électricien avant fermeture. Coordonner ouvertures pour passages plomberie et électricité avant coulage dalles ascenseur. | Chape — tâche visible en février",
+      "subtasks": [
+        {
+          "id": 621,
+          "text": "Bar maçonné R+1 — création bar Fermacell R+1 (poste 8) : montage, bandes joints, finition impression",
+          "start": "2026-02-09",
+          "end": "2026-02-16",
+          "done": true
+        },
+        {
+          "id": 622,
+          "text": "Garde corps R+1 — sur 10 ML prolongement garde corp en Fermacell, peinture (poste 14)",
+          "start": "2026-02-17",
+          "end": "2026-02-24",
+          "done": true
+        },
+        {
+          "id": 623,
+          "text": "Doublage mur escalier — main courante intégrée, bandes joints, laine de verre, peinture (poste 15)",
+          "start": "2026-02-25",
+          "end": "2026-03-04",
+          "done": true
+        },
+        {
+          "id": 624,
+          "text": "Cloison 0,70m ep ba13 — création 7,5 ml y compris isolant (poste 19)",
+          "start": "2026-03-05",
+          "end": "2026-03-12",
+          "done": true
+        },
+        {
+          "id": 625,
+          "text": "Dalle béton",
+          "done": true,
+          "start": "2026-03-13",
+          "end": "2026-03-20"
+        },
+        {
+          "id": 626,
+          "text": "Bar maçonné RDC — création bar en Fermacell (poste 1) : traçage, montage structure, bandes de joints, finition impression",
+          "start": "2026-03-21",
+          "end": "2026-03-28",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 627,
+          "text": "Contrôle qualité et levée des réserves maçonnerie bar & bancs",
+          "start": "2026-03-29",
+          "end": "2026-04-04",
+          "done": false
+        },
+        {
+          "id": 628,
+          "text": "Mange-debout Fermacell — création 9 unités ep. 0,07m, pose carrelage, arrêtes laiton (poste 10)",
+          "start": "2026-04-05",
+          "end": "2026-04-12",
+          "done": false
+        },
+        {
+          "id": 629,
+          "text": "Portes vitrées transparentes — fourniture et pose 2 portes réf architecte (poste 18)",
+          "start": "2026-04-13",
+          "end": "2026-04-20",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 630,
+          "text": "Bar maçonné RDC — plan bar arrière en bois à carreler, crédence 2,00m (poste 2)",
+          "start": "2026-04-21",
+          "end": "2026-04-28",
+          "done": false,
+          "pct": 50
+        },
+        {
+          "id": 631,
+          "text": "Bar maçonné R+1 — plan bar arrière bois à carreler, jambages (poste 9)",
+          "start": "2026-04-29",
+          "end": "2026-05-06",
+          "done": false,
+          "pct": 50
+        }
+      ]
+    },
+    {
+      "id": 362,
+      "pi": 0,
+      "name": "LOT 02 MAÇONNERIE — Bars & Bancs",
+      "cat": "Second Oeuvre",
+      "assignee": "WORLDBAT",
+      "status": "inprogress",
+      "pct": 57,
+      "start": "2026-03-26",
+      "end": "2026-05-08",
+      "notes": "Précède impérativement le carrelage et la plomberie — Failles pour LED à réserver avant fermeture — Natte étanche Schulter obligatoire sur bacs à fleurs avant carrelage — IPN à valider structure avant dalle ascenseur — Garde-corps R+1 en prolongement garde-corp existant à coordonner avec menuiserie — Laine de verre doublage escalier à poser avant fermeture cloisons",
+      "subtasks": [
+        {
+          "id": 632,
+          "text": "Bar RDC — Structure Fermacell avec faille LED et bande de chant laiton",
+          "start": "2026-03-26",
+          "end": "2026-04-03",
+          "done": false
+        },
+        {
+          "id": 633,
+          "text": "Plan bar arrière RDC — Plan bois à carreler + crédence 2m (réf M08, M16, M17)",
+          "start": "2026-04-03",
+          "end": "2026-04-08",
+          "done": true
+        },
+        {
+          "id": 634,
+          "text": "Dalles local ascenseur — IPN, coffrage, dalle béton, chape finition (x2)",
+          "start": "2026-04-01",
+          "end": "2026-04-10",
+          "done": true
+        },
+        {
+          "id": 635,
+          "text": "Doublage mur escalier — Laine de verre, main courante intégrée, bandes de joints, peinture",
+          "start": "2026-04-08",
+          "end": "2026-04-15",
+          "done": true
+        },
+        {
+          "id": 636,
+          "text": "Mange-debout RDC — 5 unités Fermacell, carrelage, arrêtes laiton (sans barre repose-pieds)",
+          "start": "2026-04-10",
+          "end": "2026-04-20",
+          "done": false
+        },
+        {
+          "id": 637,
+          "text": "Bar R+1 — Structure Fermacell avec faille LED et bande de chant laiton",
+          "start": "2026-04-13",
+          "end": "2026-04-22",
+          "done": true
+        },
+        {
+          "id": 638,
+          "text": "Plan bar arrière R+1 — Plan bois à carreler, carrelage plan et jambages (hors fourniture carrelages)",
+          "start": "2026-04-22",
+          "end": "2026-04-28",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 365,
+      "pi": 0,
+      "name": "LOT 03 FAUX-PLAFOND",
+      "cat": "Second Oeuvre",
+      "assignee": "WORLDBAT",
+      "status": "done",
+      "pct": 100,
+      "start": "2026-02-16",
+      "end": "2026-04-03",
+      "notes": "Rail puis Plaque/bande — Décalage du lot CVC suite au versement de l'acompte",
+      "subtasks": [
+        {
+          "id": 639,
+          "text": "Rail",
+          "start": "2026-02-16",
+          "end": "2026-02-23",
+          "done": true
+        },
+        {
+          "id": 640,
+          "text": "Plaque / bande",
+          "start": "2026-02-23",
+          "end": "2026-03-09",
+          "done": true
+        }
+      ]
+    },
+    {
+      "id": 371,
+      "pi": 0,
+      "name": "LOT 09 PARQUET",
+      "cat": "Finitions",
+      "assignee": "WORLDBAT",
+      "status": "",
+      "pct": 0,
+      "start": "2026-03-30",
+      "end": "2026-04-13",
+      "notes": "Pose du parquet",
+      "subtasks": [
+        {
+          "id": 641,
+          "text": "Parquet etage",
+          "done": false,
+          "start": "2026-03-30",
+          "end": "2026-04-05"
+        },
+        {
+          "id": 1774537511122,
+          "text": "Parquet RDC",
+          "done": false,
+          "start": "2026-04-06",
+          "end": "2026-04-12"
+        }
+      ]
+    },
+    {
+      "id": 645,
+      "pi": 3,
+      "name": "LOT 09 - Nettoyage après travaux",
+      "cat": "Finitions",
+      "assignee": "neo",
+      "status": "todo",
+      "pct": 0,
+      "start": "2026-07-06",
+      "end": "2026-07-17",
+      "notes": "Intervention après la totalité des lots de finitions, peinture, parquet et menuiserie. Remise en état complète de l'appartement 2ème étage. Receveur de douche en marbre : traitement délicat, vérifier compatibilité des produits. Évacuation des poussières liées aux travaux incluse. À réaliser impérativement avant réception finale.",
+      "subtasks": [
+        {
+          "id": 646,
+          "text": "Dépoussiérage général de l'ensemble de l'appartement (interrupteurs, prises, plinthes, rebords de fenêtres)",
+          "start": "2026-07-06",
+          "end": "2026-07-07",
+          "pct": 0,
+          "done": false
+        },
+        {
+          "id": 647,
+          "text": "Évacuation des poussières liées aux travaux et remise en propreté générale",
+          "start": "2026-07-06",
+          "end": "2026-07-07",
+          "pct": 0,
+          "done": false
+        },
+        {
+          "id": 648,
+          "text": "Nettoyage approfondi du double séjour (sols, plinthes, surfaces, vitrages)",
+          "start": "2026-07-07",
+          "end": "2026-07-08",
+          "pct": 0,
+          "done": false
+        },
+        {
+          "id": 649,
+          "text": "Nettoyage des 3 chambres (sols, plinthes, surfaces, dépoussiérage)",
+          "start": "2026-07-08",
+          "end": "2026-07-10",
+          "pct": 0,
+          "done": false
+        },
+        {
+          "id": 650,
+          "text": "Nettoyage de la cuisine (dégraissage, plan de travail, façades meubles, évier, crédence, sols)",
+          "start": "2026-07-10",
+          "end": "2026-07-11",
+          "pct": 0,
+          "done": false
+        },
+        {
+          "id": 651,
+          "text": "Nettoyage et désinfection de la salle de bain (sanitaires, baignoire/douche, lavabo, robinetterie, faïence, sols)",
+          "start": "2026-07-11",
+          "end": "2026-07-13",
+          "pct": 0,
+          "done": false
+        },
+        {
+          "id": 652,
+          "text": "Nettoyage et désinfection de la salle d'eau + remise en état receveur de douche en marbre",
+          "start": "2026-07-13",
+          "end": "2026-07-14",
+          "pct": 0,
+          "done": false
+        },
+        {
+          "id": 653,
+          "text": "Nettoyage et désinfection du WC (sanitaire, surfaces, sols)",
+          "start": "2026-07-14",
+          "end": "2026-07-14",
+          "pct": 0,
+          "done": false
+        },
+        {
+          "id": 654,
+          "text": "Aspiration et lavage de l'ensemble des sols (tous espaces)",
+          "start": "2026-07-15",
+          "end": "2026-07-16",
+          "pct": 0,
+          "done": false
+        },
+        {
+          "id": 655,
+          "text": "Contrôle qualité final et validation de la remise en propreté",
+          "start": "2026-07-16",
+          "end": "2026-07-17",
+          "pct": 0,
+          "done": false
+        }
+      ]
+    }
+  ],
+  "milestones": [
+    {
+      "id": 1,
+      "pi": 0,
+      "name": "Réception gros oeuvre",
+      "date": "2025-05-26"
+    },
+    {
+      "id": 2,
+      "pi": 0,
+      "name": "Hors d'eau / Hors d'air",
+      "date": "2025-06-23"
+    },
+    {
+      "id": 3,
+      "pi": 0,
+      "name": "Livraison MATCHPLAY",
+      "date": "2025-09-01"
+    },
+    {
+      "id": 4,
+      "pi": 1,
+      "name": "Hors d'eau",
+      "date": "2025-06-20"
+    },
+    {
+      "id": 5,
+      "pi": 2,
+      "name": "Livraison Villa Moderna",
+      "date": "2025-04-30"
+    }
+  ],
+  "members": [
+    {
+      "id": 1,
+      "pi": 0,
+      "name": "M. Rivas",
+      "role": "Architecte",
+      "company": "SARL TRI",
+      "tel": "01 48 74 82 11",
+      "email": "contact@agencetri.com",
+      "type": "Maître d'œuvre",
+      "present": true,
+      "invited": true
+    },
+    {
+      "id": 2,
+      "pi": 0,
+      "name": "M. Romito",
+      "role": "Maçonnerie",
+      "company": "WORLDBAT",
+      "tel": "06 19 02 78 89",
+      "email": "contact.worldbat@gmail.com",
+      "type": "Entreprise",
+      "present": true,
+      "invited": true
+    },
+    {
+      "id": 3,
+      "pi": 0,
+      "name": "M. Bagneux",
+      "role": "Plombier",
+      "company": "JEAN LUCY",
+      "tel": "01 45 83 48 46",
+      "email": "contact@jeanlucv.com",
+      "type": "Entreprise",
+      "present": true,
+      "invited": true
+    },
+    {
+      "id": 4,
+      "pi": 0,
+      "name": "M. Zaffran",
+      "role": "Électricien",
+      "company": "DANELEC",
+      "tel": "06 09 78 61 41",
+      "email": "direction@dan-elec.fr",
+      "type": "Entreprise",
+      "present": true,
+      "invited": true
+    },
+    {
+      "id": 5,
+      "pi": 0,
+      "name": "M. Bittan",
+      "role": "Climatisation",
+      "company": "CLIMADANE",
+      "tel": "01 48 07 19 19",
+      "email": "bureau.etude@climadane.com",
+      "type": "Entreprise",
+      "present": false,
+      "invited": true,
+      "absent": true
+    },
+    {
+      "id": 6,
+      "pi": 1,
+      "name": "M. Rivas",
+      "role": "Architecte",
+      "company": "SARL TRI",
+      "type": "Maître d'œuvre",
+      "email": "contact@agencetri.com",
+      "present": true,
+      "invited": true
+    },
+    {
+      "id": 7,
+      "pi": 1,
+      "name": "M. Durif",
+      "role": "Maçon",
+      "company": "BATIPRO",
+      "type": "Entreprise",
+      "email": "contact@batipro.fr",
+      "present": true,
+      "invited": true
+    },
+    {
+      "id": 8,
+      "pi": 2,
+      "name": "M. Rivas",
+      "role": "Architecte",
+      "company": "SARL TRI",
+      "type": "Maître d'œuvre",
+      "email": "contact@agencetri.com",
+      "present": true,
+      "invited": true
+    },
+    {
+      "id": 319,
+      "pi": 3,
+      "name": "EMANUEL PIRES",
+      "role": "",
+      "company": "LMP DESIGN",
+      "tel": "",
+      "email": "lmp.design@hotmail.fr",
+      "type": "Entreprise",
+      "present": true,
+      "invited": true
+    },
+    {
+      "id": 320,
+      "pi": 3,
+      "name": "Alexandre Denis",
+      "role": "Peinture",
+      "company": "Tourtoulou",
+      "tel": "",
+      "email": "adenis@ateliertourtoulou.com",
+      "type": "Entreprise",
+      "present": true,
+      "invited": true
+    },
+    {
+      "id": 326,
+      "pi": 3,
+      "name": "Roberto Castro",
+      "role": "Electricité",
+      "company": "AJIPEC",
+      "tel": "",
+      "email": "ajipec78@gmail.com",
+      "type": "Entreprise",
+      "present": true,
+      "invited": true
+    }
+  ],
+  "statLines": [
+    {
+      "id": 1,
+      "pi": 0,
+      "rida": "D",
+      "theme": "Chape",
+      "detail": "Chapes Experts le 04.02. Site fermé jusqu'au 08.02.",
+      "date": "03.02",
+      "resp": "CHAPES EXPERTS",
+      "urgent": false,
+      "photos": []
+    },
+    {
+      "id": 2,
+      "pi": 0,
+      "rida": "A",
+      "theme": "Commandes",
+      "detail": "Robinetterie & électroménager — confirmer références urgence.",
+      "date": "03.02",
+      "resp": "M.O.",
+      "urgent": true,
+      "photos": []
+    },
+    {
+      "id": 3,
+      "pi": 0,
+      "rida": "I",
+      "theme": "Peinture",
+      "detail": "Échantillons posés. Validation prochaine réunion.",
+      "date": "03.02",
+      "resp": "WORLDBAT",
+      "urgent": false,
+      "photos": []
+    },
+    {
+      "id": 4,
+      "pi": 1,
+      "rida": "D",
+      "theme": "Fondations",
+      "detail": "Béton armé coffré — coulage semaine 12.",
+      "date": "10.03",
+      "resp": "BATIPRO",
+      "urgent": false,
+      "photos": []
+    },
+    {
+      "id": 5,
+      "pi": 2,
+      "rida": "A",
+      "theme": "Finitions",
+      "detail": "Validation teinte peinture salon.",
+      "date": "15.03",
+      "resp": "COLOREX",
+      "urgent": true,
+      "photos": []
+    }
+  ],
+  "clefs": [
+    {
+      "id": 1,
+      "pi": 0,
+      "ref": "12.12",
+      "text": "Commande robinetterie urgente",
+      "urgent": true
+    },
+    {
+      "id": 2,
+      "pi": 0,
+      "ref": "19.12",
+      "text": "Fournir références électroménager cuisine",
+      "urgent": true
+    },
+    {
+      "id": 3,
+      "pi": 1,
+      "ref": "01.03",
+      "text": "Valider plan toiture avec charpentier",
+      "urgent": false
+    }
+  ],
+  "commandes": [
+    {
+      "id": 1,
+      "pi": 0,
+      "name": "Robinetterie cuisine",
+      "lot": "Plomberie",
+      "fournisseur": "Grohe",
+      "devis": 4200,
+      "paid": 0,
+      "delivery": "2025-06-15",
+      "status": "liv",
+      "recept": "M. Bagneux",
+      "comment": "Modèle Euromix E³",
+      "photos": [],
+      "photoComment": ""
+    },
+    {
+      "id": 2,
+      "pi": 0,
+      "name": "Carrelage sol RDC",
+      "lot": "Finitions",
+      "fournisseur": "Porcelaingres",
+      "devis": 8600,
+      "paid": 1,
+      "delivery": "2025-07-01",
+      "status": "liv",
+      "recept": "M. Romito",
+      "comment": "Format 120×120",
+      "photos": [],
+      "photoComment": ""
+    },
+    {
+      "id": 3,
+      "pi": 0,
+      "name": "Néons baies de golf",
+      "lot": "Électricité",
+      "fournisseur": "Nedgis",
+      "devis": 1800,
+      "paid": 0,
+      "delivery": "2025-06-10",
+      "status": "cmd",
+      "recept": "M. Zaffran",
+      "comment": "",
+      "photos": [],
+      "photoComment": ""
+    },
+    {
+      "id": 4,
+      "pi": 2,
+      "name": "Cuisine Bulthaup",
+      "lot": "Menuiserie",
+      "fournisseur": "Bulthaup Paris",
+      "devis": 38000,
+      "paid": 1,
+      "delivery": "2025-04-01",
+      "status": "liv",
+      "recept": "Mme Dupont",
+      "comment": "Livrée et posée",
+      "photos": [],
+      "photoComment": ""
+    },
+    {
+      "id": 301,
+      "pi": 0,
+      "name": "Test",
+      "lot": "",
+      "fournisseur": "",
+      "devis": 60000,
+      "paid": 0,
+      "delivery": "",
+      "status": "att",
+      "recept": "",
+      "comment": "",
+      "photos": [],
+      "photoComment": ""
+    }
+  ],
+  "dayTasks": {
+    "urgent": [
+      {
+        "id": "d642",
+        "text": "Passer les commandes",
+        "done": false,
+        "keep": false,
+        "note": ""
+      },
+      {
+        "id": "d643",
+        "text": "Lancer l'app",
+        "done": false,
+        "keep": false,
+        "note": ""
+      }
+    ],
+    "important": [],
+    "marie": [],
+    "waiting": []
+  },
+  "finances": [],
+  "budgets": [
+    {
+      "pi": 0,
+      "honoraires": 12,
+      "nbEntr": 4,
+      "notes": "",
+      "lots": [
+        {
+          "id": 1774870025207.9817,
+          "lot": "bar et bancs",
+          "entreprise": "WorldBat",
+          "devis": "35993",
+          "marche": "",
+          "acomptePct": "30",
+          "valideAgence": "",
+          "paye": "",
+          "comment": ""
+        },
+        {
+          "id": 1774870025207.6545,
+          "lot": "travaux complémentaires N° 1",
+          "entreprise": "WorldBat",
+          "devis": "10198",
+          "marche": "",
+          "acomptePct": "30",
+          "valideAgence": "",
+          "paye": "",
+          "comment": ""
+        },
+        {
+          "id": 1774872951612,
+          "lot": "",
+          "entreprise": "",
+          "devis": "",
+          "marche": "",
+          "acomptePct": "30",
+          "valideAgence": "",
+          "paye": "",
+          "comment": ""
+        }
+      ],
+      "devisImports": [
+        {
+          "nom": "bar et bancs",
+          "numero": "DEV-2025-0237",
+          "montant_ttc": 43191,
+          "montant_ht": 35993,
+          "fichier": "WORLDBAT_LOT DIVERS mange debout et bar(2025.0237)_Devis.pdf",
+          "date": "29/03/2026"
+        },
+        {
+          "nom": "travaux complémentaires N° 1",
+          "numero": "DEV-2026-0283",
+          "montant_ttc": 12238,
+          "montant_ht": 10198,
+          "fichier": "WORLDBAT_ Avenant 01 (DEV-2026-0283)_Devis.pdf",
+          "date": "29/03/2026"
+        }
+      ]
+    },
+    {
+      "pi": 3,
+      "honoraires": 12,
+      "nbEntr": 4,
+      "notes": "",
+      "lots": [
+        {
+          "id": 1774745111458,
+          "lot": "",
+          "entreprise": "",
+          "devis": "",
+          "marche": "",
+          "acomptePct": "30",
+          "paye": "",
+          "comment": ""
+        },
+        {
+          "id": 1774745113320,
+          "lot": "",
+          "entreprise": "",
+          "devis": "",
+          "marche": "",
+          "acomptePct": "30",
+          "paye": "",
+          "comment": ""
+        },
+        {
+          "id": 1774872750613.7656,
+          "nom": "LOT 09 - Nettoyage après travaux",
+          "minus": "",
+          "plus": 2400,
+          "comment": "",
+          "marche": 2400,
+          "paye": ""
+        }
+      ]
+    }
+  ],
+  "checkObjs": [],
+  "dayLogs": [
+    {
+      "date": "25/03",
+      "score": 1.5,
+      "analysis": "SCORE : 1.5/10\n\n**POINTS FORTS**\n1. Aucune dérive détectée — la structure de suivi reste intacte et opérationnelle.\n2. Le projet MATCHPLAY maintient un socle d'avancement à 43%, capital non dilapidé.\n\n**POINTS DE RUPTURE**\n1. Zéro tâche exécutée sur 7 — journée à production nulle, y compris sur les urgences prioritaires. L'articulation ne peut exister sans acte.\n2. L'absence d'objectifs formalisés pour la journée révèle une défaillance en amont : pas de planification = pas de cohérence possible.",
+      "objs_done": 0,
+      "objs_total": 0,
+      "tasks_done": 0,
+      "tasks_total": 7,
+      "drifted": false,
+      "projName": "MATCHPLAY"
+    }
+  ],
+  "emailAnalyses": [],
+  "reports": [
+    {
+      "id": 327,
+      "pi": 3,
+      "date": "2026-03-26T13:31:24.452Z",
+      "dateStr": "26.03.2026",
+      "proj": "Abehsera",
+      "pdf": "data:application/pdf;filename=generated.pdf;base64,JVBERi0xLjMKJbrfrOAKMyAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL1Jlc291cmNlcyAyIDAgUgovTWVkaWFCb3ggWzAgMCA1OTUuMjc5OTk5OTk5OTk5OTcyNyA4NDEuODg5OTk5OTk5OTk5OTg2NF0KL0NvbnRlbnRzIDQgMCBSCj4+CmVuZG9iago0IDAgb2JqCjw8Ci9MZW5ndGggODQ0Cj4+CnN0cmVhbQowLjU2NzAwMDAwMDAwMDAwMDEgdwowIEcKMC4yOSAwLjMzIDAuMjggcmcKMC4gODQxLjg4OTk5OTk5OTk5OTk4NjQgNTk1LjI3NTU5MDU1MTE4MTE1MzQgLTg0MS44ODk3NjM3Nzk1Mjc2OTc4IHJlCmYKQlQKL0YyIDMwIFRmCjM0LjUgVEwKMS4gZwoyMDYuMjg3Nzk1Mjc1NTkwNTgyNCA2OTQuNDg4NDI1MTk2ODUwMzU3NyBUZAooVE9OWSBSSVZBUykgVGoKRVQKQlQKL0YzIDEyIFRmCjEzLjc5OTk5OTk5OTk5OTk5ODkgVEwKMC43ODQgMC44MDQgMC43NjUgcmcKMjQwLjY5Nzc5NTI3NTU5MDU3OSA2NjYuMTQxOTY4NTAzOTM2OTM2OSBUZAooVGFsbGVyIGRlIEFycXVpdGVjdHVyYSkgVGoKRVQKQlQKL0YyIDExIFRmCjEyLjY0OTk5OTk5OTk5OTk5ODYgVEwKMS4gZwo3MC44NjYxNDE3MzIyODM0NjY2IDU3Mi41OTg2NjE0MTczMjI3NzM2IFRkCihBQkVIU0VSQSkgVGoKRVQKMS4gZwo0NDcuODc0MDE1NzQ4MDMxNTI0NyA1NzIuNTk4NjYxNDE3MzIyNzczNiA3OS4zNzAwNzg3NDAxNTc0ODE0IC00MzkuMzcwMDc4NzQwMTU3NTA5OSByZQpmCkJUCi9GMSA2LjUgVGYKNy40NzQ5OTk5OTk5OTk5OTk2IFRMCjAuMjkgMC4zMjUgMC4yNzggcmcKMC4wMDAwMDAwMDAwMDAwMDAxIDEuIC0xLiAwLjAwMDAwMDAwMDAwMDAwMDEgNDExLjIzNDc2Mzc3OTUyNzU1NDYgMTYxLjU3NTAzOTM3MDA3ODY4NDQgVG0KKENPTVBURSBSRU5EVSBERSBDSEFOVElFUiAgXyAgMjYuMDMuMjAyNikgVGoKRVQKQlQKL0YyIDkgVGYKMTAuMzQ5OTk5OTk5OTk5OTk5NiBUTAowLjc4NCAwLjgwNCAwLjc2NSByZwo3OS4zNzAwNzg3NDAxNTc0ODE0IDUzLjg1ODUwMzkzNzAwNzc1MzggVGQKKFRvbnkgUml2YXMpIFRqCkVUCmVuZHN0cmVhbQplbmRvYmoKNSAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL1Jlc291cmNlcyAyIDAgUgovTWVkaWFCb3ggWzAgMCA1OTUuMjc5OTk5OTk5OTk5OTcyNyA4NDEuODg5OTk5OTk5OTk5OTg2NF0KL0NvbnRlbnRzIDYgMCBSCj4+CmVuZG9iago2IDAgb2JqCjw8Ci9MZW5ndGggMTY0Nwo+PgpzdHJlYW0KMC41NjcwMDAwMDAwMDAwMDAxIHcKMCBHCjAuOTMgMC45MSAwLjg1IHJnCjAuIDg0MS44ODk5OTk5OTk5OTk5ODY0IDU5NS4yNzU1OTA1NTExODExNTM0IC04NDEuODg5NzYzNzc5NTI3Njk3OCByZQpmCkJUCi9GMiAxNCBUZgoxNi4wOTk5OTk5OTk5OTk5OTc5IFRMCjAuMjM1IDAuMjM1IDAuMTk2IHJnCjcwLjg2NjE0MTczMjI4MzQ2NjYgNzM0LjE3MzQ2NDU2NjkyOTE2OTUgVGQKKFNPTU1BSVJFKSBUagpFVApCVAovRjIgNDQgVGYKNTAuNTk5OTk5OTk5OTk5OTk0MyBUTAowLjcyNSAwLjcwNiAwLjY0NyByZwo3MC44NjYxNDE3MzIyODM0NjY2IDU1OC40MjU0MzMwNzA4NjYxMiBUZAooMDEuKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwo3MC44NjYxNDE3MzIyODM0NjY2IDUyMS41NzUwMzkzNzAwNzg2ODQ0IFRkCihDT01QVEUgUkVORFUpIFRqCkVUCkJUCi9GMiA4LjUgVGYKOS43NzQ5OTk5OTk5OTk5OTg2IFRMCjAuMjc1IDAuMjY3IDAuMjI3IHJnCjcwLjg2NjE0MTczMjI4MzQ2NjYgNDk2LjA2MzIyODM0NjQ1NjYzOTkgVGQKKEhFQkRPTUFEQUlSRSkgVGoKRVQKQlQKL0YyIDQ0IFRmCjUwLjU5OTk5OTk5OTk5OTk5NDMgVEwKMC43MjUgMC43MDYgMC42NDcgcmcKMzI1Ljk4NDI1MTk2ODUwMzk5NzQgNTU4LjQyNTQzMzA3MDg2NjEyIFRkCigwMi4pIFRqCkVUCkJUCi9GMiA4LjUgVGYKOS43NzQ5OTk5OTk5OTk5OTg2IFRMCjAuMjc1IDAuMjY3IDAuMjI3IHJnCjMyNS45ODQyNTE5Njg1MDM5OTc0IDUyMS41NzUwMzkzNzAwNzg2ODQ0IFRkCihFTEVNRU5UUykgVGoKRVQKQlQKL0YyIDguNSBUZgo5Ljc3NDk5OTk5OTk5OTk5ODYgVEwKMC4yNzUgMC4yNjcgMC4yMjcgcmcKMzI1Ljk4NDI1MTk2ODUwMzk5NzQgNDk2LjA2MzIyODM0NjQ1NjYzOTkgVGQKKENMRUZTKSBUagpFVApCVAovRjIgNDQgVGYKNTAuNTk5OTk5OTk5OTk5OTk0MyBUTAowLjcyNSAwLjcwNiAwLjY0NyByZwo3MC44NjYxNDE3MzIyODM0NjY2IDI4OS4xMzQwOTQ0ODgxODg5MDcyIFRkCigwMy4pIFRqCkVUCkJUCi9GMiA4LjUgVGYKOS43NzQ5OTk5OTk5OTk5OTg2IFRMCjAuMjc1IDAuMjY3IDAuMjI3IHJnCjcwLjg2NjE0MTczMjI4MzQ2NjYgMjUyLjI4MzcwMDc4NzQwMTQ3MTYgVGQKKFJBUFBFTCBERVMgRUxFTUVOVFMpIFRqCkVUCkJUCi9GMiA4LjUgVGYKOS43NzQ5OTk5OTk5OTk5OTg2IFRMCjAuMjc1IDAuMjY3IDAuMjI3IHJnCjcwLjg2NjE0MTczMjI4MzQ2NjYgMjI2Ljc3MTg4OTc2Mzc3OTQyNzEgVGQKKFNUUlVDVFVSQU5UUykgVGoKRVQKQlQKL0YyIDQ0IFRmCjUwLjU5OTk5OTk5OTk5OTk5NDMgVEwKMC43MjUgMC43MDYgMC42NDcgcmcKMzI1Ljk4NDI1MTk2ODUwMzk5NzQgMjg5LjEzNDA5NDQ4ODE4ODkwNzIgVGQKKDA0LikgVGoKRVQKQlQKL0YyIDguNSBUZgo5Ljc3NDk5OTk5OTk5OTk5ODYgVEwKMC4yNzUgMC4yNjcgMC4yMjcgcmcKMzI1Ljk4NDI1MTk2ODUwMzk5NzQgMjUyLjI4MzcwMDc4NzQwMTQ3MTYgVGQKKEFOTkVYRVMpIFRqCkVUCkJUCi9GMiA4LjUgVGYKOS43NzQ5OTk5OTk5OTk5OTg2IFRMCjAuMjc1IDAuMjY3IDAuMjI3IHJnCjMyNS45ODQyNTE5Njg1MDM5OTc0IDIyNi43NzE4ODk3NjM3Nzk0MjcxIFRkCihQSE9UT1MpIFRqCkVUCmVuZHN0cmVhbQplbmRvYmoKNyAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL1Jlc291cmNlcyAyIDAgUgovTWVkaWFCb3ggWzAgMCA1OTUuMjc5OTk5OTk5OTk5OTcyNyA4NDEuODg5OTk5OTk5OTk5OTg2NF0KL0NvbnRlbnRzIDggMCBSCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9MZW5ndGggNDE0Nwo+PgpzdHJlYW0KMC41NjcwMDAwMDAwMDAwMDAxIHcKMCBHCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjI5IDAuMzI1IDAuMjc4IHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNzg1LjE5NzA4NjYxNDE3MzI1ODYgVGQKKDAxLikgVGoKRVQKQlQKL0YyIDEwIFRmCjExLjUgVEwKMC4yOSAwLjMyNSAwLjI3OCByZwo5MC43MDg2NjE0MTczMjI4NDQgNzg1LjE5NzA4NjYxNDE3MzI1ODYgVGQKKENPTVBURSBSRU5EVSBIRUJET01BREFJUkUpIFRqCkVUCjAuMjkgMC4zMyAwLjI4IHJnCjU0NC4yNTE5Njg1MDM5MzcwNjQzIDc5OS4zNzAzMTQ5NjA2Mjk5MTIxIDEuNDE3MzIyODM0NjQ1NjY5NCAtNzU2Ljg1MDM5MzcwMDc4NzQzNTYgcmUKZgpCVAovRjIgMTIgVGYKMTMuNzk5OTk5OTk5OTk5OTk4OSBUTAowLjE1NyAwLjE1NyAwLjEyNSByZwo1Ni42OTI5MTMzODU4MjY3Nzc1IDc1MS4xODEzMzg1ODI2NzcxOTkyIFRkCihJbnRlcnZlbmFudHMpIFRqCkVUCjAuMjQgMC4yMyAwLjE5IHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNzI4LjUwNDE3MzIyODM0NjQxNzEgNDgxLjg4OTc2Mzc3OTUyNzU4NDEgLTE5Ljg0MjUxOTY4NTAzOTM3MDQgcmUKZgpCVAovRjIgNi41IFRmCjcuNDc0OTk5OTk5OTk5OTk5NiBUTAoxLiBnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNzE0Ljg5Nzg3NDAxNTc0ODAxNjEgVGQKKFBhcnRpY2lwYW50XChzXCkpIFRqCkVUCkJUCi9GMiA2LjUgVGYKNy40NzQ5OTk5OTk5OTk5OTk2IFRMCjEuIGcKNDE5LjUyNzU1OTA1NTExODE2MDggNzE0Ljg5Nzg3NDAxNTc0ODAxNjEgVGQKKEludml0LikgVGoKRVQKQlQKL0YyIDYuNSBUZgo3LjQ3NDk5OTk5OTk5OTk5OTYgVEwKMS4gZwo0NTMuNTQzMzA3MDg2NjE0MjIwMiA3MTQuODk3ODc0MDE1NzQ4MDE2MSBUZAooUHLpcy4pIFRqCkVUCkJUCi9GMiA2LjUgVGYKNy40NzQ5OTk5OTk5OTk5OTk2IFRMCjEuIGcKNDg3LjU1OTA1NTExODExMDI3OTYgNzE0Ljg5Nzg3NDAxNTc0ODAxNjEgVGQKKEFicy4pIFRqCkVUCjAuOTcgMC45NiAwLjk0IHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNzA4LjY2MTY1MzU0MzMwNzAxMTIgNDgxLjg4OTc2Mzc3OTUyNzU4NDEgLTUxLjAyMzYyMjA0NzI0NDEwMzMgcmUKZgowLjg2IDAuODUgMC44IFJHCjAuNTY2OTI5MTMzODU4MjY3OCB3CjU2LjY5MjkxMzM4NTgyNjc3NzUgNzA4LjY2MTY1MzU0MzMwNzAxMTIgNDgxLjg4OTc2Mzc3OTUyNzU4NDEgLTUxLjAyMzYyMjA0NzI0NDEwMzMgcmUKUwpCVAovRjIgNyBUZgo4LjA0OTk5OTk5OTk5OTk5ODkgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDY5NC40ODg0MjUxOTY4NTAzNTc3IFRkCihFbnRyZXByaXNlIDogTE1QIERFU0lHTikgVGoKRVQKQlQKL0YxIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuMzkyIDAuMzg0IDAuMzQ1IHJnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNjgzLjE0OTg0MjUxOTY4NTA4MDMgVGQKKEVNQU5VRUwgUElSRVMpIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDY2MC40NzI2NzcxNjUzNTQyOTgzIFRkCihFLW1haWwgOiBsbXAuZGVzaWduQGhvdG1haWwuZnIpIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjQyNS4xOTY4NTAzOTM3MDA4NTYzIDY4Ny40MDE4MTEwMjM2MjIwMzA5IFRkCihYKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo0NTkuMjEyNTk4NDI1MTk2OTE1NyA2ODcuNDAxODExMDIzNjIyMDMwOSBUZAooWCkgVGoKRVQKMC44NiAwLjg1IDAuOCBSRwowLjU2NjkyOTEzMzg1ODI2Nzggdwo1Ni42OTI5MTMzODU4MjY3Nzc1IDY1Ny42MzgwMzE0OTYwNjI5MjIxIDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC01MS4wMjM2MjIwNDcyNDQxMDMzIHJlClMKQlQKL0YyIDcgVGYKOC4wNDk5OTk5OTk5OTk5OTg5IFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA2NDMuNDY0ODAzMTQ5NjA2MjY4NiBUZAooUGVpbnR1cmUgOiBUb3VydG91bG91KSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA2MzIuMTI2MjIwNDcyNDQwODc3NSBUZAooQWxleGFuZHJlIERlbmlzKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA2MDkuNDQ5MDU1MTE4MTEwMjA5MiBUZAooRS1tYWlsIDogYWRlbmlzQGF0ZWxpZXJ0b3VydG91bG91LmNvbSkgVGoKRVQKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNDI1LjE5Njg1MDM5MzcwMDg1NjMgNjM2LjM3ODE4ODk3NjM3Nzk0MTggVGQKKFgpIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjQ1OS4yMTI1OTg0MjUxOTY5MTU3IDYzNi4zNzgxODg5NzYzNzc5NDE4IFRkCihYKSBUagpFVAowLjk3IDAuOTYgMC45NCByZwo1Ni42OTI5MTMzODU4MjY3Nzc1IDYwNi42MTQ0MDk0NDg4MTg4MzMgNDgxLjg4OTc2Mzc3OTUyNzU4NDEgLTUxLjAyMzYyMjA0NzI0NDEwMzMgcmUKZgowLjg2IDAuODUgMC44IFJHCjAuNTY2OTI5MTMzODU4MjY3OCB3CjU2LjY5MjkxMzM4NTgyNjc3NzUgNjA2LjYxNDQwOTQ0ODgxODgzMyA0ODEuODg5NzYzNzc5NTI3NTg0MSAtNTEuMDIzNjIyMDQ3MjQ0MTAzMyByZQpTCkJUCi9GMiA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNTkyLjQ0MTE4MTEwMjM2MjE3OTQgVGQKKEVsZWN0cmljaXTpIDogQUpJUEVDKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1ODEuMTAyNTk4NDI1MTk2Nzg4NCBUZAooUm9iZXJ0byBDYXN0cm8pIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDU1OC40MjU0MzMwNzA4NjYxMiBUZAooRS1tYWlsIDogYWppcGVjNzhAZ21haWwuY29tKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo0MjUuMTk2ODUwMzkzNzAwODU2MyA1ODUuMzU0NTY2OTI5MTMzODUyNyBUZAooWCkgVGoKRVQKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNDU5LjIxMjU5ODQyNTE5NjkxNTcgNTg1LjM1NDU2NjkyOTEzMzg1MjcgVGQKKFgpIFRqCkVUCkJUCi9GMiA4LjUgVGYKOS43NzQ5OTk5OTk5OTk5OTg2IFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKMjAyLjA1NTI5NTI3NTU5MDU2NjUgNTMyLjkxMzYyMjA0NzI0NDA3NTUgVGQKKExhIHByb2NoYWluZSBy6XVuaW9uIGF1cmEgbGlldSBsZSAzMSBtYXJzIOAgMTFoKSBUagpFVApCVAovRjMgNyBUZgo4LjA0OTk5OTk5OTk5OTk5ODkgVEwKMC4zNTMgMC4zNDUgMC4zMDYgcmcKMTgxLjk5Nzc5NTI3NTU5MDU2MTkgNTE1LjkwNTc0ODAzMTQ5NTkzMjEgVGQKKExlIHBy6XNlbnQgY29tcHRlLXJlbmR1IGVzdCBjb250cmFjdHVlbCBldCBzZXJhIGNvbnNpZOly6SBjb21tZSBhY2NlcHTpKSBUagpFVApCVAovRjMgNyBUZgo4LjA0OTk5OTk5OTk5OTk5ODkgVEwKMC4zNTMgMC4zNDUgMC4zMDYgcmcKMTg4LjYxMjc5NTI3NTU5MDUxNDIgNTAxLjczMjUxOTY4NTAzOTMzNTQgVGQKKHNhdWYgY29udGVzdGF0aW9uIGRhbnMgbGVzIGh1aXQgam91cnMg4CBjb21wdGVyIGRlIGxhIHByb2NoYWluZSBy6XVuaW9uKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC41NDkgMC41NDkgMC41MSByZwoxMjkuMjc3Nzk1Mjc1NTkwNjQ4MyAxNC4xNzM0NjQ1NjY5MjkwNTU4IFRkCihTQVJMIFRSSSCXIDMgUlVFIERFIFBBUk1FIDc1MDA5IFBBUklTICC3ICBU6WwgOiAwMSA0OCA3NCA4MiAxMSAgtyAgY29udGFjdEBhZ2VuY2V0cmkuY29tICC3ICB3d3cucml2YXNhcmNoaXRlY3R1cmUuY29tKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjEgMCBvYmoKPDwvVHlwZSAvUGFnZXMKL0tpZHMgWzMgMCBSIDUgMCBSIDcgMCBSIF0KL0NvdW50IDMKPj4KZW5kb2JqCjkgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9IZWx2ZXRpY2EKL1N1YnR5cGUgL1R5cGUxCi9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMTAgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9IZWx2ZXRpY2EtQm9sZAovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoxMSAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL0hlbHZldGljYS1PYmxpcXVlCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjEyIDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGRPYmxpcXVlCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjEzIDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvQ291cmllcgovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoxNCAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL0NvdXJpZXItQm9sZAovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoxNSAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL0NvdXJpZXItT2JsaXF1ZQovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoxNiAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL0NvdXJpZXItQm9sZE9ibGlxdWUKL1N1YnR5cGUgL1R5cGUxCi9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMTcgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9UaW1lcy1Sb21hbgovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoxOCAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL1RpbWVzLUJvbGQKL1N1YnR5cGUgL1R5cGUxCi9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMTkgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9UaW1lcy1JdGFsaWMKL1N1YnR5cGUgL1R5cGUxCi9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMjAgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9UaW1lcy1Cb2xkSXRhbGljCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjIxIDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvWmFwZkRpbmdiYXRzCi9TdWJ0eXBlIC9UeXBlMQovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjIyIDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvU3ltYm9sCi9TdWJ0eXBlIC9UeXBlMQovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1Byb2NTZXQgWy9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUldCi9Gb250IDw8Ci9GMSA5IDAgUgovRjIgMTAgMCBSCi9GMyAxMSAwIFIKL0Y0IDEyIDAgUgovRjUgMTMgMCBSCi9GNiAxNCAwIFIKL0Y3IDE1IDAgUgovRjggMTYgMCBSCi9GOSAxNyAwIFIKL0YxMCAxOCAwIFIKL0YxMSAxOSAwIFIKL0YxMiAyMCAwIFIKL0YxMyAyMSAwIFIKL0YxNCAyMiAwIFIKPj4KL1hPYmplY3QgPDwKPj4KPj4KZW5kb2JqCjIzIDAgb2JqCjw8Ci9Qcm9kdWNlciAoanNQREYgMi41LjEpCi9DcmVhdGlvbkRhdGUgKEQ6MjAyNjAzMjYxNDMxMjQrMDEnMDAnKQo+PgplbmRvYmoKMjQgMCBvYmoKPDwKL1R5cGUgL0NhdGFsb2cKL1BhZ2VzIDEgMCBSCi9PcGVuQWN0aW9uIFszIDAgUiAvRml0SCBudWxsXQovUGFnZUxheW91dCAvT25lQ29sdW1uCj4+CmVuZG9iagp4cmVmCjAgMjUKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDA3MjE5IDAwMDAwIG4gCjAwMDAwMDkwNTIgMDAwMDAgbiAKMDAwMDAwMDAxNSAwMDAwMCBuIAowMDAwMDAwMTUyIDAwMDAwIG4gCjAwMDAwMDEwNDcgMDAwMDAgbiAKMDAwMDAwMTE4NCAwMDAwMCBuIAowMDAwMDAyODgzIDAwMDAwIG4gCjAwMDAwMDMwMjAgMDAwMDAgbiAKMDAwMDAwNzI4OCAwMDAwMCBuIAowMDAwMDA3NDEzIDAwMDAwIG4gCjAwMDAwMDc1NDQgMDAwMDAgbiAKMDAwMDAwNzY3OCAwMDAwMCBuIAowMDAwMDA3ODE2IDAwMDAwIG4gCjAwMDAwMDc5NDAgMDAwMDAgbiAKMDAwMDAwODA2OSAwMDAwMCBuIAowMDAwMDA4MjAxIDAwMDAwIG4gCjAwMDAwMDgzMzcgMDAwMDAgbiAKMDAwMDAwODQ2NSAwMDAwMCBuIAowMDAwMDA4NTkyIDAwMDAwIG4gCjAwMDAwMDg3MjEgMDAwMDAgbiAKMDAwMDAwODg1NCAwMDAwMCBuIAowMDAwMDA4OTU2IDAwMDAwIG4gCjAwMDAwMDkzMDQgMDAwMDAgbiAKMDAwMDAwOTM5MCAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9TaXplIDI1Ci9Sb290IDI0IDAgUgovSW5mbyAyMyAwIFIKL0lEIFsgPEEyRTcyMjQxNkQ5OUJERTg5OTg4RTNFM0U4MTg0MzQxPiA8QTJFNzIyNDE2RDk5QkRFODk5ODhFM0UzRTgxODQzNDE+IF0KPj4Kc3RhcnR4cmVmCjk0OTQKJSVFT0Y="
+    },
+    {
+      "id": 375,
+      "pi": 0,
+      "date": "2026-03-26T15:35:50.066Z",
+      "dateStr": "26.03.2026",
+      "proj": "MATCHPLAY",
+      "pdf": "data:application/pdf;filename=generated.pdf;base64,JVBERi0xLjMKJbrfrOAKMyAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL1Jlc291cmNlcyAyIDAgUgovTWVkaWFCb3ggWzAgMCA1OTUuMjc5OTk5OTk5OTk5OTcyNyA4NDEuODg5OTk5OTk5OTk5OTg2NF0KL0NvbnRlbnRzIDQgMCBSCj4+CmVuZG9iago0IDAgb2JqCjw8Ci9MZW5ndGggODQ1Cj4+CnN0cmVhbQowLjU2NzAwMDAwMDAwMDAwMDEgdwowIEcKMC4yOSAwLjMzIDAuMjggcmcKMC4gODQxLjg4OTk5OTk5OTk5OTk4NjQgNTk1LjI3NTU5MDU1MTE4MTE1MzQgLTg0MS44ODk3NjM3Nzk1Mjc2OTc4IHJlCmYKQlQKL0YyIDMwIFRmCjM0LjUgVEwKMS4gZwoyMDYuMjg3Nzk1Mjc1NTkwNTgyNCA2OTQuNDg4NDI1MTk2ODUwMzU3NyBUZAooVE9OWSBSSVZBUykgVGoKRVQKQlQKL0YzIDEyIFRmCjEzLjc5OTk5OTk5OTk5OTk5ODkgVEwKMC43ODQgMC44MDQgMC43NjUgcmcKMjQwLjY5Nzc5NTI3NTU5MDU3OSA2NjYuMTQxOTY4NTAzOTM2OTM2OSBUZAooVGFsbGVyIGRlIEFycXVpdGVjdHVyYSkgVGoKRVQKQlQKL0YyIDExIFRmCjEyLjY0OTk5OTk5OTk5OTk5ODYgVEwKMS4gZwo3MC44NjYxNDE3MzIyODM0NjY2IDU3Mi41OTg2NjE0MTczMjI3NzM2IFRkCihNQVRDSFBMQVkpIFRqCkVUCjEuIGcKNDQ3Ljg3NDAxNTc0ODAzMTUyNDcgNTcyLjU5ODY2MTQxNzMyMjc3MzYgNzkuMzcwMDc4NzQwMTU3NDgxNCAtNDM5LjM3MDA3ODc0MDE1NzUwOTkgcmUKZgpCVAovRjEgNi41IFRmCjcuNDc0OTk5OTk5OTk5OTk5NiBUTAowLjI5IDAuMzI1IDAuMjc4IHJnCjAuMDAwMDAwMDAwMDAwMDAwMSAxLiAtMS4gMC4wMDAwMDAwMDAwMDAwMDAxIDQxMS4yMzQ3NjM3Nzk1Mjc1NTQ2IDE2MS41NzUwMzkzNzAwNzg2ODQ0IFRtCihDT01QVEUgUkVORFUgREUgQ0hBTlRJRVIgIF8gIDI2LjAzLjIwMjYpIFRqCkVUCkJUCi9GMiA5IFRmCjEwLjM0OTk5OTk5OTk5OTk5OTYgVEwKMC43ODQgMC44MDQgMC43NjUgcmcKNzkuMzcwMDc4NzQwMTU3NDgxNCA1My44NTg1MDM5MzcwMDc3NTM4IFRkCihUb255IFJpdmFzKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjUgMCBvYmoKPDwvVHlwZSAvUGFnZQovUGFyZW50IDEgMCBSCi9SZXNvdXJjZXMgMiAwIFIKL01lZGlhQm94IFswIDAgNTk1LjI3OTk5OTk5OTk5OTk3MjcgODQxLjg4OTk5OTk5OTk5OTk4NjRdCi9Db250ZW50cyA2IDAgUgo+PgplbmRvYmoKNiAwIG9iago8PAovTGVuZ3RoIDE2NDcKPj4Kc3RyZWFtCjAuNTY3MDAwMDAwMDAwMDAwMSB3CjAgRwowLjkzIDAuOTEgMC44NSByZwowLiA4NDEuODg5OTk5OTk5OTk5OTg2NCA1OTUuMjc1NTkwNTUxMTgxMTUzNCAtODQxLjg4OTc2Mzc3OTUyNzY5NzggcmUKZgpCVAovRjIgMTQgVGYKMTYuMDk5OTk5OTk5OTk5OTk3OSBUTAowLjIzNSAwLjIzNSAwLjE5NiByZwo3MC44NjYxNDE3MzIyODM0NjY2IDczNC4xNzM0NjQ1NjY5MjkxNjk1IFRkCihTT01NQUlSRSkgVGoKRVQKQlQKL0YyIDQ0IFRmCjUwLjU5OTk5OTk5OTk5OTk5NDMgVEwKMC43MjUgMC43MDYgMC42NDcgcmcKNzAuODY2MTQxNzMyMjgzNDY2NiA1NTguNDI1NDMzMDcwODY2MTIgVGQKKDAxLikgVGoKRVQKQlQKL0YyIDguNSBUZgo5Ljc3NDk5OTk5OTk5OTk5ODYgVEwKMC4yNzUgMC4yNjcgMC4yMjcgcmcKNzAuODY2MTQxNzMyMjgzNDY2NiA1MjEuNTc1MDM5MzcwMDc4Njg0NCBUZAooQ09NUFRFIFJFTkRVKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwo3MC44NjYxNDE3MzIyODM0NjY2IDQ5Ni4wNjMyMjgzNDY0NTY2Mzk5IFRkCihIRUJET01BREFJUkUpIFRqCkVUCkJUCi9GMiA0NCBUZgo1MC41OTk5OTk5OTk5OTk5OTQzIFRMCjAuNzI1IDAuNzA2IDAuNjQ3IHJnCjMyNS45ODQyNTE5Njg1MDM5OTc0IDU1OC40MjU0MzMwNzA4NjYxMiBUZAooMDIuKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwozMjUuOTg0MjUxOTY4NTAzOTk3NCA1MjEuNTc1MDM5MzcwMDc4Njg0NCBUZAooRUxFTUVOVFMpIFRqCkVUCkJUCi9GMiA4LjUgVGYKOS43NzQ5OTk5OTk5OTk5OTg2IFRMCjAuMjc1IDAuMjY3IDAuMjI3IHJnCjMyNS45ODQyNTE5Njg1MDM5OTc0IDQ5Ni4wNjMyMjgzNDY0NTY2Mzk5IFRkCihDTEVGUykgVGoKRVQKQlQKL0YyIDQ0IFRmCjUwLjU5OTk5OTk5OTk5OTk5NDMgVEwKMC43MjUgMC43MDYgMC42NDcgcmcKNzAuODY2MTQxNzMyMjgzNDY2NiAyODkuMTM0MDk0NDg4MTg4OTA3MiBUZAooMDMuKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwo3MC44NjYxNDE3MzIyODM0NjY2IDI1Mi4yODM3MDA3ODc0MDE0NzE2IFRkCihSQVBQRUwgREVTIEVMRU1FTlRTKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwo3MC44NjYxNDE3MzIyODM0NjY2IDIyNi43NzE4ODk3NjM3Nzk0MjcxIFRkCihTVFJVQ1RVUkFOVFMpIFRqCkVUCkJUCi9GMiA0NCBUZgo1MC41OTk5OTk5OTk5OTk5OTQzIFRMCjAuNzI1IDAuNzA2IDAuNjQ3IHJnCjMyNS45ODQyNTE5Njg1MDM5OTc0IDI4OS4xMzQwOTQ0ODgxODg5MDcyIFRkCigwNC4pIFRqCkVUCkJUCi9GMiA4LjUgVGYKOS43NzQ5OTk5OTk5OTk5OTg2IFRMCjAuMjc1IDAuMjY3IDAuMjI3IHJnCjMyNS45ODQyNTE5Njg1MDM5OTc0IDI1Mi4yODM3MDA3ODc0MDE0NzE2IFRkCihBTk5FWEVTKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwozMjUuOTg0MjUxOTY4NTAzOTk3NCAyMjYuNzcxODg5NzYzNzc5NDI3MSBUZAooUEhPVE9TKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjcgMCBvYmoKPDwvVHlwZSAvUGFnZQovUGFyZW50IDEgMCBSCi9SZXNvdXJjZXMgMiAwIFIKL01lZGlhQm94IFswIDAgNTk1LjI3OTk5OTk5OTk5OTk3MjcgODQxLjg4OTk5OTk5OTk5OTk4NjRdCi9Db250ZW50cyA4IDAgUgo+PgplbmRvYmoKOCAwIG9iago8PAovTGVuZ3RoIDYzMzgKPj4Kc3RyZWFtCjAuNTY3MDAwMDAwMDAwMDAwMSB3CjAgRwpCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4yOSAwLjMyNSAwLjI3OCByZwo1Ni42OTI5MTMzODU4MjY3Nzc1IDc4NS4xOTcwODY2MTQxNzMyNTg2IFRkCigwMS4pIFRqCkVUCkJUCi9GMiAxMCBUZgoxMS41IFRMCjAuMjkgMC4zMjUgMC4yNzggcmcKOTAuNzA4NjYxNDE3MzIyODQ0IDc4NS4xOTcwODY2MTQxNzMyNTg2IFRkCihDT01QVEUgUkVORFUgSEVCRE9NQURBSVJFKSBUagpFVAowLjI5IDAuMzMgMC4yOCByZwo1NDQuMjUxOTY4NTAzOTM3MDY0MyA3OTkuMzcwMzE0OTYwNjI5OTEyMSAxLjQxNzMyMjgzNDY0NTY2OTQgLTc1Ni44NTAzOTM3MDA3ODc0MzU2IHJlCmYKQlQKL0YyIDEyIFRmCjEzLjc5OTk5OTk5OTk5OTk5ODkgVEwKMC4xNTcgMC4xNTcgMC4xMjUgcmcKNTYuNjkyOTEzMzg1ODI2Nzc3NSA3NTEuMTgxMzM4NTgyNjc3MTk5MiBUZAooSW50ZXJ2ZW5hbnRzKSBUagpFVAowLjI0IDAuMjMgMC4xOSByZwo1Ni42OTI5MTMzODU4MjY3Nzc1IDcyOC41MDQxNzMyMjgzNDY0MTcxIDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC0xOS44NDI1MTk2ODUwMzkzNzA0IHJlCmYKQlQKL0YyIDYuNSBUZgo3LjQ3NDk5OTk5OTk5OTk5OTYgVEwKMS4gZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDcxNC44OTc4NzQwMTU3NDgwMTYxIFRkCihQYXJ0aWNpcGFudFwoc1wpKSBUagpFVApCVAovRjIgNi41IFRmCjcuNDc0OTk5OTk5OTk5OTk5NiBUTAoxLiBnCjQxOS41Mjc1NTkwNTUxMTgxNjA4IDcxNC44OTc4NzQwMTU3NDgwMTYxIFRkCihJbnZpdC4pIFRqCkVUCkJUCi9GMiA2LjUgVGYKNy40NzQ5OTk5OTk5OTk5OTk2IFRMCjEuIGcKNDUzLjU0MzMwNzA4NjYxNDIyMDIgNzE0Ljg5Nzg3NDAxNTc0ODAxNjEgVGQKKFBy6XMuKSBUagpFVApCVAovRjIgNi41IFRmCjcuNDc0OTk5OTk5OTk5OTk5NiBUTAoxLiBnCjQ4Ny41NTkwNTUxMTgxMTAyNzk2IDcxNC44OTc4NzQwMTU3NDgwMTYxIFRkCihBYnMuKSBUagpFVAowLjk3IDAuOTYgMC45NCByZwo1Ni42OTI5MTMzODU4MjY3Nzc1IDcwOC42NjE2NTM1NDMzMDcwMTEyIDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC01MS4wMjM2MjIwNDcyNDQxMDMzIHJlCmYKMC44NiAwLjg1IDAuOCBSRwowLjU2NjkyOTEzMzg1ODI2Nzggdwo1Ni42OTI5MTMzODU4MjY3Nzc1IDcwOC42NjE2NTM1NDMzMDcwMTEyIDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC01MS4wMjM2MjIwNDcyNDQxMDMzIHJlClMKQlQKL0YyIDcgVGYKOC4wNDk5OTk5OTk5OTk5OTg5IFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA2OTQuNDg4NDI1MTk2ODUwMzU3NyBUZAooQXJjaGl0ZWN0ZSA6IFNBUkwgVFJJKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA2ODMuMTQ5ODQyNTE5Njg1MDgwMyBUZAooTS4gUml2YXMpIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDY3MS44MTEyNTk4NDI1MTk2ODkzIFRkCihU6WwgOiAwMSA0OCA3NCA4MiAxMSkgVGoKRVQKQlQKL0YxIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuMzkyIDAuMzg0IDAuMzQ1IHJnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNjYwLjQ3MjY3NzE2NTM1NDI5ODMgVGQKKEUtbWFpbCA6IGNvbnRhY3RAYWdlbmNldHJpLmNvbSkgVGoKRVQKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNDI1LjE5Njg1MDM5MzcwMDg1NjMgNjg3LjQwMTgxMTAyMzYyMjAzMDkgVGQKKFgpIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjQ1OS4yMTI1OTg0MjUxOTY5MTU3IDY4Ny40MDE4MTEwMjM2MjIwMzA5IFRkCihYKSBUagpFVAowLjg2IDAuODUgMC44IFJHCjAuNTY2OTI5MTMzODU4MjY3OCB3CjU2LjY5MjkxMzM4NTgyNjc3NzUgNjU3LjYzODAzMTQ5NjA2MjkyMjEgNDgxLjg4OTc2Mzc3OTUyNzU4NDEgLTUxLjAyMzYyMjA0NzI0NDEwMzMgcmUKUwpCVAovRjIgNyBUZgo4LjA0OTk5OTk5OTk5OTk5ODkgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDY0My40NjQ4MDMxNDk2MDYyNjg2IFRkCihNYedvbm5lcmllIDogV09STERCQVQpIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDYzMi4xMjYyMjA0NzI0NDA4Nzc1IFRkCihNLiBSb21pdG8pIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDYyMC43ODc2Mzc3OTUyNzU0ODY1IFRkCihU6WwgOiAwNiAxOSAwMiA3OCA4OSkgVGoKRVQKQlQKL0YxIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuMzkyIDAuMzg0IDAuMzQ1IHJnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNjA5LjQ0OTA1NTExODExMDIwOTIgVGQKKEUtbWFpbCA6IGNvbnRhY3Qud29ybGRiYXRAZ21haWwuY29tKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo0MjUuMTk2ODUwMzkzNzAwODU2MyA2MzYuMzc4MTg4OTc2Mzc3OTQxOCBUZAooWCkgVGoKRVQKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNDU5LjIxMjU5ODQyNTE5NjkxNTcgNjM2LjM3ODE4ODk3NjM3Nzk0MTggVGQKKFgpIFRqCkVUCjAuOTcgMC45NiAwLjk0IHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNjA2LjYxNDQwOTQ0ODgxODgzMyA0ODEuODg5NzYzNzc5NTI3NTg0MSAtNTEuMDIzNjIyMDQ3MjQ0MTAzMyByZQpmCjAuODYgMC44NSAwLjggUkcKMC41NjY5MjkxMzM4NTgyNjc4IHcKNTYuNjkyOTEzMzg1ODI2Nzc3NSA2MDYuNjE0NDA5NDQ4ODE4ODMzIDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC01MS4wMjM2MjIwNDcyNDQxMDMzIHJlClMKQlQKL0YyIDcgVGYKOC4wNDk5OTk5OTk5OTk5OTg5IFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1OTIuNDQxMTgxMTAyMzYyMTc5NCBUZAooUGxvbWJpZXIgOiBKRUFOIExVQ1kpIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDU4MS4xMDI1OTg0MjUxOTY3ODg0IFRkCihNLiBCYWduZXV4KSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1NjkuNzY0MDE1NzQ4MDMxMzk3NCBUZAooVOlsIDogMDEgNDUgODMgNDggNDYpIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDU1OC40MjU0MzMwNzA4NjYxMiBUZAooRS1tYWlsIDogY29udGFjdEBqZWFubHVjdi5jb20pIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjQyNS4xOTY4NTAzOTM3MDA4NTYzIDU4NS4zNTQ1NjY5MjkxMzM4NTI3IFRkCihYKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo0NTkuMjEyNTk4NDI1MTk2OTE1NyA1ODUuMzU0NTY2OTI5MTMzODUyNyBUZAooWCkgVGoKRVQKMC44NiAwLjg1IDAuOCBSRwowLjU2NjkyOTEzMzg1ODI2Nzggdwo1Ni42OTI5MTMzODU4MjY3Nzc1IDU1NS41OTA3ODc0MDE1NzQ3NDM5IDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC01MS4wMjM2MjIwNDcyNDQxMDMzIHJlClMKQlQKL0YyIDcgVGYKOC4wNDk5OTk5OTk5OTk5OTg5IFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1NDEuNDE3NTU5MDU1MTE4MDkwMyBUZAooyWxlY3RyaWNpZW4gOiBEQU5FTEVDKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1MzAuMDc4OTc2Mzc3OTUyNjk5MyBUZAooTS4gWmFmZnJhbikgVGoKRVQKQlQKL0YxIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuMzkyIDAuMzg0IDAuMzQ1IHJnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNTE4Ljc0MDM5MzcwMDc4NzMwODMgVGQKKFTpbCA6IDA2IDA5IDc4IDYxIDQxKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1MDcuNDAxODExMDIzNjIxOTc0MSBUZAooRS1tYWlsIDogZGlyZWN0aW9uQGRhbi1lbGVjLmZyKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo0MjUuMTk2ODUwMzkzNzAwODU2MyA1MzQuMzMwOTQ0ODgxODg5NzYzNiBUZAooWCkgVGoKRVQKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNDU5LjIxMjU5ODQyNTE5NjkxNTcgNTM0LjMzMDk0NDg4MTg4OTc2MzYgVGQKKFgpIFRqCkVUCjAuOTcgMC45NiAwLjk0IHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNTA0LjU2NzE2NTM1NDMzMDY1NDcgNDgxLjg4OTc2Mzc3OTUyNzU4NDEgLTUxLjAyMzYyMjA0NzI0NDEwMzMgcmUKZgowLjg2IDAuODUgMC44IFJHCjAuNTY2OTI5MTMzODU4MjY3OCB3CjU2LjY5MjkxMzM4NTgyNjc3NzUgNTA0LjU2NzE2NTM1NDMzMDY1NDcgNDgxLjg4OTc2Mzc3OTUyNzU4NDEgLTUxLjAyMzYyMjA0NzI0NDEwMzMgcmUKUwpCVAovRjIgNyBUZgo4LjA0OTk5OTk5OTk5OTk5ODkgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDQ5MC4zOTM5MzcwMDc4NzM5NDQ0IFRkCihDbGltYXRpc2F0aW9uIDogQ0xJTUFEQU5FKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA0NzkuMDU1MzU0MzMwNzA4NjEwMiBUZAooTS4gQml0dGFuKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA0NjcuNzE2NzcxNjUzNTQzMjc2IFRkCihU6WwgOiAwMSA0OCAwNyAxOSAxOSkgVGoKRVQKQlQKL0YxIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuMzkyIDAuMzg0IDAuMzQ1IHJnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNDU2LjM3ODE4ODk3NjM3Nzg4NSBUZAooRS1tYWlsIDogYnVyZWF1LmV0dWRlQGNsaW1hZGFuZS5jb20pIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjQyNS4xOTY4NTAzOTM3MDA4NTYzIDQ4My4zMDczMjI4MzQ2NDU2MTc2IFRkCihYKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo0OTMuMjI4MzQ2NDU2NjkyOTc1MiA0ODMuMzA3MzIyODM0NjQ1NjE3NiBUZAooWCkgVGoKRVQKQlQKL0YyIDguNSBUZgo5Ljc3NDk5OTk5OTk5OTk5ODYgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwoyMDIuMDU1Mjk1Mjc1NTkwNTY2NSA0MzAuODY2Mzc3OTUyNzU1ODQwNCBUZAooTGEgcHJvY2hhaW5lIHLpdW5pb24gYXVyYSBsaWV1IGxlIDMxIG1hcnMg4CAxMWgpIFRqCkVUCkJUCi9GMyA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAowLjM1MyAwLjM0NSAwLjMwNiByZwoxODEuOTk3Nzk1Mjc1NTkwNTYxOSA0MTMuODU4NTAzOTM3MDA3ODEwNyBUZAooTGUgcHLpc2VudCBjb21wdGUtcmVuZHUgZXN0IGNvbnRyYWN0dWVsIGV0IHNlcmEgY29uc2lk6XLpIGNvbW1lIGFjY2VwdOkpIFRqCkVUCkJUCi9GMyA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAowLjM1MyAwLjM0NSAwLjMwNiByZwoxODguNjEyNzk1Mjc1NTkwNTE0MiAzOTkuNjg1Mjc1NTkwNTUxMTAwMyBUZAooc2F1ZiBjb250ZXN0YXRpb24gZGFucyBsZXMgaHVpdCBqb3VycyDgIGNvbXB0ZXIgZGUgbGEgcHJvY2hhaW5lIHLpdW5pb24pIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjU0OSAwLjU0OSAwLjUxIHJnCjEyOS4yNzc3OTUyNzU1OTA2NDgzIDE0LjE3MzQ2NDU2NjkyOTA1NTggVGQKKFNBUkwgVFJJIJcgMyBSVUUgREUgUEFSTUUgNzUwMDkgUEFSSVMgILcgIFTpbCA6IDAxIDQ4IDc0IDgyIDExICC3ICBjb250YWN0QGFnZW5jZXRyaS5jb20gILcgIHd3dy5yaXZhc2FyY2hpdGVjdHVyZS5jb20pIFRqCkVUCmVuZHN0cmVhbQplbmRvYmoKOSAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL1Jlc291cmNlcyAyIDAgUgovTWVkaWFCb3ggWzAgMCA1OTUuMjc5OTk5OTk5OTk5OTcyNyA4NDEuODg5OTk5OTk5OTk5OTg2NF0KL0NvbnRlbnRzIDEwIDAgUgo+PgplbmRvYmoKMTAgMCBvYmoKPDwKL0xlbmd0aCAyMzk5Cj4+CnN0cmVhbQowLjU2NjkyOTEzMzg1ODI2NzggdwowLjg2IDAuODUgMC44IFJHCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjI5IDAuMzI1IDAuMjc4IHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNzg1LjE5NzA4NjYxNDE3MzI1ODYgVGQKKDAyLikgVGoKRVQKQlQKL0YyIDEwIFRmCjExLjUgVEwKMC4yOSAwLjMyNSAwLjI3OCByZwo5MC43MDg2NjE0MTczMjI4NDQgNzg1LjE5NzA4NjYxNDE3MzI1ODYgVGQKKEVMRU1FTlRTIENMRUZTIJcgUklEQSkgVGoKRVQKMC4yOSAwLjMzIDAuMjggcmcKNTQ0LjI1MTk2ODUwMzkzNzA2NDMgNzk5LjM3MDMxNDk2MDYyOTkxMjEgMS40MTczMjI4MzQ2NDU2Njk0IC03NTYuODUwMzkzNzAwNzg3NDM1NiByZQpmCjAuMTIgMC4yNSAwLjQyIHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNzU2Ljg1MDYyOTkyMTI1OTgzNzggMTkuODQyNTE5Njg1MDM5MzcwNCAtNzkuMzcwMDc4NzQwMTU3NDgxNCByZQpmCkJUCi9GMiA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAoxLiBnCjY2LjYxNDE3MzIyODM0NjQ1OTIgNzQyLjY3NzQwMTU3NDgwMzA3MDYgVGQKKEQpIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjg1LjAzOTM3MDA3ODc0MDE2MjcgNzQyLjY3NzQwMTU3NDgwMzA3MDYgVGQKKENoYXBlKSBUagpFVApCVAovRjEgNyBUZgo4LjA0OTk5OTk5OTk5OTk5ODkgVEwKMC4yNzUgMC4yNjcgMC4yMjcgcmcKODUuMDM5MzcwMDc4NzQwMTYyNyA3MjguNTA0MTczMjI4MzQ2NDE3MSBUZAooQ2hhcGVzIEV4cGVydHMgbGUgMDQuMDIuIFNpdGUgZmVybekganVzcXUnYXUgMDguMDIuKSBUagpFVApCVAovRjMgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC40NzEgMC40NjMgMC40MjQgcmcKODUuMDM5MzcwMDc4NzQwMTYyNyA3MTEuNDk2Mjk5MjEyNTk4Mzg3NCBUZAooIZIAIABDAEgAQQBQAEUAUwAgAEUAWABQAEUAUgBUAFMpIFRqCkVUCjAuNTUgMC4zOCAwLiByZwo1Ni42OTI5MTMzODU4MjY3Nzc1IDY2My4zMDczMjI4MzQ2NDU2NzQ0IDE5Ljg0MjUxOTY4NTAzOTM3MDQgLTc5LjM3MDA3ODc0MDE1NzQ4MTQgcmUKZgpCVAovRjIgNyBUZgo4LjA0OTk5OTk5OTk5OTk5ODkgVEwKMS4gZwo2Ni42MTQxNzMyMjgzNDY0NTkyIDY0OS4xMzQwOTQ0ODgxODg5MDcyIFRkCihBKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo4NS4wMzkzNzAwNzg3NDAxNjI3IDY0OS4xMzQwOTQ0ODgxODg5MDcyIFRkCihDb21tYW5kZXMpIFRqCkVUCkJUCi9GMSA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwo4NS4wMzkzNzAwNzg3NDAxNjI3IDYzNC45NjA4NjYxNDE3MzIyNTM3IFRkCihSb2JpbmV0dGVyaWUgJiDpbGVjdHJvbeluYWdlciCXIGNvbmZpcm1lciBy6WbpcmVuY2VzIHVyZ2VuY2UuKSBUagpFVApCVAovRjMgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC40NzEgMC40NjMgMC40MjQgcmcKODUuMDM5MzcwMDc4NzQwMTYyNyA2MTcuOTUyOTkyMTI1OTg0MjI0IFRkCighkgAgAE0ALgBPAC4pIFRqCkVUCjAuMTcgMC4zOCAwLjI4IHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNTY5Ljc2NDAxNTc0ODAzMTM5NzQgMTkuODQyNTE5Njg1MDM5MzcwNCAtNzkuMzcwMDc4NzQwMTU3NDgxNCByZQpmCkJUCi9GMiA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAoxLiBnCjY2LjYxNDE3MzIyODM0NjQ1OTIgNTU1LjU5MDc4NzQwMTU3NDc0MzkgVGQKKEkpIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjg1LjAzOTM3MDA3ODc0MDE2MjcgNTU1LjU5MDc4NzQwMTU3NDc0MzkgVGQKKFBlaW50dXJlKSBUagpFVApCVAovRjEgNyBUZgo4LjA0OTk5OTk5OTk5OTk5ODkgVEwKMC4yNzUgMC4yNjcgMC4yMjcgcmcKODUuMDM5MzcwMDc4NzQwMTYyNyA1NDEuNDE3NTU5MDU1MTE4MDkwMyBUZAooyWNoYW50aWxsb25zIHBvc+lzLiBWYWxpZGF0aW9uIHByb2NoYWluZSBy6XVuaW9uLikgVGoKRVQKQlQKL0YzIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuNDcxIDAuNDYzIDAuNDI0IHJnCjg1LjAzOTM3MDA3ODc0MDE2MjcgNTI0LjQwOTY4NTAzOTM3MDA2MDYgVGQKKCGSACAAVwBPAFIATABEAEIAQQBUKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC41NDkgMC41NDkgMC41MSByZwoxMjkuMjc3Nzk1Mjc1NTkwNjQ4MyAxNC4xNzM0NjQ1NjY5MjkwNTU4IFRkCihTQVJMIFRSSSCXIDMgUlVFIERFIFBBUk1FIDc1MDA5IFBBUklTICC3ICBU6WwgOiAwMSA0OCA3NCA4MiAxMSAgtyAgY29udGFjdEBhZ2VuY2V0cmkuY29tICC3ICB3d3cucml2YXNhcmNoaXRlY3R1cmUuY29tKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjExIDAgb2JqCjw8L1R5cGUgL1BhZ2UKL1BhcmVudCAxIDAgUgovUmVzb3VyY2VzIDIgMCBSCi9NZWRpYUJveCBbMCAwIDU5NS4yNzk5OTk5OTk5OTk5NzI3IDg0MS44ODk5OTk5OTk5OTk5ODY0XQovQ29udGVudHMgMTIgMCBSCj4+CmVuZG9iagoxMiAwIG9iago8PAovTGVuZ3RoIDIyMDUKPj4Kc3RyZWFtCjAuNTY2OTI5MTMzODU4MjY3OCB3CjAuODYgMC44NSAwLjggUkcKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMjkgMC4zMjUgMC4yNzggcmcKNTYuNjkyOTEzMzg1ODI2Nzc3NSA3ODUuMTk3MDg2NjE0MTczMjU4NiBUZAooMDMuKSBUagpFVApCVAovRjIgMTAgVGYKMTEuNSBUTAowLjI5IDAuMzI1IDAuMjc4IHJnCjkwLjcwODY2MTQxNzMyMjg0NCA3ODUuMTk3MDg2NjE0MTczMjU4NiBUZAooUkFQUEVMIERFUyDJTMlNRU5UUyBTVFJVQ1RVUkFOVFMpIFRqCkVUCjAuMjkgMC4zMyAwLjI4IHJnCjU0NC4yNTE5Njg1MDM5MzcwNjQzIDc5OS4zNzAzMTQ5NjA2Mjk5MTIxIDEuNDE3MzIyODM0NjQ1NjY5NCAtNzU2Ljg1MDM5MzcwMDc4NzQzNTYgcmUKZgowLjU1IDAuMTMgMC4xMyByZwo2Ni42MTQxNzMyMjgzNDY0NTkyIDc0Ni45MjkzNzAwNzg3NDAxMzQ5IG0KNjYuNjE0MTczMjI4MzQ2NDU5MiA3NDkuMjc3NjY3NDQwMjI1NDAwMiA2NC43MTA1MDIwODU4OTQ3MTcxIDc1MS4xODEzMzg1ODI2NzcwODU1IDYyLjM2MjIwNDcyNDQwOTQ1MTcgNzUxLjE4MTMzODU4MjY3NzA4NTUgYwo2MC4wMTM5MDczNjI5MjQxODY0IDc1MS4xODEzMzg1ODI2NzcwODU1IDU4LjExMDIzNjIyMDQ3MjQ0NDMgNzQ5LjI3NzY2NzQ0MDIyNTQwMDIgNTguMTEwMjM2MjIwNDcyNDQ0MyA3NDYuOTI5MzcwMDc4NzQwMTM0OSBjCjU4LjExMDIzNjIyMDQ3MjQ0NDMgNzQ0LjU4MTA3MjcxNzI1NDc1NTggNjAuMDEzOTA3MzYyOTI0MTg2NCA3NDIuNjc3NDAxNTc0ODAzMDcwNiA2Mi4zNjIyMDQ3MjQ0MDk0NTE3IDc0Mi42Nzc0MDE1NzQ4MDMwNzA2IGMKNjQuNzEwNTAyMDg1ODk0NzE3MSA3NDIuNjc3NDAxNTc0ODAzMDcwNiA2Ni42MTQxNzMyMjgzNDY0NTkyIDc0NC41ODEwNzI3MTcyNTQ3NTU4IDY2LjYxNDE3MzIyODM0NjQ1OTIgNzQ2LjkyOTM3MDA3ODc0MDEzNDkgYwpmCkJUCi9GMiA3LjUgVGYKOC42MjUgVEwKMC41NDUgMC4xMjUgMC4xMjUgcmcKNzYuNTM1NDMzMDcwODY2MTQ3OSA3NDIuNjc3NDAxNTc0ODAzMDcwNiBUZAooMTIuMTIgOiApIFRqCkVUCkJUCi9GMSA3LjUgVGYKOC42MjUgVEwKMC4yMzUgMC4yMjcgMC4xODggcmcKMTQxLjczMjI4MzQ2NDU2NjkzMzIgNzQyLjY3NzQwMTU3NDgwMzA3MDYgVGQKKENvbW1hbmRlIHJvYmluZXR0ZXJpZSB1cmdlbnRlKSBUagpFVAowLjU1IDAuMTMgMC4xMyByZwo2Ni42MTQxNzMyMjgzNDY0NTkyIDcyNC4yNTIyMDQ3MjQ0MDk0NjY1IG0KNjYuNjE0MTczMjI4MzQ2NDU5MiA3MjYuNjAwNTAyMDg1ODk0NzMxOSA2NC43MTA1MDIwODU4OTQ3MTcxIDcyOC41MDQxNzMyMjgzNDY0MTcxIDYyLjM2MjIwNDcyNDQwOTQ1MTcgNzI4LjUwNDE3MzIyODM0NjQxNzEgYwo2MC4wMTM5MDczNjI5MjQxODY0IDcyOC41MDQxNzMyMjgzNDY0MTcxIDU4LjExMDIzNjIyMDQ3MjQ0NDMgNzI2LjYwMDUwMjA4NTg5NDczMTkgNTguMTEwMjM2MjIwNDcyNDQ0MyA3MjQuMjUyMjA0NzI0NDA5NDY2NSBjCjU4LjExMDIzNjIyMDQ3MjQ0NDMgNzIxLjkwMzkwNzM2MjkyNDIwMTIgNjAuMDEzOTA3MzYyOTI0MTg2NCA3MjAuMDAwMjM2MjIwNDcyNDAyMiA2Mi4zNjIyMDQ3MjQ0MDk0NTE3IDcyMC4wMDAyMzYyMjA0NzI0MDIyIGMKNjQuNzEwNTAyMDg1ODk0NzE3MSA3MjAuMDAwMjM2MjIwNDcyNDAyMiA2Ni42MTQxNzMyMjgzNDY0NTkyIDcyMS45MDM5MDczNjI5MjQyMDEyIDY2LjYxNDE3MzIyODM0NjQ1OTIgNzI0LjI1MjIwNDcyNDQwOTQ2NjUgYwpmCkJUCi9GMiA3LjUgVGYKOC42MjUgVEwKMC41NDUgMC4xMjUgMC4xMjUgcmcKNzYuNTM1NDMzMDcwODY2MTQ3OSA3MjAuMDAwMjM2MjIwNDcyNDAyMiBUZAooMTkuMTIgOiApIFRqCkVUCkJUCi9GMSA3LjUgVGYKOC42MjUgVEwKMC4yMzUgMC4yMjcgMC4xODggcmcKMTQxLjczMjI4MzQ2NDU2NjkzMzIgNzIwLjAwMDIzNjIyMDQ3MjQwMjIgVGQKKEZvdXJuaXIgculm6XJlbmNlcyDpbGVjdHJvbeluYWdlciBjdWlzaW5lKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC41NDkgMC41NDkgMC41MSByZwoxMjkuMjc3Nzk1Mjc1NTkwNjQ4MyAxNC4xNzM0NjQ1NjY5MjkwNTU4IFRkCihTQVJMIFRSSSCXIDMgUlVFIERFIFBBUk1FIDc1MDA5IFBBUklTICC3ICBU6WwgOiAwMSA0OCA3NCA4MiAxMSAgtyAgY29udGFjdEBhZ2VuY2V0cmkuY29tICC3ICB3d3cucml2YXNhcmNoaXRlY3R1cmUuY29tKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjEgMCBvYmoKPDwvVHlwZSAvUGFnZXMKL0tpZHMgWzMgMCBSIDUgMCBSIDcgMCBSIDkgMCBSIDExIDAgUiBdCi9Db3VudCA1Cj4+CmVuZG9iagoxMyAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL0hlbHZldGljYQovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoxNCAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjE1IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvSGVsdmV0aWNhLU9ibGlxdWUKL1N1YnR5cGUgL1R5cGUxCi9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMTYgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9IZWx2ZXRpY2EtQm9sZE9ibGlxdWUKL1N1YnR5cGUgL1R5cGUxCi9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMTcgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9Db3VyaWVyCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjE4IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvQ291cmllci1Cb2xkCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjE5IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvQ291cmllci1PYmxpcXVlCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjIwIDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvQ291cmllci1Cb2xkT2JsaXF1ZQovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoyMSAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL1RpbWVzLVJvbWFuCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjIyIDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvVGltZXMtQm9sZAovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoyMyAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL1RpbWVzLUl0YWxpYwovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoyNCAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL1RpbWVzLUJvbGRJdGFsaWMKL1N1YnR5cGUgL1R5cGUxCi9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMjUgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9aYXBmRGluZ2JhdHMKL1N1YnR5cGUgL1R5cGUxCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMjYgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9TeW1ib2wKL1N1YnR5cGUgL1R5cGUxCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMiAwIG9iago8PAovUHJvY1NldCBbL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSV0KL0ZvbnQgPDwKL0YxIDEzIDAgUgovRjIgMTQgMCBSCi9GMyAxNSAwIFIKL0Y0IDE2IDAgUgovRjUgMTcgMCBSCi9GNiAxOCAwIFIKL0Y3IDE5IDAgUgovRjggMjAgMCBSCi9GOSAyMSAwIFIKL0YxMCAyMiAwIFIKL0YxMSAyMyAwIFIKL0YxMiAyNCAwIFIKL0YxMyAyNSAwIFIKL0YxNCAyNiAwIFIKPj4KL1hPYmplY3QgPDwKPj4KPj4KZW5kb2JqCjI3IDAgb2JqCjw8Ci9Qcm9kdWNlciAoanNQREYgMi41LjEpCi9DcmVhdGlvbkRhdGUgKEQ6MjAyNjAzMjYxNjM1NTArMDEnMDAnKQo+PgplbmRvYmoKMjggMCBvYmoKPDwKL1R5cGUgL0NhdGFsb2cKL1BhZ2VzIDEgMCBSCi9PcGVuQWN0aW9uIFszIDAgUiAvRml0SCBudWxsXQovUGFnZUxheW91dCAvT25lQ29sdW1uCj4+CmVuZG9iagp4cmVmCjAgMjkKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDE0Mzk4IDAwMDAwIG4gCjAwMDAwMTYyNDUgMDAwMDAgbiAKMDAwMDAwMDAxNSAwMDAwMCBuIAowMDAwMDAwMTUyIDAwMDAwIG4gCjAwMDAwMDEwNDggMDAwMDAgbiAKMDAwMDAwMTE4NSAwMDAwMCBuIAowMDAwMDAyODg0IDAwMDAwIG4gCjAwMDAwMDMwMjEgMDAwMDAgbiAKMDAwMDAwOTQxMSAwMDAwMCBuIAowMDAwMDA5NTQ5IDAwMDAwIG4gCjAwMDAwMTIwMDEgMDAwMDAgbiAKMDAwMDAxMjE0MCAwMDAwMCBuIAowMDAwMDE0NDgwIDAwMDAwIG4gCjAwMDAwMTQ2MDYgMDAwMDAgbiAKMDAwMDAxNDczNyAwMDAwMCBuIAowMDAwMDE0ODcxIDAwMDAwIG4gCjAwMDAwMTUwMDkgMDAwMDAgbiAKMDAwMDAxNTEzMyAwMDAwMCBuIAowMDAwMDE1MjYyIDAwMDAwIG4gCjAwMDAwMTUzOTQgMDAwMDAgbiAKMDAwMDAxNTUzMCAwMDAwMCBuIAowMDAwMDE1NjU4IDAwMDAwIG4gCjAwMDAwMTU3ODUgMDAwMDAgbiAKMDAwMDAxNTkxNCAwMDAwMCBuIAowMDAwMDE2MDQ3IDAwMDAwIG4gCjAwMDAwMTYxNDkgMDAwMDAgbiAKMDAwMDAxNjQ5OCAwMDAwMCBuIAowMDAwMDE2NTg0IDAwMDAwIG4gCnRyYWlsZXIKPDwKL1NpemUgMjkKL1Jvb3QgMjggMCBSCi9JbmZvIDI3IDAgUgovSUQgWyA8M0Q4MkJEQzVCQzc2QkQ2QzgxNEE1QkIwNDAxNTE5QjM+IDwzRDgyQkRDNUJDNzZCRDZDODE0QTVCQjA0MDE1MTlCMz4gXQo+PgpzdGFydHhyZWYKMTY2ODgKJSVFT0Y="
+    },
+    {
+      "id": 644,
+      "pi": 0,
+      "date": "2026-03-30T12:08:35.786Z",
+      "dateStr": "30.03.2026",
+      "proj": "MATCHPLAY",
+      "pdf": "data:application/pdf;filename=generated.pdf;base64,JVBERi0xLjMKJbrfrOAKMyAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL1Jlc291cmNlcyAyIDAgUgovTWVkaWFCb3ggWzAgMCA1OTUuMjc5OTk5OTk5OTk5OTcyNyA4NDEuODg5OTk5OTk5OTk5OTg2NF0KL0NvbnRlbnRzIDQgMCBSCj4+CmVuZG9iago0IDAgb2JqCjw8Ci9MZW5ndGggODQ1Cj4+CnN0cmVhbQowLjU2NzAwMDAwMDAwMDAwMDEgdwowIEcKMC4yOSAwLjMzIDAuMjggcmcKMC4gODQxLjg4OTk5OTk5OTk5OTk4NjQgNTk1LjI3NTU5MDU1MTE4MTE1MzQgLTg0MS44ODk3NjM3Nzk1Mjc2OTc4IHJlCmYKQlQKL0YyIDMwIFRmCjM0LjUgVEwKMS4gZwoyMDYuMjg3Nzk1Mjc1NTkwNTgyNCA2OTQuNDg4NDI1MTk2ODUwMzU3NyBUZAooVE9OWSBSSVZBUykgVGoKRVQKQlQKL0YzIDEyIFRmCjEzLjc5OTk5OTk5OTk5OTk5ODkgVEwKMC43ODQgMC44MDQgMC43NjUgcmcKMjQwLjY5Nzc5NTI3NTU5MDU3OSA2NjYuMTQxOTY4NTAzOTM2OTM2OSBUZAooVGFsbGVyIGRlIEFycXVpdGVjdHVyYSkgVGoKRVQKQlQKL0YyIDExIFRmCjEyLjY0OTk5OTk5OTk5OTk5ODYgVEwKMS4gZwo3MC44NjYxNDE3MzIyODM0NjY2IDU3Mi41OTg2NjE0MTczMjI3NzM2IFRkCihNQVRDSFBMQVkpIFRqCkVUCjEuIGcKNDQ3Ljg3NDAxNTc0ODAzMTUyNDcgNTcyLjU5ODY2MTQxNzMyMjc3MzYgNzkuMzcwMDc4NzQwMTU3NDgxNCAtNDM5LjM3MDA3ODc0MDE1NzUwOTkgcmUKZgpCVAovRjEgNi41IFRmCjcuNDc0OTk5OTk5OTk5OTk5NiBUTAowLjI5IDAuMzI1IDAuMjc4IHJnCjAuMDAwMDAwMDAwMDAwMDAwMSAxLiAtMS4gMC4wMDAwMDAwMDAwMDAwMDAxIDQxMS4yMzQ3NjM3Nzk1Mjc1NTQ2IDE2MS41NzUwMzkzNzAwNzg2ODQ0IFRtCihDT01QVEUgUkVORFUgREUgQ0hBTlRJRVIgIF8gIDMwLjAzLjIwMjYpIFRqCkVUCkJUCi9GMiA5IFRmCjEwLjM0OTk5OTk5OTk5OTk5OTYgVEwKMC43ODQgMC44MDQgMC43NjUgcmcKNzkuMzcwMDc4NzQwMTU3NDgxNCA1My44NTg1MDM5MzcwMDc3NTM4IFRkCihUb255IFJpdmFzKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjUgMCBvYmoKPDwvVHlwZSAvUGFnZQovUGFyZW50IDEgMCBSCi9SZXNvdXJjZXMgMiAwIFIKL01lZGlhQm94IFswIDAgNTk1LjI3OTk5OTk5OTk5OTk3MjcgODQxLjg4OTk5OTk5OTk5OTk4NjRdCi9Db250ZW50cyA2IDAgUgo+PgplbmRvYmoKNiAwIG9iago8PAovTGVuZ3RoIDE2NDcKPj4Kc3RyZWFtCjAuNTY3MDAwMDAwMDAwMDAwMSB3CjAgRwowLjkzIDAuOTEgMC44NSByZwowLiA4NDEuODg5OTk5OTk5OTk5OTg2NCA1OTUuMjc1NTkwNTUxMTgxMTUzNCAtODQxLjg4OTc2Mzc3OTUyNzY5NzggcmUKZgpCVAovRjIgMTQgVGYKMTYuMDk5OTk5OTk5OTk5OTk3OSBUTAowLjIzNSAwLjIzNSAwLjE5NiByZwo3MC44NjYxNDE3MzIyODM0NjY2IDczNC4xNzM0NjQ1NjY5MjkxNjk1IFRkCihTT01NQUlSRSkgVGoKRVQKQlQKL0YyIDQ0IFRmCjUwLjU5OTk5OTk5OTk5OTk5NDMgVEwKMC43MjUgMC43MDYgMC42NDcgcmcKNzAuODY2MTQxNzMyMjgzNDY2NiA1NTguNDI1NDMzMDcwODY2MTIgVGQKKDAxLikgVGoKRVQKQlQKL0YyIDguNSBUZgo5Ljc3NDk5OTk5OTk5OTk5ODYgVEwKMC4yNzUgMC4yNjcgMC4yMjcgcmcKNzAuODY2MTQxNzMyMjgzNDY2NiA1MjEuNTc1MDM5MzcwMDc4Njg0NCBUZAooQ09NUFRFIFJFTkRVKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwo3MC44NjYxNDE3MzIyODM0NjY2IDQ5Ni4wNjMyMjgzNDY0NTY2Mzk5IFRkCihIRUJET01BREFJUkUpIFRqCkVUCkJUCi9GMiA0NCBUZgo1MC41OTk5OTk5OTk5OTk5OTQzIFRMCjAuNzI1IDAuNzA2IDAuNjQ3IHJnCjMyNS45ODQyNTE5Njg1MDM5OTc0IDU1OC40MjU0MzMwNzA4NjYxMiBUZAooMDIuKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwozMjUuOTg0MjUxOTY4NTAzOTk3NCA1MjEuNTc1MDM5MzcwMDc4Njg0NCBUZAooRUxFTUVOVFMpIFRqCkVUCkJUCi9GMiA4LjUgVGYKOS43NzQ5OTk5OTk5OTk5OTg2IFRMCjAuMjc1IDAuMjY3IDAuMjI3IHJnCjMyNS45ODQyNTE5Njg1MDM5OTc0IDQ5Ni4wNjMyMjgzNDY0NTY2Mzk5IFRkCihDTEVGUykgVGoKRVQKQlQKL0YyIDQ0IFRmCjUwLjU5OTk5OTk5OTk5OTk5NDMgVEwKMC43MjUgMC43MDYgMC42NDcgcmcKNzAuODY2MTQxNzMyMjgzNDY2NiAyODkuMTM0MDk0NDg4MTg4OTA3MiBUZAooMDMuKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwo3MC44NjYxNDE3MzIyODM0NjY2IDI1Mi4yODM3MDA3ODc0MDE0NzE2IFRkCihSQVBQRUwgREVTIEVMRU1FTlRTKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwo3MC44NjYxNDE3MzIyODM0NjY2IDIyNi43NzE4ODk3NjM3Nzk0MjcxIFRkCihTVFJVQ1RVUkFOVFMpIFRqCkVUCkJUCi9GMiA0NCBUZgo1MC41OTk5OTk5OTk5OTk5OTQzIFRMCjAuNzI1IDAuNzA2IDAuNjQ3IHJnCjMyNS45ODQyNTE5Njg1MDM5OTc0IDI4OS4xMzQwOTQ0ODgxODg5MDcyIFRkCigwNC4pIFRqCkVUCkJUCi9GMiA4LjUgVGYKOS43NzQ5OTk5OTk5OTk5OTg2IFRMCjAuMjc1IDAuMjY3IDAuMjI3IHJnCjMyNS45ODQyNTE5Njg1MDM5OTc0IDI1Mi4yODM3MDA3ODc0MDE0NzE2IFRkCihBTk5FWEVTKSBUagpFVApCVAovRjIgOC41IFRmCjkuNzc0OTk5OTk5OTk5OTk4NiBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwozMjUuOTg0MjUxOTY4NTAzOTk3NCAyMjYuNzcxODg5NzYzNzc5NDI3MSBUZAooUEhPVE9TKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjcgMCBvYmoKPDwvVHlwZSAvUGFnZQovUGFyZW50IDEgMCBSCi9SZXNvdXJjZXMgMiAwIFIKL01lZGlhQm94IFswIDAgNTk1LjI3OTk5OTk5OTk5OTk3MjcgODQxLjg4OTk5OTk5OTk5OTk4NjRdCi9Db250ZW50cyA4IDAgUgo+PgplbmRvYmoKOCAwIG9iago8PAovTGVuZ3RoIDYzNDYKPj4Kc3RyZWFtCjAuNTY3MDAwMDAwMDAwMDAwMSB3CjAgRwpCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4yOSAwLjMyNSAwLjI3OCByZwo1Ni42OTI5MTMzODU4MjY3Nzc1IDc4NS4xOTcwODY2MTQxNzMyNTg2IFRkCigwMS4pIFRqCkVUCkJUCi9GMiAxMCBUZgoxMS41IFRMCjAuMjkgMC4zMjUgMC4yNzggcmcKOTAuNzA4NjYxNDE3MzIyODQ0IDc4NS4xOTcwODY2MTQxNzMyNTg2IFRkCihDT01QVEUgUkVORFUgSEVCRE9NQURBSVJFKSBUagpFVAowLjI5IDAuMzMgMC4yOCByZwo1NDQuMjUxOTY4NTAzOTM3MDY0MyA3OTkuMzcwMzE0OTYwNjI5OTEyMSAxLjQxNzMyMjgzNDY0NTY2OTQgLTc1Ni44NTAzOTM3MDA3ODc0MzU2IHJlCmYKQlQKL0YyIDEyIFRmCjEzLjc5OTk5OTk5OTk5OTk5ODkgVEwKMC4xNTcgMC4xNTcgMC4xMjUgcmcKNTYuNjkyOTEzMzg1ODI2Nzc3NSA3NTEuMTgxMzM4NTgyNjc3MTk5MiBUZAooSW50ZXJ2ZW5hbnRzKSBUagpFVAowLjI0IDAuMjMgMC4xOSByZwo1Ni42OTI5MTMzODU4MjY3Nzc1IDcyOC41MDQxNzMyMjgzNDY0MTcxIDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC0xOS44NDI1MTk2ODUwMzkzNzA0IHJlCmYKQlQKL0YyIDYuNSBUZgo3LjQ3NDk5OTk5OTk5OTk5OTYgVEwKMS4gZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDcxNC44OTc4NzQwMTU3NDgwMTYxIFRkCihQYXJ0aWNpcGFudFwoc1wpKSBUagpFVApCVAovRjIgNi41IFRmCjcuNDc0OTk5OTk5OTk5OTk5NiBUTAoxLiBnCjQxOS41Mjc1NTkwNTUxMTgxNjA4IDcxNC44OTc4NzQwMTU3NDgwMTYxIFRkCihJbnZpdC4pIFRqCkVUCkJUCi9GMiA2LjUgVGYKNy40NzQ5OTk5OTk5OTk5OTk2IFRMCjEuIGcKNDUzLjU0MzMwNzA4NjYxNDIyMDIgNzE0Ljg5Nzg3NDAxNTc0ODAxNjEgVGQKKFBy6XMuKSBUagpFVApCVAovRjIgNi41IFRmCjcuNDc0OTk5OTk5OTk5OTk5NiBUTAoxLiBnCjQ4Ny41NTkwNTUxMTgxMTAyNzk2IDcxNC44OTc4NzQwMTU3NDgwMTYxIFRkCihBYnMuKSBUagpFVAowLjk3IDAuOTYgMC45NCByZwo1Ni42OTI5MTMzODU4MjY3Nzc1IDcwOC42NjE2NTM1NDMzMDcwMTEyIDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC01MS4wMjM2MjIwNDcyNDQxMDMzIHJlCmYKMC44NiAwLjg1IDAuOCBSRwowLjU2NjkyOTEzMzg1ODI2Nzggdwo1Ni42OTI5MTMzODU4MjY3Nzc1IDcwOC42NjE2NTM1NDMzMDcwMTEyIDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC01MS4wMjM2MjIwNDcyNDQxMDMzIHJlClMKQlQKL0YyIDcgVGYKOC4wNDk5OTk5OTk5OTk5OTg5IFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA2OTQuNDg4NDI1MTk2ODUwMzU3NyBUZAooQXJjaGl0ZWN0ZSA6IFNBUkwgVFJJKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA2ODMuMTQ5ODQyNTE5Njg1MDgwMyBUZAooTS4gUml2YXMpIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDY3MS44MTEyNTk4NDI1MTk2ODkzIFRkCihU6WwgOiAwMSA0OCA3NCA4MiAxMSkgVGoKRVQKQlQKL0YxIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuMzkyIDAuMzg0IDAuMzQ1IHJnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNjYwLjQ3MjY3NzE2NTM1NDI5ODMgVGQKKEUtbWFpbCA6IGNvbnRhY3RAYWdlbmNldHJpLmNvbSkgVGoKRVQKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNDI1LjE5Njg1MDM5MzcwMDg1NjMgNjg3LjQwMTgxMTAyMzYyMjAzMDkgVGQKKFgpIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjQ1OS4yMTI1OTg0MjUxOTY5MTU3IDY4Ny40MDE4MTEwMjM2MjIwMzA5IFRkCihYKSBUagpFVAowLjg2IDAuODUgMC44IFJHCjAuNTY2OTI5MTMzODU4MjY3OCB3CjU2LjY5MjkxMzM4NTgyNjc3NzUgNjU3LjYzODAzMTQ5NjA2MjkyMjEgNDgxLjg4OTc2Mzc3OTUyNzU4NDEgLTUxLjAyMzYyMjA0NzI0NDEwMzMgcmUKUwpCVAovRjIgNyBUZgo4LjA0OTk5OTk5OTk5OTk5ODkgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDY0My40NjQ4MDMxNDk2MDYyNjg2IFRkCihNYedvbm5lcmllIDogV09STERCQVQpIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDYzMi4xMjYyMjA0NzI0NDA4Nzc1IFRkCihNLiBSb21pdG8pIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDYyMC43ODc2Mzc3OTUyNzU0ODY1IFRkCihU6WwgOiAwNiAxOSAwMiA3OCA4OSkgVGoKRVQKQlQKL0YxIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuMzkyIDAuMzg0IDAuMzQ1IHJnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNjA5LjQ0OTA1NTExODExMDIwOTIgVGQKKEUtbWFpbCA6IGNvbnRhY3Qud29ybGRiYXRAZ21haWwuY29tKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo0MjUuMTk2ODUwMzkzNzAwODU2MyA2MzYuMzc4MTg4OTc2Mzc3OTQxOCBUZAooWCkgVGoKRVQKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNDU5LjIxMjU5ODQyNTE5NjkxNTcgNjM2LjM3ODE4ODk3NjM3Nzk0MTggVGQKKFgpIFRqCkVUCjAuOTcgMC45NiAwLjk0IHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNjA2LjYxNDQwOTQ0ODgxODgzMyA0ODEuODg5NzYzNzc5NTI3NTg0MSAtNTEuMDIzNjIyMDQ3MjQ0MTAzMyByZQpmCjAuODYgMC44NSAwLjggUkcKMC41NjY5MjkxMzM4NTgyNjc4IHcKNTYuNjkyOTEzMzg1ODI2Nzc3NSA2MDYuNjE0NDA5NDQ4ODE4ODMzIDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC01MS4wMjM2MjIwNDcyNDQxMDMzIHJlClMKQlQKL0YyIDcgVGYKOC4wNDk5OTk5OTk5OTk5OTg5IFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1OTIuNDQxMTgxMTAyMzYyMTc5NCBUZAooUGxvbWJpZXIgOiBKRUFOIExVQ1kpIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDU4MS4xMDI1OTg0MjUxOTY3ODg0IFRkCihNLiBCYWduZXV4KSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1NjkuNzY0MDE1NzQ4MDMxMzk3NCBUZAooVOlsIDogMDEgNDUgODMgNDggNDYpIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjM5MiAwLjM4NCAwLjM0NSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDU1OC40MjU0MzMwNzA4NjYxMiBUZAooRS1tYWlsIDogY29udGFjdEBqZWFubHVjdi5jb20pIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjQyNS4xOTY4NTAzOTM3MDA4NTYzIDU4NS4zNTQ1NjY5MjkxMzM4NTI3IFRkCihYKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo0NTkuMjEyNTk4NDI1MTk2OTE1NyA1ODUuMzU0NTY2OTI5MTMzODUyNyBUZAooWCkgVGoKRVQKMC44NiAwLjg1IDAuOCBSRwowLjU2NjkyOTEzMzg1ODI2Nzggdwo1Ni42OTI5MTMzODU4MjY3Nzc1IDU1NS41OTA3ODc0MDE1NzQ3NDM5IDQ4MS44ODk3NjM3Nzk1Mjc1ODQxIC01MS4wMjM2MjIwNDcyNDQxMDMzIHJlClMKQlQKL0YyIDcgVGYKOC4wNDk5OTk5OTk5OTk5OTg5IFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1NDEuNDE3NTU5MDU1MTE4MDkwMyBUZAooyWxlY3RyaWNpZW4gOiBEQU5FTEVDKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1MzAuMDc4OTc2Mzc3OTUyNjk5MyBUZAooTS4gWmFmZnJhbikgVGoKRVQKQlQKL0YxIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuMzkyIDAuMzg0IDAuMzQ1IHJnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNTE4Ljc0MDM5MzcwMDc4NzMwODMgVGQKKFTpbCA6IDA2IDA5IDc4IDYxIDQxKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA1MDcuNDAxODExMDIzNjIxOTc0MSBUZAooRS1tYWlsIDogZGlyZWN0aW9uQGRhbi1lbGVjLmZyKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo0MjUuMTk2ODUwMzkzNzAwODU2MyA1MzQuMzMwOTQ0ODgxODg5NzYzNiBUZAooWCkgVGoKRVQKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKNDU5LjIxMjU5ODQyNTE5NjkxNTcgNTM0LjMzMDk0NDg4MTg4OTc2MzYgVGQKKFgpIFRqCkVUCjAuOTcgMC45NiAwLjk0IHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNTA0LjU2NzE2NTM1NDMzMDY1NDcgNDgxLjg4OTc2Mzc3OTUyNzU4NDEgLTUxLjAyMzYyMjA0NzI0NDEwMzMgcmUKZgowLjg2IDAuODUgMC44IFJHCjAuNTY2OTI5MTMzODU4MjY3OCB3CjU2LjY5MjkxMzM4NTgyNjc3NzUgNTA0LjU2NzE2NTM1NDMzMDY1NDcgNDgxLjg4OTc2Mzc3OTUyNzU4NDEgLTUxLjAyMzYyMjA0NzI0NDEwMzMgcmUKUwpCVAovRjIgNyBUZgo4LjA0OTk5OTk5OTk5OTk5ODkgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo2NS4xOTY4NTAzOTM3MDA3OTk1IDQ5MC4zOTM5MzcwMDc4NzM5NDQ0IFRkCihDbGltYXRpc2F0aW9uIDogQ0xJTUFEQU5FKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA0NzkuMDU1MzU0MzMwNzA4NjEwMiBUZAooTS4gQml0dGFuKSBUagpFVApCVAovRjEgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC4zOTIgMC4zODQgMC4zNDUgcmcKNjUuMTk2ODUwMzkzNzAwNzk5NSA0NjcuNzE2NzcxNjUzNTQzMjc2IFRkCihU6WwgOiAwMSA0OCAwNyAxOSAxOSkgVGoKRVQKQlQKL0YxIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuMzkyIDAuMzg0IDAuMzQ1IHJnCjY1LjE5Njg1MDM5MzcwMDc5OTUgNDU2LjM3ODE4ODk3NjM3Nzg4NSBUZAooRS1tYWlsIDogYnVyZWF1LmV0dWRlQGNsaW1hZGFuZS5jb20pIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjQyNS4xOTY4NTAzOTM3MDA4NTYzIDQ4My4zMDczMjI4MzQ2NDU2MTc2IFRkCihYKSBUagpFVApCVAovRjIgOCBUZgo5LjE5OTk5OTk5OTk5OTk5OTMgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwo0OTMuMjI4MzQ2NDU2NjkyOTc1MiA0ODMuMzA3MzIyODM0NjQ1NjE3NiBUZAooWCkgVGoKRVQKQlQKL0YyIDguNSBUZgo5Ljc3NDk5OTk5OTk5OTk5ODYgVEwKMC4xNTcgMC4xNDkgMC4xMSByZwoyMDIuMDU1Mjk1Mjc1NTkwNTY2NSA0MzAuODY2Mzc3OTUyNzU1ODQwNCBUZAooTGEgcHJvY2hhaW5lIHLpdW5pb24gYXVyYSBsaWV1IGxlIDMxIG1hcnMg4CAxMWgpIFRqCkVUCkJUCi9GMyA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAowLjM1MyAwLjM0NSAwLjMwNiByZwoxODEuOTk3Nzk1Mjc1NTkwNTYxOSA0MTMuODU4NTAzOTM3MDA3ODEwNyBUZAooTGUgcHLpc2VudCBjb21wdGUtcmVuZHUgZXN0IGNvbnRyYWN0dWVsIGV0IHNlcmEgY29uc2lk6XLpIGNvbW1lIGFjY2VwdOkpIFRqCkVUCkJUCi9GMyA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAowLjM1MyAwLjM0NSAwLjMwNiByZwoxODguNjEyNzk1Mjc1NTkwNTE0MiAzOTkuNjg1Mjc1NTkwNTUxMTAwMyBUZAooc2F1ZiBjb250ZXN0YXRpb24gZGFucyBsZXMgaHVpdCBqb3VycyDgIGNvbXB0ZXIgZGUgbGEgcHJvY2hhaW5lIHLpdW5pb24pIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjU0OSAwLjU0OSAwLjUxIHJnCjExOS42NDc3OTUyNzU1OTA2ODEzIDE0LjE3MzQ2NDU2NjkyOTA1NTggVGQKKFNBUkwgVFJJIJcgMyBSVUUgREUgUEFSTUUgNzUwMDkgUEFSSVMgILcgIFTpbCA6IDAxIDQ4IDc0IDgyIDExICC3ICBjb250YWN0QHJpdmFzYXJjaGl0ZWN0dXJlLmNvbSAgtyAgd3d3LnJpdmFzYXJjaGl0ZWN0dXJlLmNvbSkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iago5IDAgb2JqCjw8L1R5cGUgL1BhZ2UKL1BhcmVudCAxIDAgUgovUmVzb3VyY2VzIDIgMCBSCi9NZWRpYUJveCBbMCAwIDU5NS4yNzk5OTk5OTk5OTk5NzI3IDg0MS44ODk5OTk5OTk5OTk5ODY0XQovQ29udGVudHMgMTAgMCBSCj4+CmVuZG9iagoxMCAwIG9iago8PAovTGVuZ3RoIDI0MDcKPj4Kc3RyZWFtCjAuNTY2OTI5MTMzODU4MjY3OCB3CjAuODYgMC44NSAwLjggUkcKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMjkgMC4zMjUgMC4yNzggcmcKNTYuNjkyOTEzMzg1ODI2Nzc3NSA3ODUuMTk3MDg2NjE0MTczMjU4NiBUZAooMDIuKSBUagpFVApCVAovRjIgMTAgVGYKMTEuNSBUTAowLjI5IDAuMzI1IDAuMjc4IHJnCjkwLjcwODY2MTQxNzMyMjg0NCA3ODUuMTk3MDg2NjE0MTczMjU4NiBUZAooRUxFTUVOVFMgQ0xFRlMglyBSSURBKSBUagpFVAowLjI5IDAuMzMgMC4yOCByZwo1NDQuMjUxOTY4NTAzOTM3MDY0MyA3OTkuMzcwMzE0OTYwNjI5OTEyMSAxLjQxNzMyMjgzNDY0NTY2OTQgLTc1Ni44NTAzOTM3MDA3ODc0MzU2IHJlCmYKMC4xMiAwLjI1IDAuNDIgcmcKNTYuNjkyOTEzMzg1ODI2Nzc3NSA3NTYuODUwNjI5OTIxMjU5ODM3OCAxOS44NDI1MTk2ODUwMzkzNzA0IC03OS4zNzAwNzg3NDAxNTc0ODE0IHJlCmYKQlQKL0YyIDcgVGYKOC4wNDk5OTk5OTk5OTk5OTg5IFRMCjEuIGcKNjYuNjE0MTczMjI4MzQ2NDU5MiA3NDIuNjc3NDAxNTc0ODAzMDcwNiBUZAooRCkgVGoKRVQKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKODUuMDM5MzcwMDc4NzQwMTYyNyA3NDIuNjc3NDAxNTc0ODAzMDcwNiBUZAooQ2hhcGUpIFRqCkVUCkJUCi9GMSA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwo4NS4wMzkzNzAwNzg3NDAxNjI3IDcyOC41MDQxNzMyMjgzNDY0MTcxIFRkCihDaGFwZXMgRXhwZXJ0cyBsZSAwNC4wMi4gU2l0ZSBmZXJt6SBqdXNxdSdhdSAwOC4wMi4pIFRqCkVUCkJUCi9GMyA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjQ3MSAwLjQ2MyAwLjQyNCByZwo4NS4wMzkzNzAwNzg3NDAxNjI3IDcxMS40OTYyOTkyMTI1OTgzODc0IFRkCighkgAgAEMASABBAFAARQBTACAARQBYAFAARQBSAFQAUykgVGoKRVQKMC41NSAwLjM4IDAuIHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNjYzLjMwNzMyMjgzNDY0NTY3NDQgMTkuODQyNTE5Njg1MDM5MzcwNCAtNzkuMzcwMDc4NzQwMTU3NDgxNCByZQpmCkJUCi9GMiA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAoxLiBnCjY2LjYxNDE3MzIyODM0NjQ1OTIgNjQ5LjEzNDA5NDQ4ODE4ODkwNzIgVGQKKEEpIFRqCkVUCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjE1NyAwLjE0OSAwLjExIHJnCjg1LjAzOTM3MDA3ODc0MDE2MjcgNjQ5LjEzNDA5NDQ4ODE4ODkwNzIgVGQKKENvbW1hbmRlcykgVGoKRVQKQlQKL0YxIDcgVGYKOC4wNDk5OTk5OTk5OTk5OTg5IFRMCjAuMjc1IDAuMjY3IDAuMjI3IHJnCjg1LjAzOTM3MDA3ODc0MDE2MjcgNjM0Ljk2MDg2NjE0MTczMjI1MzcgVGQKKFJvYmluZXR0ZXJpZSAmIOlsZWN0cm9t6W5hZ2VyIJcgY29uZmlybWVyIHLpZulyZW5jZXMgdXJnZW5jZS4pIFRqCkVUCkJUCi9GMyA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjQ3MSAwLjQ2MyAwLjQyNCByZwo4NS4wMzkzNzAwNzg3NDAxNjI3IDYxNy45NTI5OTIxMjU5ODQyMjQgVGQKKCGSACAATQAuAE8ALikgVGoKRVQKMC4xNyAwLjM4IDAuMjggcmcKNTYuNjkyOTEzMzg1ODI2Nzc3NSA1NjkuNzY0MDE1NzQ4MDMxMzk3NCAxOS44NDI1MTk2ODUwMzkzNzA0IC03OS4zNzAwNzg3NDAxNTc0ODE0IHJlCmYKQlQKL0YyIDcgVGYKOC4wNDk5OTk5OTk5OTk5OTg5IFRMCjEuIGcKNjYuNjE0MTczMjI4MzQ2NDU5MiA1NTUuNTkwNzg3NDAxNTc0NzQzOSBUZAooSSkgVGoKRVQKQlQKL0YyIDggVGYKOS4xOTk5OTk5OTk5OTk5OTkzIFRMCjAuMTU3IDAuMTQ5IDAuMTEgcmcKODUuMDM5MzcwMDc4NzQwMTYyNyA1NTUuNTkwNzg3NDAxNTc0NzQzOSBUZAooUGVpbnR1cmUpIFRqCkVUCkJUCi9GMSA3IFRmCjguMDQ5OTk5OTk5OTk5OTk4OSBUTAowLjI3NSAwLjI2NyAwLjIyNyByZwo4NS4wMzkzNzAwNzg3NDAxNjI3IDU0MS40MTc1NTkwNTUxMTgwOTAzIFRkCijJY2hhbnRpbGxvbnMgcG9z6XMuIFZhbGlkYXRpb24gcHJvY2hhaW5lIHLpdW5pb24uKSBUagpFVApCVAovRjMgNiBUZgo2Ljg5OTk5OTk5OTk5OTk5OTUgVEwKMC40NzEgMC40NjMgMC40MjQgcmcKODUuMDM5MzcwMDc4NzQwMTYyNyA1MjQuNDA5Njg1MDM5MzcwMDYwNiBUZAooIZIAIABXAE8AUgBMAEQAQgBBAFQpIFRqCkVUCkJUCi9GMSA2IFRmCjYuODk5OTk5OTk5OTk5OTk5NSBUTAowLjU0OSAwLjU0OSAwLjUxIHJnCjExOS42NDc3OTUyNzU1OTA2ODEzIDE0LjE3MzQ2NDU2NjkyOTA1NTggVGQKKFNBUkwgVFJJIJcgMyBSVUUgREUgUEFSTUUgNzUwMDkgUEFSSVMgILcgIFTpbCA6IDAxIDQ4IDc0IDgyIDExICC3ICBjb250YWN0QHJpdmFzYXJjaGl0ZWN0dXJlLmNvbSAgtyAgd3d3LnJpdmFzYXJjaGl0ZWN0dXJlLmNvbSkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iagoxMSAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL1Jlc291cmNlcyAyIDAgUgovTWVkaWFCb3ggWzAgMCA1OTUuMjc5OTk5OTk5OTk5OTcyNyA4NDEuODg5OTk5OTk5OTk5OTg2NF0KL0NvbnRlbnRzIDEyIDAgUgo+PgplbmRvYmoKMTIgMCBvYmoKPDwKL0xlbmd0aCAyMjEzCj4+CnN0cmVhbQowLjU2NjkyOTEzMzg1ODI2NzggdwowLjg2IDAuODUgMC44IFJHCkJUCi9GMiA4IFRmCjkuMTk5OTk5OTk5OTk5OTk5MyBUTAowLjI5IDAuMzI1IDAuMjc4IHJnCjU2LjY5MjkxMzM4NTgyNjc3NzUgNzg1LjE5NzA4NjYxNDE3MzI1ODYgVGQKKDAzLikgVGoKRVQKQlQKL0YyIDEwIFRmCjExLjUgVEwKMC4yOSAwLjMyNSAwLjI3OCByZwo5MC43MDg2NjE0MTczMjI4NDQgNzg1LjE5NzA4NjYxNDE3MzI1ODYgVGQKKFJBUFBFTCBERVMgyUzJTUVOVFMgU1RSVUNUVVJBTlRTKSBUagpFVAowLjI5IDAuMzMgMC4yOCByZwo1NDQuMjUxOTY4NTAzOTM3MDY0MyA3OTkuMzcwMzE0OTYwNjI5OTEyMSAxLjQxNzMyMjgzNDY0NTY2OTQgLTc1Ni44NTAzOTM3MDA3ODc0MzU2IHJlCmYKMC41NSAwLjEzIDAuMTMgcmcKNjYuNjE0MTczMjI4MzQ2NDU5MiA3NDYuOTI5MzcwMDc4NzQwMTM0OSBtCjY2LjYxNDE3MzIyODM0NjQ1OTIgNzQ5LjI3NzY2NzQ0MDIyNTQwMDIgNjQuNzEwNTAyMDg1ODk0NzE3MSA3NTEuMTgxMzM4NTgyNjc3MDg1NSA2Mi4zNjIyMDQ3MjQ0MDk0NTE3IDc1MS4xODEzMzg1ODI2NzcwODU1IGMKNjAuMDEzOTA3MzYyOTI0MTg2NCA3NTEuMTgxMzM4NTgyNjc3MDg1NSA1OC4xMTAyMzYyMjA0NzI0NDQzIDc0OS4yNzc2Njc0NDAyMjU0MDAyIDU4LjExMDIzNjIyMDQ3MjQ0NDMgNzQ2LjkyOTM3MDA3ODc0MDEzNDkgYwo1OC4xMTAyMzYyMjA0NzI0NDQzIDc0NC41ODEwNzI3MTcyNTQ3NTU4IDYwLjAxMzkwNzM2MjkyNDE4NjQgNzQyLjY3NzQwMTU3NDgwMzA3MDYgNjIuMzYyMjA0NzI0NDA5NDUxNyA3NDIuNjc3NDAxNTc0ODAzMDcwNiBjCjY0LjcxMDUwMjA4NTg5NDcxNzEgNzQyLjY3NzQwMTU3NDgwMzA3MDYgNjYuNjE0MTczMjI4MzQ2NDU5MiA3NDQuNTgxMDcyNzE3MjU0NzU1OCA2Ni42MTQxNzMyMjgzNDY0NTkyIDc0Ni45MjkzNzAwNzg3NDAxMzQ5IGMKZgpCVAovRjIgNy41IFRmCjguNjI1IFRMCjAuNTQ1IDAuMTI1IDAuMTI1IHJnCjc2LjUzNTQzMzA3MDg2NjE0NzkgNzQyLjY3NzQwMTU3NDgwMzA3MDYgVGQKKDEyLjEyIDogKSBUagpFVApCVAovRjEgNy41IFRmCjguNjI1IFRMCjAuMjM1IDAuMjI3IDAuMTg4IHJnCjE0MS43MzIyODM0NjQ1NjY5MzMyIDc0Mi42Nzc0MDE1NzQ4MDMwNzA2IFRkCihDb21tYW5kZSByb2JpbmV0dGVyaWUgdXJnZW50ZSkgVGoKRVQKMC41NSAwLjEzIDAuMTMgcmcKNjYuNjE0MTczMjI4MzQ2NDU5MiA3MjQuMjUyMjA0NzI0NDA5NDY2NSBtCjY2LjYxNDE3MzIyODM0NjQ1OTIgNzI2LjYwMDUwMjA4NTg5NDczMTkgNjQuNzEwNTAyMDg1ODk0NzE3MSA3MjguNTA0MTczMjI4MzQ2NDE3MSA2Mi4zNjIyMDQ3MjQ0MDk0NTE3IDcyOC41MDQxNzMyMjgzNDY0MTcxIGMKNjAuMDEzOTA3MzYyOTI0MTg2NCA3MjguNTA0MTczMjI4MzQ2NDE3MSA1OC4xMTAyMzYyMjA0NzI0NDQzIDcyNi42MDA1MDIwODU4OTQ3MzE5IDU4LjExMDIzNjIyMDQ3MjQ0NDMgNzI0LjI1MjIwNDcyNDQwOTQ2NjUgYwo1OC4xMTAyMzYyMjA0NzI0NDQzIDcyMS45MDM5MDczNjI5MjQyMDEyIDYwLjAxMzkwNzM2MjkyNDE4NjQgNzIwLjAwMDIzNjIyMDQ3MjQwMjIgNjIuMzYyMjA0NzI0NDA5NDUxNyA3MjAuMDAwMjM2MjIwNDcyNDAyMiBjCjY0LjcxMDUwMjA4NTg5NDcxNzEgNzIwLjAwMDIzNjIyMDQ3MjQwMjIgNjYuNjE0MTczMjI4MzQ2NDU5MiA3MjEuOTAzOTA3MzYyOTI0MjAxMiA2Ni42MTQxNzMyMjgzNDY0NTkyIDcyNC4yNTIyMDQ3MjQ0MDk0NjY1IGMKZgpCVAovRjIgNy41IFRmCjguNjI1IFRMCjAuNTQ1IDAuMTI1IDAuMTI1IHJnCjc2LjUzNTQzMzA3MDg2NjE0NzkgNzIwLjAwMDIzNjIyMDQ3MjQwMjIgVGQKKDE5LjEyIDogKSBUagpFVApCVAovRjEgNy41IFRmCjguNjI1IFRMCjAuMjM1IDAuMjI3IDAuMTg4IHJnCjE0MS43MzIyODM0NjQ1NjY5MzMyIDcyMC4wMDAyMzYyMjA0NzI0MDIyIFRkCihGb3VybmlyIHLpZulyZW5jZXMg6WxlY3Ryb23pbmFnZXIgY3Vpc2luZSkgVGoKRVQKQlQKL0YxIDYgVGYKNi44OTk5OTk5OTk5OTk5OTk1IFRMCjAuNTQ5IDAuNTQ5IDAuNTEgcmcKMTE5LjY0Nzc5NTI3NTU5MDY4MTMgMTQuMTczNDY0NTY2OTI5MDU1OCBUZAooU0FSTCBUUkkglyAzIFJVRSBERSBQQVJNRSA3NTAwOSBQQVJJUyAgtyAgVOlsIDogMDEgNDggNzQgODIgMTEgILcgIGNvbnRhY3RAcml2YXNhcmNoaXRlY3R1cmUuY29tICC3ICB3d3cucml2YXNhcmNoaXRlY3R1cmUuY29tKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCjEgMCBvYmoKPDwvVHlwZSAvUGFnZXMKL0tpZHMgWzMgMCBSIDUgMCBSIDcgMCBSIDkgMCBSIDExIDAgUiBdCi9Db3VudCA1Cj4+CmVuZG9iagoxMyAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL0hlbHZldGljYQovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoxNCAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjE1IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvSGVsdmV0aWNhLU9ibGlxdWUKL1N1YnR5cGUgL1R5cGUxCi9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMTYgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9IZWx2ZXRpY2EtQm9sZE9ibGlxdWUKL1N1YnR5cGUgL1R5cGUxCi9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMTcgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9Db3VyaWVyCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjE4IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvQ291cmllci1Cb2xkCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjE5IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvQ291cmllci1PYmxpcXVlCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjIwIDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvQ291cmllci1Cb2xkT2JsaXF1ZQovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoyMSAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL1RpbWVzLVJvbWFuCi9TdWJ0eXBlIC9UeXBlMQovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwovRmlyc3RDaGFyIDMyCi9MYXN0Q2hhciAyNTUKPj4KZW5kb2JqCjIyIDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9CYXNlRm9udCAvVGltZXMtQm9sZAovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoyMyAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL1RpbWVzLUl0YWxpYwovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKL0ZpcnN0Q2hhciAzMgovTGFzdENoYXIgMjU1Cj4+CmVuZG9iagoyNCAwIG9iago8PAovVHlwZSAvRm9udAovQmFzZUZvbnQgL1RpbWVzLUJvbGRJdGFsaWMKL1N1YnR5cGUgL1R5cGUxCi9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMjUgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9aYXBmRGluZ2JhdHMKL1N1YnR5cGUgL1R5cGUxCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMjYgMCBvYmoKPDwKL1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9TeW1ib2wKL1N1YnR5cGUgL1R5cGUxCi9GaXJzdENoYXIgMzIKL0xhc3RDaGFyIDI1NQo+PgplbmRvYmoKMiAwIG9iago8PAovUHJvY1NldCBbL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSV0KL0ZvbnQgPDwKL0YxIDEzIDAgUgovRjIgMTQgMCBSCi9GMyAxNSAwIFIKL0Y0IDE2IDAgUgovRjUgMTcgMCBSCi9GNiAxOCAwIFIKL0Y3IDE5IDAgUgovRjggMjAgMCBSCi9GOSAyMSAwIFIKL0YxMCAyMiAwIFIKL0YxMSAyMyAwIFIKL0YxMiAyNCAwIFIKL0YxMyAyNSAwIFIKL0YxNCAyNiAwIFIKPj4KL1hPYmplY3QgPDwKPj4KPj4KZW5kb2JqCjI3IDAgb2JqCjw8Ci9Qcm9kdWNlciAoanNQREYgMi41LjEpCi9DcmVhdGlvbkRhdGUgKEQ6MjAyNjAzMzAxNDA4MzUrMDInMDAnKQo+PgplbmRvYmoKMjggMCBvYmoKPDwKL1R5cGUgL0NhdGFsb2cKL1BhZ2VzIDEgMCBSCi9PcGVuQWN0aW9uIFszIDAgUiAvRml0SCBudWxsXQovUGFnZUxheW91dCAvT25lQ29sdW1uCj4+CmVuZG9iagp4cmVmCjAgMjkKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDE0NDIyIDAwMDAwIG4gCjAwMDAwMTYyNjkgMDAwMDAgbiAKMDAwMDAwMDAxNSAwMDAwMCBuIAowMDAwMDAwMTUyIDAwMDAwIG4gCjAwMDAwMDEwNDggMDAwMDAgbiAKMDAwMDAwMTE4NSAwMDAwMCBuIAowMDAwMDAyODg0IDAwMDAwIG4gCjAwMDAwMDMwMjEgMDAwMDAgbiAKMDAwMDAwOTQxOSAwMDAwMCBuIAowMDAwMDA5NTU3IDAwMDAwIG4gCjAwMDAwMTIwMTcgMDAwMDAgbiAKMDAwMDAxMjE1NiAwMDAwMCBuIAowMDAwMDE0NTA0IDAwMDAwIG4gCjAwMDAwMTQ2MzAgMDAwMDAgbiAKMDAwMDAxNDc2MSAwMDAwMCBuIAowMDAwMDE0ODk1IDAwMDAwIG4gCjAwMDAwMTUwMzMgMDAwMDAgbiAKMDAwMDAxNTE1NyAwMDAwMCBuIAowMDAwMDE1Mjg2IDAwMDAwIG4gCjAwMDAwMTU0MTggMDAwMDAgbiAKMDAwMDAxNTU1NCAwMDAwMCBuIAowMDAwMDE1NjgyIDAwMDAwIG4gCjAwMDAwMTU4MDkgMDAwMDAgbiAKMDAwMDAxNTkzOCAwMDAwMCBuIAowMDAwMDE2MDcxIDAwMDAwIG4gCjAwMDAwMTYxNzMgMDAwMDAgbiAKMDAwMDAxNjUyMiAwMDAwMCBuIAowMDAwMDE2NjA4IDAwMDAwIG4gCnRyYWlsZXIKPDwKL1NpemUgMjkKL1Jvb3QgMjggMCBSCi9JbmZvIDI3IDAgUgovSUQgWyA8Qjk4MkQ1RjMzQzIzNjQyNjUzMzI0NUQyODRFMkNGRTY+IDxCOTgyRDVGMzNDMjM2NDI2NTMzMjQ1RDI4NEUyQ0ZFNj4gXQo+PgpzdGFydHhyZWYKMTY3MTIKJSVFT0Y="
+    }
+  ],
+  "curCmdId": 2,
+  "nid": 656,
+  "_lastDigestDate": "2026-03-29"
+}
