@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#FFFFFF">
-<title>RIVAS</title>
+<title>rivasproject</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cutive+Mono&family=Raleway:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <!-- Firebase SDK (compat v9 — fonctionne en file://) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -333,7 +333,8 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
   </div>
   <div class="auth-sep"></div>
   <div class="auth-step-title">Configuration initiale</div>
-  <div class="auth-desc">Première utilisation — saisissez l'e-mail du compte <strong>administrateur</strong>. Cette adresse aura accès total à l'application.</div>
+  <div class="auth-desc">Première utilisation — saisissez votre nom et l'e-mail du compte <strong>administrateur</strong>.</div>
+  <input type="text" class="auth-inp" id="setup-name-inp" placeholder="Votre prénom et nom" autocomplete="name" onkeydown="if(event.key==='Enter')document.getElementById('setup-email-inp').focus()" style="margin-bottom:10px">
   <input type="email" class="auth-inp" id="setup-email-inp" placeholder="admin@votre-agence.com" autocomplete="email" inputmode="email" onkeydown="if(event.key==='Enter')saveSetupEmail()">
   <div class="auth-err" id="setup-err"></div>
   <button class="auth-btn" id="setup-btn" onclick="saveSetupEmail()">Configurer →</button>
@@ -385,7 +386,8 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
   </div>
   <div class="auth-sep"></div>
   <div class="auth-step-title">Créer votre mot de passe</div>
-  <div class="auth-desc">Première connexion — définissez un mot de passe pour sécuriser votre accès.</div>
+  <div class="auth-desc">Première connexion — saisissez votre nom et définissez un mot de passe.</div>
+  <input type="text" class="auth-inp" id="newpwd-name-inp" placeholder="Votre prénom et nom" autocomplete="name" style="margin-bottom:10px" onkeydown="if(event.key==='Enter')document.getElementById('newpwd-inp').focus()">
   <input type="password" class="auth-inp" id="newpwd-inp" placeholder="Nouveau mot de passe (min. 8 car.)" autocomplete="new-password" onkeydown="if(event.key==='Enter')document.getElementById('confpwd-inp').focus()">
   <input type="password" class="auth-inp" id="confpwd-inp" placeholder="Confirmer le mot de passe" autocomplete="new-password" style="margin-top:8px" onkeydown="if(event.key==='Enter')setFirstPassword()">
   <div class="auth-err" id="newpwd-err"></div>
@@ -1050,13 +1052,19 @@ function _emailSig(){return _getConfig().signature||'';}
 // Écran de configuration initiale
 function saveSetupEmail(){
   const email=(document.getElementById('setup-email-inp')?.value||'').trim().toLowerCase();
+  const name=(document.getElementById('setup-name-inp')?.value||'').trim();
   const err=document.getElementById('setup-err');
+  if(!name){err.textContent='Veuillez saisir votre nom.';document.getElementById('setup-name-inp').focus();return;}
   if(!email||!email.includes('@')){err.textContent='Adresse e-mail invalide.';return;}
   const cfg=_getConfig();cfg.ownerEmail=email;_saveConfig(cfg);
   // Enregistrer l'owner dans rv_users s'il n'existe pas encore
   const users=getUsers();
   if(!users.find(u=>u.email===email)){
-    users.push({email,name:'',role:'equipe',projIdx:null,since:Date.now(),active:true});
+    users.push({email,name,role:'equipe',projIdx:null,since:Date.now(),active:true});
+    saveUsers(users);
+  } else {
+    const u=users.find(x=>x.email===email);
+    if(u&&!u.name)u.name=name;
     saveUsers(users);
   }
   document.getElementById('auth-setup').classList.add('gone');
@@ -1182,9 +1190,11 @@ async function verifyPassword(){
 async function setFirstPassword(){
   const pwd=document.getElementById('newpwd-inp').value;
   const conf=document.getElementById('confpwd-inp').value;
+  const nameVal=(document.getElementById('newpwd-name-inp')?.value||'').trim();
   const err=document.getElementById('newpwd-err');
   const btn=document.getElementById('newpwd-btn');
   err.textContent='';
+  if(!nameVal){err.textContent='Veuillez saisir votre nom.';document.getElementById('newpwd-name-inp').focus();return;}
   if(pwd.length<8){err.textContent='Le mot de passe doit contenir au moins 8 caractères.';return;}
   if(pwd!==conf){err.textContent='Les mots de passe ne correspondent pas.';return;}
 
@@ -1196,9 +1206,10 @@ async function setFirstPassword(){
   let user=users.find(u=>u.email===_authEmail);
   const role=_isTeamEmail(_authEmail)?'equipe':'client';
   if(!user){
-    user={email:_authEmail,name:'',role,projIdx:null,since:Date.now(),active:true};
+    user={email:_authEmail,name:nameVal,role,projIdx:null,since:Date.now(),active:true};
     users.push(user);
   }
+  user.name=nameVal||user.name;
   user.pwdHash=hash;
   user.mustChangePwd=false;
   user.lastLogin=Date.now();
@@ -1503,9 +1514,29 @@ function importAppData(input){
       const parsed=JSON.parse(e.target.result);
       if(!parsed.projects||!parsed.tasks){showToast('⚠ Fichier invalide — structure attendue Rivas');return;}
       if(!confirm('Remplacer toutes les données actuelles par le fichier importé ?'))return;
+      // Bloquer le listener Firebase pendant l'import pour éviter écrasement
+      _fbSkipNext=false;
+      if(_fbListening&&_fbRef){_fbRef.off('value');_fbListening=false;}
       Object.keys(parsed).forEach(k=>{S[k]=parsed[k];});
-      saveS();renderAll();renderProjBar();
-      showToast(`✓ Import réussi — ${parsed.projects.length} projet(s) · ${parsed.tasks.length} tâche(s)`);
+      const str=JSON.stringify(S);
+      localStorage.setItem('rv_state',str);
+      // Pousser vers Firebase directement
+      if(_fbRef){
+        _syncDot('syncing');
+        _fbRef.set(str).then(()=>{
+          _syncDot('ok');
+          // Réactiver le listener après push réussi
+          _startFirebaseListener();
+          showToast(`✓ Import réussi + Firebase mis à jour — ${parsed.projects.length} projet(s) · ${parsed.tasks.length} tâche(s)`);
+        }).catch(err=>{
+          _syncDot('err');
+          showToast(`✓ Import local réussi (Firebase: ${err.message})`);
+          _startFirebaseListener();
+        });
+      } else {
+        showToast(`✓ Import réussi — ${parsed.projects.length} projet(s) · ${parsed.tasks.length} tâche(s)`);
+      }
+      renderAll();renderProjBar();
     }catch(ex){showToast('⚠ Erreur de lecture JSON : '+ex.message);}
   };
   reader.readAsText(file);
@@ -1532,9 +1563,12 @@ function launchApp(session){
 
   // Account menu
   const ini=s=>s.split(/[\s@.]/)[0].slice(0,2).toUpperCase();
-  document.getElementById('tb-av').textContent=ini(session.email);
-  document.getElementById('am-av').textContent=ini(session.email);
-  document.getElementById('am-name').textContent=session.email.split('@')[0].replace(/\./g,' ');
+  const _uRec=getUsers().find(u=>u.email===session.email);
+  const _displayName=_uRec?.name||session.email.split('@')[0].replace(/\./g,' ');
+  const _iniSrc=_uRec?.name||session.email;
+  document.getElementById('tb-av').textContent=ini(_iniSrc);
+  document.getElementById('am-av').textContent=ini(_iniSrc);
+  document.getElementById('am-name').textContent=_displayName;
   document.getElementById('am-email').textContent=session.email;
   const roleLabel=isOwner?'Administrateur':isEquipe?'Équipe Rivas':({client:'Client',partenaire:'Partenaire'})[session.role]||session.role;
   document.getElementById('am-role').textContent=roleLabel;
