@@ -1483,15 +1483,31 @@ function loadS(){
 // Restore state immediately on script execution
 loadS();
 
-// Auto-init Firebase if previously configured
+// Configuration Firebase intégrée — synchronisation automatique pour toute l'équipe
+const _FIREBASE_DEFAULT={
+  apiKey:"AIzaSyCfxZ8a4e_I2G_WVbd_G9tJ0T7Bpe7q3nI",
+  databaseURL:"https://rivas-projets-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"rivas-projets",
+  appId:"1:17463779919:web:ed9804588bb47d30d0803a"
+};
+
+// Auto-init Firebase — toujours forcer la config intégrée (ignore cache)
 (function(){
-  const cfg=_getFirebaseConfig();
-  if(cfg&&cfg.apiKey&&cfg.databaseURL){
-    if(_initFirebase(cfg)){
-      _startFirebaseListener();
-    }
+  _saveFirebaseConfigLS(_FIREBASE_DEFAULT);
+  if(_initFirebase(_FIREBASE_DEFAULT)){
+    _startFirebaseListener();
   }
 })();
+
+// Fallback : si Firebase pas connecté après chargement complet, réessayer
+window.addEventListener('load',function(){
+  setTimeout(function(){
+    if(!_fbRef){
+      _saveFirebaseConfigLS(_FIREBASE_DEFAULT);
+      if(_initFirebase(_FIREBASE_DEFAULT)){_startFirebaseListener();}
+    }
+  },800);
+});
 
 // ── Import / Export JSON ─────────────────────────────────────────────────
 function exportAppData(){
