@@ -432,7 +432,9 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
         <div class="ph-ac">
           <button class="btn btn-sm" onclick="setZoom(24,this)">Sem</button>
           <button class="btn btn-sm btn-o" onclick="setZoom(14,this)">Mois</button>
+          <button class="btn btn-sm btn-o" onclick="scrollGanttToday()" title="Aller à aujourd'hui">📍 Auj.</button>
           <button class="btn btn-sm" onclick="openAddTask()">+ Tâche</button>
+          <button class="btn btn-sm btn-o" id="force-save-btn" onclick="forceSave()" title="Forcer la sauvegarde sur Firebase" style="font-size:.58rem">💾 Sauver</button>
           <button class="btn btn-sm" style="background:var(--RED);border-color:var(--RED)" onclick="openFinChantier()">⬛ Fin de Chantier</button>
         </div>
       </div>
@@ -2924,17 +2926,17 @@ function renderGantt(){
   const allT=pT();
   const doneT=allT.filter(t=>{const realPct=(t.subtasks?.length>0)?Math.round(t.subtasks.reduce((a,x)=>a+_sp(x),0)/t.subtasks.length):t.pct||0;return realPct===100||t.status==='done';});
   const riskT=allT.filter(t=>t.risk||(t.end&&new Date(t.end)<today&&t.status!=='done'));
-  const totalPct=allT.length?Math.round(doneT.length/allT.length*100):0;
-  // Subtask totals across all tasks
+  // Sous-tâches — métrique principale avancement
   const allSubs=allT.flatMap(t=>t.subtasks||[]);
   const doneSubs=allSubs.filter(s=>_sp(s)===100).length;
+  const totalPct=allSubs.length?Math.round(doneSubs/allSubs.length*100):(allT.length?Math.round(doneT.length/allT.length*100):0);
   const cEl=document.getElementById('task-counter');
   if(cEl)cEl.innerHTML=`
     <span style="font-family:var(--fm);font-size:.58rem;color:var(--C3)">Avancement :</span>
-    <span style="font-family:var(--ff);font-weight:600;font-size:.85rem;color:var(--GREEN)">${doneT.length}<span style="font-family:var(--fm);font-size:.6rem;font-weight:400;color:var(--C3)"> / ${allT.length} tâches</span></span>
+    <span style="font-family:var(--ff);font-weight:600;font-size:.85rem;color:var(--GREEN)">${allSubs.length?doneSubs:doneT.length}<span style="font-family:var(--fm);font-size:.6rem;font-weight:400;color:var(--C3)"> / ${allSubs.length?allSubs.length+' sous-tâches':allT.length+' tâches'}</span></span>
     <span style="font-family:var(--ff);font-weight:700;font-size:1rem;color:${totalPct===100?'var(--GREEN)':totalPct>50?'var(--ORANGE)':'var(--C)'}">${totalPct}%</span>
     <div style="flex:1;height:4px;background:var(--B);border-radius:2px;max-width:120px"><div style="width:${totalPct}%;height:100%;background:${totalPct===100?'var(--GREEN)':'var(--ORANGE)'};border-radius:2px;transition:width .4s"></div></div>
-    ${allSubs.length?`<span style="font-family:var(--fm);font-size:.55rem;color:var(--C3);border-left:1px solid var(--B);padding-left:10px">${doneSubs}/${allSubs.length} sous-tâches</span>`:''}
+    ${allSubs.length?`<span style="font-family:var(--fm);font-size:.55rem;color:var(--C3);border-left:1px solid var(--B);padding-left:10px">${doneT.length}/${allT.length} tâches</span>`:''}
     ${riskT.length?`<span style="font-family:var(--fm);font-size:.55rem;color:var(--RED);background:rgba(139,32,32,.08);padding:2px 7px;border:1px solid rgba(139,32,32,.2)">⚠ ${riskT.length} à risque</span>`:''}`;
   if(!pT().length){
     document.getElementById('gtL').innerHTML=`<div class="empty">Créez d'abord un chantier avec le bouton +</div>`;
@@ -2971,12 +2973,16 @@ function renderGantt(){
   const _dayBg=(d,we)=>`<div style="width:${dw}px;height:100%;border-right:1px solid rgba(26,35,50,.04);background:${we?'rgba(26,35,50,.015)':'none'};flex-shrink:0;display:inline-block"></div>`;
   const _dayRow=(extra='')=>days.map(d=>_dayBg(d,d.getDay()===0||d.getDay()===6)).join('')+extra;
 
+  const riskTaskIds=new Set(riskTasks.map(t=>t.id));
+
   phases.forEach(ph=>{
     const c=CC[ph]||'#888';
+    const phTasks=_sortTasks(pT().filter(t=>t.cat===ph&&!riskTaskIds.has(t.id)));
+    if(!phTasks.length)return;
     lh+=`<div class="gl-row ph"><span class="gl-ph" style="color:${c}">${ph}</span></div>`;
     rRows+=`<div class="g-bar-row ph">${_dayRow()}</div>`;
 
-    _sortTasks(pT().filter(t=>t.cat===ph)).forEach(t=>{
+    phTasks.forEach(t=>{
       const subs=t.subtasks||[];
       const hasSubs=subs.length>0;
       const isExpanded=_ganttExpanded.has(t.id);
@@ -3015,7 +3021,7 @@ function renderGantt(){
           const sp=_sp(s);
           const subLate=s.end&&new Date(s.end)<today&&sp<100;
           const subColor=sp===100?'var(--GREEN)':sp===50?'var(--ORANGE)':subLate?'var(--RED)':'#2B6B9A';
-          lh+=`<div class="gl-row" style="height:20px;padding-left:22px;background:${subLate?'rgba(139,32,32,.05)':sp===100?'rgba(58,107,71,.04)':'rgba(26,35,50,.02)'}">
+          lh+=`<div class="gl-row" style="height:20px;padding-left:22px;background:${subLate?'rgba(139,32,32,.05)':sp===100?'rgba(58,107,71,.04)':'rgba(26,35,50,.02)'};cursor:pointer" onclick="editTask(${t.id})" title="Modifier les dates">
             <div class="gdot" style="width:5px;height:5px;border-radius:50%;background:${subColor};margin-right:5px;flex-shrink:0"></div>
             <div class="gl-n" style="font-size:.52rem;color:${subLate?'var(--RED)':sp===100?'var(--GREEN)':sp===50?'var(--ORANGE)':'var(--C3)'};text-decoration:${sp===100?'line-through':'none'}">
               ${s.text||s.name||''}${subLate?' ⚠':sp===50?' ▶':''}
@@ -3046,11 +3052,9 @@ function renderGantt(){
     const gh=document.getElementById('gtHeader');
     // Restaure scroll ou centre sur aujourd'hui (priorité) / cadrage start
     if(_savedLeft>=0){gr.scrollLeft=_savedLeft;if(gh)gh.scrollLeft=_savedLeft;}
-    else if(tI>=0){const sl=Math.max(0,tI*dw-gr.clientWidth/3);gr.scrollLeft=sl;if(gh)gh.scrollLeft=sl;}
     else{
-      const _proj=S.projects[S.curP]||{};
-      const _ci=_proj.startDate?dI(_proj.startDate):-1;
-      if(_ci>=0){const sl=Math.max(0,_ci*dw-20);gr.scrollLeft=sl;if(gh)gh.scrollLeft=sl;}
+      if(tI>=0){var sl=Math.max(0,tI*S.dw-gr.clientWidth/3);gr.scrollLeft=sl;if(gh)gh.scrollLeft=sl;}
+      else{var _proj=S.projects[S.curP]||{};var _ci=_proj.startDate?dI(_proj.startDate):-1;if(_ci>=0){var sl2=Math.max(0,_ci*S.dw-20);gr.scrollLeft=sl2;if(gh)gh.scrollLeft=sl2;}}
     }
     gl.scrollTop=_savedTop;
     gr.scrollTop=_savedTop;
@@ -3061,6 +3065,36 @@ function renderGantt(){
   });
 }
 function setZoom(w,btn){S.dw=w;document.querySelectorAll('.pg-plan .btn-sm').forEach(b=>b.classList.add('btn-o'));btn.classList.remove('btn-o');renderGantt();}
+
+function scrollGanttToday(){
+  buildDays();
+  var today=new Date();today.setHours(0,0,0,0);
+  var tI=dI(today.toISOString().split('T')[0]);
+  var gr=document.getElementById('gtR');
+  var gh=document.getElementById('gtHeader');
+  if(!gr)return;
+  if(tI<0){showToast("Aujourd'hui n'est pas dans le cadrage");return;}
+  var sl=Math.max(0,tI*S.dw-gr.clientWidth/3);
+  gr.scrollLeft=sl;if(gh)gh.scrollLeft=sl;
+}
+
+function forceSave(){
+  var btn=document.getElementById('force-save-btn');
+  var orig=btn?btn.textContent:'';
+  if(btn){btn.textContent='⏳';btn.disabled=true;}
+  try{
+    var str=JSON.stringify(S);
+    localStorage.setItem('rv_state',str);
+    if(CUR_SESSION&&CUR_SESSION.email)localStorage.setItem('rv_day_'+CUR_SESSION.email,JSON.stringify(S.dayTasks));
+    if(_fbRef){
+      _syncDot('syncing');
+      _fbRef.set(str).then(function(){_syncDot('ok');showToast('✅ Données sauvegardées sur Firebase');if(btn){btn.textContent=orig;btn.disabled=false;}}).catch(function(e){_syncDot('err');showToast('⚠ Erreur Firebase: '+e.message);if(btn){btn.textContent=orig;btn.disabled=false;}});
+    }else{
+      showToast('✅ Sauvegarde locale OK');
+      if(btn){btn.textContent=orig;btn.disabled=false;}
+    }
+  }catch(e){showToast('⚠ Erreur: '+e.message);if(btn){btn.textContent=orig;btn.disabled=false;}}
+}
 
 // ══ GESTIONNAIRE LOTS & DATES ══
 const LOT_ICONS={'Gros Oeuvre':'🏗','Second Oeuvre':'🧱','Finitions':'✨','Electricité':'⚡','Plomberie':'🔧','Menuiserie':'🪵','Carrelage':'🔲','Peinture':'🎨','VRD':'🚧','Coordination':'📋','Autre':'📌'};
@@ -3127,7 +3161,7 @@ function openLotManager(){
           <input type="date" id="shift-lot-${cat.replace(/\s/g,'_')}" value="${minStart}"
             style="font-family:var(--fm);font-size:.68rem;background:var(--A2);border:none;border-bottom:1px solid var(--B2);color:var(--C);padding:3px 6px;outline:none;-webkit-appearance:auto;appearance:auto;cursor:pointer;min-height:30px">
           <button onclick="shiftLot('${cat.replace(/'/g,"\\'")}',document.getElementById('shift-lot-${cat.replace(/\s/g,'_')}').value)"
-            class="btn btn-sm btn-o" style="font-size:.6rem">Décaler</button>
+            class="btn btn-sm" style="font-size:.6rem;background:var(--C);color:#fff">✓ Appliquer</button>
           <!-- Raccourcis rapides -->
           <button onclick="shiftLotDays('${cat.replace(/'/g,"\\'")}',7)" class="btn btn-sm btn-o" style="font-size:.55rem;padding:3px 7px">+1 sem</button>
           <button onclick="shiftLotDays('${cat.replace(/'/g,"\\'")}',14)" class="btn btn-sm btn-o" style="font-size:.55rem;padding:3px 7px">+2 sem</button>
@@ -3187,7 +3221,7 @@ function shiftLotDays(cat,days){
 }
 
 function _applyShiftLot(cat,deltaDays){
-  if(deltaDays===0)return;
+  if(deltaDays===0){showToast('⚠ Date identique — choisissez une date différente');return;}
   pT().filter(t=>t.cat===cat).forEach(t=>{
     if(t.start)t.start=_shiftDate(t.start,deltaDays);
     if(t.end)t.end=_shiftDate(t.end,deltaDays);
