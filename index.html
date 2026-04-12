@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -14,6 +14,7 @@
 <!-- Firebase SDK (compat v9 — fonctionne en file://) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <style>
 :root {
   --C:#1A2332; --A:#F4F2EE; --W:#FFFFFF; --A2:#ECEAE4;
@@ -1394,6 +1395,8 @@ function _initFirebase(cfg){
     }
     _fbDb=firebase.database(_fbApp);
     _fbRef=_fbDb.ref('rivas_state');
+    // Auth anonyme pour sécuriser l'accès Firebase (règles: auth != null)
+    firebase.auth(_fbApp).signInAnonymously().catch(e=>console.warn('Firebase anon auth:',e));
     return true;
   }catch(e){
     console.warn('Firebase init error',e);
@@ -2295,6 +2298,41 @@ function _autoClampAllSubs(){
   let fixed=0;
   pT().forEach(t=>{fixed+=_adjustSubsForTask(t,false);});
   if(fixed>0)saveS();
+}
+// ── Swipe date sous-tâche ────────────────────────────────────────────────
+function shiftSubDate(taskId,subId,days){
+  const t=S.tasks.find(t=>t.id==taskId);if(!t)return;
+  const s=(t.subtasks||[]).find(s=>s.id==subId);if(!s)return;
+  const shift=d=>{const dt=new Date(d);dt.setDate(dt.getDate()+days);return dt.toISOString().split('T')[0];};
+  if(s.start)s.start=shift(s.start);
+  if(s.end)s.end=shift(s.end);
+  saveS();renderTaskList();if(typeof renderGantt==='function')renderGantt();
+  showToast((days>0?'→ +':days<0?'← ':'')+Math.abs(days)+' j');
+}
+function _setupSubDateSwipe(){
+  const tl=document.getElementById('task-list');
+  if(!tl||tl._swipeReady)return;
+  tl._swipeReady=true;
+  let _sx=0,_sy=0,_el=null,_moved=false;
+  tl.addEventListener('touchstart',e=>{
+    const t=e.target.closest('[data-sub-id]');
+    if(!t)return;
+    _sx=e.touches[0].clientX;_sy=e.touches[0].clientY;_el=t;_moved=false;
+  },{passive:true});
+  tl.addEventListener('touchmove',e=>{
+    if(!_el)return;
+    const dx=Math.abs(e.touches[0].clientX-_sx);
+    if(dx>10)_moved=true;
+  },{passive:true});
+  tl.addEventListener('touchend',e=>{
+    if(!_el||!_moved)return;
+    const dx=e.changedTouches[0].clientX-_sx;
+    const dy=e.changedTouches[0].clientY-_sy;
+    if(Math.abs(dx)>Math.abs(dy)*1.5&&Math.abs(dx)>40){
+      shiftSubDate(_el.dataset.taskId,_el.dataset.subId,dx>0?1:-1);
+    }
+    _el=null;
+  },{passive:true});
 }
 // ── Week reference helpers ──────────────────────────────────────────────
 // Parses "(S02→S04)" / "(S05)" / "(S2-S4)" from subtask text
@@ -3491,8 +3529,8 @@ function renderTaskList(){
         const subLate=s.end&&new Date(s.end)<today&&sp<100;
         const dateColor=subLate?'var(--RED)':wRef?'var(--ORANGE)':'var(--C3)';
         const dateTag=wRef&&_projStart
-          ?`<span style="font-family:var(--fm);font-size:.52rem;color:${dateColor};margin-left:4px;white-space:nowrap">📅 ${_wkLabel(wRef,_projStart)}</span>`
-          :(s.start?`<span style="font-family:var(--fm);font-size:.52rem;color:${dateColor};margin-left:4px;white-space:nowrap">${subLate?'⚠ ':''} ${fd(s.start)}${s.end&&s.end!==s.start?' → '+fd(s.end):''}</span>`:'');
+          ?`<span data-task-id="${t.id}" data-sub-id="${s.id}" style="font-family:var(--fm);font-size:.52rem;color:${dateColor};margin-left:4px;white-space:nowrap;user-select:none;touch-action:pan-x" title="Glisser ← → pour décaler d'1 jour">📅 ${_wkLabel(wRef,_projStart)} <span style="opacity:.35;font-size:.45rem">⇄</span></span>`
+          :(s.start?`<span data-task-id="${t.id}" data-sub-id="${s.id}" style="font-family:var(--fm);font-size:.52rem;color:${dateColor};margin-left:4px;white-space:nowrap;user-select:none;touch-action:pan-x" title="Glisser ← → pour décaler d'1 jour">${subLate?'⚠ ':''} ${fd(s.start)}${s.end&&s.end!==s.start?' → '+fd(s.end):''} <span style="opacity:.35;font-size:.45rem">⇄</span></span>`:'');
         const subBorder=sp===100?'var(--GREEN)':sp===50?'var(--ORANGE)':subLate?'var(--RED)':'var(--B2)';
         const subBg=sp===100?'var(--GREEN)':sp===50?'rgba(139,90,0,.12)':'none';
         const subIcon=sp===100?'✓':sp===50?'▶':'○';
@@ -3513,6 +3551,7 @@ function renderTaskList(){
   });
   document.getElementById('task-list').innerHTML=h||`<div class="empty">Aucune tâche</div>`;
   renderLatePanel();
+  _setupSubDateSwipe();
 }
 
 // ══ COMPTE RENDU ══
