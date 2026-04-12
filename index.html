@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -167,7 +167,8 @@ main{flex:1;overflow:hidden;position:relative;}
 .cr-m{font-family:var(--fm);font-size:.75rem;color:var(--C3);margin-top:5px;line-height:1.8;}
 .rida{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;font-family:var(--ff);font-weight:700;font-size:.5rem;}
 .rida.D{background:var(--C);color:var(--W);} .rida.A{background:var(--GREEN);color:#fff;} .rida.I{background:var(--ORANGE);color:#fff;}
-.sl-item{padding:11px 14px;border-bottom:1px solid var(--B);background:var(--W);display:flex;gap:8px;align-items:flex-start;}
+.sl-item{padding:13px 14px;border-bottom:1px solid var(--B);background:var(--W);display:flex;gap:10px;align-items:flex-start;transition:background .15s;}
+.sl-item:active{background:var(--A2);}
 .sl-body{flex:1;}
 .sl-theme{font-family:var(--ff);font-weight:700;font-size:.75rem;letter-spacing:1px;color:var(--C);margin-bottom:1px;}
 .sl-det{font-family:var(--fm);font-size:.64rem;color:var(--C6);line-height:1.65;}
@@ -516,7 +517,28 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
         <div id="cr-int"></div>
         <div class="sec-h"><span class="sec-t">Planning Actualisé</span></div>
         <div id="cr-planning"></div>
-        <div class="sec-h"><span class="sec-t">Statut Projet — RIDA</span><button class="sec-add" onclick="openSheet('statSheet')">+</button></div>
+        <div class="sec-h"><span class="sec-t">Statut Projet — RIDA</span><button class="sec-add" onclick="openSheet('statSheet')" title="Formulaire détaillé">⚙</button></div>
+        <!-- ── Widget RIDA rapide (mobile-first) ── -->
+        <div id="quick-rida-zone" style="padding:12px 14px 14px;background:var(--A2);border-bottom:2px solid var(--B)">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:3px">
+            <button onclick="setQRida('R')" id="qr-R" style="height:48px;border:2px solid #8B2020;background:rgba(139,32,32,.08);color:#8B2020;font-family:var(--ff);font-weight:700;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:all .15s">R</button>
+            <button onclick="setQRida('I')" id="qr-I" style="height:48px;border:2px solid #3A6B47;background:rgba(43,98,71,.08);color:#3A6B47;font-family:var(--ff);font-weight:700;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:all .15s">I</button>
+            <button onclick="setQRida('D')" id="qr-D" style="height:48px;border:2px solid #2B6B9A;background:rgba(43,107,154,.08);color:#2B6B9A;font-family:var(--ff);font-weight:700;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:all .15s">D</button>
+            <button onclick="setQRida('A')" id="qr-A" style="height:48px;border:2px solid var(--C);background:var(--C);color:var(--W);font-family:var(--ff);font-weight:700;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:all .15s">A</button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
+            <span style="font-family:var(--fm);font-size:.44rem;color:var(--C3);text-align:center;letter-spacing:.5px">Risque</span>
+            <span style="font-family:var(--fm);font-size:.44rem;color:var(--C3);text-align:center;letter-spacing:.5px">Info</span>
+            <span style="font-family:var(--fm);font-size:.44rem;color:var(--C3);text-align:center;letter-spacing:.5px">Décision</span>
+            <span style="font-family:var(--fm);font-size:.44rem;color:var(--C3);text-align:center;letter-spacing:.5px">Action ✓</span>
+          </div>
+          <div style="display:flex;gap:6px;align-items:stretch;margin-bottom:8px">
+            <textarea id="qr-det" placeholder="Notez rapidement l'action, décision ou info..." rows="2" style="flex:1;font-family:var(--fm);font-size:.8rem;line-height:1.6;border:1.5px solid var(--B2);background:var(--W);color:var(--C);padding:9px 10px;border-radius:8px;resize:none;outline:none;min-height:64px;-webkit-appearance:none"></textarea>
+            <button onclick="startVoiceQRIDA()" id="qr-mic-btn" style="width:46px;flex-shrink:0;background:var(--C);border:none;border-radius:8px;cursor:pointer;color:#fff;font-size:1.2rem;display:flex;align-items:center;justify-content:center">🎤</button>
+          </div>
+          <div id="qr-resp-btns" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;min-height:16px"></div>
+          <button onclick="addQuickRIDA()" style="width:100%;height:46px;background:var(--C);color:var(--W);border:none;font-family:var(--ff);font-weight:700;font-size:.72rem;letter-spacing:2px;border-radius:8px;cursor:pointer">+ AJOUTER</button>
+        </div>
         <div id="cr-stat"></div>
         <div class="sec-h"><span class="sec-t">Éléments Clefs</span><button class="sec-add" onclick="openSheet('clefSheet')">+</button></div>
         <div id="cr-clefs"></div>
@@ -3475,7 +3497,7 @@ function renderTaskList(){
         const subBg=sp===100?'var(--GREEN)':sp===50?'rgba(139,90,0,.12)':'none';
         const subIcon=sp===100?'✓':sp===50?'▶':'○';
         const subTextColor=sp===100?'var(--C3)':subLate?'var(--RED)':sp===50?'var(--ORANGE)':'var(--C)';
-        return `<div style="display:flex;align-items:center;gap:6px;padding:3px 2px;cursor:pointer;flex-wrap:wrap;${subLate?'background:rgba(139,32,32,.04);margin:1px 0;border-radius:2px;padding:3px 4px':''}" onclick="event.stopPropagation();toggleSub(${t.id},${s.id})"><div style="width:16px;height:16px;border:1.5px solid ${subBorder};background:${subBg};flex-shrink:0;display:flex;align-items:center;justify-content:center;color:${sp===100?'#FFFFFF':'var(--ORANGE)'};font-size:.5rem;border-radius:2px">${subIcon}</div><span style="font-family:var(--fm);font-size:.62rem;color:${subTextColor};${sp===100?'text-decoration:line-through':''}">${s.text}</span>${dateTag}</div>`;
+        return `<div style="display:flex;align-items:center;gap:6px;padding:3px 2px;cursor:pointer;flex-wrap:wrap;${subLate?'background:rgba(139,32,32,.04);margin:1px 0;border-radius:2px;padding:3px 4px':''}" onclick="event.stopPropagation();toggleSub(${t.id},${s.id})"><div style="width:24px;height:24px;border:2px solid ${subBorder};background:${subBg};flex-shrink:0;display:flex;align-items:center;justify-content:center;color:${sp===100?'#FFFFFF':'var(--ORANGE)'};font-size:.65rem;border-radius:4px;min-width:24px">${subIcon}</div><span style="font-family:var(--fm);font-size:.62rem;color:${subTextColor};${sp===100?'text-decoration:line-through':''}">${s.text}</span>${dateTag}</div>`;
       }).join('')}</div>`:'';
       const rappelBtn=t.assignee?`<button onclick="event.stopPropagation();sendRappel(${t.id})" title="Email de rappel à ${t.assignee}" style="font-family:var(--fm);font-size:.48rem;padding:3px 7px;border:1px solid var(--B2);background:none;color:var(--C3);cursor:pointer;margin-top:4px">✉ Rappel</button>`:'';
       const isDone=realPct===100||t.status==='done';
@@ -3498,12 +3520,36 @@ function renderCR(){
   document.getElementById('cr-meta').innerHTML=`Projet : <strong>${S.projects[S.curP]?.name||'—'}</strong><br>Réunion N° — · ${new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})}`;
   // Intervenants
   document.getElementById('cr-int').innerHTML=pM().length?pM().map(m=>`<div class="sl-item" style="cursor:pointer" onclick="openEditMemb(${m.id})"><div class="sl-body"><div class="sl-theme">${m.name} — <span style="font-weight:400;font-size:.88em">${m.company||''}</span></div><div style="font-family:var(--fm);font-size:.56rem;color:var(--C3);margin-top:2px">${m.type} · ${m.present?'✓ Présent':'✗ Absent'}${m.email?' · '+m.email:''}</div></div><div style="font-size:.65rem;color:var(--C3);padding:4px 6px;opacity:.5">✎</div></div>`).join(''):`<div class="empty">—</div>`;
-  // Stat lines
-  document.getElementById('cr-stat').innerHTML=pSL().length?pSL().map(l=>`<div class="sl-item"><span class="rida ${l.rida}">${l.rida}</span><div class="sl-body" style="margin-left:6px"><div class="sl-theme">${l.theme}</div><div class="sl-det${l.urgent?' urg':''}">${l.detail}</div><span class="resp-tag">${l.resp}</span>${l.photos?.length?`<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">${l.photos.map(p=>`<img style="width:90px;height:90px;object-fit:cover;border:1px solid var(--B);cursor:zoom-in;border-radius:2px" src="${p}" onclick="showPh(this.src)">`).join('')}</div>`:''}<label style="font-family:var(--fm);font-size:.46rem;letter-spacing:1.5px;color:var(--C3);cursor:pointer;border:1px dashed var(--B2);padding:2px 6px;display:inline-block;margin-top:6px">+ Photo<input type="file" accept="image/*" multiple style="display:none" onchange="addStPh(${l.id},this)"></label></div></div>`).join(''):`<div class="empty">—</div>`;
+  // Stat lines — mobile-optimized display
+  const RIDA_COLORS={R:'#8B2020',I:'#3A6B47',D:'#2B6B9A',A:'var(--GREEN)'};
+  document.getElementById('cr-stat').innerHTML=pSL().length?pSL().map(l=>{
+    const rc=RIDA_COLORS[l.rida]||'#555';
+    return `<div class="sl-item" style="padding:13px 14px;gap:10px;border-left:4px solid ${rc};position:relative">
+      <div style="width:34px;height:34px;border-radius:50%;background:${rc};display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <span style="font-family:var(--ff);font-weight:700;font-size:.8rem;color:#fff">${l.rida}</span>
+      </div>
+      <div class="sl-body" style="margin-left:0;flex:1;min-width:0">
+        ${l.theme?`<div class="sl-theme" style="font-size:.7rem;margin-bottom:2px;color:${rc}">${l.theme}</div>`:''}
+        <div class="sl-det${l.urgent?' urg':''}" style="font-size:.75rem;line-height:1.6;color:var(--C)">${l.detail}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap">
+          ${l.resp?`<span class="resp-tag" style="font-size:.65rem;padding:3px 10px">${l.resp}</span>`:''}
+          ${l.date?`<span style="font-family:var(--fm);font-size:.55rem;color:var(--C3)">${l.date}</span>`:''}
+          ${l.urgent?`<span style="font-family:var(--fm);font-size:.55rem;color:var(--RED);background:rgba(139,32,32,.08);padding:2px 7px;border-radius:10px">⚠ Urgent</span>`:''}
+        </div>
+        ${l.photos?.length?`<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">${l.photos.map(p=>`<img style="width:80px;height:80px;object-fit:cover;border:1px solid var(--B);cursor:zoom-in;border-radius:4px" src="${p}" onclick="showPh(this.src)">`).join('')}</div>`:''}
+        <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+          <label style="font-family:var(--fm);font-size:.52rem;color:var(--C3);cursor:pointer;border:1px dashed var(--B2);padding:4px 9px;border-radius:4px;display:inline-flex;align-items:center;gap:4px">📷 Photo<input type="file" accept="image/*" multiple style="display:none" onchange="addStPh(${l.id},this)"></label>
+          <button onclick="delStatLine(${l.id})" style="font-family:var(--fm);font-size:.52rem;color:var(--RED);background:rgba(139,32,32,.07);border:1px solid rgba(139,32,32,.2);padding:4px 9px;border-radius:4px;cursor:pointer">🗑 Supprimer</button>
+        </div>
+      </div>
+    </div>`;
+  }).join(''):`<div class="empty">Aucun point RIDA — utilisez les boutons ci-dessus pour en ajouter</div>`;
   // Clefs
   document.getElementById('cr-clefs').innerHTML=pC().length?pC().map(c=>`<div style="display:flex;gap:8px;align-items:flex-start;padding:10px 14px;border-bottom:1px solid var(--B);background:var(--W)"><div style="width:3px;height:3px;border-radius:50%;background:var(--RED);margin-top:9px;flex-shrink:0"></div><div style="font-family:var(--fm);font-size:.68rem;flex:1;color:${c.urgent?'var(--RED)':'var(--C)'};line-height:1.65"><strong>${c.ref}</strong> : ${c.text}</div></div>`).join(''):`<div class="empty">—</div>`;
   renderCRPlanning();
   renderCRPdfList();
+  // Init quick RIDA widget
+  setTimeout(()=>{setQRida(_qRidaType||'A');renderQRidaResps();},0);
 }
 function renderCRPlanning(){
   const el=document.getElementById('cr-planning');if(!el)return;
@@ -4322,6 +4368,75 @@ function toggleSub(taskId,subId){
 function saveProj(){const n=document.getElementById('p-n').value.trim();if(!n){showToast('Donnez un nom au projet');return;}const clientMail=document.getElementById('p-client').value.trim().toLowerCase();const partnerEmails=document.getElementById('p-partners').value.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);const proj={name:n,phase:document.getElementById('p-ph').value||'Gros Oeuvre',pct:parseInt(document.getElementById('p-pct').value)||0,startDate:document.getElementById('p-start')?.value||'',endDate:document.getElementById('p-end')?.value||'',clientEmails:clientMail?[clientMail]:[],partnerEmails};S.projects.push(proj);S.curP=S.projects.length-1;saveS();closeSheet('projSheet');renderProjBar();renderAll();showToast('✓ Chantier "'+n+'" créé');}
 function saveProjDates(){const p=S.projects[S.curP];if(!p)return;p.startDate=document.getElementById('gantt-start-date')?.value||p.startDate||'';p.endDate=document.getElementById('gantt-end-date')?.value||p.endDate||'';_autoClampAllSubs();saveS();renderGantt();showToast('✓ Dates cadrage sauvegardées');}
 function saveStat(){const l={id:S.nid++,pi:S.curP,rida:document.getElementById('st-r').value,theme:document.getElementById('st-th').value,detail:document.getElementById('st-det').value,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}),resp:document.getElementById('st-rsp').value,urgent:document.getElementById('st-urg').value==='1',photos:[]};S.statLines.push(l);Array.from(document.getElementById('st-ph').files).forEach(f=>{const r=new FileReader();r.onload=e=>{l.photos.push(e.target.result);};r.readAsDataURL(f);});closeSheet('statSheet');renderCR();}
+// ── QUICK RIDA (mobile-first) ──
+let _qRidaType='A',_qRidaResp='';
+const _RIDA_COL={R:'#8B2020',I:'#3A6B47',D:'#2B6B9A',A:'var(--C)'};
+const _RIDA_BG={R:'rgba(139,32,32,.15)',I:'rgba(43,98,71,.15)',D:'rgba(43,107,154,.15)',A:'var(--C)'};
+
+function setQRida(type){
+  _qRidaType=type;
+  ['R','I','D','A'].forEach(t=>{
+    const b=document.getElementById('qr-'+t);if(!b)return;
+    const active=t===type;
+    b.style.background=active?_RIDA_BG[t]:(t==='A'?'rgba(26,35,50,.04)':'');
+    b.style.opacity=active?'1':'0.45';
+    b.style.transform=active?'scale(1.04)':'scale(1)';
+    if(t!=='A')b.style.background=active?_RIDA_BG[t]:'transparent';
+    if(t==='A'){b.style.background=active?'var(--C)':'rgba(26,35,50,.04)';b.style.color=active?'var(--W)':'var(--C)';}
+  });
+}
+
+function renderQRidaResps(){
+  const el=document.getElementById('qr-resp-btns');if(!el)return;
+  const members=pM();
+  if(!members.length){el.innerHTML='<span style="font-family:var(--fm);font-size:.55rem;color:var(--C3)">Ajoutez des intervenants pour les sélectionner</span>';return;}
+  el.innerHTML=members.map(m=>{
+    const name=m.company||m.name;
+    const active=_qRidaResp===name;
+    return `<button onclick="setQRidaResp(this,'${name.replace(/'/g,"\\'")}')" style="font-family:var(--fm);font-size:.6rem;padding:6px 12px;border:1.5px solid ${active?'var(--C)':'var(--B2)'};background:${active?'var(--C)':'var(--W)'};color:${active?'var(--W)':'var(--C3)'};border-radius:20px;cursor:pointer;white-space:nowrap;min-height:32px">${name}</button>`;
+  }).join('');
+}
+
+function setQRidaResp(btn,name){
+  _qRidaResp=_qRidaResp===name?'':name;
+  renderQRidaResps();
+}
+
+function addQuickRIDA(){
+  const det=document.getElementById('qr-det')?.value.trim();
+  if(!det){showToast('Saisissez un détail');return;}
+  const dt=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+  S.statLines.push({id:S.nid++,pi:S.curP,rida:_qRidaType,theme:'',detail:det,date:dt,resp:_qRidaResp,urgent:false,photos:[]});
+  document.getElementById('qr-det').value='';
+  _qRidaResp='';
+  saveS();renderCR();
+  showToast('✓ Point '+_qRidaType+' ajouté');
+}
+
+function delStatLine(id){
+  if(!confirm('Supprimer ce point RIDA ?'))return;
+  S.statLines=S.statLines.filter(l=>l.id!==id);
+  saveS();renderCR();
+  showToast('Point supprimé');
+}
+
+function startVoiceQRIDA(){
+  if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)){showToast('Reconnaissance vocale non disponible sur ce navigateur');return;}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  const r=new SR();r.lang='fr-FR';r.continuous=false;r.interimResults=false;
+  const btn=document.getElementById('qr-mic-btn');
+  if(btn){btn.textContent='🔴';btn.style.background='var(--RED)';}
+  r.onresult=e=>{
+    if(btn){btn.textContent='🎤';btn.style.background='var(--C)';}
+    const txt=Array.from(e.results).map(x=>x[0].transcript).join(' ');
+    const el=document.getElementById('qr-det');
+    if(el)el.value=(el.value?el.value+' ':'')+txt;
+    showToast('✓ Vocal capturé');
+  };
+  r.onerror=()=>{if(btn){btn.textContent='🎤';btn.style.background='var(--C)';}showToast('Erreur micro — vérifiez les permissions');};
+  r.onend=()=>{if(btn){btn.textContent='🎤';btn.style.background='var(--C)';}};
+  r.start();
+}
 function saveClef(){S.clefs.push({id:S.nid++,pi:S.curP,ref:document.getElementById('cl-ref').value,text:document.getElementById('cl-txt').value,urgent:document.getElementById('cl-urg').value==='1'});closeSheet('clefSheet');renderCR();}
 function saveCmd(){
   const d={name:document.getElementById('cmd-n').value,lot:document.getElementById('cmd-lot').value,fournisseur:document.getElementById('cmd-f').value,devis:parseFloat(document.getElementById('cmd-dv').value)||0,paid:parseInt(document.getElementById('cmd-pd').value)||0,delivery:document.getElementById('cmd-dl').value,status:document.getElementById('cmd-st').value,recept:document.getElementById('cmd-rcp').value,comment:document.getElementById('cmd-cm').value,photos:[..._cmdPhotos],photoComment:''};
