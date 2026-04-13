@@ -1434,7 +1434,11 @@ function _initFirebase(cfg){
     _fbDb=firebase.database(_fbApp);
     _fbRef=_fbDb.ref('rivas_state');
     // Auth anonyme pour sécuriser l'accès Firebase (règles: auth != null)
-    firebase.auth(_fbApp).signInAnonymously().catch(e=>console.warn('Firebase anon auth:',e));
+    const _auth=firebase.auth(_fbApp);
+    _auth.onAuthStateChanged(user=>{
+      if(user&&!_fbListening)_startFirebaseListener();
+    });
+    _auth.signInAnonymously().catch(e=>console.warn('Firebase anon auth:',e));
     return true;
   }catch(e){
     console.warn('Firebase init error',e);
@@ -1459,6 +1463,7 @@ function _startFirebaseListener(){
     }catch(e){console.warn('Firebase read error',e);}
   },err=>{
     console.warn('Firebase listener error',err);
+    _fbListening=false;
     _syncDot('err');
   });
   _syncDot('ok');
