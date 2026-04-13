@@ -840,6 +840,44 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
   </div>
 </div>
 
+<div class="overlay" id="subDateSheet" onclick="if(event.target===this)closeSheet('subDateSheet')" style="z-index:400">
+  <div class="sheet" style="max-height:80vh;display:flex;flex-direction:column">
+    <div class="sh-hd"><span>📅 Dates sous-tâche</span><button class="sh-cl" onclick="closeSheet('subDateSheet')">✕</button></div>
+    <div style="padding:18px 20px 24px;overflow-y:auto">
+      <div id="sds-name" style="font-family:var(--fm);font-size:.72rem;color:var(--C3);margin-bottom:18px;line-height:1.5;padding:10px 12px;background:var(--A);border-radius:var(--r);border-left:3px solid var(--C)"></div>
+      <!-- Décalage rapide -->
+      <div style="font-family:var(--fm);font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--C3);margin-bottom:10px">Décaler les deux dates</div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:22px">
+        <button onclick="shiftSubDateEditor(-7)" style="font-family:var(--fm);font-size:.65rem;padding:9px 4px;border:1.5px solid var(--B2);background:none;color:var(--C3);border-radius:var(--r);cursor:pointer;transition:all .15s" onmouseenter="this.style.borderColor='var(--C)';this.style.color='var(--C)'" onmouseleave="this.style.borderColor='var(--B2)';this.style.color='var(--C3)'">−7j</button>
+        <button onclick="shiftSubDateEditor(-3)" style="font-family:var(--fm);font-size:.65rem;padding:9px 4px;border:1.5px solid var(--B2);background:none;color:var(--C3);border-radius:var(--r);cursor:pointer;transition:all .15s" onmouseenter="this.style.borderColor='var(--C)';this.style.color='var(--C)'" onmouseleave="this.style.borderColor='var(--B2)';this.style.color='var(--C3)'">−3j</button>
+        <button onclick="shiftSubDateEditor(-1)" style="font-family:var(--fm);font-size:.65rem;padding:9px 4px;border:1.5px solid var(--RED);background:none;color:var(--RED);border-radius:var(--r);cursor:pointer;font-weight:700">−1j</button>
+        <button onclick="shiftSubDateEditor(1)" style="font-family:var(--fm);font-size:.65rem;padding:9px 4px;border:1.5px solid var(--GREEN);background:none;color:var(--GREEN);border-radius:var(--r);cursor:pointer;font-weight:700">+1j</button>
+        <button onclick="shiftSubDateEditor(3)" style="font-family:var(--fm);font-size:.65rem;padding:9px 4px;border:1.5px solid var(--B2);background:none;color:var(--C3);border-radius:var(--r);cursor:pointer;transition:all .15s" onmouseenter="this.style.borderColor='var(--C)';this.style.color='var(--C)'" onmouseleave="this.style.borderColor='var(--B2)';this.style.color='var(--C3)'">+3j</button>
+        <button onclick="shiftSubDateEditor(7)" style="font-family:var(--fm);font-size:.65rem;padding:9px 4px;border:1.5px solid var(--B2);background:none;color:var(--C3);border-radius:var(--r);cursor:pointer;transition:all .15s" onmouseenter="this.style.borderColor='var(--C)';this.style.color='var(--C)'" onmouseleave="this.style.borderColor='var(--B2)';this.style.color='var(--C3)'">+7j</button>
+      </div>
+      <!-- Dates précises -->
+      <div style="font-family:var(--fm);font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--C3);margin-bottom:10px">Dates précises</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px">
+        <div>
+          <label style="font-family:var(--fm);font-size:.6rem;color:var(--C3);display:block;margin-bottom:5px">Début</label>
+          <input type="date" id="sds-start" style="width:100%;background:var(--A);border:1.5px solid var(--B2);border-radius:var(--r);color:var(--C);padding:10px 12px;font-family:var(--fm);font-size:.8rem;outline:none" oninput="syncSubDateEnd()" onfocus="this.style.borderColor='var(--C)'" onblur="this.style.borderColor='var(--B2)'">
+        </div>
+        <div>
+          <label style="font-family:var(--fm);font-size:.6rem;color:var(--C3);display:block;margin-bottom:5px">Fin</label>
+          <input type="date" id="sds-end" style="width:100%;background:var(--A);border:1.5px solid var(--B2);border-radius:var(--r);color:var(--C);padding:10px 12px;font-family:var(--fm);font-size:.8rem;outline:none" onfocus="this.style.borderColor='var(--C)'" onblur="this.style.borderColor='var(--B2)'">
+        </div>
+      </div>
+      <!-- Priorité -->
+      <div style="font-family:var(--fm);font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--C3);margin-bottom:10px">Priorité</div>
+      <div style="display:flex;gap:8px;margin-bottom:24px">
+        <button onclick="_setSdsPriority('urgent')" id="sds-p-urgent" style="flex:1;font-family:var(--fm);font-size:.6rem;padding:9px;border:1.5px solid var(--RED);background:none;color:var(--RED);border-radius:var(--r);cursor:pointer">🔴 Urgent</button>
+        <button onclick="_setSdsPriority('high')" id="sds-p-high" style="flex:1;font-family:var(--fm);font-size:.6rem;padding:9px;border:1.5px solid var(--ORANGE);background:none;color:var(--ORANGE);border-radius:var(--r);cursor:pointer">🟠 Prioritaire</button>
+        <button onclick="_setSdsPriority('normal')" id="sds-p-normal" style="flex:1;font-family:var(--fm);font-size:.6rem;padding:9px;border:1.5px solid var(--B2);background:none;color:var(--C3);border-radius:var(--r);cursor:pointer">⬜ Normal</button>
+      </div>
+      <button onclick="saveSubDate()" style="width:100%;padding:15px;background:var(--C);border:none;border-radius:var(--r-pill);color:var(--W);font-family:var(--ff);font-weight:600;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer">✓ Appliquer</button>
+    </div>
+  </div>
+</div>
 <!-- Nouvelle tâche -->
 <div class="overlay" id="taskSheet" onclick="if(event.target===this)closeSheet('taskSheet')">
   <div class="sheet" style="position:relative">
@@ -2299,6 +2337,64 @@ function _autoClampAllSubs(){
   pT().forEach(t=>{fixed+=_adjustSubsForTask(t,false);});
   if(fixed>0)saveS();
 }
+let _sdsTaskId=null,_sdsSubId=null;
+function openSubDateEditor(taskId,subId,e){
+  if(e){e.stopPropagation();e.preventDefault();}
+  const t=S.tasks.find(t=>t.id==taskId);
+  if(!t)return;
+  const s=(t.subtasks||[]).find(s=>s.id==subId);
+  if(!s)return;
+  _sdsTaskId=taskId;_sdsSubId=subId;
+  document.getElementById('sds-name').textContent=s.text;
+  document.getElementById('sds-start').value=s.start||'';
+  document.getElementById('sds-end').value=s.end||'';
+  // Priority state
+  const p=s.priority||'normal';
+  ['urgent','high','normal'].forEach(k=>{
+    const btn=document.getElementById('sds-p-'+k);
+    if(!btn)return;
+    const active=k===p;
+    btn.style.fontWeight=active?'700':'400';
+    btn.style.opacity=active?'1':'0.55';
+  });
+  openSheet('subDateSheet');
+}
+function shiftSubDateEditor(days){
+  const si=document.getElementById('sds-start');
+  const ei=document.getElementById('sds-end');
+  const shift=d=>{if(!d)return '';const dt=new Date(d);dt.setDate(dt.getDate()+days);return dt.toISOString().split('T')[0];};
+  si.value=shift(si.value);
+  ei.value=shift(ei.value);
+}
+function syncSubDateEnd(){
+  // If end < start, auto-advance end by same duration
+  const si=document.getElementById('sds-start');
+  const ei=document.getElementById('sds-end');
+  if(si.value&&ei.value&&ei.value<si.value)ei.value=si.value;
+}
+function _setSdsPriority(p){
+  ['urgent','high','normal'].forEach(k=>{
+    const btn=document.getElementById('sds-p-'+k);
+    if(!btn)return;
+    btn.style.fontWeight=k===p?'700':'400';
+    btn.style.opacity=k===p?'1':'0.55';
+  });
+  const t=S.tasks.find(t=>t.id==_sdsTaskId);
+  const s=t&&(t.subtasks||[]).find(s=>s.id==_sdsSubId);
+  if(s)s.priority=p;
+}
+function saveSubDate(){
+  const t=S.tasks.find(t=>t.id==_sdsTaskId);
+  const s=t&&(t.subtasks||[]).find(s=>s.id==_sdsSubId);
+  if(!t||!s)return;
+  s.start=document.getElementById('sds-start').value;
+  s.end=document.getElementById('sds-end').value;
+  saveS();
+  closeSheet('subDateSheet');
+  renderTaskList();
+  if(typeof renderGantt==='function')renderGantt();
+  showToast('✓ Dates mises à jour');
+}
 // ── Swipe date sous-tâche ────────────────────────────────────────────────
 function shiftSubDate(taskId,subId,days){
   const t=S.tasks.find(t=>t.id==taskId);if(!t)return;
@@ -3528,9 +3624,10 @@ function renderTaskList(){
         const wRef=_parseWeekRef(s.text);
         const subLate=s.end&&new Date(s.end)<today&&sp<100;
         const dateColor=subLate?'var(--RED)':wRef?'var(--ORANGE)':'var(--C3)';
+        const _prioBadge=s.priority==='urgent'?'<span style="font-size:.42rem;background:var(--RED);color:#fff;border-radius:3px;padding:1px 4px;margin-left:3px">URGENT</span>':s.priority==='high'?'<span style="font-size:.42rem;background:var(--ORANGE);color:#fff;border-radius:3px;padding:1px 4px;margin-left:3px">PRIORITÉ</span>':'';
         const dateTag=wRef&&_projStart
-          ?`<span data-task-id="${t.id}" data-sub-id="${s.id}" style="font-family:var(--fm);font-size:.52rem;color:${dateColor};margin-left:4px;white-space:nowrap;user-select:none;touch-action:pan-x" title="Glisser ← → pour décaler d'1 jour">📅 ${_wkLabel(wRef,_projStart)} <span style="opacity:.35;font-size:.45rem">⇄</span></span>`
-          :(s.start?`<span data-task-id="${t.id}" data-sub-id="${s.id}" style="font-family:var(--fm);font-size:.52rem;color:${dateColor};margin-left:4px;white-space:nowrap;user-select:none;touch-action:pan-x" title="Glisser ← → pour décaler d'1 jour">${subLate?'⚠ ':''} ${fd(s.start)}${s.end&&s.end!==s.start?' → '+fd(s.end):''} <span style="opacity:.35;font-size:.45rem">⇄</span></span>`:'');
+          ?`<span data-task-id="${t.id}" data-sub-id="${s.id}" onclick="event.stopPropagation();openSubDateEditor(${t.id},${s.id},event)" style="font-family:var(--fm);font-size:.52rem;color:${dateColor};margin-left:4px;white-space:nowrap;user-select:none;touch-action:pan-x;cursor:pointer;border-bottom:1px dashed ${dateColor};padding-bottom:1px" title="Modifier les dates">📅 ${_wkLabel(wRef,_projStart)} ✎${_prioBadge}</span>`
+          :(s.start?`<span data-task-id="${t.id}" data-sub-id="${s.id}" onclick="event.stopPropagation();openSubDateEditor(${t.id},${s.id},event)" style="font-family:var(--fm);font-size:.52rem;color:${dateColor};margin-left:4px;white-space:nowrap;user-select:none;touch-action:pan-x;cursor:pointer;border-bottom:1px dashed ${dateColor};padding-bottom:1px" title="Modifier les dates">${subLate?'⚠ ':''} ${fd(s.start)}${s.end&&s.end!==s.start?' → '+fd(s.end):''} ✎${_prioBadge}</span>`:'');
         const subBorder=sp===100?'var(--GREEN)':sp===50?'var(--ORANGE)':subLate?'var(--RED)':'var(--B2)';
         const subBg=sp===100?'var(--GREEN)':sp===50?'rgba(139,90,0,.12)':'none';
         const subIcon=sp===100?'✓':sp===50?'▶':'○';
