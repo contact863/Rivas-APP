@@ -1433,12 +1433,7 @@ function _initFirebase(cfg){
     }
     _fbDb=firebase.database(_fbApp);
     _fbRef=_fbDb.ref('rivas_state');
-    // Auth anonyme pour sécuriser l'accès Firebase (règles: auth != null)
-    const _auth=firebase.auth(_fbApp);
-    _auth.onAuthStateChanged(user=>{
-      if(user&&!_fbListening)_startFirebaseListener();
-    });
-    _auth.signInAnonymously().catch(e=>console.warn('Firebase anon auth:',e));
+    _startFirebaseListener();
     return true;
   }catch(e){
     console.warn('Firebase init error',e);
