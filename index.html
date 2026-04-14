@@ -1521,6 +1521,15 @@ function saveS(){
     }
     const str=JSON.stringify(S);
     localStorage.setItem('rv_state',str);
+    // ── Sauvegarde tournante (3 snapshots) ──
+    try{
+      const now=new Date().toISOString();
+      const bk2=localStorage.getItem('rv_bk1');
+      const bk3=localStorage.getItem('rv_bk2');
+      if(bk2)localStorage.setItem('rv_bk2',bk2);
+      if(bk3)localStorage.setItem('rv_bk3',bk3);
+      localStorage.setItem('rv_bk1',JSON.stringify({ts:now,data:str}));
+    }catch(e){}
     // Sync to Firebase if configured
     if(_fbRef){
       _syncDot('syncing');
