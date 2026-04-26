@@ -7332,29 +7332,84 @@ function epImportQuote(){
 let _epImportPending=null;
 
 // Multi-file wrapper for estimator REX import
+// — each PDF is saved as its own entry in the comparison database
 async function epHandleDevisFiles(fileList){
   const files=Array.from(fileList).filter(f=>f.type==='application/pdf'||f.name.endsWith('.pdf'));
   if(!files.length)return;
   if(files.length===1){epHandleDevisFile(files[0]);return;}
-  // Multiple PDFs — process sequentially and merge lots
+
+  // Multiple PDFs — process & auto-save each one separately
   const status=document.getElementById('ep-imp-status');
   const dz=document.getElementById('ep-imp-dropzone');
-  if(dz)dz.innerHTML=`<div style="font-size:1.5rem;margin-bottom:6px">📄</div><div style="font-family:var(--ff);font-weight:600;font-size:.75rem;color:var(--C)">${files.length} fichiers sélectionnés</div>`;
-  if(status){status.style.display='block';status.innerHTML=`⏳ Traitement de ${files.length} devis…`;}
-  const allParsed={partner:'',surface:null,date:null,lots:[]};
-  let errCount=0;
+  const saveBtn=document.getElementById('ep-imp-save-btn');
+  const resEl=document.getElementById('ep-imp-result');
+
+  // Hide save button & result area (auto-save mode, no manual review)
+  if(saveBtn)saveBtn.style.display='none';
+  if(resEl)resEl.style.display='none';
+
+  if(dz)dz.innerHTML=`<div style="font-size:1.5rem;margin-bottom:6px">📦</div>
+    <div style="font-family:var(--ff);font-weight:600;font-size:.75rem;color:var(--C)">${files.length} devis sélectionnés</div>
+    <div style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-top:2px">Traitement et enregistrement automatique…</div>`;
+
+  // Build live progress list in status zone
+  const makeProgressHTML=(rows)=>`<div style="display:flex;flex-direction:column;gap:3px">${rows.map(r=>`
+    <div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--B)">
+      <span style="font-size:.8rem;flex-shrink:0">${r.icon}</span>
+      <span style="font-family:var(--fm);font-size:.58rem;flex:1;color:var(--C);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.name}</span>
+      <span style="font-family:var(--fm);font-size:.55rem;color:${r.color};flex-shrink:0">${r.label}</span>
+    </div>`).join('')}</div>`;
+
+  if(status){status.style.display='block';}
+  const rows=files.map(f=>({icon:'⏳',name:f.name,label:'en attente',color:'var(--C3)'}));
+  if(status)status.innerHTML=makeProgressHTML(rows);
+
+  let saved=0, errCount=0;
+  const partner=document.getElementById('ep-imp-partner')?.value||'';
+  const surface=parseInt(document.getElementById('ep-imp-surface')?.value)||80;
+
   for(let i=0;i<files.length;i++){
-    if(status)status.innerHTML=`⏳ ${i+1}/${files.length} — ${files[i].name}…`;
-    const parsed=await epHandleDevisFile(files[i],true); // silent mode — returns parsed or null
+    rows[i]={icon:'🔄',name:files[i].name,label:'analyse…',color:'var(--C3)'};
+    if(status)status.innerHTML=makeProgressHTML(rows);
+
+    const parsed=await epHandleDevisFile(files[i],true);
+
     if(parsed?.lots?.length){
-      allParsed.lots=allParsed.lots.concat(parsed.lots);
-      if(!allParsed.partner&&parsed.partner)allParsed.partner=parsed.partner;
-      if(!allParsed.surface&&parsed.surface)allParsed.surface=parsed.surface;
-    } else {errCount++;}
+      // Auto-save this devis as its own entry
+      const q=epGetQuotes();
+      q.push({
+        id:Date.now()+i,
+        filename:files[i].name,
+        partner:parsed.partner||partner||files[i].name.replace(/_Devis\.pdf$/i,'').split('_')[0],
+        surface:parsed.surface||surface,
+        date:parsed.date||new Date().toISOString().slice(0,7),
+        importDate:new Date().toLocaleDateString('fr-FR'),
+        lots:parsed.lots.map(l=>({lotId:l.lotId,montant:parseFloat(l.montant)||0,notes:l.notes||''}))
+      });
+      epSaveQuotes(q);
+      saved++;
+      rows[i]={icon:'✅',name:files[i].name,label:`${parsed.lots.length} lots`,color:'var(--GREEN)'};
+    } else {
+      errCount++;
+      rows[i]={icon:'❌',name:files[i].name,label:'échec',color:'var(--RED)'};
+    }
+    if(status)status.innerHTML=makeProgressHTML(rows);
   }
-  if(status)status.innerHTML=`✅ ${files.length} devis — ${allParsed.lots.length} lots identifiés${errCount?` — ⚠ ${errCount} erreur(s)`:''}`;
-  _epImportPending={filename:`${files.length} devis`,parsed:allParsed};
-  epShowParsedResult(allParsed,`${files.length} devis`);
+
+  // Final summary
+  if(status)status.innerHTML=makeProgressHTML(rows)+
+    `<div style="margin-top:8px;font-family:var(--ff);font-weight:600;font-size:.72rem;color:${saved?'var(--GREEN)':'var(--RED)'}">
+      ${saved?`✓ ${saved} devis enregistré${saved>1?'s':''} dans la base`:''}
+      ${errCount?` — ⚠ ${errCount} erreur${errCount>1?'s':''}. Vérifiez votre clé API.`:''}
+    </div>`;
+
+  if(saved>0){
+    setTimeout(()=>{
+      document.getElementById('ep-import-modal')?.remove();
+      epTab('rex',document.getElementById('ept-rex'));
+      showToast(`✓ ${saved} devis enregistrés dans la base`);
+    },1500);
+  }
 }
 
 async function epHandleDevisFile(file, silent=false){
@@ -7550,11 +7605,13 @@ function epSaveManualQuote(){
 
 function epSaveImportedQuote(){
   if(!_epImportPending)return;
-  const partner=document.getElementById('ep-imp-partner')?.value||_epImportPending.parsed?.partner||'Partenaire';
+  // Fallback partner name: extract from filename (e.g. "DANELEC_Electricite_Devis.pdf" → "DANELEC")
+  const filenamePartner=(_epImportPending.filename||'').replace(/_Devis\.pdf$/i,'').replace(/\s*\(.*?\)\s*/g,'').split('_')[0].trim()||'Partenaire';
+  const partner=document.getElementById('ep-imp-partner')?.value||_epImportPending.parsed?.partner||filenamePartner;
   const surface=parseInt(document.getElementById('ep-imp-surface')?.value)||_epImportPending.parsed?.surface||80;
   const date=_epImportPending.parsed?.date||new Date().toISOString().slice(0,7);
   const lots=(_epImportPending.parsed?.lots||[]).map(l=>({lotId:l.lotId,montant:parseFloat(l.montant)||0,notes:l.notes||''}));
-  if(!lots.length){showToast('⚠️ Aucun lot extrait');return;}
+  if(!lots.length){showToast('⚠️ Aucun lot extrait — impossible d\'enregistrer');return;}
   const q=epGetQuotes();
   q.push({id:Date.now(),filename:_epImportPending.filename,partner,surface,date,importDate:new Date().toLocaleDateString('fr-FR'),lots});
   epSaveQuotes(q);
