@@ -127,6 +127,9 @@ main{flex:1;overflow:hidden;position:relative;}
 .tag.o{color:var(--ORANGE);border-color:rgba(192,120,40,.25);background:rgba(192,120,40,.07);}
 .sec-h{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 8px;border-bottom:1px solid var(--B);background:var(--A);flex-shrink:0;}
 .sec-t{font-family:var(--ff);font-weight:700;font-size:.52rem;letter-spacing:2px;text-transform:uppercase;color:var(--C);}
+/* Risk section visibility — full on desktop, badge on mobile */
+.risk-sec-full{display:flex;}
+.risk-sec-badge{display:none;}
 .sec-add{font-family:var(--fm);font-size:.58rem;color:var(--C3);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:var(--r-pill);}
 
 /* ══ STATS ══ */
@@ -420,6 +423,9 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
   .fg label{font-size:.5rem;}
   .cmd-card{margin:6px 10px;}
   .am-panel{width:min(300px,94vw);}
+  /* Risque — bandeau masqué sur mobile, remplacé par badge compact */
+  .risk-sec-full{display:none !important;}
+  .risk-sec-badge{display:flex !important;}
   /* Finance cards sur mobile */
   .fin-proj-card{margin:8px 10px 0;}
   .fin-kpi-v{font-size:1.5rem;}
@@ -1690,6 +1696,7 @@ let S={
   // ── AJOUTS ADDITIFS (ne pas supprimer les champs existants) ──
   paiements:[],      // paiements_mensuels par lot/mois
   auditLogs:[],      // journal des actions sensibles
+  epQuotes:[],       // devis partenaires importés — base de comparaison marché
 };
 
 // ══ STATE PERSISTENCE ══
@@ -4133,11 +4140,24 @@ function renderTaskList(){
   const _rPct=t=>{const s=t.subtasks||[];return s.length>0?Math.round(s.reduce((a,x)=>a+_sp(x),0)/s.length):t.pct||0;};
   const riskTop=pT().filter(t=>t.risk||(t.end&&new Date(t.end)<today&&t.status!=='done'&&_rPct(t)<100));
   if(riskTop.length){
-    h+=`<div class="sec-h" style="border-left:3px solid var(--RED);background:rgba(139,32,32,.05)"><span class="sec-t" style="color:var(--RED)">⚠ EN RETARD / À RISQUE</span></div>`;
-    riskTop.forEach(t=>{
+    // Desktop: bandeau rouge complet
+    h+=`<div class="sec-h risk-sec-full" style="border-left:3px solid var(--RED);background:rgba(139,32,32,.05)">
+      <span class="sec-t" style="color:var(--RED)">⚠ EN RETARD / À RISQUE</span>
+      <span style="font-family:var(--fm);font-size:.55rem;color:var(--RED)">${riskTop.length} tâche${riskTop.length>1?'s':''}</span>
+    </div>`;
+    // Mobile: badge compact cliquable pour scroll vers la liste
+    h+=`<div class="risk-sec-badge" onclick="document.getElementById('risk-tasks-mobile')?.scrollIntoView({behavior:'smooth'})"
+      style="align-items:center;gap:8px;padding:8px 14px;background:rgba(139,32,32,.06);border-bottom:1px solid rgba(139,32,32,.15);cursor:pointer">
+      <span style="font-family:var(--ff);font-weight:700;font-size:.7rem;color:var(--RED)">⚠ ${riskTop.length} retard${riskTop.length>1?'s':''}</span>
+      <span style="font-family:var(--fm);font-size:.56rem;color:var(--RED);flex:1">${riskTop.map(t=>t.name).slice(0,2).join(', ')}${riskTop.length>2?'…':''}</span>
+      <span style="font-family:var(--fm);font-size:.6rem;color:var(--RED)">▼</span>
+    </div>`;
+    riskTop.forEach((t,idx)=>{
       const subs=t.subtasks||[];const subsDone=subs.filter(s=>_sp(s)===100).length;const rp=_rPct(t);
       const late=t.end&&new Date(t.end)<today?Math.round((today-new Date(t.end))/864e5)+' j de retard':'À risque';
-      h+=`<div class="ti" onclick="editTask(${t.id})" style="border-left:2px solid var(--RED)"><div class="ti-stripe" style="background:var(--RED)"></div><div class="ti-body"><div class="ti-name" style="color:var(--RED)">${t.name}${subs.length?` <span style="font-size:.52rem;font-weight:400;color:var(--C3)">${subsDone}/${subs.length}</span>`:''}</div><div class="ti-meta">${t.assignee||'—'} · ${fd(t.start)} → <span onclick="quickEditEnd(${t.id},event)" style="cursor:pointer;border-bottom:1px dashed var(--RED);color:var(--RED)" title="Modifier la date de fin">${fd(t.end)||'? fin'}</span> <span style="color:var(--RED);font-size:.55rem">· ${late}</span></div></div><div class="ti-pct" style="color:var(--RED)">${rp}%</div></div>`;
+      // Sur mobile, entoure le 1er item d'une ancre
+      const anchorId=idx===0?'id="risk-tasks-mobile"':'';
+      h+=`<div class="ti risk-sec-full" ${anchorId} onclick="editTask(${t.id})" style="border-left:2px solid var(--RED)"><div class="ti-stripe" style="background:var(--RED)"></div><div class="ti-body"><div class="ti-name" style="color:var(--RED)">${t.name}${subs.length?` <span style="font-size:.52rem;font-weight:400;color:var(--C3)">${subsDone}/${subs.length}</span>`:''}</div><div class="ti-meta">${t.assignee||'—'} · ${fd(t.start)} → <span onclick="quickEditEnd(${t.id},event)" style="cursor:pointer;border-bottom:1px dashed var(--RED);color:var(--RED)" title="Modifier la date de fin">${fd(t.end)||'? fin'}</span> <span style="color:var(--RED);font-size:.55rem">· ${late}</span></div></div><div class="ti-pct" style="color:var(--RED)">${rp}%</div></div>`;
     });
   }
   phases.forEach(ph=>{
@@ -6408,10 +6428,10 @@ function upsertPaiement(p){
 
 // ── Catalogue de prix par lot (€, marché français, Île-de-France) ──
 const EP_CATALOG_KEY  = 'rv_ep_catalog';
-const EP_QUOTES_KEY   = 'rv_ep_quotes';   // Devis partenaires importés
-function epGetQuotes(){try{return JSON.parse(localStorage.getItem(EP_QUOTES_KEY)||'[]');}catch{return[];}}
-function epSaveQuotes(q){localStorage.setItem(EP_QUOTES_KEY,JSON.stringify(q));}
-function epDeleteQuote(id){epSaveQuotes(epGetQuotes().filter(x=>x.id!==id));document.getElementById('pg-preprojet').querySelector('[data-tab="rex"]')&&epTab('rex',document.getElementById('ept-rex'));}
+// Devis partenaires — stockés dans Firebase via S.epQuotes (sync multi-appareils)
+function epGetQuotes(){return S.epQuotes||[];}
+function epSaveQuotes(q){S.epQuotes=q;saveS();}
+function epDeleteQuote(id){epSaveQuotes(epGetQuotes().filter(x=>x.id!==id));}
 // ── Convention de prix ────────────────────────────────────────────────────
 // Tous les prix s'entendent HORS TAXES (HT), Île-de-France.
 // • Postes au m² : fourniture moyenne gamme + pose (ex: carrelage 110€/m² = carrelage standard + colle + joint + pose)
@@ -6421,7 +6441,7 @@ function epDeleteQuote(id){epSaveQuotes(epGetQuotes().filter(x=>x.id!==id));docu
 // • Cuisine équipée = bloc cuisine (caisson + plan de travail + électroménager intégré standard)
 // ─────────────────────────────────────────────────────────────────────────
 const EP_CATALOG_DEFAULT = [
-  {id:'demolition',      name:'Démolition & dépose',             unit:'m²',     min:15,  avg:35,   max:70,    complexity:1.3, duration:5,  color:'#8B4513', note:'Démolition + évacuation gravats'},
+  {id:'demolition',      name:'Démolition & dépose',             unit:'m²',     min:15,  avg:35,   max:70,    complexity:1.3, duration:8,  minDuration:3, color:'#8B4513', note:'Démolition + évacuation gravats — SDB : 3-4j min · Appartement complet : 6-8j'},
   {id:'gros_oeuvre',     name:'Gros œuvre / maçonnerie',         unit:'m²',     min:280, avg:450,  max:750,   complexity:1.6, duration:18, color:'#5C6BC0', note:'Fourniture matériaux + pose'},
   {id:'charpente',       name:'Charpente / toiture',             unit:'m²',     min:120, avg:220,  max:420,   complexity:1.4, duration:10, color:'#795548', note:'Fourniture bois/tuiles + pose'},
   {id:'isolation',       name:'Isolation (murs+toiture)',        unit:'m²',     min:50,  avg:110,  max:210,   complexity:1.1, duration:8,  color:'#26A69A', note:'Fourniture isolant + pose'},
@@ -6429,7 +6449,7 @@ const EP_CATALOG_DEFAULT = [
   {id:'electricite',     name:'Électricité',                     unit:'m²',     min:85,  avg:140,  max:240,   complexity:1.3, duration:12, color:'#FFA726', note:'Fourniture matériel + pose — hors luminaires déco'},
   {id:'plomberie',       name:'Plomberie',                       unit:'m²',     min:100, avg:165,  max:300,   complexity:1.4, duration:12, color:'#42A5F5', note:'Tuyauteries + raccordements — hors mobilier'},
   {id:'cvc',             name:'Chauffage / CVC / VMC',           unit:'m²',     min:150, avg:260,  max:420,   complexity:1.3, duration:10, color:'#EF5350', note:'Équipement + pose'},
-  {id:'carrelage',       name:'Carrelage & revêtements',         unit:'m²',     min:65,  avg:110,  max:220,   complexity:1.2, duration:10, color:'#AB47BC', note:'Fourniture carrelage moy. gamme + pose (hors carrelage premium → ajuster prix)'},
+  {id:'carrelage',       name:'Carrelage & revêtements',         unit:'m²',     min:65,  avg:110,  max:220,   complexity:1.2, duration:14, minDuration:4, color:'#AB47BC', note:'Fourniture carrelage moy. gamme + pose (hors carrelage premium → ajuster prix) — SDB murs+sol : 4-5j min'},
   {id:'parquet',         name:'Parquet / revêt. sol',            unit:'m²',     min:45,  avg:90,   max:180,   complexity:1.1, duration:6,  color:'#8D6E63', note:'Fourniture parquet + pose + plinthes'},
   {id:'peinture',        name:'Peinture',                        unit:'m²',     min:25,  avg:48,   max:85,    complexity:1.0, duration:7,  color:'#66BB6A', note:'Fourniture peinture + pose (2 couches)'},
   {id:'faux_plaf',       name:'Faux-plafonds',                   unit:'m²',     min:35,  avg:65,   max:130,   complexity:1.1, duration:6,  color:'#78909C', note:'Ossature + plaques + enduit'},
@@ -6480,7 +6500,18 @@ const EP_ROOMS_BY_TYPE = {
   immeuble:    {salon:6, cuisine:6, chambre:12, sdb:6, wc:6, bureau:0, couloir:4, terrasse:0, garage:1},
 };
 
+// ── Coefficients localisation ─────────────────────────────────────────────
+const EP_LOCATIONS={
+  paris:     {label:'Paris / Île-de-France', flag:'🇫🇷', factor:1.00, currency:'€', note:'Base de référence — prix IDF'},
+  cannes:    {label:'Cannes / Côte d\'Azur',  flag:'🇫🇷', factor:1.10, currency:'€', note:'+10% vs Paris — artisans premium, délais tendus'},
+  deauville: {label:'Deauville / Normandie',  flag:'🇫🇷', factor:0.88, currency:'€', note:'-12% vs Paris — main d\'œuvre moins chère'},
+  marrakech: {label:'Marrakech',              flag:'🇲🇦', factor:0.42, currency:'MAD', note:'Main d\'œuvre locale — matériaux importés +30%'},
+  nyc:       {label:'New York City',          flag:'🇺🇸', factor:2.20, currency:'$',  note:'×2.2 vs Paris — labour costs, permitting, union'},
+};
+
 let _epType='appartement', _epComplexity='standard', _epSurface=80, _epTab='estim';
+let _epLocation='paris'; // localisation par défaut
+let _epClient={name:'',context:'',constraints:''}; // infos client pour analyse IA
 let _epResult=null;
 let _epHonoraires=9; // taux libre %
 let _epActiveLots=null; // null=défaut par type, sinon Set d'IDs actifs
@@ -6592,7 +6623,27 @@ function epRenderEstimator(){
   });
   h+=`</div>`;
 
-  // ── 3. Surface + honoraires libres ──
+  // ── 3. Localisation ──────────────────────────────────────────────────────
+  const loc=EP_LOCATIONS[_epLocation]||EP_LOCATIONS.paris;
+  h+=`<div class="ep-section-title" style="margin-top:4px">Localisation du projet</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">`;
+  Object.entries(EP_LOCATIONS).forEach(([id,v])=>{
+    const on=_epLocation===id;
+    h+=`<button onclick="_epLocation='${id}';_epResult=null;renderPreProjetBody()" style="display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:var(--r-pill);border:2px solid ${on?'var(--C)':'var(--B2)'};background:${on?'var(--C)':'var(--W)'};cursor:pointer;flex-shrink:0">
+      <span style="font-size:1rem">${v.flag}</span>
+      <div style="text-align:left">
+        <div style="font-family:var(--ff);font-weight:${on?700:500};font-size:.7rem;color:${on?'#fff':'var(--C)'}">${v.label}</div>
+        <div style="font-family:var(--fm);font-size:.44rem;color:${on?'rgba(255,255,255,.6)':'var(--C3)'}">${v.factor>=1?'×'+v.factor.toFixed(2):'×'+v.factor.toFixed(2)} · ${v.currency}</div>
+      </div>
+    </button>`;
+  });
+  h+=`</div>
+    <div style="padding:8px 12px;background:var(--A);border-radius:8px;border-left:3px solid var(--C);margin-bottom:12px">
+      <span style="font-family:var(--fm);font-size:.55rem;color:var(--C3)">${loc.note}</span>
+      ${_epLocation!=='paris'?`<span style="font-family:var(--ff);font-weight:700;font-size:.6rem;color:var(--C);margin-left:8px">Coeff. appliqué : ×${loc.factor.toFixed(2)}</span>`:''}
+    </div>`;
+
+  // ── 4. Surface + honoraires libres ──────────────────────────────────────
   h+=`<div class="ep-section-title" style="margin-top:4px">Surface & honoraires</div>
     <div class="ep-input-row">
       <div><div class="ep-inp-label">Surface totale (m²)</div>
@@ -6718,7 +6769,30 @@ function epRenderEstimator(){
   });
   h+=`</div>`;
 
-  // ── 6. Bouton calculer ──
+  // ── 6. Contexte client (pour affiner l'analyse IA) ──────────────────────
+  h+=`<div class="ep-section-title" style="margin-top:4px">Contexte client <span style="font-weight:400;color:var(--C3);font-size:.44rem">— affine l'analyse IA</span></div>
+    <div style="background:var(--W);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;margin-bottom:12px">
+      <div style="padding:10px 14px;border-bottom:1px solid var(--B)">
+        <div class="ep-inp-label" style="margin-bottom:4px">Nom / Référence client</div>
+        <input type="text" placeholder="Ex: Famille Martin — résidence principale" value="${_epClient.name||''}"
+          oninput="_epClient.name=this.value"
+          style="width:100%;padding:8px 0;border:none;font-family:var(--ff);font-size:.82rem;color:var(--C);background:transparent;outline:none;box-sizing:border-box">
+      </div>
+      <div style="padding:10px 14px;border-bottom:1px solid var(--B)">
+        <div class="ep-inp-label" style="margin-bottom:4px">Contexte du projet</div>
+        <textarea placeholder="Ex: Rénovation complète d'un appartement Haussmannien 3 pièces, copropriété années 30, contraintes ABF, client exigeant sur les finitions…"
+          oninput="_epClient.context=this.value"
+          style="width:100%;min-height:64px;padding:8px 0;border:none;font-family:var(--fm);font-size:.75rem;color:var(--C);background:transparent;outline:none;resize:vertical;box-sizing:border-box;line-height:1.5">${_epClient.context||''}</textarea>
+      </div>
+      <div style="padding:10px 14px">
+        <div class="ep-inp-label" style="margin-bottom:4px">Contraintes spécifiques</div>
+        <input type="text" placeholder="Ex: Accès chantier difficile, copropriété stricte, délai client imposé fin octobre…" value="${_epClient.constraints||''}"
+          oninput="_epClient.constraints=this.value"
+          style="width:100%;padding:8px 0;border:none;font-family:var(--fm);font-size:.75rem;color:var(--C);background:transparent;outline:none;box-sizing:border-box">
+      </div>
+    </div>`;
+
+  // ── 7. Bouton calculer ──
   h+=`<button class="ep-estimate-btn" onclick="epCalculate()">
       <span id="ep-calc-spin" style="display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite"></span>
       <span id="ep-calc-txt">⚡ Calculer l'estimation</span>
@@ -6732,8 +6806,11 @@ function epRenderEstimator(){
     h+=`<div class="ep-result-card">
       <div class="ep-result-header">
         <div>
-          <div class="ep-result-label">Estimation HT (honoraires inclus)</div>
-          <div class="ep-result-total">${fmtK(r.total)}</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <div class="ep-result-label">Estimation HT (honoraires inclus)</div>
+            ${r.location&&r.location!=='paris'?`<span style="font-family:var(--fm);font-size:.44rem;padding:2px 6px;background:rgba(255,255,255,.15);border-radius:4px;color:rgba(255,255,255,.7)">${EP_LOCATIONS[r.location]?.flag} ${EP_LOCATIONS[r.location]?.label} ×${r.locFactor?.toFixed(2)}</span>`:''}
+          </div>
+          <div class="ep-result-total">${fmtK(r.total)} ${r.currency&&r.currency!=='€'?r.currency:''}</div>
           <div style="font-family:var(--fm);font-size:.55rem;color:rgba(255,255,255,.4);margin-top:3px">${fmtK(r.totalMin)} — ${fmtK(r.totalMax)}</div>
           ${r.totalElecPoints?`<div style="font-family:var(--fm);font-size:.44rem;color:rgba(255,255,255,.35);margin-top:4px">⚡ ${r.totalElecPoints} pts élec · 🚿 ${r.totalPlumbRooms} salles humides</div>`:''}
 
@@ -6968,6 +7045,9 @@ async function epCalculate(){
   // Use only active lots (excluding honoraires — handled separately)
   const activeLotIds=Array.from(epGetActiveLots()).filter(id=>id!=='honoraires');
   const cx=EP_COMPLEXITY[_epComplexity];
+  // Localisation — coefficient multiplicateur sur tous les prix
+  const locData=EP_LOCATIONS[_epLocation]||EP_LOCATIONS.paris;
+  const locFactor=locData.factor;
   const s=_epSurface||80;
 
   // ── Room-based precision factors ──────────────────────────────────────────
@@ -7012,10 +7092,10 @@ async function epCalculate(){
     if(id==='menuiseries_int'){
       const detailTotal=epMenuiserieIntTotal();
       if(detailTotal>0){
-        const factorCx=cx.factor*(item.complexity||1.0);
+        const factorCx=cx.factor*(item.complexity||1.0)*locFactor;
         const lotTotal=Math.round(detailTotal*factorCx);
-        const lotMin=Math.round(detailTotal*0.9);
-        const lotMax=Math.round(detailTotal*1.15);
+        const lotMin=Math.round(detailTotal*0.9*locFactor);
+        const lotMax=Math.round(detailTotal*1.15*locFactor);
         const breakdown=[
           _epMenuiserieInt.ml>0?`${_epMenuiserieInt.ml}ml sur mesure`:'',
           _epMenuiserieInt.portes>0?`${_epMenuiserieInt.portes} porte${_epMenuiserieInt.portes>1?'s':''}` :'',
@@ -7027,13 +7107,13 @@ async function epCalculate(){
       }
     }
 
-    const factorCx=cx.factor*(item.complexity||1.0)*extraFactor;
+    const factorCx=cx.factor*(item.complexity||1.0)*extraFactor*locFactor;
     const rexAvg=epGetREXPrice(id);
     const avgPrice=rexAvg||item.avg;
     const lotTotal=Math.round(qty*avgPrice*factorCx);
-    const lotMin=Math.round(qty*item.min*cx.factor);
-    const lotMax=Math.round(qty*item.max*(cx.factor*1.1));
-    const duration=item.duration?Math.round(item.duration*(s/100)*cx.factor):0;
+    const lotMin=Math.round(qty*item.min*cx.factor*locFactor);
+    const lotMax=Math.round(qty*item.max*(cx.factor*1.1)*locFactor);
+    const duration=item.duration?Math.max(item.minDuration||0,Math.round(item.duration*(s/100)*cx.factor)):0;
 
     lots.push({id,name:item.name,qty,unit:item.unit,priceUnit:Math.round(avgPrice*factorCx),total:lotTotal,min:lotMin,max:lotMax,duration,color:item.color});
     total+=lotTotal;totalMin+=lotMin;totalMax+=lotMax;
@@ -7062,20 +7142,25 @@ async function epCalculate(){
   try{
     const typeLabel=EP_TYPES.find(t=>t.id===_epType)?.name||_epType;
     const cxLabel=cx.label;
-    const apiKey=_getConfig().apiKey;
+    const apiKey=getAIKey();
     const roomsDesc=EP_ROOM_TYPES.filter(r=>(_epRooms[r.id]||0)>0)
       .map(r=>`${_epRooms[r.id]}×${r.label}`).join(', ');
     if(apiKey){
-      const prompt=`Tu es expert en maîtrise d'œuvre d'architecture. Analyse ce projet et donne 3-4 points d'attention concis (max 120 mots) :
-Type : ${typeLabel} ${cxLabel} — ${s}m²
-Composition : ${roomsDesc}
-Points électriques totaux : ${totalElecPoints} — Salles humides : ${totalPlumbRooms}
-Budget estimé : ${Math.round(total/1000)}k€ HT
-Lots actifs : ${lots.slice(0,5).map(l=>l.name).join(', ')}
+      const prompt=`Tu es expert en maîtrise d'œuvre d'architecture. Analyse ce projet et donne 4-5 points d'attention concis (max 160 mots total) :
 
-Points d'attention : risques, contraintes techniques, REX agence, délais critiques. Sois précis et concret.`;
+PROJET : ${typeLabel} ${cxLabel} — ${s}m²
+LOCALISATION : ${locData.label} (coeff. ×${locData.factor} vs IDF)
+${_epClient.name?`CLIENT : ${_epClient.name}`:''}
+${_epClient.context?`CONTEXTE : ${_epClient.context}`:''}
+${_epClient.constraints?`CONTRAINTES : ${_epClient.constraints}`:''}
+COMPOSITION : ${roomsDesc}
+TECHNIQUE : ${totalElecPoints} pts élec · ${totalPlumbRooms} pièces humides
+BUDGET : ${Math.round(total/1000)}k€ HT (${locData.currency})
+LOTS : ${lots.slice(0,5).map(l=>l.name).join(', ')}
+
+Donne 4-5 points d'attention spécifiques à cette localisation et ce contexte client : risques locaux (réglementation, délais artisans, saisonnalité), contraintes techniques, recommandations concrètes, délais critiques. Sois précis et adapté au marché local.`;
       const resp=await fetch('https://api.anthropic.com/v1/messages',{
-        method:'POST',headers:{'x-api-key':apiKey,'anthropic-version':'2023-06-01','content-type':'application/json'},
+        method:'POST',headers:{'x-api-key':apiKey,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
         body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:300,messages:[{role:'user',content:prompt}]})
       });
       const data=await resp.json();
@@ -7083,7 +7168,7 @@ Points d'attention : risques, contraintes techniques, REX agence, délais critiq
     }
   }catch(e){console.warn('AI estimate error',e);}
 
-  _epResult={lots,total,totalMin,totalMax,aiAnalysis,totalElecPoints,totalPlumbRooms};
+  _epResult={lots,total,totalMin,totalMax,aiAnalysis,totalElecPoints,totalPlumbRooms,location:_epLocation,locFactor,currency:locData.currency};
 
   if(spin)spin.style.display='none';
   if(txt)txt.textContent='⚡ Recalculer';
@@ -7248,7 +7333,7 @@ async function epHandleDevisFile(file){
   try{
     const resp=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'x-api-key':apiKey,'anthropic-version':'2023-06-01','content-type':'application/json'},
+      headers:{'x-api-key':apiKey,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
         model:'claude-haiku-4-5-20251001',max_tokens:1500,
         messages:[{role:'user',content:`Tu es expert en chiffrage BTP France. Analyse ce texte extrait d'un devis travaux et identifie les lots/postes avec leurs montants HT.
