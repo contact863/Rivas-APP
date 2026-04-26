@@ -7374,7 +7374,7 @@ async function epHandleDevisFiles(fileList){
 
     const parsed=await epHandleDevisFile(files[i],true);
 
-    if(parsed?.lots?.length){
+    if(!parsed._error && parsed?.lots?.length){
       // Auto-save this devis as its own entry
       const q=epGetQuotes();
       q.push({
@@ -7391,7 +7391,8 @@ async function epHandleDevisFiles(fileList){
       rows[i]={icon:'✅',name:files[i].name,label:`${parsed.lots.length} lots`,color:'var(--GREEN)'};
     } else {
       errCount++;
-      rows[i]={icon:'❌',name:files[i].name,label:'échec',color:'var(--RED)'};
+      const errMsg=(parsed._error||'Aucun lot extrait').substring(0,55);
+      rows[i]={icon:'❌',name:files[i].name,label:errMsg,color:'var(--RED)'};
     }
     if(status)status.innerHTML=makeProgressHTML(rows);
   }
@@ -7413,13 +7414,13 @@ async function epHandleDevisFiles(fileList){
 }
 
 async function epHandleDevisFile(file, silent=false){
-  if(!file)return null;
+  const ERR=(msg)=>({_error:msg,lots:[],partner:'',surface:null,date:null});
+  if(!file)return ERR('Fichier manquant');
   const status=document.getElementById('ep-imp-status');
   const dz=document.getElementById('ep-imp-dropzone');
 
   if(!silent){
-    if(!status)return null;
-    // Afficher nom fichier dans dropzone
+    if(!status)return ERR('UI non trouvée');
     if(dz)dz.innerHTML=`<div style="font-size:1.5rem;margin-bottom:6px">📄</div>
       <div style="font-family:var(--ff);font-weight:600;font-size:.75rem;color:var(--C)">${file.name}</div>
       <div style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-top:2px">${(file.size/1024).toFixed(0)} Ko</div>`;
@@ -7430,13 +7431,18 @@ async function epHandleDevisFile(file, silent=false){
   // Charger PDF.js si nécessaire
   if(!window.pdfjsLib){
     if(!silent&&status)status.innerHTML='⏳ Chargement moteur PDF…';
-    await new Promise((res,rej)=>{
-      const s=document.createElement('script');
-      s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-      s.onload=()=>{window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';res();}
-      s.onerror=rej;
-      document.head.appendChild(s);
-    });
+    try{
+      await new Promise((res,rej)=>{
+        const s=document.createElement('script');
+        s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+        s.onload=()=>{window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';res();}
+        s.onerror=()=>rej(new Error('PDF.js CDN inaccessible'));
+        document.head.appendChild(s);
+      });
+    }catch(e){
+      if(!silent&&status)status.innerHTML='❌ '+e.message;
+      return ERR(e.message);
+    }
   }
 
   // Extraire texte du PDF
@@ -7445,34 +7451,34 @@ async function epHandleDevisFile(file, silent=false){
   try{
     const arrayBuffer=await file.arrayBuffer();
     const pdf=await pdfjsLib.getDocument({data:arrayBuffer}).promise;
-    const pages=Math.min(pdf.numPages,15); // max 15 pages
+    const pages=Math.min(pdf.numPages,15);
     for(let i=1;i<=pages;i++){
       const page=await pdf.getPage(i);
       const content=await page.getTextContent();
       pdfText+=content.items.map(it=>it.str).join(' ')+'\n';
     }
-    if(!silent&&status)status.innerHTML=`✓ ${pdf.numPages} page(s) lues — ${pdfText.length} caractères extraits`;
+    if(!silent&&status)status.innerHTML=`✓ ${pdf.numPages} page(s) — ${pdfText.length} caractères`;
   }catch(e){
-    if(!silent&&status)status.innerHTML='❌ Erreur lecture PDF : '+e.message;
-    return null;
+    if(!silent&&status)status.innerHTML='❌ Lecture PDF : '+e.message;
+    return ERR('Lecture PDF : '+e.message);
   }
 
   if(!pdfText.trim()){
-    if(!silent&&status)status.innerHTML='❌ PDF vide ou scan non-lisible (OCR non supporté)';
-    return null;
+    if(!silent&&status)status.innerHTML='❌ PDF vide ou scan (OCR non supporté)';
+    return ERR('PDF vide ou scan non-lisible');
   }
 
   // Appel IA pour parser les lots
   const apiKey=getAIKey();
   if(!apiKey){
     if(!silent&&status){
-      status.innerHTML='⚠️ Clé API Claude non configurée — extraction manuelle requise';
+      status.innerHTML='⚠️ Clé API Claude non configurée';
       epShowManualEntry(pdfText);
     }
-    return null;
+    return ERR('Clé API non configurée — Administration → Config IA');
   }
 
-  if(!silent&&status)status.innerHTML='🤖 Analyse IA du devis en cours…';
+  if(!silent&&status)status.innerHTML='🤖 Analyse IA en cours…';
   const catalog=epGetCatalog();
   const lotsList=catalog.map(c=>`${c.id} = "${c.name}"`).join(', ');
 
@@ -7493,28 +7499,33 @@ Retourne UNIQUEMENT un objet JSON valide (sans markdown), avec cette structure:
 {"partner":"nom entreprise ou artisan si trouvé sinon vide","surface":surface_en_m2_si_trouvée_sinon_null,"date":"AAAA-MM si trouvée sinon null","lots":[{"lotId":"id_exact","montant":montant_ht_en_euros,"notes":"description courte 1 ligne"}]}`}]
       })
     });
-    const data=await resp.json();
+    let data;
+    try{data=await resp.json();}catch(je){return ERR(`HTTP ${resp.status} — réponse invalide`);}
+    if(!resp.ok||data.type==='error'||data.error){
+      const msg=data.error?.message||data.error?.type||`HTTP ${resp.status}`;
+      if(!silent&&status)status.innerHTML='❌ API : '+msg;
+      return ERR(msg);
+    }
     const rawJson=data?.content?.[0]?.text||'{}';
-
-    // Extraire le JSON (enlever éventuels blocs markdown)
     const jsonMatch=rawJson.match(/\{[\s\S]*\}/);
-    if(!jsonMatch)throw new Error('Pas de JSON dans la réponse');
+    if(!jsonMatch){
+      if(!silent&&status)status.innerHTML='⚠️ Réponse IA non parseable';
+      return ERR('Réponse IA sans JSON valide');
+    }
     const parsed=JSON.parse(jsonMatch[0]);
 
-    // Toujours stocker le résultat (utilisé par le multi-file wrapper)
     _epImportPending={filename:file.name, parsed};
-
     if(!silent){
-      if(status)status.innerHTML=`✅ ${(parsed.lots||[]).length} lot(s) identifié(s) — vérifie et ajuste si besoin`;
+      if(status)status.innerHTML=`✅ ${(parsed.lots||[]).length} lot(s) identifié(s)`;
       epShowParsedResult(parsed, file.name);
     }
-    return parsed;
+    return parsed; // parsed.lots present — success
   }catch(e){
     if(!silent&&status){
-      status.innerHTML='⚠️ Erreur analyse IA : '+e.message+' — saisie manuelle';
+      status.innerHTML='⚠️ Erreur : '+e.message;
       epShowManualEntry(pdfText.slice(0,500));
     }
-    return null;
+    return ERR(e.message);
   }
 }
 
