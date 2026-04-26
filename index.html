@@ -3138,11 +3138,11 @@ async function analyseDevisQueue(){
   btn.disabled=false;btn.textContent=`🤖 Analyser ${files.length} devis`;
   closeSheet('devisImportSheet');
   document.getElementById('taskgen-title').textContent=`📄 ${files.length} devis — ${_genTasks.length} tâche${_genTasks.length>1?'s':''} optimisées`;
-  document.getElementById('taskgen-list').innerHTML='';
   document.getElementById('taskgen-loading').style.display='none';
   document.getElementById('taskgen-footer').style.display='flex';
+  // Pass errors to taskGenSheet so they're visible even after devisImportSheet closes
   openSheet('taskGenSheet');
-  showTaskGenPreview();
+  showTaskGenPreview(errors);
 }
 async function processOneDevisFile(f,key){
   const isPdf=f.type==='application/pdf';
@@ -3180,15 +3180,18 @@ async function processOneDevisFile(f,key){
         const hdrs={'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
         if(isPdf)hdrs['anthropic-beta']='pdfs-2024-09-25';
         const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:hdrs,body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:4000,messages})});
-        const data=await res.json();
-        if(data.type==='error'||data.error){
-          const msg=data.error?.message||JSON.stringify(data.error||data);
-          console.warn('API error for',f.name,':',msg);
-          resolve({tasks:[],error:msg});return;
+        let data;
+        try{data=await res.json();}catch(je){resolve({tasks:[],error:`HTTP ${res.status} — réponse non-JSON`});return;}
+        if(!res.ok||data.type==='error'||data.error){
+          const msg=data.error?.message||data.error?.type||`HTTP ${res.status}`;
+          console.warn('API error for',f.name,':',msg,data);
+          resolve({tasks:[],error:`${f.name.substring(0,30)}: ${msg}`});return;
         }
         const raw=data.content?.map(c=>c.text||'').join('')||'[]';
-        resolve({tasks:repairJSON(raw)||[],error:null});
-      }catch(e){resolve({tasks:[],error:e.message});}
+        const tasks=repairJSON(raw)||[];
+        if(!tasks.length)console.warn('0 tasks parsed from',f.name,'— raw:',raw.substring(0,200));
+        resolve({tasks,error:tasks.length?null:`${f.name.substring(0,30)}: 0 tâche générée`});
+      }catch(e){resolve({tasks:[],error:`${f.name.substring(0,30)}: ${e.message}`});}
     };
     if(isPdf||isImg)reader.readAsDataURL(f);else reader.readAsText(f);
   });
@@ -3270,16 +3273,38 @@ async function loadDevisFile(inp){
   })();
 }
 
-function showTaskGenPreview(){
+function showTaskGenPreview(errors){
   const loading=document.getElementById('taskgen-loading');
   const list=document.getElementById('taskgen-list');
   const footer=document.getElementById('taskgen-footer');
   loading.style.display='none';
   if(!_genTasks.length){
-    list.innerHTML=`<div style="font-family:var(--fm);font-size:.72rem;color:var(--C3);padding:16px;text-align:center">Aucune tâche générée — réessayez avec plus de contexte.</div>`;
-    footer.style.display='none';
+    const errBlock=errors&&errors.length
+      ?`<div style="margin-top:10px;padding:8px 12px;background:rgba(220,60,40,.08);border-left:3px solid var(--RED);font-family:var(--fm);font-size:.6rem;color:var(--RED);line-height:1.6;text-align:left">${errors.map(e=>`⚠ ${e}`).join('<br>')}</div>`
+      :'';
+    list.innerHTML=`<div style="font-family:var(--fm);font-size:.72rem;color:var(--C3);padding:16px;text-align:center">Aucune tâche générée — vérifiez votre clé API ou réessayez avec plus de contexte.${errBlock}</div>`;
+    footer.style.display='flex';
+    // Show retry button, hide confirm button
+    const confirmBtn=footer.querySelector('button:first-child');
+    if(confirmBtn){confirmBtn.style.display='none';}
+    // Add retry button if not already there
+    if(!document.getElementById('taskgen-retry-btn')){
+      const rb=document.createElement('button');
+      rb.id='taskgen-retry-btn';rb.className='btn';rb.style='flex:1';
+      rb.textContent='↩ Réessayer';
+      rb.onclick=()=>{closeSheet('taskGenSheet');tasksFromDevis();};
+      footer.insertBefore(rb,footer.firstChild);
+    } else {
+      document.getElementById('taskgen-retry-btn').style.display='';
+    }
     return;
   }
+  // Restore UI state for success case
+  const confirmBtn=footer.querySelector('button:first-child');
+  if(confirmBtn){confirmBtn.style.display='';}
+  const retryBtn=document.getElementById('taskgen-retry-btn');
+  if(retryBtn)retryBtn.style.display='none';
+  footer.style.display='flex';
   const CC_={"Gros Oeuvre":"#6B4C2A","Second Oeuvre":"#2A5C6B","Finitions":"#3A6B47","Electricité":"#6B622A","Plomberie":"#2A3F6B","Menuiserie":"#7B4F2A","Carrelage":"#5A5A5A","Peinture":"#6B2A5C","Coordination":"#8B2020"};
   list.innerHTML=_genTasks.map((t,i)=>{
     const c=CC_[t.cat]||'#555';
