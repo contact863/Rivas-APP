@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#1A2332">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -16,7 +16,6 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Rivas">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="msapplication-TileColor" content="#1A2332">
 <meta name="msapplication-TileImage" content="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cutive+Mono&family=Raleway:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
@@ -1703,18 +1702,67 @@ let S={
         .catch(e=>console.warn('SW error',e));
     });
   }
-  // Install banner (Android/Chrome)
+  // ── Install banner ────────────────────────────────────────────────────────
+  // iOS Safari: beforeinstallprompt n'existe pas → instructions manuelles
+  const _isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+  const _isAndroid=/Android/.test(navigator.userAgent);
+  const _isStandalone=window.navigator.standalone||window.matchMedia('(display-mode: standalone)').matches;
+
+  // Afficher le bouton installer si pas encore installé
+  if(!_isStandalone){
+    setTimeout(()=>{
+      const btn=document.getElementById('pwa-install-btn');
+      if(!btn)return;
+      if(_isIOS){
+        btn.style.display='flex';
+        btn.innerHTML='📲 Installer';
+      }
+    },2000);
+  }
+
   let _deferredInstall=null;
   window.addEventListener('beforeinstallprompt',e=>{
     e.preventDefault();_deferredInstall=e;
     const btn=document.getElementById('pwa-install-btn');
     if(btn)btn.style.display='flex';
   });
+
   window.epInstallApp=function(){
+    if(_isIOS){
+      // Modal iOS avec instructions
+      const m=document.createElement('div');
+      m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:flex-end;justify-content:center;padding:0 0 env(safe-area-inset-bottom,0)';
+      m.innerHTML=`<div style="background:#fff;border-radius:18px 18px 0 0;padding:24px 24px 32px;width:100%;max-width:440px;font-family:-apple-system,sans-serif">
+        <div style="text-align:center;margin-bottom:20px">
+          <img src="icon-192.png" style="width:64px;height:64px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.15)">
+        </div>
+        <div style="font-size:1.1rem;font-weight:600;color:#1A2332;margin-bottom:6px;text-align:center">Installer Rivas sur iPhone</div>
+        <div style="font-size:.85rem;color:#666;margin-bottom:20px;text-align:center">Accès rapide depuis l'écran d'accueil, fonctionne hors ligne</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px;padding:12px;background:#f5f5f7;border-radius:12px">
+            <span style="font-size:1.5rem">①</span>
+            <div><strong>Appuie sur le bouton Partager</strong><br><span style="color:#666;font-size:.8rem">Icône <strong>⎙</strong> en bas de Safari (ou en haut)</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px;background:#f5f5f7;border-radius:12px">
+            <span style="font-size:1.5rem">②</span>
+            <div><strong>Sélectionne « Sur l'écran d'accueil »</strong><br><span style="color:#666;font-size:.8rem">Fais défiler le menu vers le bas</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px;background:#f5f5f7;border-radius:12px">
+            <span style="font-size:1.5rem">③</span>
+            <div><strong>Appuie sur « Ajouter »</strong><br><span style="color:#666;font-size:.8rem">L'app Rivas apparaît sur ton écran</span></div>
+          </div>
+        </div>
+        <button onclick="this.closest('[style]').remove()" style="width:100%;margin-top:20px;padding:14px;background:#1A2332;color:#fff;border:none;border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer">Compris !</button>
+      </div>`;
+      document.body.appendChild(m);
+      m.addEventListener('click',e=>{if(e.target===m)m.remove();});
+      return;
+    }
     if(!_deferredInstall)return;
     _deferredInstall.prompt();
     _deferredInstall.userChoice.then(()=>{_deferredInstall=null;const b=document.getElementById('pwa-install-btn');if(b)b.style.display='none';});
   };
+
   window.addEventListener('appinstalled',()=>{
     const b=document.getElementById('pwa-install-btn');if(b)b.style.display='none';
     showToast('✓ Application installée sur l\'écran d\'accueil');
@@ -6359,27 +6407,40 @@ function upsertPaiement(p){
 // ══════════════════════════════════════════════════
 
 // ── Catalogue de prix par lot (€, marché français, Île-de-France) ──
-const EP_CATALOG_KEY = 'rv_ep_catalog';
+const EP_CATALOG_KEY  = 'rv_ep_catalog';
+const EP_QUOTES_KEY   = 'rv_ep_quotes';   // Devis partenaires importés
+function epGetQuotes(){try{return JSON.parse(localStorage.getItem(EP_QUOTES_KEY)||'[]');}catch{return[];}}
+function epSaveQuotes(q){localStorage.setItem(EP_QUOTES_KEY,JSON.stringify(q));}
+function epDeleteQuote(id){epSaveQuotes(epGetQuotes().filter(x=>x.id!==id));document.getElementById('pg-preprojet').querySelector('[data-tab="rex"]')&&epTab('rex',document.getElementById('ept-rex'));}
+// ── Convention de prix ────────────────────────────────────────────────────
+// Tous les prix s'entendent HORS TAXES (HT), Île-de-France.
+// • Postes au m² : fourniture moyenne gamme + pose (ex: carrelage 110€/m² = carrelage standard + colle + joint + pose)
+// • Postes "unité" SDB : sanitaires (WC, douche/baignoire, robinetterie standard) + pose — HORS mobilier vasque, miroir, accessoires
+// • Postes "forfait" : fourniture + pose sauf mention contraire
+// • Mobilier (meuble vasque, miroir, accessoires SDB) → poste séparé "mobilier_sdb"
+// • Cuisine équipée = bloc cuisine (caisson + plan de travail + électroménager intégré standard)
+// ─────────────────────────────────────────────────────────────────────────
 const EP_CATALOG_DEFAULT = [
-  {id:'demolition',  name:'Démolition & dépose',    unit:'m²',     min:15,  avg:35,  max:70,  complexity:1.3, duration:5,  color:'#8B4513'},
-  {id:'gros_oeuvre', name:'Gros œuvre / maçonnerie', unit:'m²',    min:280, avg:450, max:750, complexity:1.6, duration:18, color:'#5C6BC0'},
-  {id:'charpente',   name:'Charpente / toiture',     unit:'m²',    min:120, avg:220, max:420, complexity:1.4, duration:10, color:'#795548'},
-  {id:'isolation',   name:'Isolation (murs+toiture)',unit:'m²',    min:50,  avg:110, max:210, complexity:1.1, duration:8,  color:'#26A69A'},
-  {id:'platrerie',   name:'Plâtrerie / cloisons',    unit:'m²',    min:30,  avg:58,  max:95,  complexity:1.1, duration:10, color:'#BDBDBD'},
-  {id:'electricite', name:'Électricité',             unit:'m²',    min:85,  avg:140, max:240, complexity:1.3, duration:12, color:'#FFA726'},
-  {id:'plomberie',   name:'Plomberie',               unit:'m²',    min:100, avg:165, max:300, complexity:1.4, duration:12, color:'#42A5F5'},
-  {id:'cvc',         name:'Chauffage / CVC / VMC',   unit:'m²',    min:150, avg:260, max:420, complexity:1.3, duration:10, color:'#EF5350'},
-  {id:'carrelage',   name:'Carrelage & revêtements', unit:'m²',    min:65,  avg:110, max:220, complexity:1.2, duration:10, color:'#AB47BC'},
-  {id:'parquet',     name:'Parquet / revêt. sol',    unit:'m²',    min:45,  avg:90,  max:180, complexity:1.1, duration:6,  color:'#8D6E63'},
-  {id:'peinture',    name:'Peinture',                unit:'m²',    min:25,  avg:48,  max:85,  complexity:1.0, duration:7,  color:'#66BB6A'},
-  {id:'faux_plaf',   name:'Faux-plafonds',           unit:'m²',    min:35,  avg:65,  max:130, complexity:1.1, duration:6,  color:'#78909C'},
-  {id:'menuiseries_int',name:'Menuiseries intérieures',unit:'forfait',min:2500,avg:6000,max:18000,complexity:1.2,duration:5,color:'#D4A017'},
-  {id:'menuiseries_ext',name:'Menuiseries extérieures',unit:'forfait',min:3500,avg:9000,max:28000,complexity:1.2,duration:7,color:'#BF8B2E'},
-  {id:'cuisine',     name:'Cuisine équipée',         unit:'forfait',min:6000,avg:15000,max:50000,complexity:1.1,duration:5, color:'#EF9A9A'},
-  {id:'sdb',         name:'Salle de bain',           unit:'unité', min:4000,avg:9000,max:25000, complexity:1.3, duration:8, color:'#4DD0E1'},
-  {id:'facade',      name:'Façade / ravalement',     unit:'m²',    min:80,  avg:160, max:320, complexity:1.3, duration:8,  color:'#A5D6A7'},
-  {id:'amenag_ext',  name:'Aménagements extérieurs', unit:'forfait',min:2500,avg:9000,max:35000,complexity:1.1,duration:6,color:'#81C784'},
-  {id:'honoraires',  name:'Honoraires MOE (7–12%)',  unit:'%HT',   min:7,   avg:9,   max:12,  complexity:1.0, duration:0,  color:'#1A2332'},
+  {id:'demolition',      name:'Démolition & dépose',             unit:'m²',     min:15,  avg:35,   max:70,    complexity:1.3, duration:5,  color:'#8B4513', note:'Démolition + évacuation gravats'},
+  {id:'gros_oeuvre',     name:'Gros œuvre / maçonnerie',         unit:'m²',     min:280, avg:450,  max:750,   complexity:1.6, duration:18, color:'#5C6BC0', note:'Fourniture matériaux + pose'},
+  {id:'charpente',       name:'Charpente / toiture',             unit:'m²',     min:120, avg:220,  max:420,   complexity:1.4, duration:10, color:'#795548', note:'Fourniture bois/tuiles + pose'},
+  {id:'isolation',       name:'Isolation (murs+toiture)',        unit:'m²',     min:50,  avg:110,  max:210,   complexity:1.1, duration:8,  color:'#26A69A', note:'Fourniture isolant + pose'},
+  {id:'platrerie',       name:'Plâtrerie / cloisons',            unit:'m²',     min:30,  avg:58,   max:95,    complexity:1.1, duration:10, color:'#BDBDBD', note:'Plaques + montants + pose'},
+  {id:'electricite',     name:'Électricité',                     unit:'m²',     min:85,  avg:140,  max:240,   complexity:1.3, duration:12, color:'#FFA726', note:'Fourniture matériel + pose — hors luminaires déco'},
+  {id:'plomberie',       name:'Plomberie',                       unit:'m²',     min:100, avg:165,  max:300,   complexity:1.4, duration:12, color:'#42A5F5', note:'Tuyauteries + raccordements — hors mobilier'},
+  {id:'cvc',             name:'Chauffage / CVC / VMC',           unit:'m²',     min:150, avg:260,  max:420,   complexity:1.3, duration:10, color:'#EF5350', note:'Équipement + pose'},
+  {id:'carrelage',       name:'Carrelage & revêtements',         unit:'m²',     min:65,  avg:110,  max:220,   complexity:1.2, duration:10, color:'#AB47BC', note:'Fourniture carrelage moy. gamme + pose (hors carrelage premium → ajuster prix)'},
+  {id:'parquet',         name:'Parquet / revêt. sol',            unit:'m²',     min:45,  avg:90,   max:180,   complexity:1.1, duration:6,  color:'#8D6E63', note:'Fourniture parquet + pose + plinthes'},
+  {id:'peinture',        name:'Peinture',                        unit:'m²',     min:25,  avg:48,   max:85,    complexity:1.0, duration:7,  color:'#66BB6A', note:'Fourniture peinture + pose (2 couches)'},
+  {id:'faux_plaf',       name:'Faux-plafonds',                   unit:'m²',     min:35,  avg:65,   max:130,   complexity:1.1, duration:6,  color:'#78909C', note:'Ossature + plaques + enduit'},
+  {id:'menuiseries_int', name:'Menuiseries intérieures',         unit:'forfait', min:2500,avg:6000, max:18000, complexity:1.2, duration:5,  color:'#D4A017', note:'Portes, placards, dressings — fourniture + pose'},
+  {id:'menuiseries_ext', name:'Menuiseries extérieures',         unit:'forfait', min:3500,avg:9000, max:28000, complexity:1.2, duration:7,  color:'#BF8B2E', note:'Fenêtres, baies, volets — fourniture + pose'},
+  {id:'cuisine',         name:'Cuisine équipée',                 unit:'forfait', min:6000,avg:15000,max:50000, complexity:1.1, duration:5,  color:'#EF9A9A', note:'Meubles + plan de travail + électroménager standard intégré + pose'},
+  {id:'sdb',             name:'Sanitaires SDB (hors mobilier)',  unit:'unité',  min:4000,avg:9000, max:25000, complexity:1.3, duration:8,  color:'#4DD0E1', note:'WC + douche/baignoire + robinetterie standard + pose — HORS meuble vasque, miroir, accessoires'},
+  {id:'mobilier_sdb',    name:'Mobilier SDB',                   unit:'unité',  min:600, avg:1500, max:5000,  complexity:1.1, duration:2,  color:'#80DEEA', note:'Meuble vasque + miroir + accessoires (porte-serviettes, tablette…) — fourniture + pose'},
+  {id:'facade',          name:'Façade / ravalement',             unit:'m²',     min:80,  avg:160,  max:320,   complexity:1.3, duration:8,  color:'#A5D6A7', note:'Ravalement + enduit + peinture façade'},
+  {id:'amenag_ext',      name:'Aménagements extérieurs',        unit:'forfait', min:2500,avg:9000, max:35000, complexity:1.1, duration:6,  color:'#81C784', note:'Terrasse, allées, clôture — fourniture + pose'},
+  {id:'honoraires',      name:'Honoraires MOE (7–12%)',         unit:'%HT',    min:7,   avg:9,    max:12,    complexity:1.0, duration:0,  color:'#1A2332', note:'Mission complète MOE — % sur coût travaux HT'},
 ];
 
 const EP_COMPLEXITY = {
@@ -6400,16 +6461,56 @@ const EP_TYPES = [
 
 // Lots applicables par type de projet
 const EP_LOTS_BY_TYPE = {
-  appartement: ['demolition','platrerie','electricite','plomberie','cvc','carrelage','parquet','peinture','faux_plaf','menuiseries_int','menuiseries_ext','cuisine','sdb','honoraires'],
-  maison:      ['demolition','gros_oeuvre','charpente','isolation','platrerie','electricite','plomberie','cvc','carrelage','parquet','peinture','faux_plaf','menuiseries_int','menuiseries_ext','cuisine','sdb','facade','amenag_ext','honoraires'],
+  appartement: ['demolition','platrerie','electricite','plomberie','cvc','carrelage','parquet','peinture','faux_plaf','menuiseries_int','menuiseries_ext','cuisine','sdb','mobilier_sdb','honoraires'],
+  maison:      ['demolition','gros_oeuvre','charpente','isolation','platrerie','electricite','plomberie','cvc','carrelage','parquet','peinture','faux_plaf','menuiseries_int','menuiseries_ext','cuisine','sdb','mobilier_sdb','facade','amenag_ext','honoraires'],
   bureaux:     ['demolition','platrerie','electricite','plomberie','cvc','carrelage','parquet','peinture','faux_plaf','menuiseries_int','menuiseries_ext','honoraires'],
   commerce:    ['demolition','gros_oeuvre','platrerie','electricite','plomberie','cvc','carrelage','peinture','faux_plaf','menuiseries_int','menuiseries_ext','facade','honoraires'],
-  hotel:       ['demolition','gros_oeuvre','isolation','platrerie','electricite','plomberie','cvc','carrelage','parquet','peinture','faux_plaf','menuiseries_int','menuiseries_ext','cuisine','sdb','facade','amenag_ext','honoraires'],
-  immeuble:    ['demolition','gros_oeuvre','charpente','isolation','platrerie','electricite','plomberie','cvc','carrelage','parquet','peinture','faux_plaf','menuiseries_int','menuiseries_ext','sdb','facade','honoraires'],
+  hotel:       ['demolition','gros_oeuvre','isolation','platrerie','electricite','plomberie','cvc','carrelage','parquet','peinture','faux_plaf','menuiseries_int','menuiseries_ext','cuisine','sdb','mobilier_sdb','facade','amenag_ext','honoraires'],
+  immeuble:    ['demolition','gros_oeuvre','charpente','isolation','platrerie','electricite','plomberie','cvc','carrelage','parquet','peinture','faux_plaf','menuiseries_int','menuiseries_ext','sdb','mobilier_sdb','facade','honoraires'],
 };
 
-let _epType='appartement', _epComplexity='standard', _epSurface=80, _epNbPieces=3, _epTab='estim';
+// Composition de pièces par défaut selon le type de projet
+// Pour bureaux/commerce : salon=salle de réunion, bureau=open-space/poste, wc=sanitaires blocs
+const EP_ROOMS_BY_TYPE = {
+  appartement: {salon:1, cuisine:1, chambre:2, sdb:1, wc:1, bureau:0, couloir:1, terrasse:0, garage:0},
+  maison:      {salon:1, cuisine:1, chambre:3, sdb:2, wc:2, bureau:1, couloir:1, terrasse:1, garage:1},
+  bureaux:     {salon:2, cuisine:1, chambre:0, sdb:0, wc:4, bureau:8, couloir:2, terrasse:0, garage:0},
+  commerce:    {salon:1, cuisine:1, chambre:0, sdb:0, wc:2, bureau:1, couloir:1, terrasse:0, garage:0},
+  hotel:       {salon:2, cuisine:1, chambre:20, sdb:20, wc:4, bureau:2, couloir:4, terrasse:1, garage:1},
+  immeuble:    {salon:6, cuisine:6, chambre:12, sdb:6, wc:6, bureau:0, couloir:4, terrasse:0, garage:1},
+};
+
+let _epType='appartement', _epComplexity='standard', _epSurface=80, _epTab='estim';
 let _epResult=null;
+let _epHonoraires=9; // taux libre %
+let _epActiveLots=null; // null=défaut par type, sinon Set d'IDs actifs
+let _epRooms={...EP_ROOMS_BY_TYPE.appartement};
+
+// Menuiseries intérieures — détail sur mesure (0 = non renseigné → forfait catalogue)
+let _epMenuiserieInt={ml:0, portes:0, tetesLit:0};
+const EP_MENUISERIE_INT_PRICES={ml:2500, porte:2400, teteLit:5000};
+
+// Définition des pièces avec package électro/plomberie
+const EP_ROOM_TYPES=[
+  {id:'salon',    label:'Salon / Séjour', icon:'🛋', default:1, elec:12, plumb:false,
+   detail:'6 prises, 2 circuits lumière, bloc TV/Hi-Fi (2P+T, RJ45, antenne), télérupteur'},
+  {id:'cuisine',  label:'Cuisine',        icon:'🍳', default:1, elec:18, plumb:true,
+   detail:'8 prises dédiées (hotte, four, LV, frigo), 2 circuits lumière, arrivée eau'},
+  {id:'chambre',  label:'Chambre',        icon:'🛏', default:2, elec:15, plumb:false,
+   detail:'5 spots télérupteur, 2 liseuses, 4 prises USB-C (2×chaque chevet), 2 suspensions, bloc TV/PC (2P+T, RJ45, antenne TV)'},
+  {id:'sdb',      label:'Salle de bain',  icon:'🚿', default:1, elec:10, plumb:true,
+   detail:'Circuit séparé TBTS, sèche-serviette, 2 spots, miroir lumineux, 3 prises NFC 15-100, VMC'},
+  {id:'wc',       label:'WC',             icon:'🚽', default:1, elec:3,  plumb:true,
+   detail:'1 spot, 1 prise VMC, arrivée/évacuation'},
+  {id:'bureau',   label:'Bureau',         icon:'💻', default:0, elec:12, plumb:false,
+   detail:'6 prises (dont 2 USB-C), RJ45 ×2, 2 spots, 1 suspension, télérupteur'},
+  {id:'couloir',  label:'Couloir / Entrée',icon:'🚪',default:1, elec:5, plumb:false,
+   detail:'3 spots télérupteur, 1 prise, interrupteur double allumage'},
+  {id:'terrasse', label:'Terrasse / Jardin',icon:'🌿',default:0,elec:6, plumb:false,
+   detail:'2 prises IP44 extérieures, 2 spots sol, 1 prise arrosage'},
+  {id:'garage',   label:'Garage / Cave',  icon:'🚗', default:0, elec:8,  plumb:false,
+   detail:'3 prises, 2 néons, 1 prise 32A (borne VE), détecteur présence'},
+];
 
 function epGetCatalog(){
   try{const d=JSON.parse(localStorage.getItem(EP_CATALOG_KEY)||'null');if(d&&d.length)return d;}catch{}
@@ -6443,103 +6544,236 @@ function renderPreProjetBody(){
   },100);
 }
 
+function epGetActiveLots(){
+  const defaults=EP_LOTS_BY_TYPE[_epType]||EP_LOTS_BY_TYPE.appartement;
+  if(!_epActiveLots){_epActiveLots=new Set(defaults);}
+  return _epActiveLots;
+}
+function epToggleLot(id){
+  epGetActiveLots();
+  if(_epActiveLots.has(id))_epActiveLots.delete(id);
+  else _epActiveLots.add(id);
+  renderPreProjetBody();
+}
+function epRoomStep(id,delta){
+  _epRooms[id]=Math.max(0,(_epRooms[id]||0)+delta);
+  renderPreProjetBody();
+}
+function epMenuiserieIntTotal(){
+  const p=EP_MENUISERIE_INT_PRICES;
+  return (_epMenuiserieInt.ml||0)*p.ml
+       + (_epMenuiserieInt.portes||0)*p.porte
+       + (_epMenuiserieInt.tetesLit||0)*p.teteLit;
+}
+
 function epRenderEstimator(){
   const catalog=epGetCatalog();
-  const lotIds=EP_LOTS_BY_TYPE[_epType]||EP_LOTS_BY_TYPE.appartement;
-  const cx=EP_COMPLEXITY[_epComplexity];
+  epGetActiveLots();
 
-  // Type selector
+  // ── 1. Type ──
   let h=`<div class="ep-section">
     <div class="ep-section-title">Type de projet</div>
     <div class="ep-type-grid">`;
   EP_TYPES.forEach(t=>{
-    h+=`<button class="ep-type-btn${_epType===t.id?' on':''}" onclick="_epType='${t.id}';renderPreProjetBody()">
+    h+=`<button class="ep-type-btn${_epType===t.id?' on':''}" onclick="_epType='${t.id}';_epActiveLots=null;_epRooms={...EP_ROOMS_BY_TYPE['${t.id}']||EP_ROOMS_BY_TYPE.appartement};_epResult=null;renderPreProjetBody()">
       <div class="ep-type-icon">${t.icon}</div>
       <div class="ep-type-name">${t.name}</div>
     </button>`;
   });
   h+=`</div>`;
 
-  // Complexity
+  // ── 2. Niveau ──
   h+=`<div class="ep-section-title" style="margin-top:4px">Niveau de prestations</div>
     <div class="ep-complex-row">`;
   Object.entries(EP_COMPLEXITY).forEach(([k,v])=>{
     h+=`<button class="ep-cx-btn${_epComplexity===k?' on':''}" onclick="_epComplexity='${k}';renderPreProjetBody()">
-      <div class="ep-cx-name">${v.label}</div>
-      <div class="ep-cx-desc">${v.desc}</div>
+      <div class="ep-cx-name">${v.label}</div><div class="ep-cx-desc">${v.desc}</div>
     </button>`;
   });
   h+=`</div>`;
 
-  // Inputs
-  h+=`<div class="ep-section-title" style="margin-top:4px">Paramètres</div>
+  // ── 3. Surface + honoraires libres ──
+  h+=`<div class="ep-section-title" style="margin-top:4px">Surface & honoraires</div>
     <div class="ep-input-row">
-      <div><div class="ep-inp-label">Surface (m²)</div>
-        <input class="ep-inp" type="number" min="10" max="5000" value="${_epSurface}" oninput="_epSurface=parseFloat(this.value)||80" placeholder="80"></div>
-      <div><div class="ep-inp-label">Nb. pièces / unités</div>
-        <input class="ep-inp" type="number" min="1" max="200" value="${_epNbPieces}" oninput="_epNbPieces=parseInt(this.value)||3" placeholder="3"></div>
-    </div>
-    <button class="ep-estimate-btn" onclick="epCalculate()">
-      <span id="ep-calc-spin" style="display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;"></span>
+      <div><div class="ep-inp-label">Surface totale (m²)</div>
+        <input class="ep-inp" type="number" min="10" max="9999" value="${_epSurface}" oninput="_epSurface=parseFloat(this.value)||80"></div>
+      <div><div class="ep-inp-label">Honoraires MOE (%)</div>
+        <input class="ep-inp" type="number" min="0" max="25" step="0.5" value="${_epHonoraires}" oninput="_epHonoraires=parseFloat(this.value)||9" style="border-color:${_canSeeCommission()?'var(--C)':'var(--B2)'}"></div>
+    </div>`;
+
+  // ── 4. Composition par pièce ──
+  // Labels contextuels selon le type de projet
+  const EP_ROOM_LABELS_CTX={
+    bureaux:  {salon:'Salle de réunion',bureau:'Poste de travail',wc:'Bloc sanitaires',cuisine:'Kitchenette',couloir:'Circulation / Hall'},
+    commerce: {salon:'Espace vente / Showroom',bureau:'Bureau direction',wc:'Sanitaires clients',cuisine:'Arrière-boutique / Réserve'},
+    hotel:    {salon:'Lobby / Bar / Lounge',chambre:'Chambre (unité)',sdb:'Salle de bain chambre',bureau:'Bureau back-office'},
+    immeuble: {salon:'Séjour (par logement)',chambre:'Chambre (total)',sdb:'SDB (par logement)',cuisine:'Cuisine (par logement)',wc:'WC (par logement)'},
+  };
+  const ctxLabels=EP_ROOM_LABELS_CTX[_epType]||{};
+  const sectionTitle={appartement:'Composition du logement',maison:'Composition de la maison',bureaux:'Programme bureau',commerce:'Programme commerce',hotel:'Programme hôtelier',immeuble:'Programme (total résidence)'}[_epType]||'Composition';
+  h+=`<div class="ep-section-title" style="margin-top:4px">${sectionTitle}</div>
+    <div style="display:flex;flex-direction:column;gap:0;background:var(--W);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:12px">`;
+  EP_ROOM_TYPES.forEach(room=>{
+    const qty=_epRooms[room.id]||0;
+    const ctxLabel=ctxLabels[room.id]||room.label;
+    h+=`<div style="display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--B);gap:10px">
+      <span style="font-size:1.2rem;flex-shrink:0">${room.icon}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-family:var(--ff);font-weight:500;font-size:.82rem;color:var(--C)">${ctxLabel}</div>
+        <div style="font-family:var(--fm);font-size:.48rem;color:var(--C3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${room.detail}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0;flex-shrink:0;background:var(--A);border-radius:var(--r-pill);border:1px solid var(--B2);overflow:hidden">
+        <button onclick="epRoomStep('${room.id}',-1)" style="width:32px;height:32px;background:none;border:none;font-size:1rem;color:var(--C3);cursor:pointer;display:flex;align-items:center;justify-content:center">−</button>
+        <span style="font-family:var(--ff);font-weight:700;font-size:.9rem;color:var(--C);min-width:24px;text-align:center">${qty}</span>
+        <button onclick="epRoomStep('${room.id}',1)" style="width:32px;height:32px;background:none;border:none;font-size:1rem;color:var(--C);cursor:pointer;display:flex;align-items:center;justify-content:center">+</button>
+      </div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // ── 5. Lots à inclure (cochables) ──
+  h+=`<div class="ep-section-title" style="margin-top:4px">Lots à inclure <span style="font-weight:400;color:var(--C3);font-size:.44rem">(décocher si non concerné)</span></div>
+    <div style="background:var(--W);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:12px">`;
+  const allLots=EP_LOTS_BY_TYPE[_epType]||EP_LOTS_BY_TYPE.appartement;
+  allLots.filter(id=>id!=='honoraires').forEach(id=>{
+    const item=catalog.find(c=>c.id===id);if(!item)return;
+    const active=_epActiveLots.has(id);
+    h+=`<div onclick="epToggleLot('${id}')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:${id==='menuiseries_int'&&active?'none':'1px solid var(--B)'};cursor:pointer;${active?'':'opacity:.4'}">
+      <div style="width:18px;height:18px;border-radius:4px;border:2px solid ${active?'var(--C)':'var(--B2)'};background:${active?'var(--C)':'transparent'};flex-shrink:0;display:flex;align-items:center;justify-content:center">
+        ${active?'<span style="color:#fff;font-size:.7rem;line-height:1">✓</span>':''}
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:${item.color};flex-shrink:0"></div>
+      <div style="flex:1;min-width:0">
+        <div style="font-family:var(--fm);font-size:.75rem;color:var(--C)">${item.name}</div>
+        ${item.note?`<div style="font-family:var(--fm);font-size:.44rem;color:var(--C3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${item.note}</div>`:''}
+      </div>
+      <div style="font-family:var(--fm);font-size:.6rem;color:var(--C3);flex-shrink:0">${
+        id==='menuiseries_int'
+          ? ((_epMenuiserieInt.ml>0||_epMenuiserieInt.portes>0||_epMenuiserieInt.tetesLit>0)
+              ? '<span style="color:var(--C);font-weight:600">'+epMenuiserieIntTotal().toLocaleString('fr-FR')+'€</span>'
+              : 'forfait')
+          : item.unit==='m²'?item.avg+'€/m²':item.unit==='forfait'?'forfait':'—'
+      }</div>
+    </div>`;
+
+    // ── Sous-formulaire menuiseries intérieures ──────────────────────────────
+    if(id==='menuiseries_int' && active){
+      const p=EP_MENUISERIE_INT_PRICES;
+      const hasDetail=_epMenuiserieInt.ml>0||_epMenuiserieInt.portes>0||_epMenuiserieInt.tetesLit>0;
+      const subTotal=epMenuiserieIntTotal();
+      h+=`<div onclick="event.stopPropagation()" style="background:var(--A);border-top:1px solid var(--B);border-bottom:1px solid var(--B);padding:12px 14px 14px;margin:0">
+        <div style="font-family:var(--fm);font-size:.44rem;letter-spacing:2px;text-transform:uppercase;color:var(--C3);margin-bottom:10px">Détail sur mesure <span style="font-weight:400;color:var(--C3)">(laisser à 0 = forfait catalogue)</span></div>
+        <!-- ML sur mesure / placards -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div style="flex:1">
+            <div style="font-family:var(--ff);font-size:.74rem;font-weight:500;color:var(--C)">📐 Sur mesure / Placards</div>
+            <div style="font-family:var(--fm);font-size:.48rem;color:var(--C3)">${p.ml.toLocaleString('fr-FR')} €/ml · bibliothèques, dressings, banquettes…</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;flex-shrink:0">
+            <button onclick="_epMenuiserieInt.ml=Math.max(0,(_epMenuiserieInt.ml||0)-1);renderPreProjetBody()" style="width:30px;height:30px;background:var(--W);border:1px solid var(--B2);border-radius:6px;font-size:.9rem;cursor:pointer;color:var(--C3)">−</button>
+            <input type="number" min="0" max="200" value="${_epMenuiserieInt.ml||0}" oninput="event.stopPropagation();_epMenuiserieInt.ml=Math.max(0,parseInt(this.value)||0);renderPreProjetBody()" onclick="event.stopPropagation()" style="width:52px;text-align:center;border:1px solid var(--B2);border-radius:6px;padding:4px 2px;font-family:var(--ff);font-size:.78rem;font-weight:600;color:var(--C);background:var(--W)">
+            <button onclick="_epMenuiserieInt.ml=(_epMenuiserieInt.ml||0)+1;renderPreProjetBody()" style="width:30px;height:30px;background:var(--W);border:1px solid var(--B2);border-radius:6px;font-size:.9rem;cursor:pointer;color:var(--C)">+</button>
+            <span style="font-family:var(--fm);font-size:.55rem;color:var(--C3);min-width:16px">ml</span>
+          </div>
+        </div>
+        <!-- Portes -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div style="flex:1">
+            <div style="font-family:var(--ff);font-size:.74rem;font-weight:500;color:var(--C)">🚪 Portes intérieures</div>
+            <div style="font-family:var(--fm);font-size:.48rem;color:var(--C3)">${p.porte.toLocaleString('fr-FR')} €/unité · bloc-porte pose et fourniture</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;flex-shrink:0">
+            <button onclick="_epMenuiserieInt.portes=Math.max(0,(_epMenuiserieInt.portes||0)-1);renderPreProjetBody()" style="width:30px;height:30px;background:var(--W);border:1px solid var(--B2);border-radius:6px;font-size:.9rem;cursor:pointer;color:var(--C3)">−</button>
+            <input type="number" min="0" max="50" value="${_epMenuiserieInt.portes||0}" oninput="event.stopPropagation();_epMenuiserieInt.portes=Math.max(0,parseInt(this.value)||0);renderPreProjetBody()" onclick="event.stopPropagation()" style="width:52px;text-align:center;border:1px solid var(--B2);border-radius:6px;padding:4px 2px;font-family:var(--ff);font-size:.78rem;font-weight:600;color:var(--C);background:var(--W)">
+            <button onclick="_epMenuiserieInt.portes=(_epMenuiserieInt.portes||0)+1;renderPreProjetBody()" style="width:30px;height:30px;background:var(--W);border:1px solid var(--B2);border-radius:6px;font-size:.9rem;cursor:pointer;color:var(--C)">+</button>
+            <span style="font-family:var(--fm);font-size:.55rem;color:var(--C3);min-width:16px">u.</span>
+          </div>
+        </div>
+        <!-- Têtes de lit -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="flex:1">
+            <div style="font-family:var(--ff);font-size:.74rem;font-weight:500;color:var(--C)">🛏 Têtes de lit sur mesure</div>
+            <div style="font-family:var(--fm);font-size:.48rem;color:var(--C3)">${p.teteLit.toLocaleString('fr-FR')} €/unité · mobilier intégré chambre</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;flex-shrink:0">
+            <button onclick="_epMenuiserieInt.tetesLit=Math.max(0,(_epMenuiserieInt.tetesLit||0)-1);renderPreProjetBody()" style="width:30px;height:30px;background:var(--W);border:1px solid var(--B2);border-radius:6px;font-size:.9rem;cursor:pointer;color:var(--C3)">−</button>
+            <input type="number" min="0" max="20" value="${_epMenuiserieInt.tetesLit||0}" oninput="event.stopPropagation();_epMenuiserieInt.tetesLit=Math.max(0,parseInt(this.value)||0);renderPreProjetBody()" onclick="event.stopPropagation()" style="width:52px;text-align:center;border:1px solid var(--B2);border-radius:6px;padding:4px 2px;font-family:var(--ff);font-size:.78rem;font-weight:600;color:var(--C);background:var(--W)">
+            <button onclick="_epMenuiserieInt.tetesLit=(_epMenuiserieInt.tetesLit||0)+1;renderPreProjetBody()" style="width:30px;height:30px;background:var(--W);border:1px solid var(--B2);border-radius:6px;font-size:.9rem;cursor:pointer;color:var(--C)">+</button>
+            <span style="font-family:var(--fm);font-size:.55rem;color:var(--C3);min-width:16px">u.</span>
+          </div>
+        </div>
+        <!-- Total détaillé -->
+        ${hasDetail?`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--W);border-radius:8px;border:1px solid var(--B2)">
+          <div style="font-family:var(--fm);font-size:.6rem;color:var(--C3)">
+            ${_epMenuiserieInt.ml>0?`📐 ${_epMenuiserieInt.ml}ml × ${p.ml.toLocaleString('fr-FR')}€ = ${(_epMenuiserieInt.ml*p.ml).toLocaleString('fr-FR')}€`:''}
+            ${_epMenuiserieInt.ml>0&&(_epMenuiserieInt.portes>0||_epMenuiserieInt.tetesLit>0)?'<br>':''}
+            ${_epMenuiserieInt.portes>0?`🚪 ${_epMenuiserieInt.portes}u × ${p.porte.toLocaleString('fr-FR')}€ = ${(_epMenuiserieInt.portes*p.porte).toLocaleString('fr-FR')}€`:''}
+            ${_epMenuiserieInt.portes>0&&_epMenuiserieInt.tetesLit>0?'<br>':''}
+            ${_epMenuiserieInt.tetesLit>0?`🛏 ${_epMenuiserieInt.tetesLit}u × ${p.teteLit.toLocaleString('fr-FR')}€ = ${(_epMenuiserieInt.tetesLit*p.teteLit).toLocaleString('fr-FR')}€`:''}
+          </div>
+          <div style="font-family:var(--ff);font-weight:700;font-size:1rem;color:var(--C)">${subTotal.toLocaleString('fr-FR')} €</div>
+        </div>`:'<div style="font-family:var(--fm);font-size:.55rem;color:var(--C3);text-align:center;padding:4px 0">Renseignez les quantités ci-dessus ou laissez à 0 pour un forfait catalogue</div>'}
+      </div>`;
+    }
+  });
+  h+=`</div>`;
+
+  // ── 6. Bouton calculer ──
+  h+=`<button class="ep-estimate-btn" onclick="epCalculate()">
+      <span id="ep-calc-spin" style="display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite"></span>
       <span id="ep-calc-txt">⚡ Calculer l'estimation</span>
     </button>`;
 
-  // Result
+  // ── 7. Résultat ──
   if(_epResult){
     const r=_epResult;
     const fmtK=n=>n>=1000?(Math.round(n/100)/10).toLocaleString('fr-FR')+'k€':Math.round(n).toLocaleString('fr-FR')+'€';
     const totalDuration=Math.round(r.lots.reduce((a,l)=>a+l.duration,0)*0.6);
-
     h+=`<div class="ep-result-card">
       <div class="ep-result-header">
         <div>
-          <div class="ep-result-label">Estimation totale HT</div>
+          <div class="ep-result-label">Estimation HT (honoraires inclus)</div>
           <div class="ep-result-total">${fmtK(r.total)}</div>
-          <div style="font-family:var(--fm);font-size:.58rem;color:rgba(255,255,255,.4);margin-top:3px">Fourchette : ${fmtK(r.totalMin)} — ${fmtK(r.totalMax)}</div>
+          <div style="font-family:var(--fm);font-size:.55rem;color:rgba(255,255,255,.4);margin-top:3px">${fmtK(r.totalMin)} — ${fmtK(r.totalMax)}</div>
+          ${r.totalElecPoints?`<div style="font-family:var(--fm);font-size:.44rem;color:rgba(255,255,255,.35);margin-top:4px">⚡ ${r.totalElecPoints} pts élec · 🚿 ${r.totalPlumbRooms} salles humides</div>`:''}
+
         </div>
         <div style="text-align:right">
-          <div class="ep-result-label" style="margin-bottom:4px">Durée estimée</div>
-          <div style="font-family:var(--fs);font-size:1.8rem;font-weight:300;color:var(--W)">${totalDuration}j</div>
-          <div style="font-family:var(--fm);font-size:.52rem;color:rgba(255,255,255,.4)">≈ ${Math.ceil(totalDuration/20)} mois</div>
+          <div class="ep-result-label">Durée estimée</div>
+          <div style="font-family:var(--fs);font-size:1.8rem;font-weight:300;color:var(--W);margin-top:4px">${totalDuration}j</div>
+          <div style="font-family:var(--fm);font-size:.48rem;color:rgba(255,255,255,.4)">≈ ${Math.ceil(totalDuration/20)} mois</div>
         </div>
       </div>`;
 
-    // Timeline visuelle
+    // Timeline
     const maxDur=Math.max(...r.lots.map(l=>l.duration),1);
     h+=`<div style="padding:12px 14px 8px;border-bottom:1px solid var(--B)">
       <div style="font-family:var(--fm);font-size:.44rem;letter-spacing:2px;text-transform:uppercase;color:var(--C3);margin-bottom:8px">Planning indicatif</div>`;
-    r.lots.filter(l=>l.duration>0).slice(0,8).forEach((l,i)=>{
-      const wPct=Math.max(8,Math.round(l.duration/maxDur*100))+'%';
+    r.lots.filter(l=>l.duration>0).forEach(l=>{
+      const wPct=Math.max(6,Math.round(l.duration/maxDur*100))+'%';
       const cat=catalog.find(c=>c.id===l.id);
       const col=cat?.color||'var(--C)';
       h+=`<div style="margin-bottom:5px">
-        <div style="font-family:var(--fm);font-size:.52rem;color:var(--C3);margin-bottom:2px;display:flex;justify-content:space-between"><span>${l.name}</span><span>${l.duration}j</span></div>
+        <div style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-bottom:2px;display:flex;justify-content:space-between"><span>${l.name}</span><span>${l.duration}j</span></div>
         <div class="ep-timeline-bar"><div class="ep-tl-fill" data-w="${wPct}" style="width:0%;background:${col}">${l.name}</div></div>
       </div>`;
     });
-    h+=`</div>`;
-
-    // Détail par lot
-    h+=`<div>`;
+    h+=`</div><div>`;
     r.lots.forEach(l=>{
       const cat=catalog.find(c=>c.id===l.id);
       const col=cat?.color||'var(--C)';
-      const pct=Math.round(l.total/r.total*100);
-      h+=`<div class="ep-lot-row">
+      const pct=r.total>0?Math.round(l.total/r.total*100):0;
+      const isHono=l.id==='honoraires';
+      h+=`<div class="ep-lot-row" style="${isHono?'background:var(--A2);border-top:1px solid var(--B)':''}">
         <div class="ep-lot-dot" style="background:${col}"></div>
-        <div class="ep-lot-name">${l.name}</div>
+        <div class="ep-lot-name" style="${isHono?'font-weight:600':''}">${l.name}</div>
         <div class="ep-lot-dur" style="color:var(--C3)">${l.duration>0?l.duration+'j':''}</div>
         <div class="ep-lot-amt">${fmtK(l.total)} <span style="font-family:var(--fm);font-size:.5rem;color:var(--C3)">${pct}%</span></div>
       </div>`;
     });
-    h+=`</div>`;
-
-    // Bouton créer projet
-    h+=`<div style="padding:12px 14px">
+    h+=`</div><div style="padding:12px 14px">
       <button style="width:100%;padding:13px;background:var(--GREEN);color:#fff;font-family:var(--ff);font-weight:700;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:var(--r-pill);cursor:pointer" onclick="epCreateProject()">→ Créer le projet avec ces lots</button>
     </div></div>`;
-
-    // Analyse IA
     if(r.aiAnalysis){
       h+=`<div style="padding:10px 14px 0"><div style="font-family:var(--fm);font-size:.46rem;letter-spacing:2px;text-transform:uppercase;color:var(--C3);margin-bottom:8px">◎ Analyse IA</div>
       <div class="ep-ai-out">${r.aiAnalysis}</div></div>`;
@@ -6575,56 +6809,153 @@ function epRenderCatalog(){
 }
 
 function epRenderREX(){
-  // REX = Retour d'expérience basé sur les projets Firebase
-  const projs=S.projects||[];
-  const pms=S.paiements||[];
-  let h=`<div style="padding:12px 14px 0">
-    <div style="font-family:var(--fm);font-size:.46rem;letter-spacing:2px;text-transform:uppercase;color:var(--C3);margin-bottom:8px">Basé sur ${projs.length} projet(s) de l'agence</div>`;
+  const catalog=epGetCatalog();
+  const quotes=epGetQuotes();
+  const fmtK=n=>n>=1000?(Math.round(n/100)/10).toLocaleString('fr-FR')+'k€':Math.round(n).toLocaleString('fr-FR')+'€';
+  const fmtE=n=>Math.round(n).toLocaleString('fr-FR')+'€';
 
-  if(!projs.length){
-    h+=`<div style="padding:40px 0;text-align:center;font-family:var(--fm);font-size:.8rem;color:var(--C3)">Aucun projet enregistré — créez votre premier chantier pour alimenter la base REX.</div>`;
-  } else {
-    // Stats par projet
-    projs.forEach((proj,pi)=>{
-      const lots=S.tasks.filter(t=>t.pi===pi);
-      const lotsDone=lots.filter(t=>t.status==='done'||_rp(t)===100);
-      const totalDv=lots.reduce((a,t)=>a+(parseFloat(t.montant_ht)||0),0);
-      const totalPm=pms.filter(p=>p.projet_id===pi).reduce((a,p)=>a+(parseFloat(p.net_artisan)||0),0);
-      if(!totalDv&&!lots.length)return;
-      h+=`<div style="background:var(--W);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:10px;overflow:hidden">
-        <div style="padding:12px 14px 8px;border-bottom:1px solid var(--B);display:flex;align-items:center;justify-content:space-between">
-          <div style="font-family:var(--ff);font-weight:600;font-size:.92rem;color:var(--C)">${proj.name}</div>
-          <div style="font-family:var(--fm);font-size:.62rem;color:${totalDv?'var(--GREEN)':'var(--C3)'}">${totalDv?Math.round(totalDv).toLocaleString('fr-FR')+'€':' — '}</div>
-        </div>`;
-      lots.slice(0,6).forEach(t=>{
-        const dv=parseFloat(t.montant_ht)||0;
-        const pct=_rp(t);
-        const bar=`<div style="height:3px;background:var(--B);border-radius:2px;margin-top:4px"><div style="height:100%;width:${pct}%;background:${pct===100?'var(--GREEN)':pct>50?'var(--ORANGE)':'var(--C)'};border-radius:2px;transition:width .5s"></div></div>`;
-        h+=`<div style="padding:8px 14px;border-bottom:1px dashed var(--B);display:flex;align-items:center;gap:8px">
-          <div style="font-family:var(--fm);font-size:.7rem;color:var(--C);flex:1">${t.name}</div>
-          <div style="font-family:var(--fm);font-size:.62rem;color:var(--C3)">${dv?Math.round(dv).toLocaleString('fr-FR')+'€':'—'}</div>
-          <div style="font-family:var(--fm);font-size:.6rem;color:${pct===100?'var(--GREEN)':'var(--C3)'};min-width:30px;text-align:right">${pct}%</div>
-        </div>`;
+  let h=`<div style="padding:12px 14px 0">`;
+
+  // ── Bouton import ──────────────────────────────────────────────────────────
+  h+=`<button class="ep-import-btn" onclick="epImportQuote()" style="margin-bottom:14px">
+    📎 IMPORTER UN DEVIS PARTENAIRE (PDF)
+  </button>`;
+
+  // ── Compteurs devis importés ───────────────────────────────────────────────
+  if(quotes.length){
+    const partners=[...new Set(quotes.map(q=>q.partner))];
+    h+=`<div style="display:flex;gap:8px;margin-bottom:14px">
+      <div style="flex:1;background:var(--C);border-radius:var(--r);padding:10px 12px;text-align:center">
+        <div style="font-family:var(--fs);font-size:1.6rem;font-weight:300;color:var(--W)">${quotes.length}</div>
+        <div style="font-family:var(--fm);font-size:.44rem;letter-spacing:1.5px;color:rgba(255,255,255,.5)">Devis importés</div>
+      </div>
+      <div style="flex:1;background:var(--W);border-radius:var(--r);box-shadow:var(--sh);padding:10px 12px;text-align:center">
+        <div style="font-family:var(--fs);font-size:1.6rem;font-weight:300;color:var(--C)">${partners.length}</div>
+        <div style="font-family:var(--fm);font-size:.44rem;letter-spacing:1.5px;color:var(--C3)">Partenaires</div>
+      </div>
+      <div style="flex:1;background:var(--W);border-radius:var(--r);box-shadow:var(--sh);padding:10px 12px;text-align:center">
+        <div style="font-family:var(--fs);font-size:1.6rem;font-weight:300;color:var(--C)">${quotes.reduce((a,q)=>a+q.lots.length,0)}</div>
+        <div style="font-family:var(--fm);font-size:.44rem;letter-spacing:1.5px;color:var(--C3)">Points de données</div>
+      </div>
+    </div>`;
+
+    // ── Tableau de comparaison par lot ─────────────────────────────────────
+    h+=`<div style="font-family:var(--fm);font-size:.46rem;letter-spacing:2px;text-transform:uppercase;color:var(--C3);margin-bottom:8px">Comparaison marché — Prix unitaires (€/m²)</div>`;
+    h+=`<div style="background:var(--W);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;margin-bottom:14px">`;
+
+    // En-tête
+    h+=`<div style="display:flex;align-items:center;padding:8px 12px;background:var(--C);gap:4px">
+      <div style="flex:2;font-family:var(--fm);font-size:.44rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.5)">Lot</div>
+      <div style="flex:1;text-align:right;font-family:var(--fm);font-size:.44rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5)">Marché</div>
+      <div style="flex:1;text-align:right;font-family:var(--fm);font-size:.44rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5)">Partenaires</div>
+      <div style="flex:1.2;text-align:right;font-family:var(--fm);font-size:.44rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5)">Écart</div>
+    </div>`;
+
+    catalog.filter(c=>c.unit!=='%HT').forEach(item=>{
+      // Rassembler tous les points de prix partenaire pour ce lot (ramenés en €/m²)
+      const partnerPrices=[];
+      quotes.forEach(q=>{
+        const l=q.lots.find(x=>x.lotId===item.id);
+        if(l&&l.montant>0&&q.surface>0){
+          partnerPrices.push({partner:q.partner,date:q.date,price:Math.round(l.montant/q.surface),total:l.montant,notes:l.notes});
+        }
       });
-      h+=`</div>`;
+
+      if(!partnerPrices.length){
+        // Lot sans données partenaire — afficher en gris léger
+        h+=`<div style="display:flex;align-items:center;padding:8px 12px;border-bottom:1px solid var(--B);opacity:.4">
+          <div style="width:7px;height:7px;border-radius:50%;background:${item.color};flex-shrink:0;margin-right:7px"></div>
+          <div style="flex:2;font-family:var(--fm);font-size:.68rem;color:var(--C)">${item.name}</div>
+          <div style="flex:1;text-align:right;font-family:var(--ff);font-size:.72rem;color:var(--C3)">${item.unit==='m²'?item.avg+'€':'—'}</div>
+          <div style="flex:1;text-align:right;font-family:var(--fm);font-size:.6rem;color:var(--C3)">—</div>
+          <div style="flex:1.2;text-align:right;font-family:var(--fm);font-size:.6rem;color:var(--C3)">—</div>
+        </div>`;
+        return;
+      }
+
+      const avgPartner=Math.round(partnerPrices.reduce((a,p)=>a+p.price,0)/partnerPrices.length);
+      const minP=Math.min(...partnerPrices.map(p=>p.price));
+      const maxP=Math.max(...partnerPrices.map(p=>p.price));
+      const marketRef=item.unit==='m²'?item.avg:null;
+      const ecart=marketRef?Math.round((avgPartner-marketRef)/marketRef*100):null;
+      const ecartCol=ecart===null?'var(--C3)':ecart>20?'#C62828':ecart>8?'var(--ORANGE)':ecart<-8?'#2B7A4B':'var(--C3)';
+      const ecartStr=ecart===null?'N/A':ecart>0?`▲ +${ecart}%`:`▼ ${ecart}%`;
+
+      // Sparkline minmax
+      const range=maxP-minP;
+      const sparkW=range>0?`${Math.round((avgPartner-minP)/range*80)+10}%`:'50%';
+
+      h+=`<div style="padding:9px 12px;border-bottom:1px solid var(--B)">
+        <div style="display:flex;align-items:center;gap:4px;margin-bottom:5px">
+          <div style="width:7px;height:7px;border-radius:50%;background:${item.color};flex-shrink:0;margin-right:7px"></div>
+          <div style="flex:2;font-family:var(--fm);font-size:.7rem;color:var(--C)">${item.name}</div>
+          <div style="flex:1;text-align:right;font-family:var(--ff);font-size:.76rem;color:var(--C3)">${marketRef?marketRef+'€/m²':'—'}</div>
+          <div style="flex:1;text-align:right">
+            <div style="font-family:var(--ff);font-size:.76rem;font-weight:700;color:var(--C)">${avgPartner}€/m²</div>
+            <div style="font-family:var(--fm);font-size:.44rem;color:var(--C3)">${partnerPrices.length} devis</div>
+          </div>
+          <div style="flex:1.2;text-align:right;font-family:var(--ff);font-size:.72rem;font-weight:700;color:${ecartCol}">${ecartStr}</div>
+        </div>
+        <!-- Mini range bar -->
+        ${partnerPrices.length>1?`<div style="display:flex;align-items:center;gap:6px;padding:0 14px 0 21px">
+          <span style="font-family:var(--fm);font-size:.46rem;color:var(--C3)">${minP}€</span>
+          <div style="flex:1;height:4px;background:var(--A2);border-radius:2px;position:relative">
+            <div style="position:absolute;height:100%;left:0;width:${sparkW};background:${item.color};border-radius:2px;opacity:.7"></div>
+            <div style="position:absolute;height:8px;width:2px;background:${item.color};border-radius:1px;top:-2px;left:${sparkW};transform:translateX(-50%)"></div>
+          </div>
+          <span style="font-family:var(--fm);font-size:.46rem;color:var(--C3)">${maxP}€</span>
+        </div>`:''}
+        <!-- Détail par partenaire (cliquable pour expand) -->
+        <div style="margin-top:5px;padding:0 0 0 21px;display:flex;flex-wrap:wrap;gap:4px">
+        ${partnerPrices.map(p=>`<span style="font-family:var(--fm);font-size:.48rem;padding:2px 6px;border-radius:4px;background:var(--A);border:1px solid var(--B);color:var(--C3)">${p.partner} — ${p.price}€/m²${p.notes?` · ${p.notes.slice(0,30)}`:''}</span>`).join('')}
+        </div>
+      </div>`;
+    });
+    h+=`</div>`;
+
+    // ── Liste des devis importés ───────────────────────────────────────────
+    h+=`<div style="font-family:var(--fm);font-size:.46rem;letter-spacing:2px;text-transform:uppercase;color:var(--C3);margin-bottom:8px">Devis dans la base (${quotes.length})</div>`;
+    quotes.slice().reverse().forEach(q=>{
+      const qTotal=q.lots.reduce((a,l)=>a+(l.montant||0),0);
+      h+=`<div style="background:var(--W);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:8px;overflow:hidden">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--B)">
+          <div>
+            <div style="font-family:var(--ff);font-weight:600;font-size:.86rem;color:var(--C)">${q.partner}</div>
+            <div style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-top:2px">${q.filename} · ${q.surface}m² · ${q.importDate}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="text-align:right">
+              <div style="font-family:var(--ff);font-weight:700;font-size:.9rem;color:var(--C)">${fmtE(qTotal)}</div>
+              <div style="font-family:var(--fm);font-size:.46rem;color:var(--C3)">${q.lots.length} lots · ${Math.round(qTotal/(q.surface||1))}€/m²</div>
+            </div>
+            <button onclick="if(confirm('Supprimer ce devis de la base ?'))epDeleteQuoteAndRefresh(${q.id})" style="background:none;border:none;font-size:.9rem;color:var(--C3);cursor:pointer;padding:4px">🗑</button>
+          </div>
+        </div>
+        <div style="padding:6px 14px 8px;display:flex;flex-wrap:wrap;gap:4px">
+        ${q.lots.map(l=>{const it=catalog.find(c=>c.id===l.lotId)||{name:l.lotId,color:'#888'};return`<span style="font-family:var(--fm);font-size:.48rem;padding:3px 7px;border-radius:4px;background:var(--A);border:1px solid var(--B)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${it.color};margin-right:3px;vertical-align:middle"></span>${it.name} <b>${fmtE(l.montant)}</b></span>`;}).join('')}
+        </div>
+      </div>`;
     });
 
-    // Synthèse REX
-    const totalProjs=projs.length;
-    const totalLots=S.tasks.length;
-    const totalEngage=S.tasks.reduce((a,t)=>a+(parseFloat(t.montant_ht)||0),0);
-    h+=`<div style="background:var(--C);color:var(--W);border-radius:var(--r);padding:14px;margin-bottom:10px">
-      <div style="font-family:var(--fm);font-size:.44rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px">Synthèse agence</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-        <div><div style="font-family:var(--fs);font-size:1.8rem;font-weight:300;color:var(--W)">${totalProjs}</div><div style="font-family:var(--fm);font-size:.42rem;color:rgba(255,255,255,.4)">Projets</div></div>
-        <div><div style="font-family:var(--fs);font-size:1.8rem;font-weight:300;color:var(--W)">${totalLots}</div><div style="font-family:var(--fm);font-size:.42rem;color:rgba(255,255,255,.4)">Lots</div></div>
-        <div><div style="font-family:var(--fs);font-size:1.5rem;font-weight:300;color:var(--W)">${totalEngage>=1000?(Math.round(totalEngage/100)/10)+'k':''+Math.round(totalEngage)}€</div><div style="font-family:var(--fm);font-size:.42rem;color:rgba(255,255,255,.4)">Engagé</div></div>
+  } else {
+    // ── État vide ────────────────────────────────────────────────────────────
+    h+=`<div style="padding:40px 16px;text-align:center">
+      <div style="font-size:2.5rem;margin-bottom:12px">📂</div>
+      <div style="font-family:var(--ff);font-weight:600;font-size:.9rem;color:var(--C);margin-bottom:8px">Base de comparaison vide</div>
+      <div style="font-family:var(--fm);font-size:.65rem;color:var(--C3);line-height:1.6;max-width:280px;margin:0 auto">
+        Importe tes devis partenaires pour construire ta base de prix marché personnalisée et affiner les estimations.
       </div>
     </div>`;
   }
 
   h+=`</div><div style="height:20px"></div>`;
   return h;
+}
+
+function epDeleteQuoteAndRefresh(id){
+  epSaveQuotes(epGetQuotes().filter(x=>x.id!==id));
+  epTab('rex',document.getElementById('ept-rex'));
+  showToast('✓ Devis supprimé');
 }
 
 async function epCalculate(){
@@ -6634,25 +6965,69 @@ async function epCalculate(){
   if(txt)txt.textContent='Calcul en cours…';
 
   const catalog=epGetCatalog();
-  const lotIds=EP_LOTS_BY_TYPE[_epType]||EP_LOTS_BY_TYPE.appartement;
+  // Use only active lots (excluding honoraires — handled separately)
+  const activeLotIds=Array.from(epGetActiveLots()).filter(id=>id!=='honoraires');
   const cx=EP_COMPLEXITY[_epComplexity];
   const s=_epSurface||80;
-  const n=_epNbPieces||3;
+
+  // ── Room-based precision factors ──────────────────────────────────────────
+  // Calculate total electrical points & wet rooms from actual room composition
+  let totalElecPoints=0, totalPlumbRooms=0;
+  EP_ROOM_TYPES.forEach(room=>{
+    const cnt=_epRooms[room.id]||0;
+    totalElecPoints+=room.elec*cnt;
+    if(room.plumb) totalPlumbRooms+=cnt;
+  });
+  // Reference baseline: 80m² standard appartement ≈ 78 elec pts, 3 plumb rooms
+  const refElecPoints=78, refPlumbRooms=3;
+  const elecRoomFactor=totalElecPoints>0?(totalElecPoints/refElecPoints):1;
+  const plumbRoomFactor=totalPlumbRooms>0?(totalPlumbRooms/refPlumbRooms):1;
+  const totalRooms=Object.values(_epRooms).reduce((a,b)=>a+b,0)||3;
 
   const lots=[];
   let total=0,totalMin=0,totalMax=0;
 
-  lotIds.forEach(id=>{
+  activeLotIds.forEach(id=>{
     const item=catalog.find(c=>c.id===id);
     if(!item)return;
-    let qty, unitLabel;
-    if(item.unit==='m²'){qty=s;}
-    else if(item.unit==='unité'){qty=item.id==='sdb'?Math.max(1,Math.floor(n/2)):n;}
-    else if(item.unit==='%HT'){return;} // honoraires calculés séparément
-    else{qty=1;} // forfait
+    let qty, extraFactor=1;
+    if(item.unit==='m²'){
+      qty=s;
+      // Room-composition adjustment for trades driven by room counts
+      if(id==='electricite') extraFactor=elecRoomFactor;
+      else if(id==='plomberie'||id==='cvc') extraFactor=plumbRoomFactor;
+    } else if(item.unit==='unité'){
+      // Use actual room count from typology grid
+      if(id==='sdb')         qty=Math.max(1,_epRooms.sdb||0);
+      else if(id==='mobilier_sdb') qty=Math.max(1,_epRooms.sdb||0); // 1 meuble par salle de bain
+      else if(id==='cuisine') qty=Math.max(1,_epRooms.cuisine||0);
+      else qty=Math.max(1,Math.round(totalRooms/4));
+    } else if(item.unit==='%HT'){
+      return; // honoraires handled below
+    } else {
+      qty=1; // forfait
+    }
 
-    const factorCx=cx.factor*(item.complexity||1.0);
-    // Ajustement REX — chercher prix réels dans Firebase
+    // ── Menuiseries intérieures : prix détaillé si renseigné ────────────────
+    if(id==='menuiseries_int'){
+      const detailTotal=epMenuiserieIntTotal();
+      if(detailTotal>0){
+        const factorCx=cx.factor*(item.complexity||1.0);
+        const lotTotal=Math.round(detailTotal*factorCx);
+        const lotMin=Math.round(detailTotal*0.9);
+        const lotMax=Math.round(detailTotal*1.15);
+        const breakdown=[
+          _epMenuiserieInt.ml>0?`${_epMenuiserieInt.ml}ml sur mesure`:'',
+          _epMenuiserieInt.portes>0?`${_epMenuiserieInt.portes} porte${_epMenuiserieInt.portes>1?'s':''}` :'',
+          _epMenuiserieInt.tetesLit>0?`${_epMenuiserieInt.tetesLit} tête${_epMenuiserieInt.tetesLit>1?'s':''} de lit`:'',
+        ].filter(Boolean).join(' + ');
+        lots.push({id,name:`${item.name} (${breakdown})`,qty:1,unit:'forfait',priceUnit:lotTotal,total:lotTotal,min:lotMin,max:lotMax,duration:item.duration||5,color:item.color});
+        total+=lotTotal;totalMin+=lotMin;totalMax+=lotMax;
+        return; // skip standard calculation below
+      }
+    }
+
+    const factorCx=cx.factor*(item.complexity||1.0)*extraFactor;
     const rexAvg=epGetREXPrice(id);
     const avgPrice=rexAvg||item.avg;
     const lotTotal=Math.round(qty*avgPrice*factorCx);
@@ -6664,26 +7039,39 @@ async function epCalculate(){
     total+=lotTotal;totalMin+=lotMin;totalMax+=lotMax;
   });
 
-  // Honoraires MOE
+  // ── Honoraires MOE — taux libre saisi par l'utilisateur ──────────────────
+  const honoPct=(_epHonoraires||9)/100;
+  const honoTotal=Math.round(total*honoPct);
   const honoItem=catalog.find(c=>c.id==='honoraires');
-  if(honoItem){
-    const honoPct=(honoItem.avg/100)*cx.factor;
-    const honoTotal=Math.round(total*honoPct);
-    lots.push({id:'honoraires',name:'Honoraires MOE',qty:honoTotal,unit:'%HT',priceUnit:Math.round(honoPct*100),total:honoTotal,min:Math.round(total*(honoItem.min/100)),max:Math.round(total*(honoItem.max/100)),duration:0,color:honoItem.color});
-    total+=honoTotal;totalMin+=Math.round(totalMin*(honoItem.min/100));totalMax+=Math.round(totalMax*(honoItem.max/100));
-  }
+  lots.push({
+    id:'honoraires',
+    name:`Honoraires MOE (${_epHonoraires||9}%)`,
+    qty:honoTotal, unit:'%HT',
+    priceUnit:Math.round(honoPct*100),
+    total:honoTotal,
+    min:Math.round(total*(honoItem?honoItem.min/100:0.07)),
+    max:Math.round(total*(honoItem?honoItem.max/100:0.12)),
+    duration:0, color:honoItem?.color||'#1A2332'
+  });
+  total+=honoTotal;
+  totalMin+=Math.round(totalMin*honoPct);
+  totalMax+=Math.round(totalMax*honoPct);
 
-  // Appel IA pour analyse contextuelle
+  // ── Appel IA pour analyse contextuelle ───────────────────────────────────
   let aiAnalysis='';
   try{
     const typeLabel=EP_TYPES.find(t=>t.id===_epType)?.name||_epType;
     const cxLabel=cx.label;
     const apiKey=_getConfig().apiKey;
+    const roomsDesc=EP_ROOM_TYPES.filter(r=>(_epRooms[r.id]||0)>0)
+      .map(r=>`${_epRooms[r.id]}×${r.label}`).join(', ');
     if(apiKey){
       const prompt=`Tu es expert en maîtrise d'œuvre d'architecture. Analyse ce projet et donne 3-4 points d'attention concis (max 120 mots) :
-Type : ${typeLabel} ${cxLabel} — ${s}m² — ${n} pièces
+Type : ${typeLabel} ${cxLabel} — ${s}m²
+Composition : ${roomsDesc}
+Points électriques totaux : ${totalElecPoints} — Salles humides : ${totalPlumbRooms}
 Budget estimé : ${Math.round(total/1000)}k€ HT
-Lots principaux : ${lots.slice(0,5).map(l=>l.name).join(', ')}
+Lots actifs : ${lots.slice(0,5).map(l=>l.name).join(', ')}
 
 Points d'attention : risques, contraintes techniques, REX agence, délais critiques. Sois précis et concret.`;
       const resp=await fetch('https://api.anthropic.com/v1/messages',{
@@ -6695,7 +7083,7 @@ Points d'attention : risques, contraintes techniques, REX agence, délais critiq
     }
   }catch(e){console.warn('AI estimate error',e);}
 
-  _epResult={lots,total,totalMin,totalMax,aiAnalysis};
+  _epResult={lots,total,totalMin,totalMax,aiAnalysis,totalElecPoints,totalPlumbRooms};
 
   if(spin)spin.style.display='none';
   if(txt)txt.textContent='⚡ Recalculer';
@@ -6739,8 +7127,256 @@ function epResetCatalog(){
   showToast('✓ Catalogue réinitialisé');
 }
 
+// ── Import devis partenaires ── ────────────────────────────────────────────
 function epImportQuote(){
-  showToast('📎 Glisse un devis PDF dans la zone Devis du planning pour l\'analyser');
+  // Créer modal d'import
+  const mid='ep-import-modal';
+  if(document.getElementById(mid))return;
+  const m=document.createElement('div');
+  m.id=mid;
+  m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9000;display:flex;align-items:flex-end;justify-content:center';
+  m.innerHTML=`<div style="background:var(--W);border-radius:18px 18px 0 0;width:100%;max-width:540px;padding:20px 18px 32px;max-height:90vh;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-family:var(--ff);font-weight:700;font-size:1.05rem;color:var(--C)">📎 Importer un devis</div>
+      <button onclick="document.getElementById('${mid}').remove()" style="background:none;border:none;font-size:1.3rem;color:var(--C3);cursor:pointer">×</button>
+    </div>
+    <div style="font-family:var(--fm);font-size:.6rem;color:var(--C3);margin-bottom:14px">Le devis sera analysé par IA et ventilé par lot pour alimenter ta base de comparaison marché.</div>
+
+    <!-- Infos partenaire -->
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <div style="flex:2">
+        <div style="font-family:var(--fm);font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--C3);margin-bottom:4px">Partenaire / Entreprise</div>
+        <input id="ep-imp-partner" type="text" placeholder="Ex: ELEC PLUS SARL" style="width:100%;padding:9px 10px;border:1.5px solid var(--B2);border-radius:8px;font-family:var(--ff);font-size:.8rem;color:var(--C);background:var(--A);box-sizing:border-box">
+      </div>
+      <div style="flex:1">
+        <div style="font-family:var(--fm);font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--C3);margin-bottom:4px">Surface (m²)</div>
+        <input id="ep-imp-surface" type="number" placeholder="80" min="1" max="5000" style="width:100%;padding:9px 10px;border:1.5px solid var(--B2);border-radius:8px;font-family:var(--ff);font-size:.8rem;color:var(--C);background:var(--A);box-sizing:border-box">
+      </div>
+    </div>
+
+    <!-- Zone drop PDF -->
+    <div id="ep-imp-dropzone" onclick="document.getElementById('ep-imp-file').click()"
+      style="border:2px dashed var(--B2);border-radius:12px;padding:28px 16px;text-align:center;cursor:pointer;background:var(--A);margin-bottom:12px;transition:all .15s">
+      <div style="font-size:2rem;margin-bottom:8px">📄</div>
+      <div style="font-family:var(--ff);font-weight:600;font-size:.75rem;color:var(--C)">Sélectionner un devis PDF</div>
+      <div style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-top:4px">ou glisser-déposer ici</div>
+    </div>
+    <input id="ep-imp-file" type="file" accept=".pdf,application/pdf" style="display:none" onchange="epHandleDevisFile(this.files[0])">
+
+    <!-- Statut extraction -->
+    <div id="ep-imp-status" style="display:none;padding:10px;background:var(--A);border-radius:8px;margin-bottom:10px;font-family:var(--fm);font-size:.65rem;color:var(--C3)"></div>
+
+    <!-- Résultat extrait (lots parsés) -->
+    <div id="ep-imp-result" style="display:none"></div>
+
+    <button id="ep-imp-save-btn" onclick="epSaveImportedQuote()" style="display:none;width:100%;padding:13px;background:var(--C);color:var(--W);border:none;border-radius:10px;font-family:var(--ff);font-weight:700;font-size:.78rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-top:8px">✓ Enregistrer dans la base</button>
+  </div>`;
+  document.body.appendChild(m);
+  m.addEventListener('click',e=>{if(e.target===m)m.remove();});
+
+  // Drag & drop
+  const dz=document.getElementById('ep-imp-dropzone');
+  dz.addEventListener('dragover',e=>{e.preventDefault();dz.style.borderColor='var(--C)';dz.style.background='var(--A2)';});
+  dz.addEventListener('dragleave',()=>{dz.style.borderColor='var(--B2)';dz.style.background='var(--A)';});
+  dz.addEventListener('drop',e=>{e.preventDefault();dz.style.borderColor='var(--B2)';dz.style.background='var(--A)';const f=e.dataTransfer.files[0];if(f)epHandleDevisFile(f);});
+}
+
+// Résultat temporaire en attente de sauvegarde
+let _epImportPending=null;
+
+async function epHandleDevisFile(file){
+  if(!file)return;
+  const status=document.getElementById('ep-imp-status');
+  const dz=document.getElementById('ep-imp-dropzone');
+  if(!status)return;
+
+  // Afficher nom fichier dans dropzone
+  dz.innerHTML=`<div style="font-size:1.5rem;margin-bottom:6px">📄</div>
+    <div style="font-family:var(--ff);font-weight:600;font-size:.75rem;color:var(--C)">${file.name}</div>
+    <div style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-top:2px">${(file.size/1024).toFixed(0)} Ko</div>`;
+
+  status.style.display='block';
+  status.innerHTML='⏳ Lecture du PDF en cours…';
+
+  // Charger PDF.js si nécessaire
+  if(!window.pdfjsLib){
+    status.innerHTML='⏳ Chargement moteur PDF…';
+    await new Promise((res,rej)=>{
+      const s=document.createElement('script');
+      s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      s.onload=()=>{window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';res();}
+      s.onerror=rej;
+      document.head.appendChild(s);
+    });
+  }
+
+  // Extraire texte du PDF
+  status.innerHTML='⏳ Extraction du texte…';
+  let pdfText='';
+  try{
+    const arrayBuffer=await file.arrayBuffer();
+    const pdf=await pdfjsLib.getDocument({data:arrayBuffer}).promise;
+    const pages=Math.min(pdf.numPages,15); // max 15 pages
+    for(let i=1;i<=pages;i++){
+      const page=await pdf.getPage(i);
+      const content=await page.getTextContent();
+      pdfText+=content.items.map(it=>it.str).join(' ')+'\n';
+    }
+    status.innerHTML=`✓ ${pdf.numPages} page(s) lues — ${pdfText.length} caractères extraits`;
+  }catch(e){
+    status.innerHTML='❌ Erreur lecture PDF : '+e.message;
+    return;
+  }
+
+  if(!pdfText.trim()){
+    status.innerHTML='❌ PDF vide ou scan non-lisible (OCR non supporté)';
+    return;
+  }
+
+  // Appel IA pour parser les lots
+  const apiKey=_getConfig().apiKey;
+  if(!apiKey){
+    status.innerHTML='⚠️ Clé API Claude non configurée — extraction manuelle requise';
+    epShowManualEntry(pdfText);
+    return;
+  }
+
+  status.innerHTML='🤖 Analyse IA du devis en cours…';
+  const catalog=epGetCatalog();
+  const lotsList=catalog.map(c=>`${c.id} = "${c.name}"`).join(', ');
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'x-api-key':apiKey,'anthropic-version':'2023-06-01','content-type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001',max_tokens:1500,
+        messages:[{role:'user',content:`Tu es expert en chiffrage BTP France. Analyse ce texte extrait d'un devis travaux et identifie les lots/postes avec leurs montants HT.
+
+TEXTE DU DEVIS:
+${pdfText.slice(0,4000)}
+
+LOTS DISPONIBLES (utilise ces IDs exactement): ${lotsList}
+
+Retourne UNIQUEMENT un objet JSON valide (sans markdown), avec cette structure:
+{"partner":"nom entreprise ou artisan si trouvé sinon vide","surface":surface_en_m2_si_trouvée_sinon_null,"date":"AAAA-MM si trouvée sinon null","lots":[{"lotId":"id_exact","montant":montant_ht_en_euros,"notes":"description courte 1 ligne"}]}`}]
+      })
+    });
+    const data=await resp.json();
+    const rawJson=data?.content?.[0]?.text||'{}';
+
+    // Extraire le JSON (enlever éventuels blocs markdown)
+    const jsonMatch=rawJson.match(/\{[\s\S]*\}/);
+    if(!jsonMatch)throw new Error('Pas de JSON dans la réponse');
+    const parsed=JSON.parse(jsonMatch[0]);
+
+    status.innerHTML=`✅ ${(parsed.lots||[]).length} lot(s) identifié(s) — vérifie et ajuste si besoin`;
+    epShowParsedResult(parsed, file.name);
+  }catch(e){
+    status.innerHTML='⚠️ Erreur analyse IA : '+e.message+' — saisie manuelle';
+    epShowManualEntry(pdfText.slice(0,500));
+  }
+}
+
+function epShowParsedResult(parsed, filename){
+  const catalog=epGetCatalog();
+  const res=document.getElementById('ep-imp-result');
+  const btn=document.getElementById('ep-imp-save-btn');
+  if(!res)return;
+  res.style.display='block';
+  if(btn)btn.style.display='block';
+
+  // Pré-remplir champs si IA a trouvé infos
+  if(parsed.partner){const f=document.getElementById('ep-imp-partner');if(f&&!f.value)f.value=parsed.partner;}
+  if(parsed.surface){const f=document.getElementById('ep-imp-surface');if(f&&!f.value)f.value=parsed.surface;}
+
+  const totalDevis=(parsed.lots||[]).reduce((a,l)=>a+(l.montant||0),0);
+  let h=`<div style="font-family:var(--fm);font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--C3);margin-bottom:8px">Lots identifiés — Total ${Math.round(totalDevis).toLocaleString('fr-FR')} € HT</div>
+  <div style="background:var(--A);border-radius:10px;overflow:hidden;border:1px solid var(--B)">`;
+
+  (parsed.lots||[]).forEach((l,i)=>{
+    const item=catalog.find(c=>c.id===l.lotId)||{name:l.lotId,color:'#888',avg:0};
+    const surf=parseInt(document.getElementById('ep-imp-surface')?.value)||parsed.surface||80;
+    const unitP=surf>0?Math.round(l.montant/surf):0;
+    const diff=item.avg>0?Math.round((unitP-item.avg)/item.avg*100):null;
+    const diffCol=diff===null?'var(--C3)':diff>15?'var(--RED)':diff>5?'var(--ORANGE)':diff<-10?'#2B7A4B':'var(--C3)';
+    const diffStr=diff===null?'':diff>0?`+${diff}%`:`${diff}%`;
+    h+=`<div style="display:flex;align-items:flex-start;gap:8px;padding:9px 12px;border-bottom:1px solid var(--B)">
+      <div style="width:8px;height:8px;border-radius:50%;background:${item.color};flex-shrink:0;margin-top:4px"></div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-family:var(--fm);font-size:.72rem;color:var(--C)">${item.name||l.lotId}</div>
+          <div style="text-align:right;flex-shrink:0;margin-left:8px">
+            <span style="font-family:var(--ff);font-weight:700;font-size:.82rem;color:var(--C)">${Math.round(l.montant).toLocaleString('fr-FR')}€</span>
+            ${surf>0?`<span style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-left:4px">${unitP}€/m²</span>`:''}
+            ${diff!==null?`<span style="font-family:var(--ff);font-size:.52rem;font-weight:600;color:${diffCol};margin-left:4px">${diffStr} vs marché</span>`:''}
+          </div>
+        </div>
+        ${l.notes?`<div style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-top:2px">${l.notes}</div>`:''}
+      </div>
+    </div>`;
+  });
+  h+=`</div>`;
+  res.innerHTML=h;
+
+  // Stocker résultat en attente
+  _epImportPending={filename, parsed};
+}
+
+function epShowManualEntry(preview){
+  const res=document.getElementById('ep-imp-result');
+  const btn=document.getElementById('ep-imp-save-btn');
+  if(!res)return;
+  const catalog=epGetCatalog();
+  res.style.display='block';
+  let h=`<div style="font-family:var(--fm);font-size:.6rem;color:var(--C3);margin-bottom:10px">Saisie manuelle — renseigne le montant HT par lot :</div>
+  <div style="background:var(--A);border-radius:10px;overflow:hidden;border:1px solid var(--B)">`;
+  catalog.filter(c=>c.unit!=='%HT').forEach(c=>{
+    h+=`<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--B)">
+      <div style="width:8px;height:8px;border-radius:50%;background:${c.color};flex-shrink:0"></div>
+      <div style="flex:1;font-family:var(--fm);font-size:.7rem;color:var(--C)">${c.name}</div>
+      <input type="number" min="0" placeholder="0 €" data-lot="${c.id}"
+        style="width:90px;padding:5px 8px;border:1px solid var(--B2);border-radius:6px;font-family:var(--ff);font-size:.75rem;text-align:right;color:var(--C);background:var(--W)">
+    </div>`;
+  });
+  h+=`</div>`;
+  res.innerHTML=h;
+  if(btn){btn.style.display='block';btn.onclick=epSaveManualQuote;}
+  _epImportPending={filename:'saisie manuelle',parsed:null};
+}
+
+function epSaveManualQuote(){
+  const partner=document.getElementById('ep-imp-partner')?.value||'Partenaire';
+  const surface=parseInt(document.getElementById('ep-imp-surface')?.value)||80;
+  const inputs=document.querySelectorAll('#ep-imp-result input[data-lot]');
+  const lots=[];
+  inputs.forEach(inp=>{
+    const v=parseFloat(inp.value)||0;
+    if(v>0)lots.push({lotId:inp.dataset.lot,montant:v,notes:''});
+  });
+  if(!lots.length){showToast('⚠️ Aucun montant saisi');return;}
+  const q=epGetQuotes();
+  q.push({id:Date.now(),filename:'saisie manuelle',partner,surface,date:new Date().toISOString().slice(0,7),importDate:new Date().toLocaleDateString('fr-FR'),lots});
+  epSaveQuotes(q);
+  document.getElementById('ep-import-modal')?.remove();
+  epTab('rex',document.getElementById('ept-rex'));
+  showToast('✓ Devis enregistré — '+lots.length+' lots');
+}
+
+function epSaveImportedQuote(){
+  if(!_epImportPending)return;
+  const partner=document.getElementById('ep-imp-partner')?.value||_epImportPending.parsed?.partner||'Partenaire';
+  const surface=parseInt(document.getElementById('ep-imp-surface')?.value)||_epImportPending.parsed?.surface||80;
+  const date=_epImportPending.parsed?.date||new Date().toISOString().slice(0,7);
+  const lots=(_epImportPending.parsed?.lots||[]).map(l=>({lotId:l.lotId,montant:parseFloat(l.montant)||0,notes:l.notes||''}));
+  if(!lots.length){showToast('⚠️ Aucun lot extrait');return;}
+  const q=epGetQuotes();
+  q.push({id:Date.now(),filename:_epImportPending.filename,partner,surface,date,importDate:new Date().toLocaleDateString('fr-FR'),lots});
+  epSaveQuotes(q);
+  _epImportPending=null;
+  document.getElementById('ep-import-modal')?.remove();
+  epTab('rex',document.getElementById('ept-rex'));
+  showToast('✓ Devis enregistré — '+lots.length+' lots dans la base');
 }
 
 function epCreateProject(){
