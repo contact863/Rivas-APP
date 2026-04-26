@@ -1455,15 +1455,30 @@ function cleanEmailText(txt){
 
 // Répare un JSON array potentiellement tronqué
 function repairJSON(txt){
-  const m=txt.match(/\[[\s\S]*/);
-  if(!m)return[];
-  let s=m[0];
+  if(!txt)return[];
+  // Strip markdown code fences (```json ... ``` or ``` ... ```)
+  let s=txt.replace(/^```(?:json)?\s*/m,'').replace(/\s*```\s*$/m,'').trim();
+  // Find start of array or object
+  const arrIdx=s.indexOf('[');
+  const objIdx=s.indexOf('{');
+  if(arrIdx===-1&&objIdx===-1)return[];
+  // Prefer array; if object found first and no array, wrap it
+  if(arrIdx===-1||(objIdx!==-1&&objIdx<arrIdx)){
+    s=s.substring(objIdx);
+    try{const o=JSON.parse(s);return Array.isArray(o)?o:[o];}catch{}
+    // Try to close unclosed object
+    s=s+'}';try{const o=JSON.parse(s);return[o];}catch{return[];}
+  }
+  s=s.substring(arrIdx);
   if(!s.trimEnd().endsWith(']')){
     const lastBrace=s.lastIndexOf('}');
     if(lastBrace>0)s=s.substring(0,lastBrace+1)+']';
     else return[];
   }
-  try{return JSON.parse(s);}catch(e){return[];}
+  try{return JSON.parse(s);}catch(e){
+    // Try removing trailing comma before ]
+    try{return JSON.parse(s.replace(/,\s*\]/g,']'));}catch{return[];}
+  }
 }
 
 // ── Stockage utilisateurs & sessions ──
@@ -3106,12 +3121,20 @@ async function analyseDevisQueue(){
   btn.disabled=true;btn.textContent='Analyse en cours…';
   prog.style.display='block';
   _genTasks=[];
+  const errors=[];
   for(let i=0;i<files.length;i++){
+    prog.style.display='block';
     prog.textContent=`⏳ ${i+1}/${files.length} — ${files[i].name}…`;
-    const tasks=await processOneDevisFile(files[i],key);
+    const result=await processOneDevisFile(files[i],key);
+    // Handle both old format (array) and new format ({tasks,error})
+    const tasks=Array.isArray(result)?result:(result.tasks||[]);
+    const err=Array.isArray(result)?null:result.error;
     _genTasks=_genTasks.concat(tasks);
+    if(err)errors.push(`${files[i].name}: ${err}`);
   }
-  prog.textContent=`✓ ${files.length} devis analysés — ${_genTasks.length} tâches générées`;
+  const errTxt=errors.length?` — ⚠ ${errors.length} erreur(s)`:'';
+  prog.textContent=`✓ ${files.length} devis analysés — ${_genTasks.length} tâche${_genTasks.length!==1?'s':''} générée${_genTasks.length!==1?'s':''}${errTxt}`;
+  if(errors.length)prog.style.color='var(--ORANGE)';
   btn.disabled=false;btn.textContent=`🤖 Analyser ${files.length} devis`;
   closeSheet('devisImportSheet');
   document.getElementById('taskgen-title').textContent=`📄 ${files.length} devis — ${_genTasks.length} tâche${_genTasks.length>1?'s':''} optimisées`;
@@ -3154,12 +3177,18 @@ async function processOneDevisFile(f,key){
         messages=[{role:'user',content:prompt}];
       }
       try{
-        const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:4000,messages})});
+        const hdrs={'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
+        if(isPdf)hdrs['anthropic-beta']='pdfs-2024-09-25';
+        const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:hdrs,body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:4000,messages})});
         const data=await res.json();
-        if(data.type==='error'||data.error){resolve([]);return;}
-        const txt=data.content?.map(c=>c.text||'').join('')||'[]';
-        resolve(repairJSON(txt)||[]);
-      }catch(e){resolve([]);}
+        if(data.type==='error'||data.error){
+          const msg=data.error?.message||JSON.stringify(data.error||data);
+          console.warn('API error for',f.name,':',msg);
+          resolve({tasks:[],error:msg});return;
+        }
+        const raw=data.content?.map(c=>c.text||'').join('')||'[]';
+        resolve({tasks:repairJSON(raw)||[],error:null});
+      }catch(e){resolve({tasks:[],error:e.message});}
     };
     if(isPdf||isImg)reader.readAsDataURL(f);else reader.readAsText(f);
   });
@@ -3213,12 +3242,17 @@ async function loadDevisFile(inp){
           messages=[{role:'user',content:prompt}];
         }
         try{
-          const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:4000,messages})});
+          const hdrs2={'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
+          if(isPdf)hdrs2['anthropic-beta']='pdfs-2024-09-25';
+          const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:hdrs2,body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:4000,messages})});
           const data=await res.json();
-          if(data.type==='error'||data.error){resolve([]);return;}
-          const txt=data.content?.map(c=>c.text||'').join('')||'[]';
-          resolve(repairJSON(txt)||[]);
-        }catch(e){resolve([]);}
+          if(data.type==='error'||data.error){
+            console.warn('Devis API error:',data.error?.message||data);
+            resolve([]);return;
+          }
+          const raw=data.content?.map(c=>c.text||'').join('')||'[]';
+          resolve(repairJSON(raw)||[]);
+        }catch(e){console.error('Devis fetch error:',e);resolve([]);}
       };
       if(isPdf||isImg)reader.readAsDataURL(f);else reader.readAsText(f);
     });
@@ -4913,7 +4947,10 @@ async function importDevisForBudget(input){
         const mt=file.type||'image/jpeg';
         contentBlock={type:'image',source:{type:'base64',media_type:mt,data:b64}};
       }
-      const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,messages:[{role:'user',content:[contentBlock,{type:'text',text:`Ce document est un devis de chantier. Extrait les informations suivantes en JSON pur (aucun texte autour) :\n{\n  "devis":{"nom":"Intitulé/objet du devis","numero":"Numéro ou référence exacte du devis","entreprise":"Nom de l'entreprise émettrice du devis","montant_ht":11000,"montant_ttc":13200},\n  "lots":[{"nom":"LOT XX — Titre","entreprise":"Nom sous-traitant si précisé sinon même que devis","montant_ht":5500,"montant_ttc":6600},...]\n}\nRègles importantes :\n- montant_ht = total HORS TAXES (HT), montant_ttc = total TOUTES TAXES COMPRISES (TTC) — ce sont deux valeurs DIFFÉRENTES, TTC = HT × 1.20 environ\n- Si le document n'affiche que le HT, calcule TTC = HT × 1.20\n- numero = référence exacte telle qu'elle apparaît sur le document (ex: DEV-2025-0237, N°2025-42, etc.)\n- entreprise = nom commercial de la société qui émet le devis (en-tête du document)\n- Pour chaque lot, reprends le montant de base (sans options). Arrondi à l'euro.\nRéponds UNIQUEMENT avec le JSON object, aucun texte autour.`}]}]})});
+      const isPdfFile=file.type==='application/pdf'||file.name.endsWith('.pdf');
+      const finHdrs={'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'};
+      if(isPdfFile)finHdrs['anthropic-beta']='pdfs-2024-09-25';
+      const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:finHdrs,body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,messages:[{role:'user',content:[contentBlock,{type:'text',text:`Ce document est un devis de chantier. Extrait les informations suivantes en JSON pur (aucun texte autour) :\n{\n  "devis":{"nom":"Intitulé/objet du devis","numero":"Numéro ou référence exacte du devis","entreprise":"Nom de l'entreprise émettrice du devis","montant_ht":11000,"montant_ttc":13200},\n  "lots":[{"nom":"LOT XX — Titre","entreprise":"Nom sous-traitant si précisé sinon même que devis","montant_ht":5500,"montant_ttc":6600},...]\n}\nRègles importantes :\n- montant_ht = total HORS TAXES (HT), montant_ttc = total TOUTES TAXES COMPRISES (TTC) — ce sont deux valeurs DIFFÉRENTES, TTC = HT × 1.20 environ\n- Si le document n'affiche que le HT, calcule TTC = HT × 1.20\n- numero = référence exacte telle qu'elle apparaît sur le document (ex: DEV-2025-0237, N°2025-42, etc.)\n- entreprise = nom commercial de la société qui émet le devis (en-tête du document)\n- Pour chaque lot, reprends le montant de base (sans options). Arrondi à l'euro.\nRéponds UNIQUEMENT avec le JSON object, aucun texte autour.`}]}]})});
       const data=await resp.json();
       const raw=(data.content?.[0]?.text||'').trim().replace(/```json?/gi,'').replace(/```/g,'').trim();
       let parsed;
@@ -7246,7 +7283,7 @@ function epImportQuote(){
       <div style="font-family:var(--ff);font-weight:600;font-size:.75rem;color:var(--C)">Sélectionner un devis PDF</div>
       <div style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-top:4px">ou glisser-déposer ici</div>
     </div>
-    <input id="ep-imp-file" type="file" accept=".pdf,application/pdf" style="display:none" onchange="epHandleDevisFile(this.files[0])">
+    <input id="ep-imp-file" type="file" accept=".pdf,application/pdf" multiple style="display:none" onchange="epHandleDevisFiles(this.files)">
 
     <!-- Statut extraction -->
     <div id="ep-imp-status" style="display:none;padding:10px;background:var(--A);border-radius:8px;margin-bottom:10px;font-family:var(--fm);font-size:.65rem;color:var(--C3)"></div>
@@ -7263,29 +7300,56 @@ function epImportQuote(){
   const dz=document.getElementById('ep-imp-dropzone');
   dz.addEventListener('dragover',e=>{e.preventDefault();dz.style.borderColor='var(--C)';dz.style.background='var(--A2)';});
   dz.addEventListener('dragleave',()=>{dz.style.borderColor='var(--B2)';dz.style.background='var(--A)';});
-  dz.addEventListener('drop',e=>{e.preventDefault();dz.style.borderColor='var(--B2)';dz.style.background='var(--A)';const f=e.dataTransfer.files[0];if(f)epHandleDevisFile(f);});
+  dz.addEventListener('drop',e=>{e.preventDefault();dz.style.borderColor='var(--B2)';dz.style.background='var(--A)';if(e.dataTransfer.files.length)epHandleDevisFiles(e.dataTransfer.files);});
 }
 
 // Résultat temporaire en attente de sauvegarde
 let _epImportPending=null;
 
-async function epHandleDevisFile(file){
-  if(!file)return;
+// Multi-file wrapper for estimator REX import
+async function epHandleDevisFiles(fileList){
+  const files=Array.from(fileList).filter(f=>f.type==='application/pdf'||f.name.endsWith('.pdf'));
+  if(!files.length)return;
+  if(files.length===1){epHandleDevisFile(files[0]);return;}
+  // Multiple PDFs — process sequentially and merge lots
   const status=document.getElementById('ep-imp-status');
   const dz=document.getElementById('ep-imp-dropzone');
-  if(!status)return;
+  if(dz)dz.innerHTML=`<div style="font-size:1.5rem;margin-bottom:6px">📄</div><div style="font-family:var(--ff);font-weight:600;font-size:.75rem;color:var(--C)">${files.length} fichiers sélectionnés</div>`;
+  if(status){status.style.display='block';status.innerHTML=`⏳ Traitement de ${files.length} devis…`;}
+  const allParsed={partner:'',surface:null,date:null,lots:[]};
+  let errCount=0;
+  for(let i=0;i<files.length;i++){
+    if(status)status.innerHTML=`⏳ ${i+1}/${files.length} — ${files[i].name}…`;
+    const parsed=await epHandleDevisFile(files[i],true); // silent mode — returns parsed or null
+    if(parsed?.lots?.length){
+      allParsed.lots=allParsed.lots.concat(parsed.lots);
+      if(!allParsed.partner&&parsed.partner)allParsed.partner=parsed.partner;
+      if(!allParsed.surface&&parsed.surface)allParsed.surface=parsed.surface;
+    } else {errCount++;}
+  }
+  if(status)status.innerHTML=`✅ ${files.length} devis — ${allParsed.lots.length} lots identifiés${errCount?` — ⚠ ${errCount} erreur(s)`:''}`;
+  _epImportPending={filename:`${files.length} devis`,parsed:allParsed};
+  epShowParsedResult(allParsed,`${files.length} devis`);
+}
 
-  // Afficher nom fichier dans dropzone
-  dz.innerHTML=`<div style="font-size:1.5rem;margin-bottom:6px">📄</div>
-    <div style="font-family:var(--ff);font-weight:600;font-size:.75rem;color:var(--C)">${file.name}</div>
-    <div style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-top:2px">${(file.size/1024).toFixed(0)} Ko</div>`;
+async function epHandleDevisFile(file, silent=false){
+  if(!file)return null;
+  const status=document.getElementById('ep-imp-status');
+  const dz=document.getElementById('ep-imp-dropzone');
 
-  status.style.display='block';
-  status.innerHTML='⏳ Lecture du PDF en cours…';
+  if(!silent){
+    if(!status)return null;
+    // Afficher nom fichier dans dropzone
+    if(dz)dz.innerHTML=`<div style="font-size:1.5rem;margin-bottom:6px">📄</div>
+      <div style="font-family:var(--ff);font-weight:600;font-size:.75rem;color:var(--C)">${file.name}</div>
+      <div style="font-family:var(--fm);font-size:.5rem;color:var(--C3);margin-top:2px">${(file.size/1024).toFixed(0)} Ko</div>`;
+    status.style.display='block';
+    status.innerHTML='⏳ Lecture du PDF en cours…';
+  }
 
   // Charger PDF.js si nécessaire
   if(!window.pdfjsLib){
-    status.innerHTML='⏳ Chargement moteur PDF…';
+    if(!silent&&status)status.innerHTML='⏳ Chargement moteur PDF…';
     await new Promise((res,rej)=>{
       const s=document.createElement('script');
       s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
@@ -7296,7 +7360,7 @@ async function epHandleDevisFile(file){
   }
 
   // Extraire texte du PDF
-  status.innerHTML='⏳ Extraction du texte…';
+  if(!silent&&status)status.innerHTML='⏳ Extraction du texte…';
   let pdfText='';
   try{
     const arrayBuffer=await file.arrayBuffer();
@@ -7307,26 +7371,28 @@ async function epHandleDevisFile(file){
       const content=await page.getTextContent();
       pdfText+=content.items.map(it=>it.str).join(' ')+'\n';
     }
-    status.innerHTML=`✓ ${pdf.numPages} page(s) lues — ${pdfText.length} caractères extraits`;
+    if(!silent&&status)status.innerHTML=`✓ ${pdf.numPages} page(s) lues — ${pdfText.length} caractères extraits`;
   }catch(e){
-    status.innerHTML='❌ Erreur lecture PDF : '+e.message;
-    return;
+    if(!silent&&status)status.innerHTML='❌ Erreur lecture PDF : '+e.message;
+    return null;
   }
 
   if(!pdfText.trim()){
-    status.innerHTML='❌ PDF vide ou scan non-lisible (OCR non supporté)';
-    return;
+    if(!silent&&status)status.innerHTML='❌ PDF vide ou scan non-lisible (OCR non supporté)';
+    return null;
   }
 
   // Appel IA pour parser les lots
-  const apiKey=_getConfig().apiKey;
+  const apiKey=getAIKey();
   if(!apiKey){
-    status.innerHTML='⚠️ Clé API Claude non configurée — extraction manuelle requise';
-    epShowManualEntry(pdfText);
-    return;
+    if(!silent&&status){
+      status.innerHTML='⚠️ Clé API Claude non configurée — extraction manuelle requise';
+      epShowManualEntry(pdfText);
+    }
+    return null;
   }
 
-  status.innerHTML='🤖 Analyse IA du devis en cours…';
+  if(!silent&&status)status.innerHTML='🤖 Analyse IA du devis en cours…';
   const catalog=epGetCatalog();
   const lotsList=catalog.map(c=>`${c.id} = "${c.name}"`).join(', ');
 
@@ -7355,11 +7421,20 @@ Retourne UNIQUEMENT un objet JSON valide (sans markdown), avec cette structure:
     if(!jsonMatch)throw new Error('Pas de JSON dans la réponse');
     const parsed=JSON.parse(jsonMatch[0]);
 
-    status.innerHTML=`✅ ${(parsed.lots||[]).length} lot(s) identifié(s) — vérifie et ajuste si besoin`;
-    epShowParsedResult(parsed, file.name);
+    // Toujours stocker le résultat (utilisé par le multi-file wrapper)
+    _epImportPending={filename:file.name, parsed};
+
+    if(!silent){
+      if(status)status.innerHTML=`✅ ${(parsed.lots||[]).length} lot(s) identifié(s) — vérifie et ajuste si besoin`;
+      epShowParsedResult(parsed, file.name);
+    }
+    return parsed;
   }catch(e){
-    status.innerHTML='⚠️ Erreur analyse IA : '+e.message+' — saisie manuelle';
-    epShowManualEntry(pdfText.slice(0,500));
+    if(!silent&&status){
+      status.innerHTML='⚠️ Erreur analyse IA : '+e.message+' — saisie manuelle';
+      epShowManualEntry(pdfText.slice(0,500));
+    }
+    return null;
   }
 }
 
