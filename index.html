@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -170,11 +170,11 @@ main{flex:1;overflow:hidden;position:relative;}
 .rida.D{background:var(--C);color:var(--W);} .rida.A{background:var(--GREEN);color:#fff;} .rida.I{background:var(--ORANGE);color:#fff;}
 .sl-item{padding:13px 14px;border-bottom:1px solid var(--B);background:var(--W);display:flex;gap:10px;align-items:flex-start;transition:background .15s;}
 .sl-item:active{background:var(--A2);}
-.sl-body{flex:1;}
-.sl-theme{font-family:var(--ff);font-weight:700;font-size:.75rem;letter-spacing:1px;color:var(--C);margin-bottom:1px;}
-.sl-det{font-family:var(--fm);font-size:.64rem;color:var(--C6);line-height:1.65;}
+.sl-body{flex:1;min-width:0;}
+.sl-theme{font-family:var(--ff);font-weight:700;font-size:.75rem;letter-spacing:1px;color:var(--C);margin-bottom:2px;}
+.sl-det{font-family:var(--fm);font-size:.72rem;color:var(--C);line-height:1.7;}
 .sl-det.urg{color:var(--RED);}
-.resp-tag{font-family:var(--fm);font-size:.75rem;padding:2px 8px;background:var(--A);border:1px solid var(--B2);border-radius:var(--r-pill);color:var(--C6);display:inline-block;margin-top:3px;}
+.resp-tag{font-family:var(--fm);font-size:.65rem;padding:3px 10px;background:var(--A);border:1px solid var(--B2);border-radius:var(--r-pill);color:var(--C3);display:inline-block;margin-top:2px;}
 
 /* ══ COMMANDES ══ */
 .cmd-card{background:var(--W);border:none;border-radius:var(--r);box-shadow:var(--sh);border-left:3px solid var(--B2);margin:8px 14px;padding:12px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
@@ -281,6 +281,51 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--C);color:#fff;padding:10px 20px;border-radius:var(--r-pill);font-family:var(--fm);font-size:.72rem;z-index:9000;animation:slideIn .3s ease-out;pointer-events:none;box-shadow:var(--sh-md);white-space:nowrap;}
 ::-webkit-scrollbar{display:none;}
 
+/* ══ FINANCE DASHBOARD ══ */
+.fin-hero{padding:20px 16px 16px;background:var(--C);color:var(--W);flex-shrink:0;}
+.fin-hero-title{font-family:var(--ff);font-weight:300;font-size:.46rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:6px;}
+.fin-hero-sub{font-family:var(--ff);font-weight:600;font-size:1.2rem;color:var(--W);letter-spacing:1px;margin-bottom:14px;}
+.fin-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.12);}
+.fin-kpi{background:rgba(15,25,40,.45);padding:14px 14px 12px;cursor:default;}
+.fin-kpi-v{font-family:var(--fs);font-size:1.9rem;font-weight:300;color:var(--W);line-height:1;}
+.fin-kpi-l{font-family:var(--fm);font-size:.42rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.42);margin-top:5px;}
+.fin-kpi-d{font-family:var(--fm);font-size:.58rem;color:rgba(255,255,255,.28);margin-top:2px;}
+.fin-sec{padding:10px 16px 6px;font-family:var(--ff);font-weight:700;font-size:.46rem;letter-spacing:3px;text-transform:uppercase;color:var(--C3);background:var(--A);border-bottom:1px solid var(--B);}
+.fin-proj-card{background:var(--W);margin:10px 14px 0;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;}
+.fin-proj-head{padding:14px 16px 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.fin-proj-name{font-family:var(--ff);font-weight:600;font-size:1rem;color:var(--C);letter-spacing:.5px;}
+.fin-proj-tag{font-family:var(--fm);font-size:.46rem;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:var(--r-pill);margin-top:3px;display:inline-block;}
+.fin-proj-tag.ok{background:rgba(43,122,75,.1);color:var(--GREEN);}
+.fin-proj-tag.warn{background:rgba(192,120,40,.1);color:var(--ORANGE);}
+.fin-proj-tag.block{background:rgba(201,64,64,.1);color:var(--RED);}
+.fin-proj-pct{font-family:var(--fs);font-size:2.2rem;font-weight:300;color:var(--C3);line-height:1;flex-shrink:0;}
+.fin-prog-wrap{padding:0 16px 10px;}
+.fin-prog-bar{height:3px;background:var(--B2);border-radius:2px;overflow:hidden;}
+.fin-prog-fill{height:100%;border-radius:2px;transition:width .7s cubic-bezier(.4,0,.2,1);}
+.fin-amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--B);border-top:1px solid var(--B);}
+.fin-amt-cell{background:var(--W);padding:10px 12px;}
+.fin-amt-v{font-family:var(--fm);font-size:.78rem;font-weight:600;color:var(--C);}
+.fin-amt-l{font-family:var(--fm);font-size:.42rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--C3);margin-top:2px;}
+.fin-pm-section{border-top:1px solid var(--B);padding:10px 16px 0;}
+.fin-pm-title{font-family:var(--fm);font-size:.46rem;letter-spacing:2px;text-transform:uppercase;color:var(--C3);margin-bottom:8px;}
+.fin-pm-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--B);font-family:var(--fm);font-size:.7rem;}
+.fin-pm-mois{color:var(--C3);min-width:70px;}
+.fin-pm-net{color:var(--C);font-weight:600;flex:1;text-align:right;}
+.fin-pm-badge{font-size:.42rem;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:var(--r-pill);}
+.fin-pm-badge.valide{background:rgba(43,122,75,.1);color:var(--GREEN);}
+.fin-pm-badge.bloque{background:rgba(192,120,40,.1);color:var(--ORANGE);}
+.fin-pm-badge.vire{background:var(--C);color:var(--W);}
+.fin-export-row{padding:14px 14px 0;display:flex;gap:8px;}
+.fin-export-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:13px 8px;background:var(--C);color:var(--W);font-family:var(--ff);font-weight:600;font-size:.55rem;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;border-radius:var(--r-pill);transition:opacity .15s;}
+.fin-export-btn:active{opacity:.8;}
+.fin-export-btn.sec{background:none;border:1.5px solid var(--B2);color:var(--C3);}
+.fin-empty{padding:40px 20px;text-align:center;font-family:var(--fm);font-size:.8rem;color:var(--C3);}
+
+/* ══ IMPROVED MOBILE TASK CARDS ══ */
+.ti{display:flex;align-items:flex-start;gap:9px;padding:13px 14px;border-bottom:1px solid var(--B);background:var(--W);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s;}
+.ti:active{background:var(--A);}
+.ti-lot-badge{display:inline-block;font-family:var(--fm);font-size:.42rem;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;background:var(--A2);color:var(--C3);border-radius:var(--r-pill);margin-bottom:4px;}
+
 /* ══ MOBILE RESPONSIVE ══ */
 @media (max-width:430px){
   html,body{font-size:16px;}
@@ -288,33 +333,92 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
   .stat-c{padding:11px 10px;}
   .sv{font-size:2.2rem;}
   .card{margin:6px 10px;padding:13px;}
-  .ti{padding:10px 12px;}
-  .ti-name{font-size:.9rem;}
+  /* Task cards — plus visuelles sur mobile */
+  .ti{padding:12px 12px 10px;border-radius:0;border-left:none;gap:10px;}
+  .ti-name{font-size:.92rem;font-weight:600;letter-spacing:.2px;}
+  .ti-meta{font-size:.66rem;margin-top:2px;}
+  .ti-pct{font-size:1.6rem;}
   .sheet{max-height:95vh;}
   .sheet-body{padding:0 14px;}
   .auth-inp{font-size:1rem;}
   .auth-btn{padding:13px;font-size:.68rem;}
   .btn{padding:8px 14px;font-size:.58rem;}
-  .btn-sm{padding:6px 11px;font-size:.52rem;}
-  .ph-ti{font-size:1.05rem;}
+  .btn-sm{padding:5px 10px;font-size:.5rem;}
+  .ph{padding:12px 14px 10px;}
+  .ph-ti{font-size:1.05rem;letter-spacing:1.5px;}
+  .ph-ey{font-size:.55rem;}
   .topbar{padding:calc(var(--st) + 8px) 12px 8px;}
   .tb-ctx{max-width:80px;}
-  .nb-lb{font-size:.42rem;letter-spacing:.5px;}
-  .nb{padding:9px 1px 7px;}
+  /* Bottom nav — ultra compact, badges visibles */
+  .bnav{height:56px;align-items:stretch;}
+  .nb{padding:6px 2px 5px;gap:2px;}
+  .nb-lb{font-size:.38rem;letter-spacing:.3px;line-height:1.2;}
+  .nb-ic{font-size:1.25rem;line-height:1;}
   .nb,.dt-ck,.sec-add{min-height:44px;}
   .fg input,.fg select,.fg textarea{padding:10px 11px;font-size:.88rem;}
   .fg input[type="date"]{padding:10px 8px;}
   .fg label{font-size:.5rem;}
   .cmd-card{margin:6px 10px;}
   .am-panel{width:min(300px,94vw);}
-  .nb-ic{font-size:1.4rem;}
+  /* Finance cards sur mobile */
+  .fin-proj-card{margin:8px 10px 0;}
+  .fin-kpi-v{font-size:1.5rem;}
+  .fin-amounts{grid-template-columns:repeat(3,1fr);}
+  .fin-amt-v{font-size:.72rem;}
+  /* Stats grid sur mobile */
+  .stat-grid{grid-template-columns:1fr 1fr;}
 }
 @media (max-width:375px){
   html,body{font-size:15px;}
-  .nb-lb{font-size:.38rem;}
+  .nb-lb{font-size:.34rem;display:none;}
+  .nb{padding:10px 2px;}
+  .nb-ic{font-size:1.35rem;}
   .gl{width:100px;min-width:100px;}
   .f2{grid-template-columns:1fr;}
 }
+
+/* ══ RELANCES ══ */
+.rl-toolbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:var(--W);border-bottom:1px solid var(--B);flex-shrink:0;flex-wrap:wrap;}
+.rl-filter-btn{font-family:var(--ff);font-weight:600;font-size:.52rem;letter-spacing:1.5px;text-transform:uppercase;padding:6px 13px;border:1.5px solid var(--B2);background:none;color:var(--C3);cursor:pointer;transition:all .15s;border-radius:var(--r-pill);}
+.rl-filter-btn.on{background:var(--C);border-color:var(--C);color:var(--W);}
+.rl-analyze-btn{font-family:var(--ff);font-weight:600;font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;padding:8px 16px;border:none;background:var(--C);color:var(--W);cursor:pointer;border-radius:var(--r-pill);display:flex;align-items:center;gap:6px;transition:all .15s;margin-left:auto;}
+.rl-analyze-btn:active{opacity:.82;transform:scale(.98);}
+.rl-analyze-btn:disabled{opacity:.45;cursor:not-allowed;}
+.rl-section{padding:8px 14px 4px;font-family:var(--ff);font-weight:700;font-size:.5rem;letter-spacing:2.5px;text-transform:uppercase;background:var(--A);border-bottom:1px solid var(--B);display:flex;align-items:center;gap:8px;}
+.rl-section .rl-count{font-family:var(--fm);font-size:.65rem;font-weight:400;opacity:.5;}
+.rl-card{background:var(--W);border-left:3px solid var(--B2);margin:8px 14px;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;}
+.rl-card.urgent{border-left-color:var(--RED);}
+.rl-card.medium{border-left-color:var(--ORANGE);}
+.rl-card.watch{border-left-color:var(--GREEN);}
+.rl-card-head{padding:12px 14px 10px;cursor:pointer;}
+.rl-card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:5px;}
+.rl-badge{font-family:var(--fm);font-size:.44rem;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:var(--r-pill);border:1px solid;}
+.rl-badge.urgent{color:var(--RED);border-color:rgba(201,64,64,.3);background:rgba(201,64,64,.07);}
+.rl-badge.medium{color:var(--ORANGE);border-color:rgba(192,120,40,.3);background:rgba(192,120,40,.07);}
+.rl-badge.watch{color:var(--GREEN);border-color:rgba(43,122,75,.3);background:rgba(43,122,75,.07);}
+.rl-proj{font-family:var(--fm);font-size:.5rem;letter-spacing:1px;text-transform:uppercase;color:var(--C3);padding:3px 8px;border:1px solid var(--B2);border-radius:var(--r-pill);}
+.rl-days{font-family:var(--fs);font-size:1.1rem;font-weight:300;margin-left:auto;line-height:1;}
+.rl-days.urgent{color:var(--RED);}
+.rl-days.medium{color:var(--ORANGE);}
+.rl-days.watch{color:var(--GREEN);}
+.rl-subject{font-family:var(--ff);font-weight:600;font-size:.95rem;color:var(--C);margin-bottom:3px;line-height:1.35;}
+.rl-recipient{font-family:var(--fm);font-size:.7rem;color:var(--C6);margin-bottom:5px;}
+.rl-summary{font-family:var(--fm);font-size:.78rem;color:var(--C3);line-height:1.7;margin-bottom:6px;}
+.rl-alert{font-family:var(--fm);font-size:.72rem;color:var(--RED);font-style:italic;margin-bottom:6px;}
+.rl-card-actions{display:flex;gap:6px;padding:0 14px 12px;flex-wrap:wrap;}
+.rl-btn{font-family:var(--ff);font-weight:600;font-size:.52rem;letter-spacing:1px;text-transform:uppercase;padding:6px 13px;border-radius:var(--r-pill);border:1.5px solid var(--B2);background:none;color:var(--C);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px;}
+.rl-btn:active{opacity:.8;}
+.rl-btn.primary{background:var(--C);border-color:var(--C);color:var(--W);}
+.rl-btn.danger{border-color:rgba(201,64,64,.3);color:var(--RED);}
+.rl-draft-zone{padding:12px 14px;border-top:1px solid var(--B);background:var(--A);display:none;}
+.rl-draft-zone.on{display:block;}
+.rl-draft-label{font-family:var(--fm);font-size:.5rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--C3);margin-bottom:6px;font-weight:600;}
+.rl-draft-ta{width:100%;background:var(--W);border:1.5px solid var(--B2);border-radius:var(--r-sm);color:var(--C);padding:11px 12px;font-family:var(--fm);font-size:.82rem;line-height:1.8;resize:vertical;min-height:140px;outline:none;transition:border-color .18s;}
+.rl-draft-ta:focus{border-color:var(--C);}
+.rl-draft-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
+.rl-empty{text-align:center;padding:48px 24px;font-family:var(--fm);font-size:.82rem;color:var(--C3);line-height:2;}
+.rl-spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--W);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;}
+.rl-spin.dark{border-color:rgba(26,35,50,.2);border-top-color:var(--C);}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
@@ -488,8 +592,10 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
         <div id="late-panel-list" style="overflow-y:auto;background:var(--W);border:1px solid var(--RED);border-top:none;flex:1"></div>
       </div>
       <div class="pg-scroll">
+        <div id="seuil30-bar" style="display:none;padding:8px 14px;background:var(--W);border-bottom:1px solid var(--B);align-items:center;gap:10px;flex-wrap:wrap"></div>
         <div class="stat-grid" id="task-stats"></div>
         <div id="task-list"></div>
+        <div style="padding:12px 14px 4px;border-top:1px dashed var(--B);margin-top:8px" id="delete-proj-zone"></div>
       </div>
     </div>
 
@@ -521,6 +627,7 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
         <div class="sec-h"><span class="sec-t">Statut Projet — RIDA</span><button class="sec-add" onclick="openSheet('statSheet')" title="Formulaire détaillé">⚙</button></div>
         <!-- ── Widget RIDA rapide (mobile-first) ── -->
         <div id="quick-rida-zone" style="padding:12px 14px 14px;background:var(--A2);border-bottom:2px solid var(--B)">
+          <!-- Titre + légende -->
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:3px">
             <button onclick="setQRida('R')" id="qr-R" style="height:48px;border:2px solid #8B2020;background:rgba(139,32,32,.08);color:#8B2020;font-family:var(--ff);font-weight:700;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:all .15s">R</button>
             <button onclick="setQRida('I')" id="qr-I" style="height:48px;border:2px solid #3A6B47;background:rgba(43,98,71,.08);color:#3A6B47;font-family:var(--ff);font-weight:700;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:all .15s">I</button>
@@ -533,11 +640,16 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
             <span style="font-family:var(--fm);font-size:.44rem;color:var(--C3);text-align:center;letter-spacing:.5px">Décision</span>
             <span style="font-family:var(--fm);font-size:.44rem;color:var(--C3);text-align:center;letter-spacing:.5px">Action ✓</span>
           </div>
+          <!-- Texte + voix -->
           <div style="display:flex;gap:6px;align-items:stretch;margin-bottom:8px">
-            <textarea id="qr-det" placeholder="Notez rapidement l'action, décision ou info..." rows="2" style="flex:1;font-family:var(--fm);font-size:.8rem;line-height:1.6;border:1.5px solid var(--B2);background:var(--W);color:var(--C);padding:9px 10px;border-radius:8px;resize:none;outline:none;min-height:64px;-webkit-appearance:none"></textarea>
-            <button onclick="startVoiceQRIDA()" id="qr-mic-btn" style="width:46px;flex-shrink:0;background:var(--C);border:none;border-radius:8px;cursor:pointer;color:#fff;font-size:1.2rem;display:flex;align-items:center;justify-content:center">🎤</button>
+            <textarea id="qr-det" placeholder="Notez rapidement l'action, décision ou info..." rows="2"
+              style="flex:1;font-family:var(--fm);font-size:.8rem;line-height:1.6;border:1.5px solid var(--B2);background:var(--W);color:var(--C);padding:9px 10px;border-radius:8px;resize:none;outline:none;min-height:64px;-webkit-appearance:none"></textarea>
+            <button onclick="startVoiceQRIDA()" id="qr-mic-btn"
+              style="width:46px;flex-shrink:0;background:var(--C);border:none;border-radius:8px;cursor:pointer;color:#fff;font-size:1.2rem;display:flex;align-items:center;justify-content:center">🎤</button>
           </div>
+          <!-- Responsable chips -->
           <div id="qr-resp-btns" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;min-height:16px"></div>
+          <!-- Bouton ajouter -->
           <button onclick="addQuickRIDA()" style="width:100%;height:46px;background:var(--C);color:var(--W);border:none;font-family:var(--ff);font-weight:700;font-size:.72rem;letter-spacing:2px;border-radius:8px;cursor:pointer">+ AJOUTER</button>
         </div>
         <div id="cr-stat"></div>
@@ -634,6 +746,42 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
       <div class="pg-scroll" id="email-content"></div>
     </div>
 
+    <!-- ── RELANCES ── -->
+    <div class="pg" id="pg-relances">
+      <!-- Écran de verrouillage -->
+      <div id="rl-lock" style="position:absolute;inset:0;background:var(--A);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;padding:32px 28px;">
+        <div style="width:48px;height:48px;background:var(--C);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:var(--sh-md)">
+          <span style="font-size:1.4rem">🔒</span>
+        </div>
+        <div style="font-family:var(--ff);font-weight:700;font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--C3);margin-bottom:6px">Accès restreint</div>
+        <div style="font-family:var(--ff);font-weight:600;font-size:1.1rem;color:var(--C);margin-bottom:24px">Relances</div>
+        <input type="password" id="rl-pwd-inp" placeholder="Mot de passe" class="auth-inp" style="max-width:280px;text-align:center" onkeydown="if(event.key==='Enter')rlCheckPwd()">
+        <div id="rl-pwd-err" style="font-family:var(--fm);font-size:.75rem;color:var(--RED);min-height:18px;margin-top:6px;text-align:center"></div>
+        <button class="auth-btn" style="max-width:280px;margin-top:12px" onclick="rlCheckPwd()">Accéder →</button>
+      </div>
+      <div id="rl-inner" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+      <div class="ph">
+        <div class="ph-ey">07 / SUIVI</div>
+        <div class="ph-ti">Relances <span>Email</span></div>
+      </div>
+      <div class="rl-toolbar">
+        <button class="rl-filter-btn on" onclick="rlSetFilter('tous',this)">Tous</button>
+        <button class="rl-filter-btn" onclick="rlSetFilter('matchplay',this)">Matchplay</button>
+        <button class="rl-filter-btn" onclick="rlSetFilter('berdaa',this)">Berdaa</button>
+        <button class="rl-filter-btn" onclick="rlSetFilter('abehsera',this)">Abehsera</button>
+        <button class="rl-filter-btn" onclick="rlSetFilter('bauchart',this)">Bauchart</button>
+        <button class="rl-filter-btn" onclick="rlSetFilter('amelkis',this)">Amelkis</button>
+        <button class="rl-analyze-btn" id="rl-analyze-btn" onclick="rlAnalyze()">
+          <span class="rl-spin" id="rl-spin" style="display:none"></span>
+          <span id="rl-analyze-txt">⟳ Analyser</span>
+        </button>
+      </div>
+      <div class="pg-scroll" id="rl-content">
+        <div class="rl-empty">Cliquez sur <strong>Analyser</strong> pour détecter les emails sans réponse des 21 derniers jours.</div>
+      </div>
+      </div><!-- /rl-inner -->
+    </div>
+
     <!-- ── SYNTHÈSE IA ── -->
     <div class="pg" id="pg-ai">
       <div class="ph"><div class="ph-ey">05 / ANALYSE</div><div class="ph-ti">Synthèse <span>IA</span></div><div class="ph-ac"><button class="btn btn-sm" onclick="genReport()"><span class="sp" id="sp-rp" style="display:none"></span><span id="rp-t">Analyser</span></button></div></div>
@@ -650,6 +798,21 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
       </div>
     </div>
 
+    <!-- ── FINANCE ── -->
+    <div class="pg" id="pg-finance">
+      <div class="ph" style="background:var(--C);border-bottom:none;">
+        <div class="ph-ey" style="color:rgba(255,255,255,.45)">06 / FINANCES</div>
+        <div class="ph-ti" style="color:var(--W)">Tableau <span style="font-weight:300">Financier</span></div>
+        <div class="ph-ac">
+          <button class="btn btn-sm" id="fin-export-csv-btn" onclick="finExportCSV()" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:var(--W);font-size:.52rem">↓ CSV</button>
+        </div>
+      </div>
+      <div class="pg-scroll" id="fin-scroll" style="background:var(--A)">
+        <!-- rendered by renderFinance() -->
+        <div class="fin-empty">Chargement…</div>
+      </div>
+    </div>
+
   </main>
 
   <!-- BOTTOM NAV -->
@@ -658,12 +821,57 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
     <button class="nb" onclick="nav('tasks',this)"><div class="nb-ic">☰</div><div class="nb-lb">Tâches</div></button>
     <button class="nb" onclick="nav('cr',this)"><div class="nb-ic">◻</div><div class="nb-lb">CR</div></button>
     <button class="nb" onclick="nav('cmd',this)"><div class="nb-ic">◈</div><div class="nb-lb">Commandes</div></button>
+    <button class="nb" id="nb-finance" style="display:none" onclick="nav('finance',this)"><div class="nb-ic">💳</div><div class="nb-lb">Finance</div></button>
     <button class="nb prv" id="nb-day" onclick="nav('day',this)"><div class="nb-ic">✦</div><div class="nb-lb">Ma Journée</div></button>
+    <button class="nb" id="nb-relances" style="display:none" onclick="nav('relances',this)"><div class="nb-ic">↩</div><div class="nb-lb">Relances</div></button>
     <button class="nb" onclick="nav('email',this)"><div class="nb-ic">✉</div><div class="nb-lb">Emails</div></button>
     <button class="nb" onclick="nav('ai',this)"><div class="nb-ic">◎</div><div class="nb-lb">IA</div></button>
   </div>
 
 </div><!-- /app -->
+
+<!-- ── Modale Supprimer Projet ── -->
+<div class="overlay" id="deleteProjetSheet" onclick="if(event.target===this)closeSheet('deleteProjetSheet')">
+  <div class="sheet" style="position:relative;max-height:80vh">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet('deleteProjetSheet')">✕</button>
+    <div class="sheet-title" style="color:var(--RED)">⚠ Supprimer le projet</div>
+    <div class="sheet-body">
+      <div id="delete-projet-info" style="font-family:var(--fm);font-size:.82rem;line-height:1.9;color:var(--C);margin-bottom:16px;background:rgba(201,64,64,.07);border:1px solid rgba(201,64,64,.2);padding:12px 14px;border-radius:var(--r-sm)"></div>
+      <div id="delete-projet-block" style="display:none;font-family:var(--fm);font-size:.82rem;color:var(--RED);line-height:1.8;padding:12px;background:rgba(201,64,64,.07);border-left:3px solid var(--RED);border-radius:var(--r-sm)"></div>
+      <div id="delete-projet-actions" style="display:flex;gap:8px;margin-top:14px">
+        <button class="btn" style="flex:1" onclick="closeSheet('deleteProjetSheet')">Annuler</button>
+        <button class="btn" id="delete-projet-confirm-btn" style="flex:1;background:var(--RED);border-color:var(--RED);color:#fff" onclick="confirmDeleteProjet()">Supprimer définitivement</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modale Paiement Mensuel ── -->
+<div class="overlay" id="paiementSheet" onclick="if(event.target===this)closeSheet('paiementSheet')">
+  <div class="sheet" style="position:relative;max-height:95vh">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSheet('paiementSheet')">✕</button>
+    <div class="sheet-title">💳 Paiement mensuel — <span id="pm-lot-name">Lot</span></div>
+    <div class="sheet-body">
+      <div id="pm-seuil-warn" style="display:none;font-family:var(--fm);font-size:.72rem;color:var(--ORANGE);background:rgba(192,120,40,.08);border:1px solid rgba(192,120,40,.3);padding:9px 12px;border-radius:var(--r-sm);margin-bottom:12px">⚠ Seuil 30% non atteint — le virement Mangopay est bloqué mais le calcul peut être effectué.</div>
+      <div class="f2" style="margin-bottom:10px">
+        <div class="fg"><label>Mois</label><input type="month" id="pm-mois" style="-webkit-appearance:auto;appearance:auto;cursor:pointer;min-height:44px"></div>
+        <div class="fg"><label>Commission agence (%)</label><input type="number" id="pm-commission" value="4" min="0" max="20" step="0.5"></div>
+      </div>
+      <div class="fg" style="margin-bottom:6px">
+        <label>Modulation ±10% : <span id="pm-mod-val" style="color:var(--C);font-weight:700">0%</span></label>
+        <input type="range" id="pm-mod-slider" min="-10" max="10" step="1" value="0" oninput="pmUpdateCalc()" style="width:100%;accent-color:var(--C);margin-top:6px">
+      </div>
+      <div id="pm-detail" style="background:var(--A);border:1px solid var(--B);border-radius:var(--r-sm);padding:14px;font-family:var(--fm);font-size:.8rem;line-height:2.2;margin-bottom:12px"></div>
+      <div id="pm-statut-bar" style="display:flex;align-items:center;gap:8px;margin-bottom:12px"></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" style="flex:1" onclick="closeSheet('paiementSheet')">Fermer</button>
+        <button class="btn primary" style="flex:1" id="pm-valider-btn" onclick="pmValider()">✓ Valider le paiement</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Fin de Chantier -->
 <div class="overlay" id="finSheet" onclick="if(event.target===this)closeSheet('finSheet')">
@@ -840,6 +1048,7 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
   </div>
 </div>
 
+<!-- Éditeur dates sous-tâche -->
 <div class="overlay" id="subDateSheet" onclick="if(event.target===this)closeSheet('subDateSheet')" style="z-index:400">
   <div class="sheet" style="max-height:80vh;display:flex;flex-direction:column">
     <div class="sh-hd"><span>📅 Dates sous-tâche</span><button class="sh-cl" onclick="closeSheet('subDateSheet')">✕</button></div>
@@ -878,6 +1087,7 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
     </div>
   </div>
 </div>
+
 <!-- Nouvelle tâche -->
 <div class="overlay" id="taskSheet" onclick="if(event.target===this)closeSheet('taskSheet')">
   <div class="sheet" style="position:relative">
@@ -898,6 +1108,7 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
         </div>
       </div>
       <div class="f2"><div class="fg"><label>Statut</label><select id="t-st"><option value="todo">À Faire</option><option value="inprogress">En Cours</option><option value="done">Réalisé</option></select></div><div class="fg"><label>% avancement <span id="pct-auto-hint" style="font-size:.5rem;color:var(--C3)"></span></label><input type="number" id="t-pct" min="0" max="100" value="0"></div></div>
+      <div class="fg"><label>Montant devis lot HT (€) <span style="font-size:.48rem;color:var(--C3);font-weight:400">— total du lot</span></label><input type="number" id="t-montant-ht" min="0" placeholder="Ex: 12500" style="max-width:160px"></div>
       <div class="fg"><label>Notes</label><textarea id="t-notes" rows="2"></textarea></div>
       <div class="fg"><label>Sous-tâches</label>
         <div id="t-subs-list" style="margin-bottom:6px"></div>
@@ -1088,6 +1299,7 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
         <div class="fg"><label>Project ID</label><input type="text" id="fb-proj-id" placeholder="votre-projet-id"></div>
         <div class="fg"><label>App ID</label><input type="text" id="fb-app-id" placeholder="1:123456789:web:abcdef"></div>
         <button class="btn" style="width:100%;margin-top:2px" onclick="saveFirebaseConfig()">Connecter Firebase</button>
+        <button class="btn btn-sm" style="width:100%;margin-top:6px;background:var(--ORANGE);color:#fff" onclick="forceSyncFromFirebase()">🔄 Forcer la synchro depuis Firebase</button>
         <button class="btn btn-g btn-sm" style="width:100%;margin-top:6px" onclick="disableFirebaseSync()">Désactiver la synchronisation</button>
       </div>
 
@@ -1391,6 +1603,9 @@ let S={
   dayLogs:[],
   emailAnalyses:[],
   reports:[], curCmdId:null, nid:300,
+  // ── AJOUTS ADDITIFS (ne pas supprimer les champs existants) ──
+  paiements:[],      // paiements_mensuels par lot/mois
+  auditLogs:[],      // journal des actions sensibles
 };
 
 // ══ STATE PERSISTENCE ══
@@ -1431,9 +1646,28 @@ function _initFirebase(cfg){
         appId:cfg.appId||''
       });
     }
-    _fbDb=firebase.database(_fbApp);
-    _fbRef=_fbDb.ref('rivas_state');
-    _startFirebaseListener();
+    // ── Authentification anonyme Firebase ──
+    // Sécurise la base sans friction : chaque session reçoit un token Firebase anonyme.
+    // Les règles DB exigent auth != null — les accès directs sans token sont rejetés.
+    const auth=firebase.auth(_fbApp);
+    auth.onAuthStateChanged(user=>{
+      if(user){
+        // Authentifié (anonyme ou futur auth email) → connecter la DB
+        _fbDb=firebase.database(_fbApp);
+        _fbRef=_fbDb.ref('rivas_state');
+        if(!_fbListening)_startFirebaseListener();
+        _syncDot('ok');
+      } else {
+        // Pas encore authentifié → connexion anonyme silencieuse
+        auth.signInAnonymously().catch(e=>{
+          console.warn('Firebase anon auth failed:',e);
+          // Fallback : tenter accès direct (règles ouvertes encore actives)
+          _fbDb=firebase.database(_fbApp);
+          _fbRef=_fbDb.ref('rivas_state');
+          if(!_fbListening)_startFirebaseListener();
+        });
+      }
+    });
     return true;
   }catch(e){
     console.warn('Firebase init error',e);
@@ -1458,7 +1692,7 @@ function _startFirebaseListener(){
     }catch(e){console.warn('Firebase read error',e);}
   },err=>{
     console.warn('Firebase listener error',err);
-    _fbListening=false;
+    _fbListening=false; // ← reset pour permettre retry après auth
     _syncDot('err');
   });
   _syncDot('ok');
@@ -1488,6 +1722,22 @@ function saveFirebaseConfig(){
   }else{
     showToast('⚠ Configuration Firebase invalide');
   }
+}
+
+function forceSyncFromFirebase(){
+  if(!_fbRef){showToast('⚠ Firebase non connecté');return;}
+  showToast('⏳ Synchronisation en cours…');
+  _fbRef.once('value').then(snap=>{
+    const remote=snap.val();
+    if(!remote){showToast('⚠ Firebase vide — aucune donnée à récupérer');return;}
+    try{
+      const remoteState=JSON.parse(remote);
+      Object.keys(remoteState).forEach(k=>{S[k]=remoteState[k];});
+      localStorage.setItem('rv_state',remote);
+      renderAll();renderProjBar();
+      showToast('✓ Données synchronisées depuis Firebase');
+    }catch(e){showToast('⚠ Erreur : '+e.message);}
+  }).catch(e=>showToast('⚠ Firebase : '+e.message));
 }
 
 function disableFirebaseSync(){
@@ -1569,21 +1819,20 @@ const _FIREBASE_DEFAULT={
 };
 
 // Auto-init Firebase — toujours forcer la config intégrée (ignore cache)
+// Note : _startFirebaseListener() est appelé automatiquement après auth anonyme
 (function(){
   _saveFirebaseConfigLS(_FIREBASE_DEFAULT);
-  if(_initFirebase(_FIREBASE_DEFAULT)){
-    _startFirebaseListener();
-  }
+  _initFirebase(_FIREBASE_DEFAULT);
 })();
 
 // Fallback : si Firebase pas connecté après chargement complet, réessayer
 window.addEventListener('load',function(){
   setTimeout(function(){
-    if(!_fbRef){
+    if(!_fbRef&&!_fbListening){
       _saveFirebaseConfigLS(_FIREBASE_DEFAULT);
-      if(_initFirebase(_FIREBASE_DEFAULT)){_startFirebaseListener();}
+      _initFirebase(_FIREBASE_DEFAULT);
     }
-  },800);
+  },2000);
 });
 
 // ── Import / Export JSON ─────────────────────────────────────────────────
@@ -1668,8 +1917,32 @@ function launchApp(session){
 
   // ── Permissions selon rôle ──────────────────────────────────────────────
   if(isOwner||isEquipe){
-    // Owner + Équipe : accès Administration
+    // Owner + Équipe : accès Administration + Relances
     document.getElementById('am-admin-btn').style.display='flex';
+    const nbRl=document.getElementById('nb-relances');if(nbRl)nbRl.style.display='flex';
+    const nbFin=document.getElementById('nb-finance');if(nbFin)nbFin.style.display='flex';
+    // Injecter données relances pré-chargées si localStorage vide
+    (function preloadRelances(){
+      try{const d=JSON.parse(localStorage.getItem('rv_relances')||'[]');if(d.length>0)return;}catch(e){}
+      const P=[
+        {id:'rl_001',project:'MatchPlay',subject:'Projet MatchPlay - Situation 04.2026',recipient:'sd@matchplaysociety.com',recipient_name:'Stanislas Diepois (MatchPlay Society)',date_sent:'17/04/2026',days_waiting:8,urgency:'urgent',summary:'Situation de travaux d\'avril envoyée le 17/04. Relance envoyée le 27/04 — toujours sans réponse. Paiement mensuel bloqué.',alert:'2ème relance sans réponse — paiement en attente',draft:''},
+        {id:'rl_002',project:'Amelkis',subject:'Photos Amelkis',recipient:'carole.badorc@engelvoelkers.com',recipient_name:'Carole Badorc (Engel & Völkers)',date_sent:'17/04/2026',days_waiting:8,urgency:'urgent',summary:'Photos des salles de bain envoyées à l\'agence immobilière Engel & Völkers. Aucun retour depuis 8 jours.',alert:'8 jours sans réponse',draft:''},
+        {id:'rl_003',project:'MatchPlay',subject:'Chantier MATCHPLAY',recipient:'contact@agencetri.com',recipient_name:'Agence TRI',date_sent:'17/04/2026',days_waiting:8,urgency:'urgent',summary:'Demande de documents et validation de points essentiels au chantier MatchPlay. Aucune réponse de l\'agence TRI.',alert:'8 jours sans réponse',draft:''},
+        {id:'rl_004',project:'MatchPlay',subject:'RE: MatchPlay - intervention sur site',recipient:'mat.dumont@concept-vegetal.fr',recipient_name:'M. Dumont (Concept Végétal)',date_sent:'24/04/2026',days_waiting:1,urgency:'urgent',summary:'M. Dumont indique que le mardi matin ne convient pas — propose le lundi 27 avril. Confirmation requise d\'urgence avant l\'intervention.',alert:'Intervention imminente — confirmation avant lundi 27/04',draft:''},
+        {id:'rl_005',project:'MatchPlay',subject:'Facture modifiée — Chapes Experts',recipient:'chapes.experts@gmail.com',recipient_name:'Anne-Sophie Venancio (Chapes Experts)',date_sent:'24/04/2026',days_waiting:1,urgency:'urgent',summary:'Facture modifiée envoyée par Chapes Experts en attente de validation pour émission de la facture définitive.',alert:'Facture en attente de validation',draft:''},
+        {id:'rl_006',project:'Bauchart',subject:'Maison Bauchart - Peintres absents sur chantier',recipient:'l.lebaud@maisonbauchart.com',recipient_name:'Ludovic Le Baud (Maison Bauchart)',date_sent:'23/04/2026',days_waiting:2,urgency:'urgent',summary:'M. Le Baud signale que les peintres devaient intervenir le 23/04 mais ne se sont pas présentés. Il attend explication et nouvelle date.',alert:'Client insatisfait — peintres absents',draft:''},
+        {id:'rl_007',project:'Berdaa',subject:'Appartement M & Mme Berdaa - Dossier SDB carrelage et cuisine',recipient:'davidberdaa@gmail.com',recipient_name:'David Berdaa',date_sent:'22/04/2026',days_waiting:3,urgency:'medium',summary:'Dossier carrelage, robinetterie et cuisine envoyé après échange téléphonique. Aucune validation ni retour en 3 jours.',alert:null,draft:''},
+        {id:'rl_008',project:'Abehsera',subject:'Appartement M. Abehsera - devis complémentaires',recipient:'syndic@irisimmo.com',recipient_name:'Daniel (Iris Immobilier)',date_sent:'22/04/2026',days_waiting:3,urgency:'medium',summary:'Devis complémentaires AJIPEC transmis pour validation (TV, équipements). Aucun retour après 3 jours.',alert:null,draft:''},
+        {id:'rl_009',project:'MatchPlay',subject:'MatchPlay - Réduction bouclage avec remise en service',recipient:'msadiki@telmma.com',recipient_name:'M. Sadiki (Telmma)',date_sent:'20/04/2026',days_waiting:5,urgency:'medium',summary:'Demande de réduction du bouclage local pour libérer l\'espace aménagement. Point technique bloquant.',alert:'Point bloquant pour l\'aménagement',draft:''},
+        {id:'rl_010',project:'MatchPlay',subject:'MatchPlay - bureaux IKEA',recipient:'pvd@matchplaysociety.com',recipient_name:'PVD (MatchPlay Society)',date_sent:'20/04/2026',days_waiting:5,urgency:'medium',summary:'Liens des bureaux IKEA sélectionnés pour la zone DJ set. Validation client attendue avant commande.',alert:null,draft:''},
+        {id:'rl_011',project:'MatchPlay',subject:'MatchPlay - points à trancher',recipient:'pvd@matchplaysociety.com',recipient_name:'PVD & SD (MatchPlay Society)',date_sent:'20/04/2026',days_waiting:5,urgency:'medium',summary:'Points de conception à décider (meuble DJ, meuble bar). Bloquant pour l\'avancement des travaux.',alert:'5 points bloquants en attente client',draft:''},
+        {id:'rl_012',project:'MatchPlay',subject:'Re: MatchPlay - Plans pour lancement en fabrication',recipient:'mcp@addonsport.com',recipient_name:'Mathias (AddOnSport)',date_sent:'22/04/2026',days_waiting:3,urgency:'medium',summary:'Mathias a posé des questions techniques sur les plans baies de golf. Réponse nécessaire pour débloquer la fabrication.',alert:'Fabrication bloquée',draft:''},
+        {id:'rl_013',project:'MatchPlay',subject:'TR: COMMANDE + FACTURE BATI CENTRE',recipient:'farah.k@baticentre.pro',recipient_name:'Farah K. (Bati Centre)',date_sent:'22/04/2026',days_waiting:3,urgency:'medium',summary:'Bati Centre confirme la commande complémentaire et transmet la facture pour le delta à régler.',alert:null,draft:''},
+        {id:'rl_014',project:'Berdaa',subject:'Appartement - M. & Mme Berdaa',recipient:'davidberdaa@gmail.com',recipient_name:'David Berdaa',date_sent:'24/04/2026',days_waiting:1,urgency:'watch',summary:'Dossier complet salles de bain (carrelage, faïences, meubles) envoyé pour l\'appartement 70 Bd Maurice Barrès.',alert:null,draft:''},
+        {id:'rl_015',project:'Autre',subject:'13 rue de Plaisance — devis parquets',recipient:'thinhinane.ourrad@parquetsbriatte.fr',recipient_name:'Thinhinane Ourrad (Parquets Briatte)',date_sent:'23/04/2026',days_waiting:2,urgency:'watch',summary:'2 devis Parquets Briatte envoyés pour 13 rue de Plaisance. À réceptionner et valider.',alert:null,draft:''}
+      ];
+      localStorage.setItem('rv_relances',JSON.stringify(P));
+    })();
   } else if(false){
     // (réservé)
   } else {
@@ -1711,6 +1984,26 @@ function launchApp(session){
     saveS();
   })();
 
+  // ── Migration additive jalons (ALTER TABLE IF NOT EXISTS) ──
+  (function migrateJalonFields(){
+    let changed=false;
+    S.tasks.forEach(t=>{
+      (t.subtasks||[]).forEach(s=>{
+        if(s.montant_devis===undefined){s.montant_devis=null;changed=true;}
+        if(s.montant_valide===undefined){s.montant_valide=null;changed=true;}
+        if(s.montant_reserve===undefined){s.montant_reserve=0;changed=true;}
+        if(s.statut_reception===undefined){s.statut_reception='en_attente';changed=true;}
+        if(s.inclus_mois_courant===undefined){s.inclus_mois_courant=false;changed=true;}
+      });
+      // Migration lot : montant_ht si absent
+      if(t.montant_ht===undefined){t.montant_ht=null;changed=true;}
+    });
+    // Migration state : paiements et auditLogs si absents
+    if(!S.paiements){S.paiements=[];changed=true;}
+    if(!S.auditLogs){S.auditLogs=[];changed=true;}
+    if(changed)saveS();
+  })();
+
   renderAll();
   renderProjBar();
   renderDT();
@@ -1735,6 +2028,8 @@ function nav(id,btn){
   // Garde accès : les invités ne peuvent accéder qu'à planning et tâches
   const isRestricted=CUR_SESSION&&!_isTeamEmail(CUR_SESSION.email);
   if(isRestricted&&id!=='plan'&&id!=='tasks'){showToast('⛔ Accès restreint à Planning et Tâches');return;}
+  if(id==='relances'&&isRestricted){showToast('⛔ Accès réservé à l\'équipe');return;}
+  if(id==='finance'&&isRestricted){showToast('⛔ Accès réservé à l\'équipe');return;}
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
   document.getElementById('pg-'+id).classList.add('on');
@@ -1744,9 +2039,21 @@ function nav(id,btn){
   if(id==='cr')renderCR();
   if(id==='cmd')renderCmds();
   if(id==='ai')updateStats();
-  if(id==='tasks')renderTaskList();
+  if(id==='tasks'){renderTaskList();renderSeuil30();}
   if(id==='email')renderEmailPage();
   if(id==='day'){renderDT();renderCheckObjs();renderArticulationHistory();}
+  if(id==='finance')renderFinance();
+  if(id==='relances'){
+    if(rlIsUnlocked()){
+      document.getElementById('rl-lock').style.display='none';
+      const inner=document.getElementById('rl-inner');if(inner)inner.style.display='flex';
+      rlRender();
+    } else {
+      document.getElementById('rl-lock').style.display='flex';
+      const inner=document.getElementById('rl-inner');if(inner)inner.style.display='none';
+      setTimeout(()=>{const i=document.getElementById('rl-pwd-inp');if(i)i.focus();},100);
+    }
+  }
   document.getElementById('tb-ctx').textContent=S.projects[S.curP]?.name||'—';
 }
 function renderEmailPage(){
@@ -2346,6 +2653,7 @@ function _autoClampAllSubs(){
   pT().forEach(t=>{fixed+=_adjustSubsForTask(t,false);});
   if(fixed>0)saveS();
 }
+// ── Éditeur de dates sous-tâche ──────────────────────────────────────────
 let _sdsTaskId=null,_sdsSubId=null;
 function openSubDateEditor(taskId,subId,e){
   if(e){e.stopPropagation();e.preventDefault();}
@@ -2411,8 +2719,8 @@ function shiftSubDate(taskId,subId,days){
   const shift=d=>{const dt=new Date(d);dt.setDate(dt.getDate()+days);return dt.toISOString().split('T')[0];};
   if(s.start)s.start=shift(s.start);
   if(s.end)s.end=shift(s.end);
-  saveS();renderTaskList();if(typeof renderGantt==='function')renderGantt();
-  showToast((days>0?'→ +':days<0?'← ':'')+Math.abs(days)+' j');
+  saveS();renderTaskList();renderGantt&&renderGantt();
+  showToast((days>0?'→ +':days<0?'← ':'')+(days>0?'+':'')+days+' j');
 }
 function _setupSubDateSwipe(){
   const tl=document.getElementById('task-list');
@@ -2427,6 +2735,7 @@ function _setupSubDateSwipe(){
   tl.addEventListener('touchmove',e=>{
     if(!_el)return;
     const dx=Math.abs(e.touches[0].clientX-_sx);
+    const dy=Math.abs(e.touches[0].clientY-_sy);
     if(dx>10)_moved=true;
   },{passive:true});
   tl.addEventListener('touchend',e=>{
@@ -3091,9 +3400,10 @@ function renderGantt(){
   const allT=pT();
   const doneT=allT.filter(t=>{const realPct=(t.subtasks?.length>0)?Math.round(t.subtasks.reduce((a,x)=>a+_sp(x),0)/t.subtasks.length):t.pct||0;return realPct===100||t.status==='done';});
   const riskT=allT.filter(t=>t.risk||(t.end&&new Date(t.end)<today&&t.status!=='done'));
-  // Sous-tâches — métrique principale avancement
+  // Subtask totals — used as primary metric for progress
   const allSubs=allT.flatMap(t=>t.subtasks||[]);
   const doneSubs=allSubs.filter(s=>_sp(s)===100).length;
+  // Progress = subtask-based if subtasks exist, else task-based
   const totalPct=allSubs.length?Math.round(doneSubs/allSubs.length*100):(allT.length?Math.round(doneT.length/allT.length*100):0);
   const cEl=document.getElementById('task-counter');
   if(cEl)cEl.innerHTML=`
@@ -3137,13 +3447,13 @@ function renderGantt(){
   }
   const _dayBg=(d,we)=>`<div style="width:${dw}px;height:100%;border-right:1px solid rgba(26,35,50,.04);background:${we?'rgba(26,35,50,.015)':'none'};flex-shrink:0;display:inline-block"></div>`;
   const _dayRow=(extra='')=>days.map(d=>_dayBg(d,d.getDay()===0||d.getDay()===6)).join('')+extra;
-
+  // Risk tasks already shown in risk section — exclude from phase sections to avoid duplication
   const riskTaskIds=new Set(riskTasks.map(t=>t.id));
 
   phases.forEach(ph=>{
     const c=CC[ph]||'#888';
     const phTasks=_sortTasks(pT().filter(t=>t.cat===ph&&!riskTaskIds.has(t.id)));
-    if(!phTasks.length)return;
+    if(!phTasks.length)return; // skip empty phases
     lh+=`<div class="gl-row ph"><span class="gl-ph" style="color:${c}">${ph}</span></div>`;
     rRows+=`<div class="g-bar-row ph">${_dayRow()}</div>`;
 
@@ -3186,7 +3496,7 @@ function renderGantt(){
           const sp=_sp(s);
           const subLate=s.end&&new Date(s.end)<today&&sp<100;
           const subColor=sp===100?'var(--GREEN)':sp===50?'var(--ORANGE)':subLate?'var(--RED)':'#2B6B9A';
-          lh+=`<div class="gl-row" style="height:20px;padding-left:22px;background:${subLate?'rgba(139,32,32,.05)':sp===100?'rgba(58,107,71,.04)':'rgba(26,35,50,.02)'};cursor:pointer" onclick="editTask(${t.id})" title="Modifier les dates">
+          lh+=`<div class="gl-row" style="height:20px;padding-left:22px;background:${subLate?'rgba(139,32,32,.05)':sp===100?'rgba(58,107,71,.04)':'rgba(26,35,50,.02)'};cursor:pointer" onclick="editTask(${t.id})" title="Modifier les dates de cette sous-tâche">
             <div class="gdot" style="width:5px;height:5px;border-radius:50%;background:${subColor};margin-right:5px;flex-shrink:0"></div>
             <div class="gl-n" style="font-size:.52rem;color:${subLate?'var(--RED)':sp===100?'var(--GREEN)':sp===50?'var(--ORANGE)':'var(--C3)'};text-decoration:${sp===100?'line-through':'none'}">
               ${s.text||s.name||''}${subLate?' ⚠':sp===50?' ▶':''}
@@ -3218,8 +3528,13 @@ function renderGantt(){
     // Restaure scroll ou centre sur aujourd'hui (priorité) / cadrage start
     if(_savedLeft>=0){gr.scrollLeft=_savedLeft;if(gh)gh.scrollLeft=_savedLeft;}
     else{
-      if(tI>=0){var sl=Math.max(0,tI*S.dw-gr.clientWidth/3);gr.scrollLeft=sl;if(gh)gh.scrollLeft=sl;}
-      else{var _proj=S.projects[S.curP]||{};var _ci=_proj.startDate?dI(_proj.startDate):-1;if(_ci>=0){var sl2=Math.max(0,_ci*S.dw-20);gr.scrollLeft=sl2;if(gh)gh.scrollLeft=sl2;}}
+      // Première ouverture : centrer sur aujourd'hui si visible, sinon sur le début du cadrage
+      if(tI>=0){const sl=Math.max(0,tI*dw-gr.clientWidth/3);gr.scrollLeft=sl;if(gh)gh.scrollLeft=sl;}
+      else{
+        const _proj=S.projects[S.curP]||{};
+        const _ci=_proj.startDate?dI(_proj.startDate):-1;
+        if(_ci>=0){const sl=Math.max(0,_ci*dw-20);gr.scrollLeft=sl;if(gh)gh.scrollLeft=sl;}
+      }
     }
     gl.scrollTop=_savedTop;
     gr.scrollTop=_savedTop;
@@ -3233,32 +3548,45 @@ function setZoom(w,btn){S.dw=w;document.querySelectorAll('.pg-plan .btn-sm').for
 
 function scrollGanttToday(){
   buildDays();
-  var today=new Date();today.setHours(0,0,0,0);
-  var tI=dI(today.toISOString().split('T')[0]);
-  var gr=document.getElementById('gtR');
-  var gh=document.getElementById('gtHeader');
+  const today=new Date();today.setHours(0,0,0,0);
+  const tI=dI(today.toISOString().split('T')[0]);
+  const gr=document.getElementById('gtR');
+  const gh=document.getElementById('gtHeader');
   if(!gr)return;
-  if(tI<0){showToast("Aujourd'hui n'est pas dans le cadrage");return;}
-  var sl=Math.max(0,tI*S.dw-gr.clientWidth/3);
+  if(tI<0){showToast("Aujourd'hui n'est pas dans le cadrage du chantier");return;}
+  const sl=Math.max(0,tI*S.dw-gr.clientWidth/3);
   gr.scrollLeft=sl;if(gh)gh.scrollLeft=sl;
 }
 
 function forceSave(){
-  var btn=document.getElementById('force-save-btn');
-  var orig=btn?btn.textContent:'';
+  const btn=document.getElementById('force-save-btn');
+  const orig=btn?btn.textContent:'';
   if(btn){btn.textContent='⏳';btn.disabled=true;}
   try{
-    var str=JSON.stringify(S);
+    const str=JSON.stringify(S);
     localStorage.setItem('rv_state',str);
-    if(CUR_SESSION&&CUR_SESSION.email)localStorage.setItem('rv_day_'+CUR_SESSION.email,JSON.stringify(S.dayTasks));
+    if(CUR_SESSION?.email)localStorage.setItem('rv_day_'+CUR_SESSION.email,JSON.stringify(S.dayTasks));
     if(_fbRef){
       _syncDot('syncing');
-      _fbRef.set(str).then(function(){_syncDot('ok');showToast('✅ Données sauvegardées sur Firebase');if(btn){btn.textContent=orig;btn.disabled=false;}}).catch(function(e){_syncDot('err');showToast('⚠ Erreur Firebase: '+e.message);if(btn){btn.textContent=orig;btn.disabled=false;}});
-    }else{
-      showToast('✅ Sauvegarde locale OK');
+      _fbRef.set(str)
+        .then(()=>{
+          _syncDot('ok');
+          showToast('✅ Données sauvegardées sur Firebase');
+          if(btn){btn.textContent=orig;btn.disabled=false;}
+        })
+        .catch(e=>{
+          _syncDot('err');
+          showToast('⚠ Erreur Firebase : '+e.message);
+          if(btn){btn.textContent=orig;btn.disabled=false;}
+        });
+    } else {
+      showToast('✅ Sauvegarde locale OK (Firebase non connecté)');
       if(btn){btn.textContent=orig;btn.disabled=false;}
     }
-  }catch(e){showToast('⚠ Erreur: '+e.message);if(btn){btn.textContent=orig;btn.disabled=false;}}
+  }catch(e){
+    showToast('⚠ Erreur sauvegarde : '+e.message);
+    if(btn){btn.textContent=orig;btn.disabled=false;}
+  }
 }
 
 // ══ GESTIONNAIRE LOTS & DATES ══
@@ -3641,15 +3969,20 @@ function renderTaskList(){
         const subBg=sp===100?'var(--GREEN)':sp===50?'rgba(139,90,0,.12)':'none';
         const subIcon=sp===100?'✓':sp===50?'▶':'○';
         const subTextColor=sp===100?'var(--C3)':subLate?'var(--RED)':sp===50?'var(--ORANGE)':'var(--C)';
-        return `<div style="display:flex;align-items:center;gap:6px;padding:3px 2px;cursor:pointer;flex-wrap:wrap;${subLate?'background:rgba(139,32,32,.04);margin:1px 0;border-radius:2px;padding:3px 4px':''}" onclick="event.stopPropagation();toggleSub(${t.id},${s.id})"><div style="width:24px;height:24px;border:2px solid ${subBorder};background:${subBg};flex-shrink:0;display:flex;align-items:center;justify-content:center;color:${sp===100?'#FFFFFF':'var(--ORANGE)'};font-size:.65rem;border-radius:4px;min-width:24px">${subIcon}</div><span style="font-family:var(--fm);font-size:.62rem;color:${subTextColor};${sp===100?'text-decoration:line-through':''}">${s.text}</span>${dateTag}</div>`;
+        return `<div style="display:flex;align-items:center;gap:8px;padding:5px 2px;cursor:pointer;flex-wrap:wrap;min-height:36px;${subLate?'background:rgba(139,32,32,.04);margin:1px 0;border-radius:4px;padding:5px 6px':''}" onclick="event.stopPropagation();toggleSub(${t.id},${s.id})"><div style="width:24px;height:24px;border:2px solid ${subBorder};background:${subBg};flex-shrink:0;display:flex;align-items:center;justify-content:center;color:${sp===100?'#FFFFFF':'var(--ORANGE)'};font-size:.65rem;border-radius:4px;min-width:24px">${subIcon}</div><span style="font-family:var(--fm);font-size:.68rem;color:${subTextColor};line-height:1.4;${sp===100?'text-decoration:line-through':''}">${s.text}</span>${dateTag}</div>`;
       }).join('')}</div>`:'';
       const rappelBtn=t.assignee?`<button onclick="event.stopPropagation();sendRappel(${t.id})" title="Email de rappel à ${t.assignee}" style="font-family:var(--fm);font-size:.48rem;padding:3px 7px;border:1px solid var(--B2);background:none;color:var(--C3);cursor:pointer;margin-top:4px">✉ Rappel</button>`:'';
       const isDone=realPct===100||t.status==='done';
       const isInProgress=t.status==='inprogress'&&realPct>0&&realPct<100;
-      const quickBtns=`<div style="display:flex;gap:5px;margin-top:5px" onclick="event.stopPropagation()">
+      // Paiement mensuel badge — équipe/admin only
+      const _pmIsAdmin=_isTeamEmail(CUR_SESSION?.email);
+      const pmCount=(S.paiements||[]).filter(p=>p.lot_id===t.id).length;
+      const pmBtn=_pmIsAdmin?`<button onclick="event.stopPropagation();openPaiementMensuel(${t.id})" style="font-family:var(--fm);font-size:.46rem;padding:3px 8px;border:1px solid #2B6B9A;background:none;color:#2B6B9A;cursor:pointer;border-radius:2px">💳 Paiement${pmCount?' ('+pmCount+')':''}</button>`:'';
+      const quickBtns=`<div style="display:flex;gap:5px;margin-top:5px;flex-wrap:wrap" onclick="event.stopPropagation()">
         ${!isInProgress&&!isDone?`<button onclick="quickSetStatus(${t.id},'inprogress',50)" style="font-family:var(--fm);font-size:.46rem;padding:3px 8px;border:1px solid var(--ORANGE);background:none;color:var(--ORANGE);cursor:pointer;border-radius:2px">▶ En cours</button>`:''}
         ${!isDone?`<button onclick="quickSetStatus(${t.id},'done',100)" style="font-family:var(--fm);font-size:.46rem;padding:3px 8px;border:1px solid var(--GREEN);background:none;color:var(--GREEN);cursor:pointer;border-radius:2px">✓ Terminé</button>`:`<span style="font-family:var(--fm);font-size:.46rem;color:var(--GREEN);padding:3px 0">✓ Terminé</span>`}
         ${rappelBtn}
+        ${pmBtn}
       </div>`;
       const tPhotos=t.photos&&t.photos.length?`<div style="display:flex;gap:4px;margin-top:5px;flex-wrap:wrap" onclick="event.stopPropagation()">${t.photos.slice(0,4).map(p=>`<img src="${p}" style="width:44px;height:44px;object-fit:cover;border-radius:5px;border:1px solid var(--B);cursor:zoom-in" onclick="showPh('${p}')">`).join('')}</div>`:'';
       h+=`<div class="ti" onclick="editTask(${t.id})"><div class="ti-stripe" style="background:${c}"></div><div class="ti-body"><div class="ti-name">${t.name}${subs.length?` <span style="font-family:var(--fm);font-size:.52rem;color:var(--C3);font-weight:400">${subsDone}/${subs.length}</span>`:''}</div><div class="ti-meta">${t.assignee||'—'} · ${fd(t.start)} → <span onclick="quickEditEnd(${t.id},event)" style="cursor:pointer;border-bottom:1px dashed var(--C3)" title="Modifier la date de fin">${fd(t.end)||'? fin'}</span></div>${subsHtml}${tPhotos}${quickBtns}</div><div class="ti-pct" style="color:${realPct===100?'var(--GREEN)':t.risk?'var(--RED)':'var(--C3)'}">${realPct}%</div></div>`;
@@ -4107,6 +4440,26 @@ function renderSubsForm(){
           <input type="date" value="${s.end||''}" onchange="editSubDate(${s.id},'end',this.value)" style="flex:1;font-family:var(--fm);font-size:13px;border:1px solid var(--B2);border-radius:5px;background:var(--A);color:var(--C);padding:3px 6px;outline:none;-webkit-appearance:auto;appearance:auto;cursor:pointer;min-height:30px">
         </div>
       </div>
+      <div style="display:flex;gap:6px;margin-top:5px;padding-left:28px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:4px;flex:1;min-width:100px">
+          <span style="font-family:var(--fm);font-size:.48rem;color:var(--C3);white-space:nowrap">Devis HT</span>
+          <input type="number" value="${s.montant_devis||''}" onchange="editSubDate(${s.id},'montant_devis',this.value?parseFloat(this.value):null)" placeholder="0" min="0" style="flex:1;font-family:var(--fm);font-size:13px;border:1px solid var(--B2);border-radius:5px;background:var(--A);color:var(--C);padding:3px 6px;outline:none;width:80px">
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;flex:1;min-width:120px">
+          <span style="font-family:var(--fm);font-size:.48rem;color:var(--C3);white-space:nowrap">Réception</span>
+          <select onchange="editSubReception(${s.id},this.value)" style="flex:1;font-family:var(--fm);font-size:12px;border:1px solid var(--B2);border-radius:5px;background:var(--A);color:var(--C);padding:3px 5px;outline:none;">
+            <option value="en_attente" ${(s.statut_reception||'en_attente')==='en_attente'?'selected':''}>⏳ En attente</option>
+            <option value="conforme" ${s.statut_reception==='conforme'?'selected':''}>✓ Conforme</option>
+            <option value="reserves" ${s.statut_reception==='reserves'?'selected':''}>⚠ Réserves</option>
+            <option value="refus" ${s.statut_reception==='refus'?'selected':''}>✕ Refus</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <input type="checkbox" id="inc-${s.id}" ${s.inclus_mois_courant?'checked':''} onchange="editSubDate(${s.id},'inclus_mois_courant',this.checked)" style="cursor:pointer;width:14px;height:14px">
+          <label for="inc-${s.id}" style="font-family:var(--fm);font-size:.48rem;color:var(--C3);cursor:pointer;white-space:nowrap">Mois courant</label>
+        </div>
+        ${s.montant_devis?`<span style="font-family:var(--fm);font-size:.52rem;color:${s.statut_reception==='conforme'?'var(--GREEN)':s.statut_reception==='reserves'?'var(--ORANGE)':s.statut_reception==='refus'?'var(--RED)':'var(--C3)'};padding:2px 7px;border-radius:var(--r-pill);background:${s.statut_reception==='conforme'?'rgba(43,122,75,.1)':s.statut_reception==='reserves'?'rgba(192,120,40,.1)':s.statut_reception==='refus'?'rgba(201,64,64,.1)':'var(--B)'}">${s.montant_valide!==null?'Validé : '+Math.round(s.montant_valide)+'€':'—'}</span>`:''}
+      </div>
     </div>`;}).join('');
   // Auto-update % from subtasks (average of tri-state pct values)
   const pct=Math.round(_tmpSubs.reduce((a,x)=>a+_sp(x),0)/_tmpSubs.length);
@@ -4134,8 +4487,8 @@ function _adjustEndDate(){
     eEl.title='';
   }
 }
-function openAddTask(){editId=null;_tmpSubs=[];_tmpTaskPhotos=[];document.getElementById('task-sheet-t').textContent='Nouvelle Tâche';['t-n','t-notes','t-sub-inp'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('t-st').value='todo';document.getElementById('t-pct').value=0;const d=_localDateStr();document.getElementById('t-s').value=d;const e=new Date();e.setDate(e.getDate()+14);document.getElementById('t-e').value=_localDateStr(e);document.getElementById('task-del-btn').style.display='none';const h=document.getElementById('pct-auto-hint');if(h)h.textContent='';_renderTaskPhotoPreview();renderSubsForm();renderSels();openSheet('taskSheet');}
-function editTask(id){const t=S.tasks.find(x=>x.id===id);if(!t)return;editId=id;_tmpSubs=t.subtasks?JSON.parse(JSON.stringify(t.subtasks)):[];_tmpTaskPhotos=t.photos?[...t.photos]:[];document.getElementById('task-sheet-t').textContent='Modifier';document.getElementById('t-n').value=t.name;document.getElementById('t-cat').value=t.cat;document.getElementById('t-asgn').value=t.assignee||'';document.getElementById('t-st').value=t.status;document.getElementById('t-pct').value=t.pct||0;document.getElementById('t-s').value=t.start||_localDateStr();// Date de fin : si vide → proposer début + 14j par défaut
+function openAddTask(){editId=null;_tmpSubs=[];_tmpTaskPhotos=[];document.getElementById('task-sheet-t').textContent='Nouvelle Tâche';['t-n','t-notes','t-sub-inp','t-montant-ht'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('t-st').value='todo';document.getElementById('t-pct').value=0;const d=_localDateStr();document.getElementById('t-s').value=d;const e=new Date();e.setDate(e.getDate()+14);document.getElementById('t-e').value=_localDateStr(e);document.getElementById('task-del-btn').style.display='none';const h=document.getElementById('pct-auto-hint');if(h)h.textContent='';_renderTaskPhotoPreview();renderSubsForm();renderSels();openSheet('taskSheet');}
+function editTask(id){const t=S.tasks.find(x=>x.id===id);if(!t)return;editId=id;_tmpSubs=t.subtasks?JSON.parse(JSON.stringify(t.subtasks)):[];_tmpTaskPhotos=t.photos?[...t.photos]:[];document.getElementById('task-sheet-t').textContent='Modifier';document.getElementById('t-n').value=t.name;document.getElementById('t-cat').value=t.cat;document.getElementById('t-asgn').value=t.assignee||'';document.getElementById('t-st').value=t.status;document.getElementById('t-pct').value=t.pct||0;const mEl=document.getElementById('t-montant-ht');if(mEl)mEl.value=t.montant_ht||'';document.getElementById('t-s').value=t.start||_localDateStr();// Date de fin : si vide → proposer début + 14j par défaut
 const endVal=t.end||(()=>{const d=new Date(t.start||new Date());d.setDate(d.getDate()+14);return _localDateStr(d);})();document.getElementById('t-e').value=endVal;document.getElementById('t-notes').value=t.notes||'';const si=document.getElementById('t-sub-inp');if(si)si.value='';document.getElementById('task-del-btn').style.display='block';_renderTaskPhotoPreview();renderSubsForm();renderSels();openSheet('taskSheet');}
 function deleteTask(){if(!editId)return;if(!confirm('Supprimer cette tâche ?'))return;S.tasks=S.tasks.filter(t=>t.id!==editId);editId=null;saveS();closeSheet('taskSheet');renderAll();showToast('✓ Tâche supprimée');}
 
@@ -4424,7 +4777,7 @@ function regenLotsFromDevis(){
   showToast(added?`✓ ${added} lot${added>1?'s':''} recréé${added>1?'s':''}`:' ✓ Lots déjà à jour');
 }
 
-function saveTask(){const n=document.getElementById('t-n').value.trim();if(!n)return;const d={name:n,cat:document.getElementById('t-cat').value,assignee:document.getElementById('t-asgn').value,status:document.getElementById('t-st').value,pct:parseInt(document.getElementById('t-pct').value)||0,start:document.getElementById('t-s').value,end:document.getElementById('t-e').value,notes:document.getElementById('t-notes').value,subtasks:[..._tmpSubs],photos:[..._tmpTaskPhotos]};if(d.status==='done'){d.pct=100;d.subtasks.forEach(s=>{s.pct=100;s.done=true;});}if(editId){const i=S.tasks.findIndex(x=>x.id===editId);S.tasks[i]={...S.tasks[i],...d};}else S.tasks.push({id:S.nid++,pi:S.curP,...d});_autoClampAllSubs();saveS();closeSheet('taskSheet');renderAll();showToast('✓ Tâche enregistrée');}
+function saveTask(){const n=document.getElementById('t-n').value.trim();if(!n)return;const mhtVal=document.getElementById('t-montant-ht')?.value;const montant_ht=mhtVal?parseFloat(mhtVal):null;const d={name:n,cat:document.getElementById('t-cat').value,assignee:document.getElementById('t-asgn').value,status:document.getElementById('t-st').value,pct:parseInt(document.getElementById('t-pct').value)||0,start:document.getElementById('t-s').value,end:document.getElementById('t-e').value,notes:document.getElementById('t-notes').value,subtasks:[..._tmpSubs],photos:[..._tmpTaskPhotos],montant_ht};if(d.status==='done'){d.pct=100;d.subtasks.forEach(s=>{s.pct=100;s.done=true;});}if(editId){const i=S.tasks.findIndex(x=>x.id===editId);S.tasks[i]={...S.tasks[i],...d};}else S.tasks.push({id:S.nid++,pi:S.curP,...d});_autoClampAllSubs();saveS();closeSheet('taskSheet');renderAll();showToast('✓ Tâche enregistrée');}
 let editMembId=null;
 function openEditMemb(id){
   const m=S.members.find(x=>x.id===id);if(!m)return;
@@ -4513,6 +4866,7 @@ function toggleSub(taskId,subId){
 function saveProj(){const n=document.getElementById('p-n').value.trim();if(!n){showToast('Donnez un nom au projet');return;}const clientMail=document.getElementById('p-client').value.trim().toLowerCase();const partnerEmails=document.getElementById('p-partners').value.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);const proj={name:n,phase:document.getElementById('p-ph').value||'Gros Oeuvre',pct:parseInt(document.getElementById('p-pct').value)||0,startDate:document.getElementById('p-start')?.value||'',endDate:document.getElementById('p-end')?.value||'',clientEmails:clientMail?[clientMail]:[],partnerEmails};S.projects.push(proj);S.curP=S.projects.length-1;saveS();closeSheet('projSheet');renderProjBar();renderAll();showToast('✓ Chantier "'+n+'" créé');}
 function saveProjDates(){const p=S.projects[S.curP];if(!p)return;p.startDate=document.getElementById('gantt-start-date')?.value||p.startDate||'';p.endDate=document.getElementById('gantt-end-date')?.value||p.endDate||'';_autoClampAllSubs();saveS();renderGantt();showToast('✓ Dates cadrage sauvegardées');}
 function saveStat(){const l={id:S.nid++,pi:S.curP,rida:document.getElementById('st-r').value,theme:document.getElementById('st-th').value,detail:document.getElementById('st-det').value,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}),resp:document.getElementById('st-rsp').value,urgent:document.getElementById('st-urg').value==='1',photos:[]};S.statLines.push(l);Array.from(document.getElementById('st-ph').files).forEach(f=>{const r=new FileReader();r.onload=e=>{l.photos.push(e.target.result);};r.readAsDataURL(f);});closeSheet('statSheet');renderCR();}
+
 // ── QUICK RIDA (mobile-first) ──
 let _qRidaType='A',_qRidaResp='';
 const _RIDA_COL={R:'#8B2020',I:'#3A6B47',D:'#2B6B9A',A:'var(--C)'};
@@ -4877,6 +5231,7 @@ function showPh(src){document.getElementById('phLbImg').src=src;document.getElem
 function renderAll(){
   renderGantt();
   renderTaskList();
+  renderSeuil30();
   renderSels();
   updateStats();
   document.getElementById('tb-ctx').textContent=S.projects[S.curP]?.name||'—';
@@ -5755,6 +6110,856 @@ function removeCheckObj(id){
 }
 
 // (showToast defined earlier)
+
+// ══════════════════════════════════════════════════════════
+// MOTEUR DE PAIEMENT — logique métier
+// ══════════════════════════════════════════════════════════
+
+// Fonction editSubReception : met à jour statut_reception ET recalcule montant_valide
+function editSubReception(subId, statut){
+  const s=_tmpSubs.find(x=>x.id===subId);
+  if(!s)return;
+  s.statut_reception=statut;
+  // Recalcul automatique montant_valide
+  const r=calculerMontantValide(s,statut);
+  s.montant_valide=r.montant_valide;
+  s.montant_reserve=r.montant_reserve;
+  renderSubsForm();
+}
+
+// calculer_montant_valide(jalon, statut_reception)
+function calculerMontantValide(jalon, statut){
+  const devis=parseFloat(jalon.montant_devis)||0;
+  if(statut==='conforme') return {montant_valide:Math.round(devis*1.00),montant_reserve:0};
+  if(statut==='reserves') return {montant_valide:Math.round(devis*0.95),montant_reserve:Math.round(devis*0.05)};
+  if(statut==='refus')    return {montant_valide:0,montant_reserve:0};
+  return {montant_valide:null,montant_reserve:0}; // en_attente
+}
+
+// verifier_seuil_30(projet_index)
+// Retourne {seuil_atteint, cumul, total_devis, pct}
+function verifierSeuil30(pi){
+  const jalons=S.tasks.filter(t=>t.pi===pi).flatMap(t=>t.subtasks||[]);
+  const total_devis=jalons.reduce((a,s)=>a+(parseFloat(s.montant_devis)||0),0);
+  const cumul=jalons.reduce((a,s)=>a+(s.montant_valide!==null?parseFloat(s.montant_valide)||0:0),0);
+  const pct=total_devis>0?cumul/total_devis:0;
+  return {seuil_atteint:pct>=0.30,cumul:Math.round(cumul),total_devis:Math.round(total_devis),pct:Math.round(pct*1000)/10};
+}
+
+// calculer_paiement_mensuel(taskId, mois 'YYYY-MM', modulation_pct, commission_pct)
+function calculerPaiementMensuel(taskId, mois, modulationPct, commissionPct=4){
+  const task=S.tasks.find(t=>t.id===taskId);
+  if(!task)return null;
+  const jalons=(task.subtasks||[]).filter(s=>s.inclus_mois_courant);
+  const base=jalons.reduce((a,s)=>a+(s.montant_valide!==null?parseFloat(s.montant_valide)||0:0),0);
+  const modulation=Math.round(base*(modulationPct/100));
+  const montant_brut=Math.round(base+modulation);
+  const commission=Math.round(montant_brut*(commissionPct/100));
+  const reserves=jalons.reduce((a,s)=>a+(parseFloat(s.montant_reserve)||0),0);
+  const net_artisan=Math.round(montant_brut-commission-Math.round(reserves));
+  const seuil=verifierSeuil30(task.pi);
+  const result={
+    lot_id:taskId,lot_name:task.name,projet_id:task.pi,
+    echeance:mois,jalons_ids:jalons.map(s=>s.id),
+    base_validee:Math.round(base),modulation_pct:modulationPct,
+    modulation_montant:modulation,montant_brut,
+    commission_pct:commissionPct,commission_montant:commission,
+    reserves_consignees:Math.round(reserves),net_artisan,
+    seuil_atteint:seuil.seuil_atteint,
+    statut:seuil.seuil_atteint?'calcule':'bloque',
+    created_at:new Date().toISOString()
+  };
+  return result;
+}
+
+// Upsert paiement dans S.paiements
+function upsertPaiement(p){
+  if(!S.paiements)S.paiements=[];
+  const idx=S.paiements.findIndex(x=>x.lot_id===p.lot_id&&x.echeance===p.echeance);
+  if(idx>=0)S.paiements[idx]={...S.paiements[idx],...p,updated_at:new Date().toISOString()};
+  else S.paiements.push({id:'pm_'+Date.now(),...p});
+  saveS();
+}
+
+// ══════════════════════════════════════════════════
+// TABLEAU DE BORD FINANCIER (équipe/partenaires)
+// ══════════════════════════════════════════════════
+function renderFinance(){
+  const el=document.getElementById('fin-scroll');
+  if(!el)return;
+  const fmt=n=>n==null?'—':Math.round(n).toLocaleString('fr-FR')+'€';
+  const fmtK=n=>n==null?'—':(Math.abs(n)>=1000?(Math.round(n/100)/10).toLocaleString('fr-FR')+'k€':Math.round(n).toLocaleString('fr-FR')+'€');
+
+  // ── Calcul KPIs globaux ──
+  let totalDevis=0,totalValidé=0,totalNet=0,totalComm=0,totalRestant=0;
+  S.projects.forEach((proj,pi)=>{
+    const lots=S.tasks.filter(t=>t.pi===pi);
+    lots.forEach(t=>{
+      const dv=parseFloat(t.montant_ht)||0;
+      totalDevis+=dv;
+    });
+  });
+  (S.paiements||[]).forEach(p=>{
+    totalValidé+=(parseFloat(p.base_validee)||0);
+    totalNet+=(parseFloat(p.net_artisan)||0);
+    totalComm+=(parseFloat(p.commission_montant)||0);
+  });
+  totalRestant=Math.max(0,totalDevis-totalValidé);
+  const pctGlobal=totalDevis>0?Math.round(totalValidé/totalDevis*100):0;
+
+  // ── Hero KPIs ──
+  let h=`<div class="fin-kpis">
+    <div class="fin-kpi"><div class="fin-kpi-v">${fmtK(totalDevis)}</div><div class="fin-kpi-l">Total devis</div></div>
+    <div class="fin-kpi"><div class="fin-kpi-v">${pctGlobal}%</div><div class="fin-kpi-l">Validé</div></div>
+    <div class="fin-kpi"><div class="fin-kpi-v">${fmtK(totalNet)}</div><div class="fin-kpi-l">Net artisans</div></div>
+    <div class="fin-kpi"><div class="fin-kpi-v">${fmtK(totalComm)}</div><div class="fin-kpi-l">Commission agence</div></div>
+  </div>`;
+
+  // ── Par projet ──
+  h+=`<div class="fin-sec" style="margin-top:10px">Projets en cours</div>`;
+  S.projects.forEach((proj,pi)=>{
+    const lots=S.tasks.filter(t=>t.pi===pi);
+    if(!lots.length)return;
+    const dv=lots.reduce((a,t)=>a+(parseFloat(t.montant_ht)||0),0);
+    const pms=(S.paiements||[]).filter(p=>p.projet_id===pi);
+    const val=pms.reduce((a,p)=>a+(parseFloat(p.base_validee)||0),0);
+    const netProj=pms.reduce((a,p)=>a+(parseFloat(p.net_artisan)||0),0);
+    const commProj=pms.reduce((a,p)=>a+(parseFloat(p.commission_montant)||0),0);
+    const pct=dv>0?Math.round(val/dv*100):0;
+    const restant=Math.max(0,dv-val);
+    const seuil=verifierSeuil30(pi);
+    const tagClass=seuil.seuil_atteint?'ok':(dv>0?'warn':'block');
+    const tagTxt=seuil.seuil_atteint?'✓ Seuil atteint':(dv>0?'⚠ Seuil non atteint':'— Pas de devis');
+    const barColor=pct>=100?'var(--GREEN)':pct>30?'var(--C)':'var(--ORANGE)';
+
+    h+=`<div class="fin-proj-card">
+      <div class="fin-proj-head">
+        <div>
+          <div class="fin-proj-name">${proj.name}</div>
+          <div class="fin-proj-tag ${tagClass}">${tagTxt}</div>
+        </div>
+        <div class="fin-proj-pct">${pct}%</div>
+      </div>
+      <div class="fin-prog-wrap">
+        <div class="fin-prog-bar"><div class="fin-prog-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      </div>
+      <div class="fin-amounts">
+        <div class="fin-amt-cell"><div class="fin-amt-v">${fmtK(dv)}</div><div class="fin-amt-l">Devis total</div></div>
+        <div class="fin-amt-cell"><div class="fin-amt-v" style="color:var(--GREEN)">${fmtK(netProj)}</div><div class="fin-amt-l">Net artisans</div></div>
+        <div class="fin-amt-cell"><div class="fin-amt-v" style="color:var(--C3)">${fmtK(restant)}</div><div class="fin-amt-l">Restant</div></div>
+      </div>`;
+
+    // Lots avec montant
+    const lotsAvecDv=lots.filter(t=>parseFloat(t.montant_ht)>0);
+    if(lotsAvecDv.length){
+      h+=`<div class="fin-pm-section"><div class="fin-pm-title">Lots</div>`;
+      lotsAvecDv.forEach(t=>{
+        const ldv=parseFloat(t.montant_ht)||0;
+        const lpm=(S.paiements||[]).filter(p=>p.lot_id===t.id);
+        const lval=lpm.reduce((a,p)=>a+(parseFloat(p.base_validee)||0),0);
+        const lpct=ldv>0?Math.round(lval/ldv*100):0;
+        const lcolor=lpct>=100?'var(--GREEN)':lpct>0?'var(--ORANGE)':'var(--C3)';
+        h+=`<div class="fin-pm-row" onclick="openPaiementMensuel(${t.id})" style="cursor:pointer">
+          <div style="width:5px;height:5px;border-radius:50%;background:${lcolor};flex-shrink:0"></div>
+          <div style="flex:1;font-family:var(--fm);font-size:.72rem;color:var(--C);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.name}</div>
+          <div style="font-family:var(--fm);font-size:.65rem;color:var(--C3)">${fmtK(lval)}/${fmtK(ldv)}</div>
+          <div style="font-family:var(--fm);font-size:.62rem;font-weight:600;color:${lcolor};min-width:32px;text-align:right">${lpct}%</div>
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+
+    // Historique paiements
+    if(pms.length){
+      h+=`<div class="fin-pm-section"><div class="fin-pm-title">Historique paiements</div>`;
+      [...pms].sort((a,b)=>b.echeance?.localeCompare(a.echeance||'')||0).slice(0,6).forEach(p=>{
+        const mois=p.echeance?new Date(p.echeance+'-01').toLocaleDateString('fr-FR',{month:'short',year:'numeric'}):'—';
+        const badgeClass=p.statut==='vire'?'vire':p.statut==='valide'?'valide':'bloque';
+        const badgeTxt=p.statut==='vire'?'Viré':p.statut==='valide'?'Validé':'Bloqué';
+        h+=`<div class="fin-pm-row">
+          <div class="fin-pm-mois">${mois}</div>
+          <div style="font-family:var(--fm);font-size:.65rem;color:var(--C3);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.lot_name||'—'}</div>
+          <div class="fin-pm-net">${fmt(p.net_artisan)}</div>
+          <div class="fin-pm-badge ${badgeClass}">${badgeTxt}</div>
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+
+    h+=`<div style="height:12px"></div></div>`;
+  });
+
+  if(!S.projects.length){
+    h+=`<div class="fin-empty">Aucun projet — créez votre premier chantier</div>`;
+  }
+
+  // Export buttons
+  h+=`<div class="fin-export-row">
+    <button class="fin-export-btn" onclick="finExportCSV()">↓ Exporter CSV</button>
+    <button class="fin-export-btn sec" onclick="finExportPrint()">⎙ Imprimer</button>
+  </div>`;
+  h+=`<div style="height:20px"></div>`;
+
+  el.innerHTML=h;
+  // Animate progress bars after render
+  requestAnimationFrame(()=>{
+    el.querySelectorAll('.fin-prog-fill').forEach(b=>{
+      const w=b.style.width;b.style.width='0';
+      requestAnimationFrame(()=>{b.style.width=w;});
+    });
+  });
+}
+
+function finExportCSV(){
+  const rows=[['Projet','Lot','Devis HT (€)','Mois','Base validée (€)','Commission (€)','Net artisan (€)','Statut']];
+  S.projects.forEach((proj,pi)=>{
+    const pms=(S.paiements||[]).filter(p=>p.projet_id===pi);
+    if(!pms.length){
+      const lots=S.tasks.filter(t=>t.pi===pi&&parseFloat(t.montant_ht)>0);
+      lots.forEach(t=>rows.push([proj.name,t.name,Math.round(parseFloat(t.montant_ht)||0),'','','','','']));
+    } else {
+      pms.forEach(p=>rows.push([proj.name,p.lot_name||'',
+        Math.round(parseFloat(S.tasks.find(t=>t.id===p.lot_id)?.montant_ht)||0),
+        p.echeance||'',Math.round(p.base_validee||0),Math.round(p.commission_montant||0),
+        Math.round(p.net_artisan||0),p.statut||'']));
+    }
+  });
+  const csv=rows.map(r=>r.join(';')).join('\n');
+  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='rivas_finance_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();URL.revokeObjectURL(a.href);
+  showToast('✓ Export CSV téléchargé');
+}
+
+function finExportPrint(){
+  window.print();
+}
+
+// ══ AFFICHAGE SEUIL 30% ══
+function renderSeuil30(){
+  const bar=document.getElementById('seuil30-bar');
+  const dz=document.getElementById('delete-proj-zone');
+  if(!bar)return;
+  const isAdmin=_isTeamEmail(CUR_SESSION?.email);
+  const seuil=verifierSeuil30(S.curP);
+  const proj=S.projects[S.curP];
+  if(seuil.total_devis>0){
+    bar.style.display='flex';
+    const color=seuil.seuil_atteint?'var(--GREEN)':'var(--ORANGE)';
+    bar.innerHTML=`
+      <span style="font-family:var(--fm);font-size:.5rem;letter-spacing:1px;text-transform:uppercase;color:var(--C3)">Seuil 30%</span>
+      <span style="font-family:var(--fs);font-size:1.3rem;font-weight:300;color:${color}">${seuil.pct}%</span>
+      <span style="font-family:var(--fm);font-size:.68rem;color:var(--C3)">${seuil.cumul.toLocaleString('fr-FR')}€ validés / ${seuil.total_devis.toLocaleString('fr-FR')}€ devis</span>
+      <span style="font-family:var(--fm);font-size:.52rem;padding:3px 9px;border-radius:var(--r-pill);border:1px solid ${seuil.seuil_atteint?'rgba(43,122,75,.3)':'rgba(192,120,40,.3)'};background:${seuil.seuil_atteint?'rgba(43,122,75,.07)':'rgba(192,120,40,.07)'};color:${color}">${seuil.seuil_atteint?'✓ Seuil atteint':'⚠ Seuil non atteint'}</span>
+    `;
+  } else {
+    bar.style.display='none';
+  }
+  // Bouton supprimer projet (admin seulement)
+  if(dz){
+    if(isAdmin){
+      dz.innerHTML=`<button class="btn btn-sm" style="border-color:var(--RED);color:var(--RED);font-size:.52rem" onclick="openDeleteProjet()">🗑 Supprimer le projet "${proj?.name||'—'}"</button>`;
+    } else {
+      dz.innerHTML='';
+    }
+  }
+}
+
+// ══ SUPPRESSION PROJET (cascade sécurisée) ══
+function openDeleteProjet(){
+  const pi=S.curP;
+  const proj=S.projects[pi];
+  if(!proj){showToast('Projet introuvable');return;}
+  const lots=S.tasks.filter(t=>t.pi===pi);
+  const paiements=(S.paiements||[]).filter(p=>p.projet_id===pi);
+  const paiementsVires=paiements.filter(p=>p.statut==='vire'||p.statut==='en_cours');
+  const montantTotal=lots.reduce((a,t)=>a+(parseFloat(t.montant_ht)||0),0);
+  const infoEl=document.getElementById('delete-projet-info');
+  const blockEl=document.getElementById('delete-projet-block');
+  const actionsEl=document.getElementById('delete-projet-actions');
+  const confirmBtn=document.getElementById('delete-projet-confirm-btn');
+  if(paiementsVires.length>0){
+    // Bloquer
+    infoEl.style.display='none';
+    blockEl.style.display='block';
+    blockEl.innerHTML=`⛔ Impossible de supprimer le projet <strong>${proj.name}</strong>.<br><br>Des paiements ont déjà été virés (${paiementsVires.length} virement${paiementsVires.length>1?'s':''}). La suppression est bloquée pour préserver l'intégrité des données financières.`;
+    if(confirmBtn)confirmBtn.style.display='none';
+  } else {
+    infoEl.style.display='block';
+    blockEl.style.display='none';
+    infoEl.innerHTML=`Vous êtes sur le point de supprimer définitivement :<br><br>
+      <strong>${proj.name}</strong><br>
+      📋 ${lots.length} lot${lots.length>1?'s':''}<br>
+      💶 Budget total : ${montantTotal?montantTotal.toLocaleString('fr-FR')+'€':'non renseigné'}<br>
+      ${paiements.length?'💳 '+paiements.length+' paiement(s) calculé(s) seront supprimés':''}<br><br>
+      <span style="color:var(--RED);font-weight:600">Cette action est irréversible.</span>`;
+    if(confirmBtn)confirmBtn.style.display='block';
+  }
+  openSheet('deleteProjetSheet');
+}
+
+function confirmDeleteProjet(){
+  const pi=S.curP;
+  const proj=S.projects[pi];
+  if(!proj)return;
+  // Vérification finale sécurité
+  const paiementsVires=(S.paiements||[]).filter(p=>p.projet_id===pi&&(p.statut==='vire'||p.statut==='en_cours'));
+  if(paiementsVires.length>0){showToast('⛔ Suppression bloquée : paiements virés');return;}
+  const lots=S.tasks.filter(t=>t.pi===pi);
+  const montantTotal=lots.reduce((a,t)=>a+(parseFloat(t.montant_ht)||0),0);
+  // Cascade manuelle (ordre obligatoire)
+  // 1. Supprimer paiements du projet
+  S.paiements=(S.paiements||[]).filter(p=>p.projet_id!==pi);
+  // 2. Supprimer toutes les tâches (lots + jalons + photos inline)
+  S.tasks=S.tasks.filter(t=>t.pi!==pi);
+  // 3. Supprimer milestones
+  S.milestones=S.milestones.filter(m=>m.pi!==pi);
+  // 4. Supprimer membres
+  S.members=S.members.filter(m=>m.pi!==pi);
+  // 5. Supprimer statLines
+  S.statLines=S.statLines.filter(l=>l.pi!==pi);
+  // 6. Supprimer clefs
+  S.clefs=S.clefs.filter(c=>c.pi!==pi);
+  // 7. Supprimer commandes
+  S.commandes=S.commandes.filter(c=>c.pi!==pi);
+  // 8. Supprimer budget
+  S.budgets=S.budgets.filter(b=>b.pi!==pi);
+  // 9. Supprimer emailAnalyses
+  S.emailAnalyses=(S.emailAnalyses||[]).filter(e=>e.pi!==pi);
+  // 10. Supprimer le projet et réindexer pi
+  S.projects.splice(pi,1);
+  // Réindexer pi de tous les objets restants
+  ['tasks','milestones','members','statLines','clefs','commandes','budgets','emailAnalyses'].forEach(k=>{
+    (S[k]||[]).forEach(o=>{if(o.pi>pi)o.pi--;});
+  });
+  (S.paiements||[]).forEach(p=>{if(p.projet_id>pi)p.projet_id--;});
+  // Ajuster curP
+  if(S.curP>=S.projects.length)S.curP=Math.max(0,S.projects.length-1);
+  // Log audit
+  if(!S.auditLogs)S.auditLogs=[];
+  S.auditLogs.push({
+    id:'al_'+Date.now(),action:'DELETE',entity_type:'projet',
+    entity_id:pi,user_id:CUR_SESSION?.email||'unknown',
+    metadata:{montant_total:Math.round(montantTotal),lots_count:lots.length,projet_name:proj.name,date_suppression:new Date().toISOString()},
+    created_at:new Date().toISOString()
+  });
+  saveS();
+  closeSheet('deleteProjetSheet');
+  renderProjBar();
+  renderAll();
+  renderSeuil30();
+  showToast(`✓ Projet "${proj.name}" supprimé`);
+}
+
+// ══ MODULE PAIEMENT MENSUEL ══
+let _pmTaskId=null;
+function openPaiementMensuel(taskId){
+  _pmTaskId=taskId;
+  const task=S.tasks.find(t=>t.id===taskId);
+  if(!task)return;
+  const el=document.getElementById('pm-lot-name');
+  if(el)el.textContent=task.name;
+  // Date du mois courant
+  const now=new Date();
+  const mois=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  const moisEl=document.getElementById('pm-mois');
+  if(moisEl)moisEl.value=mois;
+  // Recharger paiement existant si déjà calculé
+  const existing=(S.paiements||[]).find(p=>p.lot_id===taskId&&p.echeance===mois);
+  const slider=document.getElementById('pm-mod-slider');
+  if(slider)slider.value=existing?.modulation_pct||0;
+  const commEl=document.getElementById('pm-commission');
+  if(commEl)commEl.value=existing?.commission_pct||4;
+  pmUpdateCalc();
+  openSheet('paiementSheet');
+}
+
+function pmUpdateCalc(){
+  if(!_pmTaskId)return;
+  const slider=document.getElementById('pm-mod-slider');
+  const moisEl=document.getElementById('pm-mois');
+  const commEl=document.getElementById('pm-commission');
+  const modVal=document.getElementById('pm-mod-val');
+  const modPct=parseFloat(slider?.value||0);
+  const mois=moisEl?.value||'';
+  const commPct=parseFloat(commEl?.value||4);
+  if(modVal)modVal.textContent=(modPct>=0?'+':'')+modPct+'%';
+  const r=calculerPaiementMensuel(_pmTaskId,mois,modPct,commPct);
+  if(!r)return;
+  // Seuil warning
+  const seuilWarn=document.getElementById('pm-seuil-warn');
+  if(seuilWarn)seuilWarn.style.display=r.seuil_atteint?'none':'block';
+  // Détail calcul
+  const det=document.getElementById('pm-detail');
+  if(det){
+    const fmt=n=>Math.round(n).toLocaleString('fr-FR')+'€';
+    const modColor=r.modulation_montant>=0?'var(--GREEN)':'var(--RED)';
+    det.innerHTML=`
+      <div style="display:flex;justify-content:space-between"><span>Base validée (jalons inclus ce mois)</span><strong>${fmt(r.base_validee)}</strong></div>
+      <div style="display:flex;justify-content:space-between;color:${modColor}"><span>Modulation (${r.modulation_pct>=0?'+':''}${r.modulation_pct}%)</span><strong>${r.modulation_montant>=0?'+':''}${fmt(r.modulation_montant)}</strong></div>
+      <div style="display:flex;justify-content:space-between;border-top:1px solid var(--B);margin-top:4px;padding-top:4px"><span>Montant brut</span><strong>${fmt(r.montant_brut)}</strong></div>
+      <div style="display:flex;justify-content:space-between;color:var(--C3)"><span>Commission agence (${r.commission_pct}%)</span><span>− ${fmt(r.commission_montant)}</span></div>
+      <div style="display:flex;justify-content:space-between;color:var(--ORANGE)"><span>Réserves consignées</span><span>− ${fmt(r.reserves_consignees)}</span></div>
+      <div style="display:flex;justify-content:space-between;border-top:2px solid var(--C);margin-top:6px;padding-top:6px;font-size:1rem"><span style="font-weight:700">Net artisan</span><strong style="font-family:var(--fs);font-size:1.4rem;font-weight:300;color:${r.net_artisan>=0?'var(--GREEN)':'var(--RED)'}">${fmt(r.net_artisan)}</strong></div>
+    `;
+  }
+  // Statut
+  const statBar=document.getElementById('pm-statut-bar');
+  const statLabels={bloque:'🔴 BLOQUÉ',calcule:'🟡 CALCULÉ',valide:'🟢 VALIDÉ',vire:'✓ VIRÉ',conteste:'🟠 CONTESTÉ'};
+  if(statBar){
+    const existing=(S.paiements||[]).find(p=>p.lot_id===_pmTaskId&&p.echeance===mois);
+    const st=existing?.statut||r.statut;
+    statBar.innerHTML=`<span style="font-family:var(--fm);font-size:.52rem;letter-spacing:1px;text-transform:uppercase;color:var(--C3)">Statut :</span>
+    <span style="font-family:var(--fm);font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:var(--r-pill);background:var(--A);border:1px solid var(--B2)">${statLabels[st]||st}</span>`;
+  }
+  // Bouton valider
+  const btn=document.getElementById('pm-valider-btn');
+  if(btn){
+    const existing=(S.paiements||[]).find(p=>p.lot_id===_pmTaskId&&p.echeance===mois);
+    btn.disabled=existing?.statut==='vire';
+    btn.textContent=existing?'↺ Recalculer':'✓ Valider le paiement';
+  }
+}
+
+function pmValider(){
+  if(!_pmTaskId)return;
+  const slider=document.getElementById('pm-mod-slider');
+  const moisEl=document.getElementById('pm-mois');
+  const commEl=document.getElementById('pm-commission');
+  const modPct=parseFloat(slider?.value||0);
+  const mois=moisEl?.value||'';
+  const commPct=parseFloat(commEl?.value||4);
+  const r=calculerPaiementMensuel(_pmTaskId,mois,modPct,commPct);
+  if(!r)return;
+  if(!r.seuil_atteint){
+    r.statut='bloque';
+    showToast('⚠ Paiement enregistré mais bloqué (seuil 30% non atteint)');
+  } else {
+    r.statut='valide';
+    showToast('✓ Paiement validé');
+  }
+  upsertPaiement(r);
+  pmUpdateCalc();
+}
+
+// ══════════════════════════════════════════════════
+// RELANCES — Suivi des emails sans réponse
+// ══════════════════════════════════════════════════
+
+let _rlData = [];        // liste des threads analysés
+let _rlFilter = 'tous';  // filtre projet actif
+const _RL_PWD_KEY = 'rv_rl_unlocked'; // sessionStorage key
+
+// ── Mot de passe Relances ──
+async function rlCheckPwd(){
+  const inp = document.getElementById('rl-pwd-inp');
+  const err = document.getElementById('rl-pwd-err');
+  const val = inp ? inp.value : '';
+  try{
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
+    const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hex === '521ec3fe6db9917685ce152ddf183cc17c1787cb68c6314c58d03a9899d43640'){
+      sessionStorage.setItem(_RL_PWD_KEY,'1');
+      document.getElementById('rl-lock').style.display='none';
+      const inner = document.getElementById('rl-inner');
+      if(inner){ inner.style.display='flex'; }
+      if(inp) inp.value='';
+      if(err) err.textContent='';
+      rlRender();
+    } else {
+      if(err) err.textContent='Mot de passe incorrect';
+      if(inp){ inp.value=''; inp.focus(); }
+    }
+  }catch(e){
+    if(err) err.textContent='Erreur de vérification';
+  }
+}
+
+function rlIsUnlocked(){
+  return sessionStorage.getItem(_RL_PWD_KEY)==='1';
+}
+
+function rlGetData(){
+  try{ return JSON.parse(localStorage.getItem('rv_relances')||'[]'); }catch(e){ return []; }
+}
+function rlSaveData(arr){
+  localStorage.setItem('rv_relances', JSON.stringify(arr));
+}
+
+function rlSetFilter(proj, btn){
+  _rlFilter = proj;
+  document.querySelectorAll('.rl-filter-btn').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  rlRender();
+}
+
+function rlRender(){
+  _rlData = rlGetData();
+  const container = document.getElementById('rl-content');
+  if(!container) return;
+
+  // Filter by project
+  const filtered = _rlFilter === 'tous'
+    ? _rlData
+    : _rlData.filter(t => (t.project||'').toLowerCase().includes(_rlFilter));
+
+  if(!filtered.length){
+    container.innerHTML = '<div class="rl-empty">Aucun thread en attente.<br><span style="opacity:.6">Cliquez sur <strong>Analyser</strong> pour détecter les emails sans réponse.</span></div>';
+    return;
+  }
+
+  // Sort by urgency then days_waiting desc
+  const urgOrder = {urgent:0, medium:1, watch:2};
+  const sorted = [...filtered].sort((a,b) => {
+    const ou = (urgOrder[a.urgency]||2) - (urgOrder[b.urgency]||2);
+    if(ou!==0) return ou;
+    return (b.days_waiting||0) - (a.days_waiting||0);
+  });
+
+  const urgLabels = {urgent:'🔴 URGENT', medium:'🟠 À RELANCER', watch:'🟢 À SURVEILLER'};
+  const urgDesc = {urgent:'Plus de 5 jours ou situation critique', medium:'3 à 5 jours sans réponse', watch:'1 à 2 jours'};
+
+  let html = '';
+  let lastUrg = null;
+  sorted.forEach(t => {
+    if(t.urgency !== lastUrg){
+      lastUrg = t.urgency;
+      const cnt = sorted.filter(x=>x.urgency===t.urgency).length;
+      html += `<div class="rl-section" style="color:${t.urgency==='urgent'?'var(--RED)':t.urgency==='medium'?'var(--ORANGE)':'var(--GREEN)'}">
+        ${urgLabels[t.urgency]||t.urgency}
+        <span class="rl-count">${cnt} thread${cnt>1?'s':''} · ${urgDesc[t.urgency]||''}</span>
+      </div>`;
+    }
+    const draftId = 'rl-draft-'+t.id;
+    const taId = 'rl-ta-'+t.id;
+    html += `
+    <div class="rl-card ${t.urgency}" id="rl-card-${t.id}">
+      <div class="rl-card-head" onclick="rlToggleDraft('${t.id}')">
+        <div class="rl-card-meta">
+          <span class="rl-badge ${t.urgency}">${urgLabels[t.urgency]||t.urgency}</span>
+          <span class="rl-proj">${t.project||'—'}</span>
+          <span class="rl-days ${t.urgency}">${t.days_waiting||'?'}<span style="font-family:var(--fm);font-size:.55rem;opacity:.6">j</span></span>
+        </div>
+        <div class="rl-subject">${_escHtml(t.subject||'—')}</div>
+        <div class="rl-recipient">✉ ${_escHtml(t.recipient_name||t.recipient||'—')} — envoyé le ${t.date_sent||'?'}</div>
+        ${t.summary?`<div class="rl-summary">${_escHtml(t.summary)}</div>`:''}
+        ${t.alert?`<div class="rl-alert">⚠ ${_escHtml(t.alert)}</div>`:''}
+      </div>
+      <div class="rl-card-actions">
+        <button class="rl-btn primary" id="rl-draft-btn-${t.id}" onclick="event.stopPropagation();rlGenDraft('${t.id}')">
+          <span class="rl-spin dark" id="rl-sp-${t.id}" style="display:none"></span> ✏ Rédiger
+        </button>
+        <button class="rl-btn" onclick="event.stopPropagation();rlToggleDraft('${t.id}')">Voir brouillon</button>
+        <button class="rl-btn danger" onclick="event.stopPropagation();rlResolve('${t.id}')">✓ Résolu</button>
+      </div>
+      <div class="rl-draft-zone" id="${draftId}">
+        <div class="rl-draft-label">Brouillon de relance</div>
+        <textarea class="rl-draft-ta" id="${taId}" placeholder="Cliquez sur Rédiger pour générer la relance...">${_escHtml(t.draft||'')}</textarea>
+        <div class="rl-draft-actions">
+          <button class="rl-btn primary" onclick="rlCreateGmailDraft('${t.id}')">
+            <span class="rl-spin dark" id="rl-gm-sp-${t.id}" style="display:none"></span> 📧 Créer brouillon Gmail
+          </button>
+          <button class="rl-btn" onclick="rlSaveDraft('${t.id}')">💾 Sauvegarder</button>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function _escHtml(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function rlToggleDraft(id){
+  const zone = document.getElementById('rl-draft-'+id);
+  if(zone) zone.classList.toggle('on');
+}
+
+function rlResolve(id){
+  _rlData = rlGetData().filter(t => t.id !== id);
+  rlSaveData(_rlData);
+  const card = document.getElementById('rl-card-'+id);
+  if(card){ card.style.transition='opacity .3s'; card.style.opacity='0'; setTimeout(()=>rlRender(),320); }
+  showToast('✓ Thread marqué comme résolu');
+}
+
+function rlSaveDraft(id){
+  const ta = document.getElementById('rl-ta-'+id);
+  if(!ta) return;
+  const data = rlGetData();
+  const t = data.find(x=>x.id===id);
+  if(t){ t.draft=ta.value; rlSaveData(data); showToast('✓ Brouillon sauvegardé'); }
+}
+
+async function rlAnalyze(){
+  const key = getAIKey();
+  if(!key){ showToast('Clé API manquante — Administration → Configuration IA'); return; }
+
+  const btn = document.getElementById('rl-analyze-btn');
+  const spin = document.getElementById('rl-spin');
+  const txt = document.getElementById('rl-analyze-txt');
+  if(btn) btn.disabled = true;
+  if(spin) spin.style.display = 'inline-block';
+  if(txt) txt.textContent = 'Analyse en cours…';
+
+  const container = document.getElementById('rl-content');
+  if(container) container.innerHTML = '<div class="rl-empty">⟳ Analyse des emails des 21 derniers jours…<br><span style="opacity:.6;font-size:.8rem">Connexion à Gmail en cours…</span></div>';
+
+  try{
+    const today = new Date();
+    const since = new Date(today - 21*24*3600*1000).toISOString().split('T')[0];
+
+    const systemPrompt = `Tu es un assistant qui analyse les emails professionnels d'une agence d'architecture.
+Tu dois analyser les emails envoyés depuis contact@rivasarchitecture.com dans les 21 derniers jours (depuis le ${since}).
+Identifie les threads (conversations) où l'agence a envoyé un email mais n'a reçu aucune réponse.
+Pour chaque thread sans réponse, retourne un objet JSON avec exactement ces champs :
+- id : identifiant unique (string, ex: "rl_001")
+- project : nom du projet concerné (Matchplay / Berdaa / Abehsera / Bauchart / Amelkis / Autre)
+- subject : objet de l'email
+- recipient : adresse email du destinataire
+- recipient_name : nom du destinataire (si connu)
+- date_sent : date d'envoi (format JJ/MM/AAAA)
+- days_waiting : nombre de jours depuis l'envoi sans réponse (number)
+- urgency : "urgent" si >5 jours OU situation critique (facture impayée, client mécontent, intervention non confirmée), "medium" si 3-5 jours, "watch" si 1-2 jours
+- summary : résumé du contexte en 1-2 phrases
+- alert : message d'alerte si situation critique (sinon null)
+
+Retourne UNIQUEMENT un tableau JSON valide, sans texte autour, sans markdown. Exemple :
+[{"id":"rl_001","project":"Matchplay","subject":"...","recipient":"...","recipient_name":"...","date_sent":"...","days_waiting":7,"urgency":"urgent","summary":"...","alert":"..."}]
+
+Si aucun thread sans réponse, retourne [].`;
+
+    // Récupérer les emails via l'API Gmail REST si un token est disponible
+    const gToken = localStorage.getItem('rv_gmail_token')||'';
+    let emailContext = '';
+    if(gToken){
+      try{
+        const sinceUnix=Math.floor((today-21*24*3600*1000)/1000);
+        const sr=await fetch(`https://www.googleapis.com/gmail/v1/users/me/threads?q=from%3Acontact%40rivasarchitecture.com+after%3A${sinceUnix}&maxResults=30`,{headers:{Authorization:'Bearer '+gToken}});
+        if(sr.ok){
+          const sd=await sr.json();
+          const threads=sd.threads||[];
+          const details=[];
+          for(const th of threads.slice(0,20)){
+            try{
+              const tr=await fetch(`https://www.googleapis.com/gmail/v1/users/me/threads/${th.id}?format=metadata&metadataHeaders=Subject&metadataHeaders=To&metadataHeaders=From&metadataHeaders=Date`,{headers:{Authorization:'Bearer '+gToken}});
+              if(!tr.ok)continue;
+              const td=await tr.json();
+              const msgs=td.messages||[];if(!msgs.length)continue;
+              const lastFrom=(msgs[msgs.length-1]?.payload?.headers||[]).find(h=>h.name.toLowerCase()==='from')?.value||'';
+              if(!lastFrom.toLowerCase().includes('rivasarchitecture'))continue;
+              const fh=msgs[0]?.payload?.headers||[];
+              const gH=(h,n)=>h.find(x=>x.name.toLowerCase()===n.toLowerCase())?.value||'';
+              details.push({id:th.id,subject:gH(fh,'Subject'),to:gH(fh,'To'),date:gH(fh,'Date'),snippet:(td.snippet||'').substring(0,150)});
+            }catch(ignore){}
+          }
+          if(details.length)emailContext=`\nDonnées Gmail récupérées :\n${JSON.stringify(details,null,2)}`;
+        }
+      }catch(ge){console.warn('Gmail fetch:',ge);}
+    }
+
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 4000,
+        system: systemPrompt,
+        messages: [{
+          role: 'user',
+          content: `Analyse les emails envoyés depuis contact@rivasarchitecture.com au cours des 21 derniers jours (depuis le ${since} jusqu'à aujourd'hui ${today.toISOString().split('T')[0]}). Identifie tous les threads sans réponse et retourne la liste JSON demandée.${emailContext}`
+        }]
+      })
+    });
+
+    const data = await res.json();
+
+    if(data.error || data.type==='error'){
+      throw new Error(data.error?.message || 'Erreur API');
+    }
+
+    // Extract text from response
+    let rawText = '';
+    if(data.content && Array.isArray(data.content)){
+      rawText = data.content
+        .filter(c => c.type==='text')
+        .map(c => c.text||'')
+        .join('');
+    }
+
+    // Try to parse JSON
+    let threads = [];
+    try{
+      const match = rawText.match(/\[[\s\S]*\]/);
+      if(match) threads = JSON.parse(match[0]);
+    }catch(e){
+      // If parsing fails, try to extract from markdown code blocks
+      const codeMatch = rawText.match(/```(?:json)?\s*([\s\S]*?)```/);
+      if(codeMatch){
+        try{ threads = JSON.parse(codeMatch[1]); }catch(e2){}
+      }
+    }
+
+    // Ensure all threads have valid ids
+    threads = threads.map((t,i) => ({
+      ...t,
+      id: t.id || ('rl_'+Date.now()+'_'+i),
+      draft: ''
+    }));
+
+    // Merge with existing resolved-safe data (keep drafts)
+    const existing = rlGetData();
+    threads = threads.map(t => {
+      const prev = existing.find(e => e.recipient===t.recipient && e.subject===t.subject);
+      if(prev && prev.draft) t.draft = prev.draft;
+      return t;
+    });
+
+    rlSaveData(threads);
+    _rlData = threads;
+    rlRender();
+
+    const cnt = threads.length;
+    showToast(cnt ? `✓ ${cnt} thread${cnt>1?'s':''} sans réponse détecté${cnt>1?'s':''}` : '✓ Aucun email en attente de réponse');
+
+  }catch(e){
+    const msg = e.message||'Erreur inconnue';
+    if(container) container.innerHTML = `<div class="rl-empty" style="color:var(--RED)">⚠ Erreur : ${_escHtml(msg)}<br><span style="color:var(--C3);font-size:.78rem">Vérifiez votre clé API et que le MCP Gmail est configuré.</span></div>`;
+    showToast('Erreur : '+msg);
+  }finally{
+    if(btn) btn.disabled = false;
+    if(spin) spin.style.display = 'none';
+    if(txt) txt.textContent = '⟳ Analyser';
+  }
+}
+
+async function rlGenDraft(id){
+  const key = getAIKey();
+  if(!key){ showToast('Clé API manquante — Administration → Configuration IA'); return; }
+
+  const data = rlGetData();
+  const t = data.find(x=>x.id===id);
+  if(!t) return;
+
+  const sp = document.getElementById('rl-sp-'+id);
+  const btn = document.getElementById('rl-draft-btn-'+id);
+  if(sp) sp.style.display='inline-block';
+  if(btn) btn.disabled = true;
+
+  // Open draft zone
+  const zone = document.getElementById('rl-draft-'+id);
+  if(zone) zone.classList.add('on');
+  const ta = document.getElementById('rl-ta-'+id);
+  if(ta) ta.value = '⟳ Génération en cours…';
+
+  try{
+    const prompt = `Tu es un assistant de communication pour une agence d'architecture (Tri Architectes / Rivas Architecture).
+Rédige une relance email professionnelle et sobre en français pour le thread suivant :
+- Projet : ${t.project||'—'}
+- Objet original : ${t.subject||'—'}
+- Destinataire : ${t.recipient_name||t.recipient||'—'} (${t.recipient||'—'})
+- Envoyé le : ${t.date_sent||'—'}
+- En attente depuis : ${t.days_waiting||'?'} jours
+- Contexte : ${t.summary||'—'}
+${t.alert?'- Alerte : '+t.alert:''}
+
+La relance doit être :
+- Courte (5-8 lignes maximum)
+- Professionnelle mais chaleureuse
+- Rappeler l'objet du précédent email sans être insistante
+- Proposer une action concrète (appel, confirmation, retour)
+- Signée "Michel Rivas — Tri Architectes"
+
+Retourne UNIQUEMENT le corps de l'email (sans objet, sans "Objet:", juste le texte à partir de la formule d'appel).`;
+
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 4000,
+        messages: [{role:'user', content:prompt}]
+      })
+    });
+    const resp = await res.json();
+    if(resp.error||resp.type==='error') throw new Error(resp.error?.message||'Erreur API');
+    const draft = resp.content?.map(c=>c.text||'').join('')||'';
+
+    if(ta) ta.value = draft;
+
+    // Save draft
+    t.draft = draft;
+    rlSaveData(data);
+    showToast('✓ Brouillon généré');
+
+  }catch(e){
+    if(ta) ta.value = '⚠ Erreur : '+(e.message||'inconnue');
+    showToast('Erreur : '+e.message);
+  }finally{
+    if(sp) sp.style.display='none';
+    if(btn){ btn.disabled=false; btn.innerHTML='<span class="rl-spin dark" id="rl-sp-'+id+'" style="display:none"></span> ✏ Rédiger'; }
+  }
+}
+
+async function rlCreateGmailDraft(id){
+  const key = getAIKey();
+  if(!key){ showToast('Clé API manquante — Administration → Configuration IA'); return; }
+
+  const data = rlGetData();
+  const t = data.find(x=>x.id===id);
+  if(!t){ showToast('Thread introuvable'); return; }
+
+  const ta = document.getElementById('rl-ta-'+id);
+  const body = ta ? ta.value.trim() : (t.draft||'');
+  if(!body){ showToast('Rédigez d\'abord le brouillon'); return; }
+
+  const sp = document.getElementById('rl-gm-sp-'+id);
+  if(sp) sp.style.display='inline-block';
+
+  const gToken = localStorage.getItem('rv_gmail_token')||'';
+  try{
+    const subject = 'Relance : ' + (t.subject||'Sans objet');
+    if(gToken){
+      // Créer brouillon via API Gmail REST
+      const email=['From: contact@rivasarchitecture.com','To: '+(t.recipient||''),'Subject: '+subject,'MIME-Version: 1.0','Content-Type: text/plain; charset=UTF-8','',body].join('\r\n');
+      const encoded=btoa(unescape(encodeURIComponent(email))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+      const res=await fetch('https://www.googleapis.com/gmail/v1/users/me/drafts',{
+        method:'POST',
+        headers:{'Authorization':'Bearer '+gToken,'Content-Type':'application/json'},
+        body:JSON.stringify({message:{raw:encoded}})
+      });
+      if(!res.ok){const e=await res.json().catch(()=>({}));if(res.status===401){showToast('Token Gmail expiré');return;}throw new Error(e.error?.message||'Erreur Gmail '+res.status);}
+      t.gmailDraft=true; rlSaveData(data);
+      showToast('✓ Brouillon créé dans Gmail');
+    } else {
+      // Fallback : ouvrir Gmail en composition
+      const url='https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(t.recipient||'')+'&su='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+      window.open(url,'_blank');
+      showToast('✓ Gmail ouvert en composition');
+    }
+  }catch(e){
+    // Fallback Gmail compose
+    const url='https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(t.recipient||'')+'&su='+encodeURIComponent('Relance : '+(t.subject||''))+'&body='+encodeURIComponent(body);
+    window.open(url,'_blank');
+    showToast('Gmail ouvert — erreur API: '+(e.message||'').substring(0,40));
+  }finally{
+    if(sp) sp.style.display='none';
+  }
+}
 
 </script>
 </body>
