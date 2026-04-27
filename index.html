@@ -171,12 +171,37 @@ main{flex:1;overflow:hidden;position:relative;}
 .ti-meta{font-family:var(--fm);font-size:.7rem;color:var(--C3);letter-spacing:.3px;}
 .ti-pct{font-family:var(--fs);font-size:1.5rem;font-weight:300;color:var(--C3);line-height:1;flex-shrink:0;}
 
-/* ══ COMPTE RENDU ══ */
-.cr-dh{padding:14px 14px 10px;background:var(--W);border-bottom:1px solid var(--B);}
-.cr-lg{display:flex;align-items:baseline;gap:8px;}
-.cr-r{font-family:var(--ff);font-weight:300;font-size:1.63rem;letter-spacing:8px;text-transform:uppercase;color:var(--C);}
-.cr-a{font-family:var(--ff);font-weight:300;font-size:.38rem;letter-spacing:4px;text-transform:uppercase;color:var(--C3);}
-.cr-m{font-family:var(--fm);font-size:.75rem;color:var(--C3);margin-top:5px;line-height:1.8;}
+/* ══ COMPTE RENDU — Charte Rivas Architecture ══ */
+.cr-dh{padding:0;background:#271C14;border-bottom:none;}
+.cr-dh-inner{padding:20px 18px 16px;}
+.cr-brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.cr-lg{display:flex;align-items:baseline;gap:6px;}
+.cr-r{font-family:var(--ff);font-weight:300;font-size:1.1rem;letter-spacing:6px;text-transform:uppercase;color:#FCF9F4;}
+.cr-a{font-family:var(--ff);font-weight:300;font-size:.38rem;letter-spacing:4px;text-transform:uppercase;color:rgba(252,249,244,.45);}
+.cr-m{font-family:var(--fm);font-size:.68rem;color:rgba(252,249,244,.55);margin-top:0;line-height:1.7;}
+.cr-actions{display:flex;gap:5px;flex-wrap:wrap;padding:0 0 16px 0;}
+.cr-btn{font-family:var(--fm);font-size:.55rem;letter-spacing:1px;text-transform:uppercase;padding:7px 13px;border:1px solid rgba(252,249,244,.25);background:transparent;color:rgba(252,249,244,.8);cursor:pointer;border-radius:2px;transition:all .15s;}
+.cr-btn:hover{background:rgba(252,249,244,.1);}
+.cr-btn-primary{background:rgba(252,249,244,.12);border-color:rgba(252,249,244,.4);color:#FCF9F4;}
+.cr-dates{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 18px;background:#1C1208;border-top:1px solid rgba(252,249,244,.08);}
+.cr-date-field{display:flex;flex-direction:column;gap:3px;}
+.cr-date-label{font-family:var(--fm);font-size:.4rem;letter-spacing:2px;text-transform:uppercase;color:rgba(252,249,244,.35);}
+.cr-date-input{font-family:var(--fm);font-size:.7rem;padding:7px 8px;border:1px solid rgba(252,249,244,.15);border-radius:2px;background:rgba(252,249,244,.05);color:#FCF9F4;outline:none;-webkit-appearance:none;color-scheme:dark;}
+/* Sections numérotées */
+.cr-sec-header{display:flex;align-items:flex-end;gap:0;padding:24px 18px 10px;background:#F6F1E8;position:relative;overflow:hidden;}
+.cr-sec-num{font-family:var(--ff);font-weight:700;font-size:4.5rem;color:rgba(39,28,20,.06);line-height:1;position:absolute;top:8px;right:14px;letter-spacing:-2px;}
+.cr-sec-title{font-family:var(--fm);font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:rgba(39,28,20,.4);line-height:1.8;}
+.cr-sec-rule{height:1px;background:rgba(39,28,20,.12);margin:0 18px;}
+/* Intervenants */
+.cr-int-wrap{background:#F6F1E8;padding:0 18px 14px;}
+/* RIDA widget */
+.cr-rida-zone{background:#271C14;padding:16px 18px;}
+.cr-rida-label{font-family:var(--fm);font-size:.4rem;letter-spacing:2px;text-transform:uppercase;color:rgba(252,249,244,.4);margin-bottom:10px;}
+.cr-rida-types{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px;}
+.cr-rida-type-btn{height:44px;border:1px solid;font-family:var(--fm);font-size:.48rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+.cr-rida-type-btn span.lbl{font-size:.85rem;font-family:var(--ff);font-weight:700;line-height:1;}
+/* RIDA table content */
+.cr-stat-wrap{background:#F6F1E8;padding:0 18px 18px;}
 .rida{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;font-family:var(--ff);font-weight:700;font-size:.5rem;}
 .rida.D{background:var(--C);color:var(--W);} .rida.A{background:var(--GREEN);color:#fff;} .rida.I{background:var(--ORANGE);color:#fff;}
 .sl-item{padding:13px 14px;border-bottom:1px solid var(--B);background:var(--W);display:flex;gap:10px;align-items:flex-start;transition:background .15s;}
@@ -669,61 +694,147 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
     <!-- ── COMPTE RENDU ── -->
     <div class="pg" id="pg-cr">
       <div class="pg-scroll">
+
+        <!-- ── En-tête CR — Charte Rivas ── -->
         <div class="cr-dh">
-          <div class="cr-lg"><span class="cr-r">RIVAS</span><span class="cr-a">architecture</span></div>
-          <div class="cr-m" id="cr-meta">—</div>
-          <div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap;">
-            <button class="btn btn-sm" onclick="aiExtract()"><span class="sp" id="sp-ext" style="display:none"></span><span id="ext-t">Extraire tâches</span></button>
-            <button class="btn btn-sm btn-o" onclick="aiGenCR()"><span class="sp-d" id="sp-cr" style="display:none"></span><span id="cr-t">Générer CR</span></button>
-            <button class="btn btn-sm btn-o" onclick="generateCRPDF()">📄 PDF</button>
-            <button class="btn btn-sm btn-o" onclick="sendCR()">✉ Envoyer</button>
+          <div class="cr-dh-inner">
+            <div class="cr-brand">
+              <div class="cr-lg"><span class="cr-r">RIVAS</span><span class="cr-a"> &nbsp;ARCHITECTURE</span></div>
+              <div style="font-family:var(--fm);font-size:.42rem;letter-spacing:2px;text-transform:uppercase;color:rgba(252,249,244,.3)">COMPTE RENDU</div>
+            </div>
+            <div class="cr-m" id="cr-meta">—</div>
+            <div class="cr-actions" style="margin-top:14px">
+              <button class="cr-btn cr-btn-primary" onclick="generateCRPDF()">PDF</button>
+              <button class="cr-btn" onclick="aiGenCR()"><span class="sp-d" id="sp-cr" style="display:none"></span><span id="cr-t">Générer CR</span></button>
+              <button class="cr-btn" onclick="sendCR()">Envoyer</button>
+              <button class="cr-btn" onclick="crSendReminderEmail()">Relance</button>
+              <button class="cr-btn" onclick="aiExtract()"><span class="sp" id="sp-ext" style="display:none"></span><span id="ext-t">Extraire tâches</span></button>
+            </div>
+          </div>
+          <div class="cr-dates">
+            <div class="cr-date-field">
+              <span class="cr-date-label">Réunion en cours</span>
+              <input type="datetime-local" id="cr-meeting-dt" class="cr-date-input" onchange="crSaveMeetingDate(this.value)">
+            </div>
+            <div class="cr-date-field">
+              <span class="cr-date-label">Prochaine réunion</span>
+              <input type="datetime-local" id="cr-next-meeting-dt" class="cr-date-input" onchange="crSaveNextMeetingDate(this.value)">
+            </div>
           </div>
         </div>
-        <div class="ai-zone">
-          <div class="ai-lbl">Notes brutes de réunion</div>
-          <div style="display:flex;align-items:flex-start;gap:8px"><textarea class="ai-ta" id="cr-notes" placeholder="Notes par lot, entreprise, actions, décisions..." style="flex:1;margin:0"></textarea><button type="button" class="mic-btn" onclick="startVoiceCR()" style="align-self:flex-start;margin-top:0">🎤</button></div>
+
+        <!-- ── Notes brutes ── -->
+        <div class="ai-zone" style="background:#F6F1E8;border-bottom:1px solid rgba(39,28,20,.1)">
+          <div class="ai-lbl" style="color:rgba(39,28,20,.5)">Notes brutes de réunion</div>
+          <div style="display:flex;align-items:flex-start;gap:8px">
+            <textarea class="ai-ta" id="cr-notes" placeholder="Notes par lot, entreprise, actions, décisions..." style="flex:1;margin:0;background:#FCF9F4;border-color:rgba(39,28,20,.15);color:#271C14"></textarea>
+            <button type="button" class="mic-btn" onclick="startVoiceCR()" style="align-self:flex-start;margin-top:0;background:#271C14">🎤</button>
+          </div>
           <div class="ai-btns">
-            <button class="btn btn-sm btn-o" onclick="aiRisks()"><span class="sp-d" id="sp-rk" style="display:none"></span><span id="rk-t">Risques</span></button>
+            <button class="cr-btn" style="border-color:rgba(39,28,20,.25);color:#271C14" onclick="aiRisks()"><span class="sp-d" id="sp-rk" style="display:none"></span><span id="rk-t">Risques IA</span></button>
+            <button class="cr-btn" style="border-color:rgba(39,28,20,.25);color:#271C14" onclick="crPrefillFromTasks()">⬇ Risques & retards</button>
+            <button class="cr-btn" style="border-color:rgba(39,28,20,.25);color:#271C14" onclick="crImportCompletedTasks()">✓ Tâches réalisées</button>
           </div>
           <div class="ai-out" id="cr-ai-out"><div class="ai-out-h"><div class="ai-badge">Claude IA</div><div class="ai-title" id="cr-ai-tit">Analyse</div></div><div class="ai-text" id="cr-ai-txt"></div></div>
         </div>
-        <div class="sec-h"><span class="sec-t">Intervenants</span><button class="sec-add" onclick="editMembId=null;['m-n','m-r','m-c','m-t','m-e'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('m-pr').value='1';document.getElementById('memb-sheet-t').textContent='Intervenant';document.getElementById('memb-del-btn').style.display='none';openSheet('membSheet')">+</button></div>
-        <div id="cr-int"></div>
-        <div class="sec-h"><span class="sec-t">Planning Actualisé</span></div>
-        <div id="cr-planning"></div>
-        <div class="sec-h"><span class="sec-t">Statut Projet — RIDA</span><button class="sec-add" onclick="openSheet('statSheet')" title="Formulaire détaillé">⚙</button></div>
-        <!-- ── Widget RIDA rapide (mobile-first) ── -->
-        <div id="quick-rida-zone" style="padding:12px 14px 14px;background:var(--A2);border-bottom:2px solid var(--B)">
-          <!-- Titre + légende -->
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:3px">
-            <button onclick="setQRida('R')" id="qr-R" style="height:48px;border:2px solid #8B2020;background:rgba(139,32,32,.08);color:#8B2020;font-family:var(--ff);font-weight:700;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:all .15s">R</button>
-            <button onclick="setQRida('I')" id="qr-I" style="height:48px;border:2px solid #3A6B47;background:rgba(43,98,71,.08);color:#3A6B47;font-family:var(--ff);font-weight:700;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:all .15s">I</button>
-            <button onclick="setQRida('D')" id="qr-D" style="height:48px;border:2px solid #2B6B9A;background:rgba(43,107,154,.08);color:#2B6B9A;font-family:var(--ff);font-weight:700;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:all .15s">D</button>
-            <button onclick="setQRida('A')" id="qr-A" style="height:48px;border:2px solid var(--C);background:var(--C);color:var(--W);font-family:var(--ff);font-weight:700;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:all .15s">A</button>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
-            <span style="font-family:var(--fm);font-size:.44rem;color:var(--C3);text-align:center;letter-spacing:.5px">Risque</span>
-            <span style="font-family:var(--fm);font-size:.44rem;color:var(--C3);text-align:center;letter-spacing:.5px">Info</span>
-            <span style="font-family:var(--fm);font-size:.44rem;color:var(--C3);text-align:center;letter-spacing:.5px">Décision</span>
-            <span style="font-family:var(--fm);font-size:.44rem;color:var(--C3);text-align:center;letter-spacing:.5px">Action ✓</span>
-          </div>
-          <!-- Texte + voix -->
-          <div style="display:flex;gap:6px;align-items:stretch;margin-bottom:8px">
-            <textarea id="qr-det" placeholder="Notez rapidement l'action, décision ou info..." rows="2"
-              style="flex:1;font-family:var(--fm);font-size:.8rem;line-height:1.6;border:1.5px solid var(--B2);background:var(--W);color:var(--C);padding:9px 10px;border-radius:8px;resize:none;outline:none;min-height:64px;-webkit-appearance:none"></textarea>
-            <button onclick="startVoiceQRIDA()" id="qr-mic-btn"
-              style="width:46px;flex-shrink:0;background:var(--C);border:none;border-radius:8px;cursor:pointer;color:#fff;font-size:1.2rem;display:flex;align-items:center;justify-content:center">🎤</button>
-          </div>
-          <!-- Responsable chips -->
-          <div id="qr-resp-btns" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;min-height:16px"></div>
-          <!-- Bouton ajouter -->
-          <button onclick="addQuickRIDA()" style="width:100%;height:46px;background:var(--C);color:var(--W);border:none;font-family:var(--ff);font-weight:700;font-size:.72rem;letter-spacing:2px;border-radius:8px;cursor:pointer">+ AJOUTER</button>
+
+        <!-- ══ SECTION 01 — COMPTE RENDU HEBDOMADAIRE ══ -->
+        <div class="cr-sec-header">
+          <div><div class="cr-sec-title">COMPTE RENDU<br>HEBDOMADAIRE</div></div>
+          <span class="cr-sec-num">01</span>
         </div>
-        <div id="cr-stat"></div>
-        <div class="sec-h"><span class="sec-t">Éléments Clefs</span><button class="sec-add" onclick="openSheet('clefSheet')">+</button></div>
-        <div id="cr-clefs"></div>
+        <div class="cr-sec-rule"></div>
+
+        <!-- Intervenants -->
+        <div class="cr-int-wrap">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0 8px">
+            <span style="font-family:var(--fm);font-size:.42rem;letter-spacing:2px;text-transform:uppercase;color:rgba(39,28,20,.4)">Intervenants</span>
+            <button style="font-family:var(--fm);font-size:.5rem;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(39,28,20,.2);background:transparent;color:rgba(39,28,20,.6);cursor:pointer;border-radius:2px" onclick="editMembId=null;['m-n','m-r','m-c','m-t','m-e'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('m-pr').value='1';document.getElementById('memb-sheet-t').textContent='Intervenant';document.getElementById('memb-del-btn').style.display='none';openSheet('membSheet')">+ Ajouter</button>
+          </div>
+          <div id="cr-int"></div>
+        </div>
+
+        <!-- ══ SECTION 02 — STATUT PROJET RIDA ══ -->
+        <div class="cr-sec-header" style="background:#271C14">
+          <div><div class="cr-sec-title" style="color:rgba(252,249,244,.4)">STATUT PROJET<br>RIDA</div></div>
+          <span class="cr-sec-num" style="color:rgba(252,249,244,.05)">02</span>
+        </div>
+        <div style="height:1px;background:rgba(252,249,244,.08)"></div>
+
+        <!-- Widget RIDA rapide -->
+        <div id="quick-rida-zone" class="cr-rida-zone">
+          <div class="cr-rida-label">Type de point</div>
+          <div class="cr-rida-types">
+            <button onclick="setQRida('R')" id="qr-R" class="cr-rida-type-btn" style="border-color:rgba(139,32,32,.4);color:#8B2020;background:rgba(139,32,32,.08)"><span class="lbl">R</span><span>Risque</span></button>
+            <button onclick="setQRida('I')" id="qr-I" class="cr-rida-type-btn" style="border-color:rgba(43,98,71,.4);color:#3A6B47;background:rgba(43,98,71,.08)"><span class="lbl">I</span><span>Info</span></button>
+            <button onclick="setQRida('D')" id="qr-D" class="cr-rida-type-btn" style="border-color:rgba(43,107,154,.4);color:#2B6B9A;background:rgba(43,107,154,.08)"><span class="lbl">D</span><span>Décision</span></button>
+            <button onclick="setQRida('A')" id="qr-A" class="cr-rida-type-btn" style="border-color:rgba(100,82,0,.4);color:#A89040;background:rgba(100,82,0,.12)"><span class="lbl">A</span><span>Action</span></button>
+          </div>
+          <input id="qr-theme" type="text" placeholder="THÈME / LOT  —  Peinture, Électricité, Menuiserie…"
+            style="width:100%;box-sizing:border-box;font-family:var(--fm);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;border:1px solid rgba(252,249,244,.15);background:rgba(252,249,244,.06);color:#FCF9F4;padding:9px 12px;border-radius:2px;outline:none;margin-bottom:8px;-webkit-appearance:none;::placeholder{color:rgba(252,249,244,.25)}">
+          <div style="display:flex;gap:6px;align-items:stretch;margin-bottom:10px">
+            <textarea id="qr-det" placeholder="Phrase verbale — ex : Installer les banquettes à l'étage · Mettre en peinture les murs et le plafond…" rows="2"
+              style="flex:1;font-family:var(--fm);font-size:.75rem;line-height:1.7;border:1px solid rgba(252,249,244,.15);background:rgba(252,249,244,.06);color:#FCF9F4;padding:9px 12px;border-radius:2px;resize:none;outline:none;min-height:62px;-webkit-appearance:none"></textarea>
+            <button onclick="startVoiceQRIDA()" id="qr-mic-btn"
+              style="width:44px;flex-shrink:0;background:rgba(252,249,244,.1);border:1px solid rgba(252,249,244,.15);border-radius:2px;cursor:pointer;color:#FCF9F4;font-size:1.1rem;display:flex;align-items:center;justify-content:center">🎤</button>
+          </div>
+          <div id="qr-resp-btns" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;min-height:16px"></div>
+          <button onclick="addQuickRIDA()" style="width:100%;height:44px;background:#FCF9F4;color:#271C14;border:none;font-family:var(--fm);font-weight:700;font-size:.52rem;letter-spacing:3px;text-transform:uppercase;border-radius:2px;cursor:pointer">+ Ajouter le point</button>
+        </div>
+        <!-- Table RIDA -->
+        <div class="cr-stat-wrap" style="padding:0">
+          <div id="cr-stat"></div>
+        </div>
+
+        <!-- Planning (collapsible) -->
+        <div class="cr-sec-header" style="cursor:pointer" onclick="const w=document.getElementById('cr-planning-wrap');w.style.display=w.style.display==='none'?'block':'none'">
+          <div><div class="cr-sec-title">PLANNING<br>PROCHAINES SEMAINES</div></div>
+          <span class="cr-sec-num">↓</span>
+        </div>
+        <div class="cr-sec-rule"></div>
+        <div id="cr-planning-wrap" style="display:none;background:#F6F1E8"><div id="cr-planning"></div></div>
+
+        <!-- ══ SECTION 03 — ÉLÉMENTS CLEFS ══ -->
+        <div class="cr-sec-header">
+          <div><div class="cr-sec-title">ÉLÉMENTS<br>CLEFS</div></div>
+          <span class="cr-sec-num">03</span>
+        </div>
+        <div class="cr-sec-rule"></div>
+        <div style="background:#F6F1E8;padding:0 18px">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0 6px">
+            <span style="font-family:var(--fm);font-size:.4rem;letter-spacing:2px;text-transform:uppercase;color:rgba(39,28,20,.4)">Points clés</span>
+            <button style="font-family:var(--fm);font-size:.5rem;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(39,28,20,.2);background:transparent;color:rgba(39,28,20,.6);cursor:pointer;border-radius:2px" onclick="openSheet('clefSheet')">+ Ajouter</button>
+          </div>
+          <div id="cr-clefs"></div>
+        </div>
+
+        <!-- ══ SECTION 04 — RAPPEL STRUCTURANTS ══ -->
+        <div class="cr-sec-header" style="background:#271C14">
+          <div><div class="cr-sec-title" style="color:rgba(252,249,244,.4)">RAPPEL ÉLÉMENTS<br>STRUCTURANTS</div></div>
+          <span class="cr-sec-num" style="color:rgba(252,249,244,.05)">04</span>
+        </div>
+        <div style="height:1px;background:rgba(252,249,244,.08)"></div>
+        <div style="background:#F6F1E8;padding:0 18px 18px">
+          <div style="font-family:var(--fm);font-size:.42rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(39,28,20,.35);padding:10px 0 6px">Décisions contractuelles — type D auto-filtrées</div>
+          <div id="cr-structurants"></div>
+        </div>
+
+        <!-- ══ SECTION 05 — ANNEXES PHOTOS ══ -->
+        <div class="cr-sec-header">
+          <div><div class="cr-sec-title">ANNEXES<br>PHOTOS</div></div>
+          <span class="cr-sec-num">05</span>
+        </div>
+        <div class="cr-sec-rule"></div>
+        <div style="background:#F6F1E8;padding:12px 18px">
+          <button style="font-family:var(--fm);font-size:.5rem;letter-spacing:1px;text-transform:uppercase;padding:7px 14px;border:1px solid rgba(39,28,20,.2);background:transparent;color:rgba(39,28,20,.6);cursor:pointer;border-radius:2px;margin-bottom:10px" onclick="document.getElementById('cr-annex-input').click()">+ Ajouter photos</button>
+          <input type="file" id="cr-annex-input" accept="image/*" multiple style="display:none" onchange="crAddAnnexPhotos(this.files)">
+          <div id="cr-annexes" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+        </div>
         <div id="cr-pdf-list"></div>
-        <div style="padding:14px 14px;border-top:1px solid var(--B);font-family:var(--fm);font-size:.5rem;color:var(--C3);text-align:center;line-height:2">Rivas Architecture · contact@rivasarchitecture.com</div>
+        <!-- Footer -->
+        <div style="padding:20px 18px;background:#271C14;font-family:var(--fm);font-size:.42rem;color:rgba(252,249,244,.3);letter-spacing:1.5px;text-align:center;text-transform:uppercase">
+          Rivas Architecture &nbsp;·&nbsp; contact@rivasarchitecture.com &nbsp;·&nbsp; RIDA : Risque / Information / Décision / Action
+        </div>
       </div>
     </div>
 
@@ -1378,6 +1489,23 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
           2. Créez un projet → <strong>Realtime Database</strong><br>
           3. Copiez les valeurs dans <strong>Paramètres du projet → Vos applications</strong>
         </div>
+        <div style="font-family:var(--fm);font-size:.6rem;color:var(--C3);line-height:1.8;background:rgba(201,64,64,.05);padding:10px;border-radius:var(--r-sm);margin-bottom:10px;border-left:3px solid rgba(201,64,64,.4)">
+          <strong style="color:var(--RED)">🔒 Règles de sécurité Firebase à appliquer</strong><br>
+          Dans la console Firebase → Realtime Database → <strong>Règles</strong>, copiez :<br>
+          <code style="display:block;margin:6px 0;font-size:.58rem;background:rgba(26,35,50,.08);padding:6px 8px;border-radius:4px;white-space:pre;line-height:1.6">{
+  "rules": {
+    "rivas_state": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "$other": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}</code>
+          Cela bloque tout accès direct à la base sans passer par l'application.
+        </div>
         <div class="fg"><label>API Key</label><input type="text" id="fb-api-key" placeholder="AIzaSy..."></div>
         <div class="fg"><label>Database URL</label><input type="text" id="fb-db-url" placeholder="https://votre-projet-default-rtdb.europe-west1.firebasedatabase.app"></div>
         <div class="fg"><label>Project ID</label><input type="text" id="fb-proj-id" placeholder="votre-projet-id"></div>
@@ -1623,6 +1751,10 @@ function doLogout(){
   document.getElementById('email-inp').value='';
   document.getElementById('email-err').textContent='';
   _authEmail='';
+  // ── Déconnexion Firebase à la déconnexion ──
+  if(_fbRef&&_fbListening){try{_fbRef.off();}catch(e){} _fbListening=false;}
+  _fbRef=null; _fbDb=null;
+  _syncDot('off');
 }
 
 // ══════════════════════════════════════════════════
@@ -2000,22 +2132,14 @@ const _FIREBASE_DEFAULT={
   appId:"1:17463779919:web:ed9804588bb47d30d0803a"
 };
 
-// Auto-init Firebase — toujours forcer la config intégrée (ignore cache)
-// Note : _startFirebaseListener() est appelé automatiquement après auth anonyme
-(function(){
+// ── Sécurité Firebase : init uniquement après authentification locale ──
+// Firebase est initialisé dans launchApp() — jamais en avance sur l'auth.
+// Cela empêche tout accès aux données sans mot de passe valide,
+// même si la configuration Firebase est visible dans le code source.
+function _initFirebaseAfterAuth(){
   _saveFirebaseConfigLS(_FIREBASE_DEFAULT);
   _initFirebase(_FIREBASE_DEFAULT);
-})();
-
-// Fallback : si Firebase pas connecté après chargement complet, réessayer
-window.addEventListener('load',function(){
-  setTimeout(function(){
-    if(!_fbRef&&!_fbListening){
-      _saveFirebaseConfigLS(_FIREBASE_DEFAULT);
-      _initFirebase(_FIREBASE_DEFAULT);
-    }
-  },2000);
-});
+}
 
 // ── Import / Export JSON ─────────────────────────────────────────────────
 function exportAppData(){
@@ -2084,6 +2208,11 @@ function launchApp(session){
     const el=document.getElementById(id);if(el)el.classList.add('gone');
   });
   document.getElementById('app').classList.add('on');
+
+  // ── Connexion Firebase après auth locale ──
+  // Sécurité : Firebase n'est jamais connecté avant que l'utilisateur
+  // ait fourni un email + mot de passe valide.
+  if(!_fbRef&&!_fbListening){_initFirebaseAfterAuth();}
 
   // Account menu
   const ini=s=>s.split(/[\s@.]/)[0].slice(0,2).toUpperCase();
@@ -4140,6 +4269,8 @@ function renderLatePanel(){
   const list=document.getElementById('late-panel-list');
   if(!panel||!list)return;
   if(!lateItems.length&&!upcomingItems.length){panel.style.display='none';const tl=document.getElementById('task-list');if(tl)tl.style.paddingRight='0';return;}
+  // Masquer le panneau flottant sur mobile — liste déjà visible dans la page
+  if(window.innerWidth<=680){panel.style.display='none';return;}
   panel.style.display='flex';
 
   let html='';
@@ -4281,36 +4412,116 @@ function renderTaskList(){
 
 // ══ COMPTE RENDU ══
 function renderCR(){
-  document.getElementById('cr-meta').innerHTML=`Projet : <strong>${S.projects[S.curP]?.name||'—'}</strong><br>Réunion N° — · ${new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})}`;
-  // Intervenants
-  document.getElementById('cr-int').innerHTML=pM().length?pM().map(m=>`<div class="sl-item" style="cursor:pointer" onclick="openEditMemb(${m.id})"><div class="sl-body"><div class="sl-theme">${m.name} — <span style="font-weight:400;font-size:.88em">${m.company||''}</span></div><div style="font-family:var(--fm);font-size:.56rem;color:var(--C3);margin-top:2px">${m.type} · ${m.present?'✓ Présent':'✗ Absent'}${m.email?' · '+m.email:''}</div></div><div style="font-size:.65rem;color:var(--C3);padding:4px 6px;opacity:.5">✎</div></div>`).join(''):`<div class="empty">—</div>`;
-  // Stat lines — mobile-optimized display
+  const proj=S.projects[S.curP]||{};
+  const meetingDt=proj.reunionDate||'';
+  const nextMeetingDt=proj.nextReunionDate||'';
+  const meetingLabel=meetingDt?new Date(meetingDt).toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'—';
+  document.getElementById('cr-meta').innerHTML=`Projet : <strong>${proj.name||'—'}</strong> · Réunion du ${meetingLabel}`;
+  // Restore datetime inputs
+  const dtEl=document.getElementById('cr-meeting-dt');if(dtEl&&meetingDt&&!dtEl.value)dtEl.value=meetingDt;
+  const ndtEl=document.getElementById('cr-next-meeting-dt');if(ndtEl&&nextMeetingDt&&!ndtEl.value)ndtEl.value=nextMeetingDt;
+
+  // Intervenants — avec toggle présence rapide
+  document.getElementById('cr-int').innerHTML=pM().length?`
+    <div style="overflow-x:auto;padding:0 14px 8px">
+    <table style="width:100%;border-collapse:collapse;font-family:var(--fm);font-size:.62rem">
+      <thead><tr style="background:#271C14;color:#FCF9F4">
+        <th style="padding:7px 10px;text-align:left;font-weight:500;font-size:.5rem;letter-spacing:1.5px;text-transform:uppercase">Participant(s)</th>
+        <th style="padding:7px 8px;text-align:center;width:46px;font-weight:500;font-size:.5rem;letter-spacing:1.5px;text-transform:uppercase">Invit.</th>
+        <th style="padding:7px 8px;text-align:center;width:46px;font-weight:500;font-size:.5rem;letter-spacing:1.5px;text-transform:uppercase">Prés.</th>
+        <th style="padding:7px 8px;text-align:center;width:46px;font-weight:500;font-size:.5rem;letter-spacing:1.5px;text-transform:uppercase">Abs.</th>
+      </tr></thead>
+      <tbody>${pM().map((m,i)=>{
+        const isPresent=m.present!==false;
+        return `<tr style="${i%2===0?'background:#F6F1E8':'background:#FCF9F4'}">
+          <td style="padding:8px 10px;border-bottom:1px solid rgba(39,28,20,.08)">
+            <div style="font-weight:600;color:#271C14">${m.name}${m.company?' — <span style="font-weight:400;opacity:.6">'+m.company+'</span>':''}</div>
+            <div style="color:rgba(39,28,20,.45);font-size:.55rem;margin-top:1px">${m.type||''}${m.tel?' · '+m.tel:''}${m.email?' · '+m.email:''}</div>
+          </td>
+          <td style="text-align:center;padding:8px;border-bottom:1px solid rgba(39,28,20,.08)"><span style="color:rgba(39,28,20,.25);font-size:.8rem">✕</span></td>
+          <td style="text-align:center;padding:8px;border-bottom:1px solid rgba(39,28,20,.08)">
+            <button onclick="crTogglePresence(${m.id})" style="width:28px;height:28px;border-radius:50%;border:2px solid ${isPresent?'#2B7A4B':'rgba(39,28,20,.2)'};background:${isPresent?'#2B7A4B':'transparent'};cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s">
+              ${isPresent?'<span style="color:#fff;font-size:.7rem">✓</span>':'<span style="font-size:.7rem"></span>'}
+            </button>
+          </td>
+          <td style="text-align:center;padding:8px;border-bottom:1px solid rgba(39,28,20,.08)"><span style="${!isPresent?'color:#271C14;font-weight:700':'color:rgba(39,28,20,.15)'}">✕</span></td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table></div>`:`<div class="empty">—</div>`;
+
+  // Stat lines — avec bullets si multilignes
   const RIDA_COLORS={R:'#8B2020',I:'#3A6B47',D:'#2B6B9A',A:'var(--GREEN)'};
-  document.getElementById('cr-stat').innerHTML=pSL().length?pSL().map(l=>{
+  const RIDA_LABEL={R:'Risque',I:'Information',D:'Décision',A:'Action'};
+  const _fmtDetail=(txt)=>{
+    if(!txt)return '';
+    const lines=txt.split('\n').map(l=>l.trim()).filter(Boolean);
+    if(lines.length<=1)return `<span>${txt}</span>`;
+    return `<ul style="margin:4px 0 0 12px;padding:0;list-style:disc">${lines.map(l=>`<li style="margin-bottom:3px;line-height:1.55">${l.replace(/^[-•·]\s*/,'')}</li>`).join('')}</ul>`;
+  };
+  // Séparer risques résolus / actifs
+  const activeLines=pSL().filter(l=>l.rida!=='R'||!l.resolved);
+  const resolvedRisks=pSL().filter(l=>l.rida==='R'&&l.resolved);
+  const allLines=[...activeLines,...resolvedRisks];
+  // Formater date "dd/mm" → "dd.mm"
+  const _fmtDate=(d)=>d?(d+'').replace(/\//g,'.'):'—';
+  // Rendu détail : phrases verbales + bullet points si multilignes
+  const _fmtDetTable=(txt,urgent,resolved)=>{
+    if(!txt)return '';
+    const td=resolved?'text-decoration:line-through;opacity:.55;':'';
+    const lines=txt.split('\n').map(l=>l.trim()).filter(Boolean);
+    if(lines.length<=1)return `<span style="${td}color:${urgent?'var(--RED)':'var(--C)'}">${txt}</span>`;
+    return `<ul style="margin:0;padding:0 0 0 14px;list-style:disc">${lines.map((ln,i)=>`<li style="margin-bottom:2px;line-height:1.55;${td}color:${urgent&&i===lines.length-1?'var(--RED)':'var(--C)'}">${ln.replace(/^[-•·]\s*/,'')}</li>`).join('')}</ul>`;
+  };
+  const renderRow=(l,idx)=>{
     const rc=RIDA_COLORS[l.rida]||'#555';
-    return `<div class="sl-item" style="padding:13px 14px;gap:10px;border-left:4px solid ${rc};position:relative">
-      <div style="width:34px;height:34px;border-radius:50%;background:${rc};display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <span style="font-family:var(--ff);font-weight:700;font-size:.8rem;color:#fff">${l.rida}</span>
-      </div>
-      <div class="sl-body" style="margin-left:0;flex:1;min-width:0">
-        ${l.theme?`<div class="sl-theme" style="font-size:.7rem;margin-bottom:2px;color:${rc}">${l.theme}</div>`:''}
-        <div class="sl-det${l.urgent?' urg':''}" style="font-size:.75rem;line-height:1.6;color:var(--C)">${l.detail}</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap">
-          ${l.resp?`<span class="resp-tag" style="font-size:.65rem;padding:3px 10px">${l.resp}</span>`:''}
-          ${l.date?`<span style="font-family:var(--fm);font-size:.55rem;color:var(--C3)">${l.date}</span>`:''}
-          ${l.urgent?`<span style="font-family:var(--fm);font-size:.55rem;color:var(--RED);background:rgba(139,32,32,.08);padding:2px 7px;border-radius:10px">⚠ Urgent</span>`:''}
+    const isResolved=l.rida==='R'&&l.resolved;
+    const themeStr=(l.lot||l.theme||'—');
+    const bg=idx%2===0?'#FCF9F4':'#F6F1E8';
+    const brd='rgba(39,28,20,.08)';
+    return `<tr style="background:${bg};opacity:${isResolved?.5:1}">
+      <td style="padding:8px 6px;text-align:center;font-family:var(--fm);font-size:.58rem;color:rgba(39,28,20,.35);border-bottom:1px solid ${brd};border-right:1px solid ${brd};white-space:nowrap;vertical-align:top">${idx+1}</td>
+      <td style="padding:8px 6px;text-align:center;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top">
+        <span style="font-family:var(--ff);font-weight:700;font-size:.9rem;color:${isResolved?'rgba(39,28,20,.3)':rc}">${isResolved?'✓':l.rida}</span>
+      </td>
+      <td style="padding:8px 8px;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top;min-width:60px">
+        <span style="font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:${isResolved?'rgba(39,28,20,.3)':rc};${isResolved?'text-decoration:line-through':''}">${themeStr}</span>
+      </td>
+      <td style="padding:8px 10px;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top;min-width:120px">
+        <div style="font-family:var(--fm);font-size:.65rem;line-height:1.65;color:#271C14">${_fmtDetTable(l.detail,l.urgent&&!isResolved,isResolved)}</div>
+        ${l.photos?.length?`<div style="display:flex;gap:5px;margin-top:6px;flex-wrap:wrap">${l.photos.map(p=>`<img style="width:56px;height:56px;object-fit:cover;border:1px solid rgba(39,28,20,.12);cursor:zoom-in;border-radius:2px" src="${p}" onclick="showPh(this.src)">`).join('')}</div>`:''}
+        <div style="display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;align-items:center">
+          ${l.rida==='R'?`<button onclick="crToggleResolved(${l.id})" style="font-family:var(--fm);font-size:.48rem;letter-spacing:.5px;padding:3px 9px;border-radius:2px;cursor:pointer;border:1px solid ${isResolved?'rgba(39,28,20,.2)':'#2B7A4B'};background:transparent;color:${isResolved?'rgba(39,28,20,.4)':'#2B7A4B'}">${isResolved?'↩ Réouvrir':'✓ Résolu'}</button>`:''}
+          <label style="font-family:var(--fm);font-size:.48rem;color:rgba(39,28,20,.4);cursor:pointer;border:1px dashed rgba(39,28,20,.2);padding:3px 7px;border-radius:2px;display:inline-flex;align-items:center;gap:3px">📷<input type="file" accept="image/*" multiple style="display:none" onchange="addStPh(${l.id},this)"></label>
+          <button onclick="delStatLine(${l.id})" style="font-family:var(--fm);font-size:.48rem;color:rgba(139,32,32,.7);background:transparent;border:1px solid rgba(139,32,32,.15);padding:3px 7px;border-radius:2px;cursor:pointer">🗑</button>
         </div>
-        ${l.photos?.length?`<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">${l.photos.map(p=>`<img style="width:80px;height:80px;object-fit:cover;border:1px solid var(--B);cursor:zoom-in;border-radius:4px" src="${p}" onclick="showPh(this.src)">`).join('')}</div>`:''}
-        <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
-          <label style="font-family:var(--fm);font-size:.52rem;color:var(--C3);cursor:pointer;border:1px dashed var(--B2);padding:4px 9px;border-radius:4px;display:inline-flex;align-items:center;gap:4px">📷 Photo<input type="file" accept="image/*" multiple style="display:none" onchange="addStPh(${l.id},this)"></label>
-          <button onclick="delStatLine(${l.id})" style="font-family:var(--fm);font-size:.52rem;color:var(--RED);background:rgba(139,32,32,.07);border:1px solid rgba(139,32,32,.2);padding:4px 9px;border-radius:4px;cursor:pointer">🗑 Supprimer</button>
-        </div>
-      </div>
-    </div>`;
-  }).join(''):`<div class="empty">Aucun point RIDA — utilisez les boutons ci-dessus pour en ajouter</div>`;
+      </td>
+      <td style="padding:8px 6px;text-align:center;white-space:nowrap;font-family:var(--fm);font-size:.6rem;color:#271C14;font-weight:600;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top">${_fmtDate(l.date)}</td>
+      <td style="padding:8px 8px;text-align:center;font-family:var(--fm);font-size:.6rem;font-weight:700;color:${isResolved?'rgba(39,28,20,.3)':rc};border-bottom:1px solid ${brd};vertical-align:top">${l.resp||'—'}</td>
+    </tr>`;
+  };
+  document.getElementById('cr-stat').innerHTML=allLines.length
+    ?`<div style="overflow-x:auto;padding:0 0 0">
+      <table style="width:100%;border-collapse:collapse;font-family:var(--fm)">
+        <thead>
+          <tr style="background:#271C14;color:#FCF9F4">
+            <th style="padding:9px 6px;text-align:center;font-family:var(--fm);font-size:.48rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;border-right:1px solid rgba(252,249,244,.1);width:28px">#</th>
+            <th style="padding:9px 6px;text-align:center;font-family:var(--fm);font-size:.48rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;border-right:1px solid rgba(252,249,244,.1);width:40px">RIDA*</th>
+            <th style="padding:9px 8px;text-align:left;font-family:var(--fm);font-size:.48rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;border-right:1px solid rgba(252,249,244,.1);width:72px">THÈME</th>
+            <th style="padding:9px 10px;text-align:left;font-family:var(--fm);font-size:.48rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;border-right:1px solid rgba(252,249,244,.1)">DÉTAIL</th>
+            <th style="padding:9px 6px;text-align:center;font-family:var(--fm);font-size:.48rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;border-right:1px solid rgba(252,249,244,.1);width:40px">DATE</th>
+            <th style="padding:9px 8px;text-align:center;font-family:var(--fm);font-size:.48rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;width:50px">RESP.</th>
+          </tr>
+        </thead>
+        <tbody>${allLines.map(renderRow).join('')}</tbody>
+      </table>
+      <div style="font-family:var(--fm);font-size:.45rem;color:rgba(39,28,20,.4);margin:6px 14px">*RIDA : Risque / Information / Décision / Action</div>
+    </div>`
+    :`<div class="empty">Aucun point RIDA — utilisez les boutons ci-dessus pour en ajouter</div>`;
   // Clefs
-  document.getElementById('cr-clefs').innerHTML=pC().length?pC().map(c=>`<div style="display:flex;gap:8px;align-items:flex-start;padding:10px 14px;border-bottom:1px solid var(--B);background:var(--W)"><div style="width:3px;height:3px;border-radius:50%;background:var(--RED);margin-top:9px;flex-shrink:0"></div><div style="font-family:var(--fm);font-size:.68rem;flex:1;color:${c.urgent?'var(--RED)':'var(--C)'};line-height:1.65"><strong>${c.ref}</strong> : ${c.text}</div></div>`).join(''):`<div class="empty">—</div>`;
+  document.getElementById('cr-clefs').innerHTML=pC().length?pC().map((c,i)=>`<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-bottom:1px solid rgba(39,28,20,.08);background:${i%2===0?'#FCF9F4':'#F6F1E8'}"><div style="width:2px;align-self:stretch;background:${c.urgent?'#8B2020':'rgba(39,28,20,.15)'};flex-shrink:0;border-radius:1px"></div><div style="font-family:var(--fm);font-size:.65rem;flex:1;color:${c.urgent?'#8B2020':'#271C14'};line-height:1.65"><strong style="font-size:.58rem;letter-spacing:.5px;text-transform:uppercase">${c.ref}</strong><span style="color:rgba(39,28,20,.4);margin:0 4px">·</span>${c.text}</div></div>`).join(''):`<div class="empty">—</div>`;
   renderCRPlanning();
+  renderCRStructurants();
+  renderCRAnnexes();
   renderCRPdfList();
   // Init quick RIDA widget
   setTimeout(()=>{setQRida(_qRidaType||'A');renderQRidaResps();},0);
@@ -4415,134 +4626,441 @@ function renderCRPlanning(){
   el.innerHTML=h;
 }
 function addStPh(id,inp){const l=S.statLines.find(x=>x.id===id);if(!l)return;if(!l.photos)l.photos=[];Array.from(inp.files).forEach(f=>{const r=new FileReader();r.onload=e=>{l.photos.push(e.target.result);renderCR();};r.readAsDataURL(f);});}
+
+// ── Section 03 : Rappel des Éléments Structurants (auto-filtre les D) ──
+function renderCRStructurants(){
+  const el=document.getElementById('cr-structurants');if(!el)return;
+  const items=pSL().filter(l=>l.rida==='D');
+  if(!items.length){
+    el.innerHTML=`<div class="empty" style="padding:12px 14px;font-family:var(--fm);font-size:.65rem;color:var(--C3)">Aucun élément structurant — les points RIDA de type <strong>D</strong> (Décision) apparaîtront ici automatiquement</div>`;
+    return;
+  }
+  const dateStr=(d)=>{if(!d)return '—';try{return new Date(d+'T00:00').toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});}catch{return d;}};
+  el.innerHTML=`<div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-family:var(--fm);font-size:.62rem">
+      <thead>
+        <tr style="background:#271C14;color:#FCF9F4">
+          <th style="padding:9px 8px;text-align:left;font-weight:500;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;width:28px">#</th>
+          <th style="padding:9px 8px;text-align:center;font-weight:500;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;width:34px">RIDA</th>
+          <th style="padding:9px 8px;text-align:left;font-weight:500;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;width:80px">THÈME</th>
+          <th style="padding:9px 8px;text-align:left;font-weight:500;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase">DÉTAIL</th>
+          <th style="padding:9px 8px;text-align:center;font-weight:500;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;width:42px">DATE</th>
+          <th style="padding:9px 8px;text-align:center;font-weight:500;font-size:.48rem;letter-spacing:1.5px;text-transform:uppercase;width:50px">RESP.</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${items.map((l,i)=>`
+        <tr style="${i%2===0?'background:#FCF9F4':'background:#F6F1E8'}">
+          <td style="padding:8px;color:rgba(39,28,20,.35);border-bottom:1px solid rgba(39,28,20,.08)">${i+1}</td>
+          <td style="padding:8px;text-align:center;border-bottom:1px solid rgba(39,28,20,.08)">
+            <span style="font-family:var(--ff);font-weight:700;font-size:.9rem;color:#2B6B9A">D</span>
+          </td>
+          <td style="padding:8px;color:#2B6B9A;font-weight:700;font-size:.58rem;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid rgba(39,28,20,.08)">${(l.lot||l.theme||'—').toUpperCase()}</td>
+          <td style="padding:8px;color:#271C14;line-height:1.55;font-size:.65rem;border-bottom:1px solid rgba(39,28,20,.08)">${(l.detail||'').replace(/\n/g,'<br>')}</td>
+          <td style="padding:8px;text-align:center;color:rgba(39,28,20,.5);white-space:nowrap;font-weight:600;border-bottom:1px solid rgba(39,28,20,.08)">${l.date?dateStr(l.date):'—'}</td>
+          <td style="padding:8px;text-align:center;color:#271C14;font-weight:700;border-bottom:1px solid rgba(39,28,20,.08)">${l.resp||'—'}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+    <div style="font-family:var(--fm);font-size:.45rem;color:rgba(39,28,20,.4);margin:6px 14px">*RIDA : Risque / Information / Décision / Action</div>
+  </div>`;
+}
+
+// ── Section 04 : Annexes photos ──
+// Photos viennent : (a) tâches du projet avec photos taggées + (b) photos manuelles ajoutées dans le CR
+function renderCRAnnexes(){
+  const el=document.getElementById('cr-annexes');if(!el)return;
+  // Photos des tâches à risque ou flaggées "annexe cr"
+  const taskPhotos=[];
+  pT().forEach(t=>{
+    if((t.photos||[]).length&&(t.risk||t.crAnnexe)){
+      t.photos.forEach(p=>taskPhotos.push({src:p,label:t.name,source:'tâche',taskId:t.id}));
+    }
+  });
+  // Photos des stat lines (RIDA items)
+  const ridaPhotos=[];
+  pSL().forEach(l=>{
+    (l.photos||[]).forEach(p=>ridaPhotos.push({src:p,label:l.lot||'RIDA '+l.rida,source:'rida',slId:l.id}));
+  });
+  // Photos manuelles CR
+  const proj=S.projects[S.curP]||{};
+  const manualPhotos=(proj.crAnnexes||[]);
+  const all=[...taskPhotos,...ridaPhotos,...manualPhotos];
+
+  if(!all.length&&!pT().some(t=>(t.photos||[]).length)){
+    el.innerHTML=`<div style="width:100%;font-family:var(--fm);font-size:.65rem;color:var(--C3);padding:4px 0">
+      Aucune photo — ajoutez des photos via le bouton + ou taggez des photos depuis les tâches (<span style="color:var(--C);cursor:pointer" onclick="showPg('pg-tasks')">onglet Tâches → icône 📷</span>)</div>`;
+    return;
+  }
+
+  // Show all task photos with toggle to include in annexes
+  const taskAll=pT().filter(t=>(t.photos||[]).length);
+  let h='';
+  if(taskAll.length){
+    h+=`<div style="width:100%;font-family:var(--fm);font-size:.52rem;letter-spacing:2px;text-transform:uppercase;color:var(--C3);margin-bottom:6px;margin-top:2px">Photos depuis les tâches — sélectionner pour annexes</div>`;
+    taskAll.forEach(t=>{
+      const isIncluded=t.crAnnexe||false;
+      h+=`<div style="position:relative;cursor:pointer" onclick="crToggleTaskAnnexe(${t.id})">
+        <img src="${t.photos[0]}" style="width:90px;height:90px;object-fit:cover;border-radius:6px;border:2.5px solid ${isIncluded?'var(--GREEN)':'var(--B2)'}">
+        <div style="position:absolute;bottom:4px;left:0;right:0;text-align:center;background:rgba(0,0,0,.55);color:#fff;font-family:var(--fm);font-size:.42rem;padding:2px 3px;border-radius:0 0 5px 5px;line-height:1.3">${t.name.substring(0,20)}</div>
+        ${isIncluded?`<div style="position:absolute;top:3px;right:3px;background:var(--GREEN);color:#fff;font-size:.6rem;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center">✓</div>`:''}
+      </div>`;
+    });
+  }
+
+  // Manual annexes
+  manualPhotos.forEach((p,i)=>{
+    h+=`<div style="position:relative">
+      <img src="${p.src}" style="width:90px;height:90px;object-fit:cover;border-radius:6px;border:2px solid var(--B2);cursor:zoom-in" onclick="showPh('${p.src}')">
+      <div style="position:absolute;bottom:4px;left:0;right:0;text-align:center;background:rgba(0,0,0,.5);color:#fff;font-family:var(--fm);font-size:.42rem;padding:2px 3px;border-radius:0 0 5px 5px">${(p.label||'').substring(0,20)}</div>
+      <button onclick="crDeleteAnnexe(${i})" style="position:absolute;top:2px;right:2px;background:rgba(180,0,0,.7);color:#fff;border:none;border-radius:50%;width:16px;height:16px;font-size:.55rem;cursor:pointer;line-height:1;padding:0">✕</button>
+    </div>`;
+  });
+  el.innerHTML=h||`<div style="font-family:var(--fm);font-size:.65rem;color:var(--C3)">Aucune photo sélectionnée</div>`;
+}
+
+function crToggleTaskAnnexe(taskId){
+  const t=S.tasks.find(x=>x.id===taskId);if(!t)return;
+  t.crAnnexe=!t.crAnnexe;saveS();renderCRAnnexes();
+}
+
+function crAddAnnexPhotos(fileList){
+  const proj=S.projects[S.curP];if(!proj)return;
+  if(!proj.crAnnexes)proj.crAnnexes=[];
+  const files=Array.from(fileList);
+  let loaded=0;
+  files.forEach(f=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      proj.crAnnexes.push({src:e.target.result,label:'',date:new Date().toLocaleDateString('fr-FR')});
+      loaded++;
+      if(loaded===files.length){saveS();renderCRAnnexes();}
+    };
+    r.readAsDataURL(f);
+  });
+}
+
+function crDeleteAnnexe(idx){
+  const proj=S.projects[S.curP];if(!proj||!proj.crAnnexes)return;
+  proj.crAnnexes.splice(idx,1);saveS();renderCRAnnexes();
+}
+
+// ── Pré-remplir RIDA depuis les tâches bloquantes/à risque ──
+function crPrefillFromTasks(){
+  const tasks=pT();
+  const today=new Date();today.setHours(0,0,0,0);
+  let added=0;
+  tasks.forEach(t=>{
+    // Tâches à risque → R (Risque)
+    if(t.risk&&!pSL().some(l=>l.taskRef===t.id&&l.rida==='R')){
+      const sl={id:Date.now()+Math.random(),pi:S.curP,rida:'R',lot:t.cat||'Général',detail:t.name+(t.notes?'\n'+t.notes:''),date:'',resp:t.assignee||'',photos:[],taskRef:t.id};
+      if(!S.statLines)S.statLines=[];
+      S.statLines.push(sl);
+      added++;
+    }
+    // Tâches en retard → R (Risque)
+    if(t.end&&(t.status!=='done')){
+      const endD=new Date(t.end+'T00:00');
+      if(endD<today&&!pSL().some(l=>l.taskRef===t.id&&(l.rida==='R'||l.rida==='A'))){
+        const sl={id:Date.now()+Math.random(),pi:S.curP,rida:'R',theme:t.cat||'',lot:t.cat||'',detail:t.name,date:crGetRiskDateStr(),resp:t.assignee||'',photos:[],taskRef:t.id};
+        if(!S.statLines)S.statLines=[];
+        S.statLines.push(sl);
+        added++;
+      }
+    }
+  });
+  saveS();renderCR();
+  showToast(added?`✓ ${added} point${added>1?'s':''} RIDA pré-rempli${added>1?'s':''} depuis les tâches`:'Aucun point à importer — pas de tâches à risque ou en retard');
+}
+
 async function generateCRPDF(){
   if(!window.jspdf){showToast('Chargement jsPDF…');await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
   const {jsPDF}=window.jspdf;
   const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
   const W=210,H=297;
+  // ── Charte Rivas Architecture ──
+  const DARK=[39,28,20];      // #271C14 Chocolat Noir
+  const ALAB=[246,241,232];   // #F6F1E8 Alabastre
+  const OWHT=[252,249,244];   // #FCF9F4 Off White
+  const MDTX=[140,128,112];   // mid tone for sub-text
   const proj=S.projects[S.curP]||{};
   const today=new Date();
-  const dateStr=today.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}).replace(/\//g,'.');
-  const dateStrLong=today.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  const meetingDt=proj.reunionDate?new Date(proj.reunionDate):today;
+  const nextMeetingDt=proj.nextReunionDate?new Date(proj.nextReunionDate):null;
+  const dateStr=meetingDt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}).replace(/\//g,'.');
+  const dateStrLong=meetingDt.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  const nextDateStr=nextMeetingDt?nextMeetingDt.toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'à définir';
   const members=pM(),statLines=pSL(),clefs=pC();
-  const _foot=()=>{doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(140,140,130);doc.text('SARL TRI — 3 RUE DE PARME 75009 PARIS  ·  Tél : 01 48 74 82 11  ·  contact@rivasarchitecture.com  ·  www.rivasarchitecture.com',W/2,H-5,{align:'center'});};
+  // ── Helpers ──
+  const _bg=()=>{doc.setFillColor(...ALAB);doc.rect(0,0,W,H,'F');};
+  const _accentBar=()=>{doc.setFillColor(...DARK);doc.rect(W-14,0,14,H,'F');doc.setFillColor(...OWHT);doc.rect(W-13.5,0,0.5,H,'F');};
+  const _sectionLabel=(txt,x,y2)=>{doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.setTextColor(...MDTX);doc.text(txt,x,y2,{angle:90,align:'center'});};
+  const _foot=()=>{
+    doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.setTextColor(...MDTX);
+    doc.text('SARL TRI  ·  3 RUE DE PARME 75009 PARIS  ·  01 48 74 82 11  ·  contact@rivasarchitecture.com',W/2,H-6,{align:'center'});
+    doc.setDrawColor(...DARK);doc.setLineWidth(0.2);doc.line(20,H-9,W-20,H-9);
+  };
+  const _pageHeader=(num,title)=>{
+    _bg();_accentBar();
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...DARK);
+    doc.text(num,20,16,{letterSpacing:2});
+    doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...MDTX);
+    doc.text(title,30,16,{letterSpacing:1.5});
+    doc.setDrawColor(...DARK);doc.setLineWidth(0.3);doc.line(20,19,W-20,19);
+    _sectionLabel(title,W-7,H/2);
+  };
 
   // ══ PAGE 1 : COVER ══
-  doc.setFillColor(74,83,71);doc.rect(0,0,W,H,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(30);doc.setTextColor(255,255,255);doc.text('TONY RIVAS',W/2,52,{align:'center'});
-  doc.setFont('helvetica','italic');doc.setFontSize(12);doc.setTextColor(200,205,195);doc.text('Taller de Arquitectura',W/2,62,{align:'center'});
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(255,255,255);doc.text((proj.name||'CHANTIER').toUpperCase(),25,95);
-  // White side strip for date
-  doc.setFillColor(255,255,255);doc.rect(158,95,28,155,'F');
-  doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(74,83,71);
-  doc.text(`COMPTE RENDU DE CHANTIER  _  ${dateStr}`,170,240,{angle:90,align:'center'});
-  // Logo text
-  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(200,205,195);doc.text('Tony Rivas',28,278);
+  doc.setFillColor(...DARK);doc.rect(0,0,W,H,'F');
+  // Right strip
+  doc.setFillColor(...ALAB);doc.rect(W-40,0,40,H,'F');
+  doc.setDrawColor(...OWHT);doc.setLineWidth(0.3);doc.line(W-40,0,W-40,H);
+  // Brand name top-left
+  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...OWHT);
+  doc.setLetterSpacing&&doc.setLetterSpacing(3);
+  doc.text('RIVAS ARCHITECTURE',20,22);
+  // Project name center-left
+  doc.setFont('helvetica','bold');doc.setFontSize(22);doc.setTextColor(...OWHT);
+  const projLines=doc.splitTextToSize((proj.name||'CHANTIER').toUpperCase(),130);
+  projLines.forEach((l,i)=>doc.text(l,20,110+i*25));
+  // CR type below project
+  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...ALAB);
+  doc.text('COMPTE RENDU DE CHANTIER',20,projLines.length*25+116);
+  // Date in right strip (rotated)
+  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...DARK);
+  doc.text(`CR  ·  ${dateStr}`,W-20,H/2,{angle:90,align:'center'});
+  doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(...MDTX);
+  doc.text(proj.name||'',W-30,H/2,{angle:90,align:'center'});
+  // Footer cover
+  doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.setTextColor(...MDTX);
+  doc.text('SARL TRI  ·  3 RUE DE PARME 75009 PARIS',20,H-12);
+  doc.text('contact@rivasarchitecture.com',20,H-7);
+  // Bottom-right strip: date full
+  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...DARK);
+  doc.text(dateStrLong.toUpperCase(),W-38,H-12,{maxWidth:32});
 
   // ══ PAGE 2 : SOMMAIRE ══
-  doc.addPage();doc.setFillColor(237,231,218);doc.rect(0,0,W,H,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(60,60,50);doc.text('SOMMAIRE',25,38);
-  [{n:'01.',t:'COMPTE RENDU\nHEBDOMADAIRE',x:25,y:100},{n:'02.',t:'ELEMENTS\nCLEFS',x:W/2+10,y:100},{n:'03.',t:'RAPPEL DES ELEMENTS\nSTRUCTURANTS',x:25,y:195},{n:'04.',t:'ANNEXES\nPHOTOS',x:W/2+10,y:195}].forEach(s=>{
-    doc.setFont('helvetica','bold');doc.setFontSize(44);doc.setTextColor(185,180,165);doc.text(s.n,s.x,s.y);
-    doc.setFontSize(8.5);doc.setTextColor(70,68,58);s.t.split('\n').forEach((l,i)=>doc.text(l,s.x,s.y+13+i*9));
+  doc.addPage();_bg();_accentBar();
+  doc.setFont('helvetica','bold');doc.setFontSize(6);doc.setTextColor(...DARK);
+  doc.text('SOMMAIRE',20,22,{letterSpacing:3});
+  doc.setDrawColor(...DARK);doc.setLineWidth(0.3);doc.line(20,25,W-20,25);
+  const sections=[{n:'01',t:'COMPTE RENDU\nHEBDOMADAIRE'},{n:'02',t:'ÉLÉMENTS CLEFS\nRIDA'},{n:'02b',t:'PLANNING\nPAR LOT'},{n:'03',t:'RAPPEL ÉLÉMENTS\nSTRUCTURANTS'},{n:'04',t:'ANNEXES\nPHOTOS'}];
+  sections.forEach((s,i)=>{
+    const sx=i%2===0?20:110,sy=80+Math.floor(i/2)*60;
+    doc.setFont('helvetica','bold');doc.setFontSize(32);doc.setTextColor(...ALAB);
+    doc.text(s.n+'.',sx,sy+10);
+    doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...DARK);
+    s.t.split('\n').forEach((l,j)=>doc.text(l,sx,sy+18+j*8));
+    doc.setDrawColor(...MDTX);doc.setLineWidth(0.1);doc.line(sx,sy+14,sx+75,sy+14);
   });
+  _sectionLabel('SOMMAIRE',W-7,H/2);_foot();
 
   // ══ PAGE 3 : SECTION 01 — INTERVENANTS ══
-  doc.addPage();
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(74,83,71);doc.text('01.',20,20);
-  doc.setFontSize(10);doc.text('COMPTE RENDU HEBDOMADAIRE',32,20);
-  // Thin accent line on right
-  doc.setFillColor(74,83,71);doc.rect(W-18,15,0.5,H-30,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(40,40,32);doc.text('Intervenants',20,32);
+  doc.addPage();_pageHeader('01.','COMPTE RENDU HEBDOMADAIRE');
+  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...DARK);
+  doc.text('INTERVENANTS',20,28);
+  let y=36;
   // Table header
-  let y=40;
-  doc.setFillColor(60,58,48);doc.rect(20,y,170,7,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(255,255,255);
-  doc.text('Participant(s)',23,y+4.8);doc.text('Invit.',148,y+4.8);doc.text('Prés.',160,y+4.8);doc.text('Abs.',172,y+4.8);
+  doc.setFillColor(...DARK);doc.rect(20,y,160,7,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(5.5);doc.setTextColor(...ALAB);
+  doc.text('PARTICIPANT(S)',23,y+4.5);doc.text('SOCIÉTÉ',95,y+4.5);doc.text('INV.',138,y+4.5);doc.text('PRÉS.',150,y+4.5);doc.text('ABS.',162,y+4.5);
   y+=7;
   members.forEach((m,i)=>{
-    const rh=18;
-    if(i%2===0){doc.setFillColor(248,246,240);doc.rect(20,y,170,rh,'F');}
-    doc.setDrawColor(220,216,205);doc.setLineWidth(0.2);doc.rect(20,y,170,rh);
-    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(40,38,28);
-    const role=m.role||m.type||'';const co=m.company||'';
-    doc.text((role?(role+' : '):'')+(co||m.name),23,y+5,{maxWidth:120});
-    doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(100,98,88);
-    if(m.name&&co)doc.text(m.name,23,y+9,{maxWidth:120});
-    if(m.tel)doc.text('Tél : '+m.tel,23,y+13,{maxWidth:120});
-    if(m.email)doc.text('E-mail : '+m.email,23,y+17,{maxWidth:120});
-    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(40,38,28);
-    doc.text('X',150,y+7.5);// Invité
-    if(m.present)doc.text('X',162,y+7.5);else doc.text('X',174,y+7.5);
-    y+=rh;if(y>H-25){doc.addPage();_foot();y=20;}
+    const rh=12;
+    if(y+rh>H-20){doc.addPage();_pageHeader('01.','COMPTE RENDU HEBDOMADAIRE');y=28;}
+    if(i%2===0){doc.setFillColor(...OWHT);}else{doc.setFillColor(...ALAB);}doc.rect(20,y,160,rh,'F');
+    doc.setDrawColor(...MDTX);doc.setLineWidth(0.1);doc.line(20,y+rh,180,y+rh);
+    doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...DARK);
+    doc.text(m.name||'',23,y+5,{maxWidth:68});
+    doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(...MDTX);
+    doc.text(m.company||'',95,y+5,{maxWidth:40});
+    if(m.tel||m.email){doc.setFontSize(5.5);doc.text((m.tel||m.email||''),23,y+9,{maxWidth:100});}
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...DARK);
+    doc.text('×',140,y+5.5);
+    if(m.present!==false){doc.text('×',152,y+5.5);}else{doc.text('×',164,y+5.5);}
+    y+=rh;
   });
-  y+=8;
-  doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(40,38,28);
-  const nextMtg=prompt?null:null;// Will use default
-  doc.text('La prochaine réunion aura lieu le 31 mars à 11h',W/2,y,{align:'center'});
-  y+=6;doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(90,88,78);
-  doc.text('Le présent compte-rendu est contractuel et sera considéré comme accepté',W/2,y,{align:'center'});
-  doc.text('sauf contestation dans les huit jours à compter de la prochaine réunion',W/2,y+5,{align:'center'});
+  // Prochaine réunion
+  y+=10;
+  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...MDTX);
+  doc.text('Prochaine réunion :',20,y);
+  doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(...DARK);
+  doc.text(nextDateStr,62,y);
+  y+=7;
+  doc.setFont('helvetica','italic');doc.setFontSize(6.5);doc.setTextColor(...MDTX);
+  doc.text('Le présent compte-rendu est contractuel et sera considéré comme accepté sauf contestation dans les huit jours.',20,y,{maxWidth:160});
   _foot();
 
-  // ══ SECTION 02 — RIDA / STAT LINES ══
-  if(statLines.length){
-    doc.addPage();
-    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(74,83,71);doc.text('02.',20,20);doc.setFontSize(10);doc.text('ELEMENTS CLEFS — RIDA',32,20);
-    doc.setFillColor(74,83,71);doc.rect(W-18,15,0.5,H-30,'F');
-    y=30;
-    const RIDA_C={'R':[139,32,32],'I':[43,98,71],'D':[30,63,107],'A':[139,98,0]};
-    for(const l of statLines){
+  // ══ SECTION 02 — RIDA TABLE ══
+  const activeStatLines=statLines.filter(l=>l.rida!=='R'||!l.resolved);
+  if(activeStatLines.length){
+    doc.addPage();_pageHeader('02.','ÉLÉMENTS CLEFS — RIDA');
+    y=28;
+    // Colonnes : #(8) RIDA(10) THEME(28) DETAIL(86) DATE(16) RESP(18) = 166 → x:20→186
+    const C={n:{x:20,w:8},r:{x:28,w:10},t:{x:38,w:28},d:{x:66,w:86},dt:{x:152,w:16},rs:{x:168,w:18}};
+    const RIDA_C={'R':[139,32,32],'I':[43,98,71],'D':[30,63,107],'A':[100,82,0]};
+    const _ridaHdr=()=>{
+      doc.setFillColor(...DARK);doc.rect(20,y,166,7,'F');
+      doc.setFont('helvetica','bold');doc.setFontSize(5.5);doc.setTextColor(...ALAB);
+      [['#',C.n],['RIDA*',C.r],['THÈME / LOT',C.t],['DÉTAIL',C.d],['DATE',C.dt],['RESP.',C.rs]].forEach(([lb,c])=>doc.text(lb,c.x+2,y+4.8));
+      y+=7;
+    };
+    _ridaHdr();
+    activeStatLines.forEach((l,idx)=>{
       const rc=RIDA_C[l.rida]||[80,80,80];
-      const blockH=l.photos?.length?55:28;
-      if(y+blockH>H-15){doc.addPage();_foot();y=20;}
-      doc.setFillColor(...rc);doc.rect(20,y,7,blockH,'F');
-      doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);doc.text(l.rida,23.5,y+5);
-      doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(40,38,28);doc.text(l.theme||'',30,y+5,{maxWidth:130});
-      doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(70,68,58);doc.text(l.detail||'',30,y+10,{maxWidth:130});
-      if(l.resp){doc.setFont('helvetica','italic');doc.setFontSize(6);doc.setTextColor(120,118,108);doc.text('→ '+l.resp,30,y+16);}
-      // Photos
-      if(l.photos?.length){
-        let px=30;
-        for(const ph of l.photos.slice(0,4)){
-          try{doc.addImage(ph,'JPEG',px,y+19,30,30);px+=33;}catch(e){}
-        }
+      const themeStr=(l.lot||l.theme||'—');
+      const detSplit=(l.detail||'').split('\n').map(s=>s.trim()).filter(Boolean);
+      const hasBullets=detSplit.length>1;
+      // Compute row height precisely
+      let detH=4;
+      if(hasBullets){detSplit.forEach(ln=>{detH+=doc.splitTextToSize(ln.replace(/^[-•·]\s*/,''),C.d.w-8).length*4.5;});}
+      else{detH+=doc.splitTextToSize(l.detail||'',C.d.w-4).length*4.5;}
+      const thH=doc.splitTextToSize(themeStr,C.t.w-4).length*4.5+4;
+      const rowH=Math.max(11,detH,thH)+(l.photos?.length?36:0);
+      if(y+rowH>H-16){doc.addPage();_pageHeader('02.','ÉLÉMENTS CLEFS — RIDA');y=28;_ridaHdr();}
+      if(idx%2===0){doc.setFillColor(...OWHT);}else{doc.setFillColor(...ALAB);}
+      doc.rect(20,y,166,rowH,'F');
+      doc.setDrawColor(...MDTX);doc.setLineWidth(0.1);
+      [C.r.x,C.t.x,C.d.x,C.dt.x,C.rs.x,186].forEach(lx=>{doc.line(lx,y,lx,y+rowH);});
+      doc.line(20,y+rowH,186,y+rowH);
+      // Left accent bar per RIDA type
+      doc.setFillColor(...rc);doc.rect(20,y,2,rowH,'F');
+      // #
+      doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.setTextColor(...MDTX);
+      doc.text(String(idx+1),C.n.x+3,y+5);
+      // RIDA letter
+      doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(...rc);
+      doc.text(l.rida||'',C.r.x+1,y+6);
+      // THÈME
+      doc.setFont('helvetica','bold');doc.setFontSize(6);doc.setTextColor(...rc);
+      doc.text(doc.splitTextToSize(themeStr,C.t.w-3),C.t.x+2,y+5);
+      // DÉTAIL
+      const txtColor=l.urgent?[139,32,32]:DARK;
+      doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(...txtColor);
+      if(hasBullets){
+        let dy=y+5;
+        detSplit.forEach(ln=>{
+          doc.text('-',C.d.x+2,dy);
+          const ll=doc.splitTextToSize(ln.replace(/^[-•·]\s*/,''),C.d.w-7);
+          doc.text(ll,C.d.x+5,dy);dy+=ll.length*4.5;
+        });
+      }else{doc.text(doc.splitTextToSize(l.detail||'',C.d.w-4),C.d.x+2,y+5);}
+      if(l.photos?.length){let px2=C.d.x+2;const pY=y+rowH-34;for(const ph of l.photos.slice(0,4)){try{doc.addImage(ph,'JPEG',px2,pY,30,30);px2+=33;}catch(e){}}}
+      // DATE
+      doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...DARK);
+      doc.text((l.date||'—').replace(/\//g,'.'),C.dt.x+2,y+5);
+      // RESP
+      doc.setFont('helvetica','bold');doc.setFontSize(5.5);doc.setTextColor(...rc);
+      doc.text(doc.splitTextToSize(l.resp||'—',C.rs.w-2),C.rs.x+2,y+5);
+      y+=rowH;
+    });
+    doc.setFont('helvetica','italic');doc.setFontSize(5.5);doc.setTextColor(...MDTX);
+    doc.text('*RIDA : Risque / Information / Décision / Action',20,y+5);
+    _foot();
+  }
+
+  // ══ SECTION 02b — PLANNING PAR LOT ══
+  const allTasks=pT();
+  if(allTasks.length){
+    doc.addPage();_pageHeader('02b.','PLANNING — ÉTAT PAR LOT');
+    const todayPl=new Date();todayPl.setHours(0,0,0,0);
+    y=28;
+    const _rp2=t=>{const s=t.subtasks||[];return s.length>0?Math.round(s.reduce((a,x)=>a+_sp(x),0)/s.length):t.pct||0;};
+    const LOT_C={"Gros Oeuvre":[107,76,42],"Second Oeuvre":[42,92,107],"Finitions":[58,107,71],"Electricité":[107,98,42],"Plomberie":[42,63,107],"Menuiserie":[123,79,42],"Carrelage":[90,90,90],"Peinture":[107,42,92],"Coordination":[139,32,32],"VRD":[74,107,42]};
+    // Header
+    doc.setFillColor(...DARK);doc.rect(20,y,166,7,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(5.5);doc.setTextColor(...ALAB);
+    doc.text('LOT',24,y+4.8);doc.text('AVANCEMENT',72,y+4.8);doc.text('DÉBUT',136,y+4.8);doc.text('FIN',152,y+4.8);doc.text('STATUT',166,y+4.8);
+    y+=7;
+    const cats=_sortPhases([...new Set(allTasks.map(t=>t.cat))],allTasks);
+    cats.forEach((cat,ci)=>{
+      const catTasks=allTasks.filter(t=>t.cat===cat);
+      const rc2=LOT_C[cat]||[80,80,80];
+      const catPct=catTasks.length?Math.round(catTasks.reduce((a,t)=>a+_rp2(t),0)/catTasks.length):0;
+      const catDone=catTasks.filter(t=>_rp2(t)===100||t.status==='done').length;
+      const riskTasks=catTasks.filter(t=>t.risk||(t.end&&new Date(t.end)<todayPl&&t.status!=='done'&&_rp2(t)<100));
+      const catRisk=riskTasks.length;
+      const catStart=catTasks.map(t=>t.start).filter(Boolean).sort()[0];
+      const catEnd=catTasks.map(t=>t.end).filter(Boolean).sort().reverse()[0];
+      const fdS=d=>d?new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}):'—';
+      const statLabel=catPct===100?'Terminé':catRisk?'Retard':catPct>0?'En cours':'À venir';
+      const statColor=catPct===100?[43,98,71]:catRisk?[139,32,32]:catPct>0?[180,120,0]:MDTX;
+      // Dynamic row height: base 14, +4 per risk task line (max 2 shown)
+      const riskLines=riskTasks.slice(0,2);
+      const rowH=catRisk>0?14+riskLines.length*5:14;
+      if(y+rowH>H-16){doc.addPage();_pageHeader('02b.','PLANNING — ÉTAT PAR LOT');y=28;
+        doc.setFillColor(...DARK);doc.rect(20,y,166,7,'F');
+        doc.setFont('helvetica','bold');doc.setFontSize(5.5);doc.setTextColor(...ALAB);
+        doc.text('LOT',24,y+4.8);doc.text('AVANCEMENT',72,y+4.8);doc.text('DÉBUT',136,y+4.8);doc.text('FIN',152,y+4.8);doc.text('STATUT',166,y+4.8);
+        y+=7;
       }
-      y+=blockH+5;
-    }
+      if(ci%2===0){doc.setFillColor(...OWHT);}else{doc.setFillColor(...ALAB);}
+      doc.rect(20,y,166,rowH,'F');
+      doc.setFillColor(...rc2);doc.rect(20,y,2,rowH,'F');
+      doc.setDrawColor(...MDTX);doc.setLineWidth(0.1);doc.line(20,y+rowH,186,y+rowH);
+      // Lot name
+      doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...rc2);
+      doc.text(cat,24,y+5.5);
+      doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.setTextColor(...MDTX);
+      doc.text(`${catDone}/${catTasks.length}`,24,y+9.5);
+      // Progress bar
+      const barX=68,barW=60,barH2=3.5,barY2=y+5;
+      doc.setFillColor(220,214,205);doc.rect(barX,barY2,barW,barH2,'F');
+      if(catPct>0){
+        const fc=catPct===100?[43,98,71]:catRisk?[139,32,32]:[180,120,0];
+        doc.setFillColor(...fc);doc.rect(barX,barY2,barW*catPct/100,barH2,'F');
+      }
+      doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...DARK);
+      doc.text(catPct+'%',barX+barW+3,y+8);
+      // Dates
+      doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(...DARK);
+      doc.text(fdS(catStart),136,y+5.5);doc.text(fdS(catEnd),152,y+5.5);
+      // Statut
+      doc.setFont('helvetica','bold');doc.setFontSize(6);doc.setTextColor(...statColor);
+      doc.text(statLabel,166,y+5.5);
+      // Risk task names — each on its own line, within row bounds
+      if(catRisk>0){
+        doc.setFont('helvetica','italic');doc.setFontSize(5.5);doc.setTextColor(139,32,32);
+        riskLines.forEach((t,ri)=>{
+          doc.text('! '+t.name.substring(0,55),24,y+12+ri*5);
+        });
+      }
+      y+=rowH;
+    });
     _foot();
   }
 
   // ══ SECTION 03 — ÉLÉMENTS CLEFS ══
   if(clefs.length){
-    doc.addPage();
-    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(74,83,71);doc.text('03.',20,20);doc.setFontSize(10);doc.text('RAPPEL DES ÉLÉMENTS STRUCTURANTS',32,20);
-    doc.setFillColor(74,83,71);doc.rect(W-18,15,0.5,H-30,'F');
-    y=32;
+    doc.addPage();_pageHeader('03.','RAPPEL DES ÉLÉMENTS STRUCTURANTS');
+    y=28;
     clefs.forEach(c=>{
-      if(y>H-20){doc.addPage();_foot();y=20;}
-      doc.setFillColor(c.urgent?139:200,c.urgent?32:196,c.urgent?32:180);doc.circle(22,y+1.5,1.5,'F');
-      doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(c.urgent?139:40,c.urgent?32:38,c.urgent?32:28);
-      doc.text((c.ref||'')+' : ',27,y+3);
-      doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(60,58,48);
-      const lines=doc.splitTextToSize(c.text||'',140);
-      doc.text(lines,50,y+3);
-      y+=Math.max(8,lines.length*4+4);
+      if(y>H-20){doc.addPage();_pageHeader('03.','RAPPEL DES ÉLÉMENTS STRUCTURANTS');y=28;}
+      if(c.urgent){doc.setFillColor(139,32,32);}else{doc.setFillColor(...MDTX);}doc.circle(22,y+1.5,1.2,'F');
+      doc.setFont('helvetica','bold');doc.setFontSize(7);if(c.urgent){doc.setTextColor(139,32,32);}else{doc.setTextColor(...DARK);}
+      doc.text((c.ref||'')+(c.ref?' : ':''),25,y+3);
+      doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...DARK);
+      const refW=c.ref?doc.getTextWidth(c.ref+' : ')+2:0;
+      const lines=doc.splitTextToSize(c.text||'',150-refW);
+      doc.text(lines,25+refW,y+3);
+      y+=Math.max(8,lines.length*4.5+3);
+      doc.setDrawColor(...ALAB);doc.setLineWidth(0.2);doc.line(20,y,180,y);
+      y+=3;
     });
     _foot();
   }
 
   // ══ SECTION 04 — ANNEXES PHOTOS ══
   const allPhotos=statLines.flatMap(l=>l.photos||[]);
-  if(allPhotos.length){
-    doc.addPage();
-    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(74,83,71);doc.text('04.',20,20);doc.setFontSize(10);doc.text('ANNEXES — PHOTOS',32,20);
-    doc.setFillColor(74,83,71);doc.rect(W-18,15,0.5,H-30,'F');
-    let px=20,py=30,col=0;
-    allPhotos.forEach(ph=>{
-      try{doc.addImage(ph,'JPEG',px,py,55,55);}catch(e){}
-      col++;px+=60;if(col%3===0){px=20;py+=62;col=0;}
-      if(py>H-70){doc.addPage();_foot();px=20;py=20;col=0;}
+  const crAnnexes=(S.projects[S.curP]?.crAnnexes||[]);
+  const allPhotosSrc=[...allPhotos,...crAnnexes.map(a=>a.data).filter(Boolean)];
+  if(allPhotosSrc.length){
+    doc.addPage();_pageHeader('04.','ANNEXES — PHOTOS');
+    let px=20,py=28,col=0;
+    allPhotosSrc.forEach(ph=>{
+      if(py+58>H-16){doc.addPage();_pageHeader('04.','ANNEXES — PHOTOS');px=20;py=28;col=0;}
+      try{doc.addImage(ph,'JPEG',px,py,54,54);}catch(e){}
+      col++;px+=58;if(col%3===0){px=20;py+=60;col=0;}
     });
     _foot();
   }
@@ -5204,12 +5722,96 @@ function setQRidaResp(btn,name){
   renderQRidaResps();
 }
 
+// ── Helpers dates réunion ──
+function crSaveMeetingDate(val){const p=S.projects[S.curP];if(!p)return;p.reunionDate=val;saveS();renderCR();}
+function crSaveNextMeetingDate(val){const p=S.projects[S.curP];if(!p)return;p.nextReunionDate=val;saveS();}
+function crGetMeetingDateStr(){
+  const p=S.projects[S.curP]||{};
+  if(p.reunionDate)try{return new Date(p.reunionDate).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});}catch{}
+  return new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+}
+function crGetNextMeetingDateStr(){
+  const p=S.projects[S.curP]||{};
+  if(p.nextReunionDate)try{return new Date(p.nextReunionDate).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});}catch{}
+  // Fallback: +7j
+  const d=new Date();d.setDate(d.getDate()+7);return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+}
+function crGetRiskDateStr(){
+  // Risque = date du jour (réunion en cours)
+  return crGetMeetingDateStr();
+}
+
+// ── Toggle résolution d'un risque ──
+function crToggleResolved(id){
+  const l=S.statLines.find(x=>x.id===id);if(!l)return;
+  l.resolved=!l.resolved;saveS();renderCR();
+  showToast(l.resolved?'✓ Risque marqué résolu — n\'apparaîtra plus':'↩ Risque rouvert — sera présent la semaine prochaine');
+}
+
+// ── Toggle présence intervenant ──
+function crTogglePresence(membId){
+  const m=S.members?.find(x=>x.id===membId)||pM().find(x=>x.id===membId);
+  if(!m)return;
+  m.present=m.present===false?true:false;
+  saveS();renderCR();
+}
+
+// ── Import tâches terminées/démarrées depuis dernière réunion → RIDA I ──
+function crImportCompletedTasks(){
+  const p=S.projects[S.curP]||{};
+  const lastMeeting=p.reunionDate?new Date(p.reunionDate):null;
+  const tasks=pT();
+  const today=new Date();today.setHours(0,0,0,0);
+  let added=0;
+  tasks.forEach(t=>{
+    const isDone=t.status==='done'||t.pct===100;
+    const isStarted=t.status==='inprogress'&&(t.pct||0)>0;
+    if(!isDone&&!isStarted)return;
+    // Éviter doublons
+    if(pSL().some(l=>l.taskRef===t.id&&(l.rida==='I'||l.rida==='A')))return;
+    const detail=isDone?`${t.name}${t.notes?' — '+t.notes.substring(0,80):''}`:`${t.name}${t.pct?' — '+t.pct+'% réalisé':''}${t.notes?' — '+t.notes.substring(0,60):''}`;
+    S.statLines.push({
+      id:S.nid++,pi:S.curP,
+      rida:isDone?'I':'A',
+      theme:t.cat||'',lot:t.cat||'',
+      detail,
+      date:crGetMeetingDateStr(),
+      resp:t.assignee||'',
+      urgent:false,photos:[],taskRef:t.id
+    });
+    added++;
+  });
+  saveS();renderCR();
+  showToast(added?`✓ ${added} tâche${added>1?'s':''} importée${added>1?'s':''} (${pT().filter(t=>t.status==='done').length} terminées)`:'Aucune tâche nouvelle à importer');
+}
+
+// ── Email de relance réunion ──
+function crSendReminderEmail(){
+  const p=S.projects[S.curP]||{};
+  const projName=p.name||'Chantier';
+  const nextDt=p.nextReunionDate?new Date(p.nextReunionDate):null;
+  const nextStr=nextDt?nextDt.toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'à définir';
+  const recipients=pM().filter(m=>m.email).map(m=>m.email).join(',');
+  const subject=`[Rappel] Réunion de chantier — ${projName} — ${nextStr}`;
+  const actions=pSL().filter(l=>l.rida==='A').map(l=>`  • ${l.detail} → ${l.resp||'À définir'} (${l.date||'—'})`).join('\n')||'  Aucune action en cours';
+  const body=`Bonjour,\n\nJe vous rappelle notre prochaine réunion de chantier :\n\nProjet : ${projName}\nDate : ${nextStr}\n\nPoints actions à préparer :\n${actions}\n\nCordialement,\nSARL TRI — Rivas Architecture\n01 48 74 82 11 · contact@rivasarchitecture.com`;
+  const mailto=`mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.open(mailto,'_blank');
+  showToast('📧 Mail de relance ouvert');
+}
+
 function addQuickRIDA(){
   const det=document.getElementById('qr-det')?.value.trim();
   if(!det){showToast('Saisissez un détail');return;}
-  const dt=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
-  S.statLines.push({id:S.nid++,pi:S.curP,rida:_qRidaType,theme:'',detail:det,date:dt,resp:_qRidaResp,urgent:false,photos:[]});
+  const theme=(document.getElementById('qr-theme')?.value.trim()||'').toUpperCase();
+  // Date auto selon type RIDA
+  let dt='';
+  if(_qRidaType==='A')dt=crGetNextMeetingDateStr();       // Action → prochaine réunion
+  else if(_qRidaType==='R')dt=crGetRiskDateStr();          // Risque → date du jour
+  else dt=crGetMeetingDateStr();                           // I / D → date réunion (aujourd'hui)
+  S.statLines.push({id:S.nid++,pi:S.curP,rida:_qRidaType,theme:theme,lot:theme,detail:det,date:dt,resp:_qRidaResp,urgent:false,photos:[]});
   document.getElementById('qr-det').value='';
+  const themeEl=document.getElementById('qr-theme');if(themeEl)themeEl.value='';
   _qRidaResp='';
   saveS();renderCR();
   showToast('✓ Point '+_qRidaType+' ajouté');
@@ -7397,12 +7999,32 @@ async function epHandleDevisFiles(fileList){
     if(status)status.innerHTML=makeProgressHTML(rows);
   }
 
-  // Final summary
-  if(status)status.innerHTML=makeProgressHTML(rows)+
-    `<div style="margin-top:8px;font-family:var(--ff);font-weight:600;font-size:.72rem;color:${saved?'var(--GREEN)':'var(--RED)'}">
-      ${saved?`✓ ${saved} devis enregistré${saved>1?'s':''} dans la base`:''}
-      ${errCount?` — ⚠ ${errCount} erreur${errCount>1?'s':''}. Vérifiez votre clé API.`:''}
-    </div>`;
+  // Final summary — detect if it's an API key issue vs billing vs other
+  const noKey=!getAIKey();
+  const allSame=errCount>0 && rows.every(r=>r.label===rows[0].label);
+  const firstErr=rows.find(r=>r.icon==='❌')?.label||'';
+  const isBilling=firstErr.toLowerCase().includes('credit')||firstErr.toLowerCase().includes('billing');
+  const isKeyMissing=noKey||firstErr.toLowerCase().includes('clé api');
+
+  let summaryHtml='';
+  if(saved>0){
+    summaryHtml+=`<div style="font-family:var(--ff);font-weight:600;font-size:.72rem;color:var(--GREEN);margin-top:8px">✓ ${saved} devis enregistré${saved>1?'s':''} dans la base</div>`;
+  }
+  if(errCount>0){
+    if(isKeyMissing){
+      summaryHtml+=`<div style="margin-top:8px;padding:8px 12px;background:rgba(220,60,40,.07);border-left:3px solid var(--RED);font-family:var(--fm);font-size:.62rem;color:var(--RED);line-height:1.6">
+        ⚠ Clé API Claude non configurée dans ce navigateur.<br>
+        <span style="cursor:pointer;text-decoration:underline" onclick="document.getElementById('ep-import-modal')?.remove();openSheet('adminSheet')">→ Ouvrir Administration → Config IA pour saisir votre clé sk-ant-…</span>
+      </div>`;
+    } else if(isBilling){
+      summaryHtml+=`<div style="margin-top:8px;padding:8px 12px;background:rgba(220,60,40,.07);border-left:3px solid var(--RED);font-family:var(--fm);font-size:.62rem;color:var(--RED);line-height:1.6">
+        ⚠ Crédits API épuisés — rechargez sur <a href="https://console.anthropic.com" target="_blank" style="color:var(--RED)">console.anthropic.com → Plans & Billing</a>
+      </div>`;
+    } else {
+      summaryHtml+=`<div style="margin-top:8px;font-family:var(--fm);font-size:.62rem;color:var(--RED)">⚠ ${errCount} erreur${errCount>1?'s':''}. Vérifiez votre clé API et vos crédits.</div>`;
+    }
+  }
+  if(status)status.innerHTML=makeProgressHTML(rows)+summaryHtml;
 
   if(saved>0){
     setTimeout(()=>{
