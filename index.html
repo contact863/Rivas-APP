@@ -704,7 +704,9 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
             </div>
             <div class="cr-m" id="cr-meta">—</div>
             <div class="cr-actions" style="margin-top:14px">
-              <button class="cr-btn cr-btn-primary" onclick="generateCRPDF()">PDF</button>
+              <button class="cr-btn cr-btn-primary" onclick="generateCRPDF()">↓ PDF</button>
+              <button class="cr-btn" onclick="exportCRWord()" style="background:#271C14;border-color:#271C14;color:#F6F1E8;font-family:var(--fm)">↓ Word</button>
+              <button class="cr-btn" onclick="exportCRPPT()" style="background:#8C3B00;border-color:#8C3B00;color:#FCF9F4;font-family:var(--fm)">↓ PPT</button>
               <button class="cr-btn" onclick="aiGenCR()"><span class="sp-d" id="sp-cr" style="display:none"></span><span id="cr-t">Générer CR</span></button>
               <button class="cr-btn" onclick="sendCR()">Envoyer</button>
               <button class="cr-btn" onclick="crSendReminderEmail()">Relance</button>
@@ -1021,9 +1023,19 @@ input[type="date"],input[type="time"],input[type="datetime-local"]{-webkit-appea
     <button class="nb" id="nb-relances" style="display:none" onclick="nav('relances',this)"><div class="nb-ic">↩</div><div class="nb-lb">Relances</div></button>
     <button class="nb" onclick="nav('email',this)"><div class="nb-ic">✉</div><div class="nb-lb">Emails</div></button>
     <button class="nb" onclick="nav('ai',this)"><div class="nb-ic">◎</div><div class="nb-lb">IA</div></button>
+    <button class="nb" id="nb-rex" style="display:none" onclick="openREX()"><div class="nb-ic">◈</div><div class="nb-lb">REX</div></button>
   </div>
 
 </div><!-- /app -->
+
+<!-- ── REX Overlay ── -->
+<div id="rexOverlay" style="display:none;position:fixed;inset:0;z-index:8000;background:#0D0C0B;flex-direction:column;">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px)+10px) 16px 10px;background:#0D0C0B;border-bottom:1px solid #252220;flex-shrink:0;">
+    <div style="font-size:10px;letter-spacing:0.28em;color:#6B6560;font-family:monospace;text-transform:uppercase;">Rivas · REX</div>
+    <button onclick="closeREX()" style="background:transparent;border:1px solid #302D28;color:#9A9488;font-size:11px;letter-spacing:0.14em;font-family:monospace;padding:7px 16px;cursor:pointer;">✕ Fermer</button>
+  </div>
+  <iframe id="rexFrame" src="" style="flex:1;border:none;width:100%;background:#0D0C0B;" allow="downloads"></iframe>
+</div>
 
 <!-- ── Modale Supprimer Projet ── -->
 <div class="overlay" id="deleteProjetSheet" onclick="if(event.target===this)closeSheet('deleteProjetSheet')">
@@ -2010,6 +2022,8 @@ function _startFirebaseListener(){
     _syncDot('err');
   });
   _syncDot('ok');
+  // Purger les binaires anciens une seule fois après connexion
+  setTimeout(_purgeFirebaseBinariesOnce, 3000);
 }
 
 function saveFirebaseConfig(){
@@ -2026,7 +2040,7 @@ function saveFirebaseConfig(){
     // Push current local state immediately
     _fbSkipNext=false;
     _syncDot('syncing');
-    _fbRef.set(JSON.stringify(S)).then(()=>{
+    _fbRef.set(_stripBinaries(S)).then(()=>{
       _syncDot('ok');
       _updateFirebaseStatusUI(true);
       showToast('✓ Firebase connecté — synchronisation active');
@@ -2077,6 +2091,70 @@ function _updateFirebaseStatusUI(connected){
   }
 }
 
+// ── Prépare une version allégée de S pour Firebase (sans binaires base64) ──
+function _stripBinaries(s){
+  try{
+    const d=JSON.parse(JSON.stringify(s));
+    // PDFs générés (très lourds — rester en local uniquement)
+    if(d.reports)d.reports=d.reports.map(r=>({...r,pdf:null}));
+    // Photos des tâches
+    if(d.tasks)d.tasks=d.tasks.map(t=>({...t,photos:[]}));
+    // Photos des lignes RIDA
+    if(d.statLines)d.statLines=d.statLines.map(l=>({...l,photos:[]}));
+    // Annexes photos des projets (crAnnexes)
+    if(d.projects)Object.values(d.projects).forEach(p=>{if(p&&p.crAnnexes)p.crAnnexes=[];});
+    return JSON.stringify(d);
+  }catch(e){return JSON.stringify(s);}
+}
+
+// Purge one-shot : supprime les photos/PDFs champ par champ dans Firebase
+// Stratégie path-by-path pour éviter d'écrire tout le JSON d'un coup (trop lourd si quota dépassé)
+function _purgeFirebaseBinariesOnce(){
+  if(!_fbRef) return;
+  const FLAG='rv_fb_purged_v3';
+  if(localStorage.getItem(FLAG)) return;
+  console.log('[Firebase] Purge binaires — début suppression ciblée…');
+  const ops=[];
+  // Tâches : vider photos[i]
+  if(S.tasks) S.tasks.forEach((t,i)=>{
+    if(t.photos&&t.photos.length){
+      ops.push(_fbRef.child('tasks/'+i+'/photos').set([]));
+    }
+  });
+  // Rapports : vider pdf
+  if(S.reports) S.reports.forEach((r,i)=>{
+    if(r.pdf&&String(r.pdf).length>50){
+      ops.push(_fbRef.child('reports/'+i+'/pdf').set(null));
+    }
+  });
+  // Projets : vider crAnnexes
+  if(S.projects) Object.keys(S.projects).forEach(pid=>{
+    const p=S.projects[pid];
+    if(p&&p.crAnnexes&&p.crAnnexes.length){
+      ops.push(_fbRef.child('projects/'+pid+'/crAnnexes').set([]));
+    }
+  });
+  // Lignes RIDA : vider photos
+  if(S.statLines) S.statLines.forEach((l,i)=>{
+    if(l.photos&&l.photos.length){
+      ops.push(_fbRef.child('statLines/'+i+'/photos').set([]));
+    }
+  });
+  if(!ops.length){
+    localStorage.setItem(FLAG,'1');
+    console.log('[Firebase] Aucun binaire local détecté — purge inutile');
+    return;
+  }
+  Promise.allSettled(ops).then(results=>{
+    const ok=results.filter(r=>r.status==='fulfilled').length;
+    const err=results.filter(r=>r.status==='rejected').length;
+    localStorage.setItem(FLAG,'1');
+    console.log(`[Firebase] Purge terminée — ${ok} OK, ${err} erreurs`);
+    if(ok>0) showToast('✓ Firebase nettoyé ('+ok+' champs supprimés)');
+    _syncDot('ok');
+  });
+}
+
 function saveS(){
   try{
     // Sauvegarder les tâches journalières séparément par utilisateur
@@ -2094,11 +2172,15 @@ function saveS(){
       if(bk3)localStorage.setItem('rv_bk3',bk3);
       localStorage.setItem('rv_bk1',JSON.stringify({ts:now,data:str}));
     }catch(e){}
-    // Sync to Firebase if configured
+    // Sync vers Firebase — version allégée sans photos ni PDFs base64
     if(_fbRef){
       _syncDot('syncing');
       _fbSkipNext=true;
-      _fbRef.set(str).then(()=>_syncDot('ok')).catch(e=>{_syncDot('err');console.warn('Firebase write error',e);});
+      _fbRef.set(_stripBinaries(S)).then(()=>_syncDot('ok')).catch(e=>{
+        _syncDot('err');
+        showToast('⚠ Erreur Firebase : '+e.message);
+        console.warn('Firebase write error',e);
+      });
     }
   }catch(e){console.warn('saveS error',e);}
 }
@@ -2171,7 +2253,7 @@ function importAppData(input){
       // Pousser vers Firebase directement
       if(_fbRef){
         _syncDot('syncing');
-        _fbRef.set(str).then(()=>{
+        _fbRef.set(_stripBinaries(S)).then(()=>{
           _syncDot('ok');
           // Réactiver le listener après push réussi
           _startFirebaseListener();
@@ -2227,6 +2309,11 @@ function launchApp(session){
   document.getElementById('am-role').textContent=roleLabel;
 
   // ── Permissions selon rôle ──────────────────────────────────────────────
+  // REX — visible uniquement pour Michael Rivas
+  if(session.email.toLowerCase()==='michaelrivas@hotmail.fr'){
+    const nbRex=document.getElementById('nb-rex');if(nbRex)nbRex.style.display='flex';
+  }
+
   if(isOwner||isEquipe){
     // Owner + Équipe : accès Administration + Relances
     document.getElementById('am-admin-btn').style.display='flex';
@@ -3947,6 +4034,19 @@ function scrollGanttToday(){
   gr.scrollLeft=sl;if(gh)gh.scrollLeft=sl;
 }
 
+function openREX(){
+  const ov=document.getElementById('rexOverlay');
+  const fr=document.getElementById('rexFrame');
+  if(!fr.src||fr.src==='about:blank'||!fr.src.includes('rex.html')) fr.src='rex.html';
+  ov.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeREX(){
+  const ov=document.getElementById('rexOverlay');
+  ov.style.display='none';
+  document.body.style.overflow='';
+}
+
 function forceSave(){
   const btn=document.getElementById('force-save-btn');
   const orig=btn?btn.textContent:'';
@@ -3957,7 +4057,7 @@ function forceSave(){
     if(CUR_SESSION?.email)localStorage.setItem('rv_day_'+CUR_SESSION.email,JSON.stringify(S.dayTasks));
     if(_fbRef){
       _syncDot('syncing');
-      _fbRef.set(str)
+      _fbRef.set(_stripBinaries(S))
         .then(()=>{
           _syncDot('ok');
           showToast('✅ Données sauvegardées sur Firebase');
@@ -4411,7 +4511,27 @@ function renderTaskList(){
 }
 
 // ══ COMPTE RENDU ══
+// Auto-migre les lignes [RETARD] mal typées (A au lieu de R) et reformate en phrase
+function crMigrateRetards(){
+  let changed=false;
+  (S.statLines||[]).filter(l=>l.pi===S.curP&&l.rida==='A'&&(l.detail||'').startsWith('[RETARD]')).forEach(l=>{
+    l.rida='R';
+    const raw=(l.detail||'').replace(/^\[RETARD\]\s*/,'').trim();
+    // Extraire date entre parenthèses si présente
+    const dm=raw.match(/\((\d{4}-\d{2}-\d{2})\)/);
+    const dateFr=dm?new Date(dm[1]).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}):'';
+    // Enlever la partie "— échéance dépassée (…)"
+    const base=raw.replace(/\s*[—-]+\s*échéance dépassée.*$/i,'').replace(/LOT\s*\d+\s*/i,'').trim();
+    l.detail=dateFr
+      ?`Retard constaté — ${base}. Échéance dépassée depuis le ${dateFr}.`
+      :`Retard constaté — ${base}.`;
+    changed=true;
+  });
+  if(changed)saveS();
+}
+
 function renderCR(){
+  crMigrateRetards();
   const proj=S.projects[S.curP]||{};
   const meetingDt=proj.reunionDate||'';
   const nextMeetingDt=proj.nextReunionDate||'';
@@ -4472,31 +4592,38 @@ function renderCR(){
     if(lines.length<=1)return `<span style="${td}color:${urgent?'var(--RED)':'var(--C)'}">${txt}</span>`;
     return `<ul style="margin:0;padding:0 0 0 14px;list-style:disc">${lines.map((ln,i)=>`<li style="margin-bottom:2px;line-height:1.55;${td}color:${urgent&&i===lines.length-1?'var(--RED)':'var(--C)'}">${ln.replace(/^[-•·]\s*/,'')}</li>`).join('')}</ul>`;
   };
+  const eStyle='outline:none;border-bottom:1px dashed transparent;cursor:text;display:block;min-width:28px';
   const renderRow=(l,idx)=>{
     const rc=RIDA_COLORS[l.rida]||'#555';
     const isResolved=l.rida==='R'&&l.resolved;
     const themeStr=(l.lot||l.theme||'—');
     const bg=idx%2===0?'#FCF9F4':'#F6F1E8';
     const brd='rgba(39,28,20,.08)';
+    const lid=l.id;
     return `<tr style="background:${bg};opacity:${isResolved?.5:1}">
       <td style="padding:8px 6px;text-align:center;font-family:var(--fm);font-size:.58rem;color:rgba(39,28,20,.35);border-bottom:1px solid ${brd};border-right:1px solid ${brd};white-space:nowrap;vertical-align:top">${idx+1}</td>
-      <td style="padding:8px 6px;text-align:center;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top">
+      <td title="Cliquer pour changer le type" onclick="crCycleRida(${lid})" style="padding:8px 6px;text-align:center;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top;cursor:pointer">
         <span style="font-family:var(--ff);font-weight:700;font-size:.9rem;color:${isResolved?'rgba(39,28,20,.3)':rc}">${isResolved?'✓':l.rida}</span>
       </td>
-      <td style="padding:8px 8px;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top;min-width:60px">
-        <span style="font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:${isResolved?'rgba(39,28,20,.3)':rc};${isResolved?'text-decoration:line-through':''}">${themeStr}</span>
+      <td style="padding:6px 8px;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top;min-width:60px">
+        <span contenteditable="true" data-id="${lid}" data-field="lot" onblur="crSaveInline(this)" onfocus="this.style.borderBottomColor='rgba(39,28,20,.35)'" style="${eStyle};font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:${isResolved?'rgba(39,28,20,.3)':rc};${isResolved?'text-decoration:line-through':''}">${themeStr}</span>
       </td>
-      <td style="padding:8px 10px;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top;min-width:120px">
-        <div style="font-family:var(--fm);font-size:.65rem;line-height:1.65;color:#271C14">${_fmtDetTable(l.detail,l.urgent&&!isResolved,isResolved)}</div>
+      <td style="padding:6px 10px;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top;min-width:140px">
+        <div id="cr-det-${lid}" style="font-family:var(--fm);font-size:.65rem;line-height:1.65;color:#271C14">${_fmtDetTable(l.detail,l.urgent&&!isResolved,isResolved)}</div>
         ${l.photos?.length?`<div style="display:flex;gap:5px;margin-top:6px;flex-wrap:wrap">${l.photos.map(p=>`<img style="width:56px;height:56px;object-fit:cover;border:1px solid rgba(39,28,20,.12);cursor:zoom-in;border-radius:2px" src="${p}" onclick="showPh(this.src)">`).join('')}</div>`:''}
         <div style="display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;align-items:center">
-          ${l.rida==='R'?`<button onclick="crToggleResolved(${l.id})" style="font-family:var(--fm);font-size:.48rem;letter-spacing:.5px;padding:3px 9px;border-radius:2px;cursor:pointer;border:1px solid ${isResolved?'rgba(39,28,20,.2)':'#2B7A4B'};background:transparent;color:${isResolved?'rgba(39,28,20,.4)':'#2B7A4B'}">${isResolved?'↩ Réouvrir':'✓ Résolu'}</button>`:''}
-          <label style="font-family:var(--fm);font-size:.48rem;color:rgba(39,28,20,.4);cursor:pointer;border:1px dashed rgba(39,28,20,.2);padding:3px 7px;border-radius:2px;display:inline-flex;align-items:center;gap:3px">📷<input type="file" accept="image/*" multiple style="display:none" onchange="addStPh(${l.id},this)"></label>
-          <button onclick="delStatLine(${l.id})" style="font-family:var(--fm);font-size:.48rem;color:rgba(139,32,32,.7);background:transparent;border:1px solid rgba(139,32,32,.15);padding:3px 7px;border-radius:2px;cursor:pointer">🗑</button>
+          ${l.rida==='R'?`<button onclick="crToggleResolved(${lid})" style="font-family:var(--fm);font-size:.48rem;letter-spacing:.5px;padding:3px 9px;border-radius:2px;cursor:pointer;border:1px solid ${isResolved?'rgba(39,28,20,.2)':'#2B7A4B'};background:transparent;color:${isResolved?'rgba(39,28,20,.4)':'#2B7A4B'}">${isResolved?'↩ Réouvrir':'✓ Résolu'}</button>`:''}
+          <button onclick="crEditDetail(${lid})" title="Modifier le texte" style="font-family:var(--fm);font-size:.48rem;color:rgba(39,28,20,.5);background:transparent;border:1px dashed rgba(39,28,20,.2);padding:3px 7px;border-radius:2px;cursor:pointer">✏</button>
+          <label style="font-family:var(--fm);font-size:.48rem;color:rgba(39,28,20,.4);cursor:pointer;border:1px dashed rgba(39,28,20,.2);padding:3px 7px;border-radius:2px;display:inline-flex;align-items:center;gap:3px">📷<input type="file" accept="image/*" multiple style="display:none" onchange="addStPh(${lid},this)"></label>
+          <button onclick="delStatLine(${lid})" style="font-family:var(--fm);font-size:.48rem;color:rgba(139,32,32,.7);background:transparent;border:1px solid rgba(139,32,32,.15);padding:3px 7px;border-radius:2px;cursor:pointer">🗑</button>
         </div>
       </td>
-      <td style="padding:8px 6px;text-align:center;white-space:nowrap;font-family:var(--fm);font-size:.6rem;color:#271C14;font-weight:600;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top">${_fmtDate(l.date)}</td>
-      <td style="padding:8px 8px;text-align:center;font-family:var(--fm);font-size:.6rem;font-weight:700;color:${isResolved?'rgba(39,28,20,.3)':rc};border-bottom:1px solid ${brd};vertical-align:top">${l.resp||'—'}</td>
+      <td style="padding:6px 6px;text-align:center;border-bottom:1px solid ${brd};border-right:1px solid ${brd};vertical-align:top">
+        <span contenteditable="true" data-id="${lid}" data-field="date" onblur="crSaveInline(this)" onfocus="this.style.borderBottomColor='rgba(39,28,20,.35)'" style="${eStyle};font-family:var(--fm);font-size:.6rem;color:#271C14;font-weight:600;white-space:nowrap;text-align:center">${_fmtDate(l.date)}</span>
+      </td>
+      <td style="padding:6px 8px;text-align:center;border-bottom:1px solid ${brd};vertical-align:top">
+        <span contenteditable="true" data-id="${lid}" data-field="resp" onblur="crSaveInline(this)" onfocus="this.style.borderBottomColor='rgba(39,28,20,.35)'" style="${eStyle};font-family:var(--fm);font-size:.6rem;font-weight:700;color:${isResolved?'rgba(39,28,20,.3)':rc};text-align:center">${l.resp||'—'}</span>
+      </td>
     </tr>`;
   };
   document.getElementById('cr-stat').innerHTML=allLines.length
@@ -4751,18 +4878,21 @@ function crPrefillFromTasks(){
   const today=new Date();today.setHours(0,0,0,0);
   let added=0;
   tasks.forEach(t=>{
-    // Tâches à risque → R (Risque)
+    // Tâches à risque → R (Risque) — phrase complète
     if(t.risk&&!pSL().some(l=>l.taskRef===t.id&&l.rida==='R')){
-      const sl={id:Date.now()+Math.random(),pi:S.curP,rida:'R',lot:t.cat||'Général',detail:t.name+(t.notes?'\n'+t.notes:''),date:'',resp:t.assignee||'',photos:[],taskRef:t.id};
+      const det=`Risque identifié${t.cat?' sur le lot '+t.cat+' — ':' — '}${t.name}.${t.notes?'\n'+t.notes:''}`;
+      const sl={id:Date.now()+Math.random(),pi:S.curP,rida:'R',lot:t.cat||'Général',detail:det,date:'',resp:t.assignee||'',photos:[],taskRef:t.id};
       if(!S.statLines)S.statLines=[];
       S.statLines.push(sl);
       added++;
     }
-    // Tâches en retard → R (Risque)
+    // Tâches en retard → R (Risque) — phrase complète
     if(t.end&&(t.status!=='done')){
       const endD=new Date(t.end+'T00:00');
       if(endD<today&&!pSL().some(l=>l.taskRef===t.id&&(l.rida==='R'||l.rida==='A'))){
-        const sl={id:Date.now()+Math.random(),pi:S.curP,rida:'R',theme:t.cat||'',lot:t.cat||'',detail:t.name,date:crGetRiskDateStr(),resp:t.assignee||'',photos:[],taskRef:t.id};
+        const endFr=new Date(t.end).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+        const det=`Retard constaté${t.cat?' sur le lot '+t.cat+' — ':' — '}${t.name}. Échéance dépassée depuis le ${endFr}.`;
+        const sl={id:Date.now()+Math.random(),pi:S.curP,rida:'R',theme:t.cat||'',lot:t.cat||'',detail:det,date:crGetRiskDateStr(),resp:t.assignee||'',photos:[],taskRef:t.id};
         if(!S.statLines)S.statLines=[];
         S.statLines.push(sl);
         added++;
@@ -5075,6 +5205,203 @@ async function generateCRPDF(){
   const url=URL.createObjectURL(blob);
   window.open(url,'_blank');
   showToast('✓ CR PDF généré — '+members.length+' intervenants · '+statLines.length+' points RIDA');
+}
+
+// ══ EXPORT CR — WORD (.doc) ══
+function exportCRWord(){
+  const proj=S.projects[S.curP]||{};
+  const meetingDt=proj.reunionDate?new Date(proj.reunionDate):new Date();
+  const nextMeetingDt=proj.nextReunionDate?new Date(proj.nextReunionDate):null;
+  const dateStr=meetingDt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}).replace(/\//g,'.');
+  const dateStrLong=meetingDt.toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+  const nextDateStr=nextMeetingDt?nextMeetingDt.toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'À définir';
+  const members=pM(),statLines=pSL(),clefs=pC();
+  const activeLines=statLines.filter(l=>l.rida!=='R'||!l.resolved);
+  const structurants=statLines.filter(l=>l.rida==='D');
+  const RIDA_C={R:'#8B2020',I:'#2B6B52',D:'#1E4A7A',A:'#5A6800'};
+  const membersHtml=members.map((m,i)=>`<tr style="background:${i%2===0?'#FCF9F4':'#F6F1E8'}"><td style="padding:6px 10px;border-bottom:1px solid rgba(39,28,20,.08)"><strong>${m.name||''}</strong>${m.company?' — <span style="font-weight:normal;opacity:.6">'+m.company+'</span>':''}${m.tel||m.email?'<br><small style="color:rgba(39,28,20,.4)">'+(m.tel?m.tel:'')+(m.tel&&m.email?' · ':'')+(m.email?m.email:'')+'</small>':''}</td><td style="padding:6px 10px;text-align:center;border-bottom:1px solid rgba(39,28,20,.08)">${m.type||''}</td><td style="padding:6px 10px;text-align:center;border-bottom:1px solid rgba(39,28,20,.08)">×</td><td style="padding:6px 10px;text-align:center;border-bottom:1px solid rgba(39,28,20,.08)">${m.present!==false?'✓':''}</td><td style="padding:6px 10px;text-align:center;border-bottom:1px solid rgba(39,28,20,.08)">${m.present===false?'✕':''}</td></tr>`).join('');
+  const ridaHtml=activeLines.map((l,idx)=>{const rc=RIDA_C[l.rida]||'#555';const themeStr=l.lot||l.theme||'—';const det=(l.detail||'').split('\n').map(s=>s.trim()).filter(Boolean);const detHtml=det.length>1?'<ul style="margin:3px 0 0 14px;padding:0">'+det.map(d=>`<li style="margin-bottom:2px">${d.replace(/^[-•·]\s*/,'')}</li>`).join('')+'</ul>':det[0]||'—';return `<tr style="background:${idx%2===0?'#FCF9F4':'#F6F1E8'}"><td style="padding:6px;text-align:center;color:rgba(39,28,20,.4);font-size:.8em;border-bottom:1px solid rgba(39,28,20,.07)">${idx+1}</td><td style="padding:6px;text-align:center;border-bottom:1px solid rgba(39,28,20,.07);border-left:3px solid ${rc}"><strong style="color:${rc};font-size:1.1em">${l.rida}</strong></td><td style="padding:6px 8px;border-bottom:1px solid rgba(39,28,20,.07)"><strong style="color:${rc};font-size:.8em;text-transform:uppercase;letter-spacing:.5px">${themeStr}</strong></td><td style="padding:6px 10px;border-bottom:1px solid rgba(39,28,20,.07);line-height:1.55">${detHtml}</td><td style="padding:6px;text-align:center;border-bottom:1px solid rgba(39,28,20,.07);font-size:.85em;font-weight:600">${(l.date||'—').replace(/\//g,'.')}</td><td style="padding:6px;text-align:center;border-bottom:1px solid rgba(39,28,20,.07);color:${rc};font-weight:700;font-size:.85em">${l.resp||'—'}</td></tr>`;}).join('');
+  const clefsHtml=clefs.map((c,i)=>`<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 12px;border-bottom:1px solid rgba(39,28,20,.07);background:${i%2===0?'#FCF9F4':'#F6F1E8'}"><div style="width:3px;background:${c.urgent?'#8B2020':'rgba(39,28,20,.2)'};flex-shrink:0;align-self:stretch;border-radius:1px"></div><div style="flex:1;font-size:.9em;color:${c.urgent?'#8B2020':'#271C14'}">${c.ref?'<strong style="text-transform:uppercase;font-size:.75em;letter-spacing:.5px">'+c.ref+'</strong>  ·  ':''}${c.text||''}</div></div>`).join('');
+  const structHtml=structurants.map((l,idx)=>{const det=(l.detail||'').split('\n').map(s=>s.trim()).filter(Boolean);const dH=det.length>1?'<ul style="margin:3px 0 0 14px;padding:0">'+det.map(d=>`<li style="margin-bottom:2px">${d.replace(/^[-•·]\s*/,'')}</li>`).join('')+'</ul>':det[0]||'—';return `<tr style="background:${idx%2===0?'#FCF9F4':'#F6F1E8'}"><td style="padding:6px 8px;border-bottom:1px solid rgba(39,28,20,.07)"><strong style="color:#1E4A7A;font-size:.8em;text-transform:uppercase;letter-spacing:.5px">${l.lot||l.theme||'—'}</strong></td><td style="padding:6px 10px;border-bottom:1px solid rgba(39,28,20,.07);line-height:1.55">${dH}</td><td style="padding:6px;text-align:center;border-bottom:1px solid rgba(39,28,20,.07);font-size:.85em;font-weight:600">${(l.date||'—').replace(/\//g,'.')}</td><td style="padding:6px;text-align:center;border-bottom:1px solid rgba(39,28,20,.07);color:#1E4A7A;font-weight:700;font-size:.85em">${l.resp||'—'}</td></tr>`;}).join('');
+  const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+    @page{size:A4 landscape;margin:1.5cm 2cm}
+    *{box-sizing:border-box}
+    body{font-family:Calibri,'Segoe UI',Arial,sans-serif;color:#271C14;margin:0;padding:0;background:#FCF9F4}
+    .cover{background:#271C14;color:#FCF9F4;min-height:14cm;padding:2cm;display:flex;flex-direction:column;justify-content:space-between;page-break-after:always}
+    .cv-brand{font-size:.72em;letter-spacing:3px;text-transform:uppercase;opacity:.5;font-family:'Century Gothic',Arial}
+    .cv-proj{font-size:2.8em;font-weight:700;text-transform:uppercase;margin:1.2cm 0 .2cm;line-height:1.15}
+    .cv-type{font-size:.82em;letter-spacing:3px;text-transform:uppercase;color:#F6F1E8;opacity:.65;margin-bottom:1.2cm;font-family:'Century Gothic',Arial}
+    .cv-ft{display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(252,249,244,.15);padding-top:.5cm}
+    .cv-date{font-size:.9em;font-weight:700;color:#F6F1E8}
+    .cv-addr{font-size:.62em;color:rgba(252,249,244,.35);line-height:1.7;text-align:right;font-family:'Century Gothic',Arial}
+    .sec{page-break-before:always;padding:.3cm 0}
+    .sec-hdr{background:#271C14;color:#FCF9F4;padding:7px 12px;font-family:'Century Gothic',Arial;font-size:.62em;letter-spacing:2.5px;text-transform:uppercase;font-weight:400;display:flex;gap:12px}
+    .sec-num{opacity:.45}
+    table{width:100%;border-collapse:collapse;font-size:.82em}
+    th{padding:7px 10px;font-size:.68em;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;text-align:left;background:#F6F1E8;border-bottom:2px solid #271C14}
+    td{vertical-align:top;font-size:.82em;line-height:1.5}
+    .notice{font-size:.7em;color:rgba(39,28,20,.4);font-style:italic;margin-top:.5cm}
+    .footer{border-top:1px solid rgba(39,28,20,.12);padding-top:.35cm;margin-top:.7cm;font-size:.58em;color:rgba(39,28,20,.35);text-align:center;letter-spacing:1px;font-family:'Century Gothic',Arial}
+  </style></head><body>
+  <div class="cover"><div><div class="cv-brand">Rivas Architecture · Compte Rendu</div><div style="width:60px;height:3px;background:rgba(252,249,244,.25);margin:14px 0"></div><div class="cv-proj">${proj.name||'Chantier'}</div><div class="cv-type">Compte Rendu de Chantier · Hebdomadaire</div></div><div class="cv-ft"><div class="cv-date">${dateStrLong}</div><div class="cv-addr">SARL TRI · 3 rue de Parme 75009 Paris<br>01 48 74 82 11 · contact@rivasarchitecture.com</div></div></div>
+  <div class="sec"><div class="sec-hdr"><span class="sec-num">01</span><span>Intervenants</span></div><table><thead><tr><th style="width:40%">Participant(s)</th><th style="width:12%;text-align:center">Rôle</th><th style="width:9%;text-align:center">Invité</th><th style="width:9%;text-align:center">Présent</th><th style="width:9%;text-align:center">Absent</th></tr></thead><tbody>${membersHtml||'<tr><td colspan="5" style="padding:10px;color:rgba(39,28,20,.35)">—</td></tr>'}</tbody></table><div style="margin-top:14px;display:flex;gap:8px;align-items:center"><span style="font-size:.72em;color:rgba(39,28,20,.45);font-family:Century Gothic,Arial">Prochaine réunion :</span><strong style="font-size:.78em">${nextDateStr}</strong></div><div class="notice">Le présent compte-rendu est contractuel et sera considéré comme accepté sauf contestation dans les huit jours.</div></div>
+  ${activeLines.length?`<div class="sec"><div class="sec-hdr"><span class="sec-num">02</span><span>Éléments Clefs — RIDA</span></div><table><thead><tr><th style="width:4%;text-align:center">#</th><th style="width:7%;text-align:center">RIDA*</th><th style="width:13%">Thème / Lot</th><th>Détail</th><th style="width:8%;text-align:center">Date</th><th style="width:9%;text-align:center">Resp.</th></tr></thead><tbody>${ridaHtml}</tbody></table><div class="notice">*RIDA : Risque / Information / Décision / Action</div></div>`:''}
+  ${clefs.length?`<div class="sec"><div class="sec-hdr"><span class="sec-num">03</span><span>Points Clefs</span></div><div style="margin-top:2px">${clefsHtml}</div></div>`:''}
+  ${structurants.length?`<div class="sec"><div class="sec-hdr"><span class="sec-num">04</span><span>Rappel des Éléments Structurants — Décisions</span></div><table><thead><tr><th style="width:18%">Lot / Thème</th><th>Décision</th><th style="width:8%;text-align:center">Date</th><th style="width:9%;text-align:center">Resp.</th></tr></thead><tbody>${structHtml}</tbody></table></div>`:''}
+  <div class="footer">RIVAS ARCHITECTURE · SARL TRI · 3 RUE DE PARME 75009 PARIS · 01 48 74 82 11 · contact@rivasarchitecture.com</div>
+  </body></html>`;
+  const blob=new Blob(['﻿'+html],{type:'application/msword'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;
+  a.download='CR_Rivas_'+(proj.name||'projet').replace(/\s+/g,'_')+'_'+dateStr+'.doc';
+  a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
+  showToast('✓ Word exporté — '+members.length+' intervenants · '+activeLines.length+' points RIDA');
+}
+
+// ══ EXPORT CR — POWERPOINT (.pptx) ══
+async function exportCRPPT(){
+  showToast('Préparation PPT…');
+  if(!window.PptxGenJS){
+    await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});
+  }
+  const proj=S.projects[S.curP]||{};
+  const meetingDt=proj.reunionDate?new Date(proj.reunionDate):new Date();
+  const nextMeetingDt=proj.nextReunionDate?new Date(proj.nextReunionDate):null;
+  const dateStr=meetingDt.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}).replace(/\//g,'.');
+  const dateStrLong=meetingDt.toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+  const nextDateStr=nextMeetingDt?nextMeetingDt.toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'À définir';
+  const members=pM(),statLines=pSL(),clefs=pC();
+  const activeLines=statLines.filter(l=>l.rida!=='R'||!l.resolved);
+  const structurants=statLines.filter(l=>l.rida==='D');
+  const DARK='271C14',ALAB='F6F1E8',OWHT='FCF9F4',GOLD='A08040',MID='8C8070';
+  const RIDA_C={R:'8B2020',I:'2B6B52',D:'1E4A7A',A:'5A6800'};
+  const W=10,H=5.625,SB=0.52;
+  const pptx=new PptxGenJS();
+  pptx.layout='LAYOUT_16x9';
+  pptx.title='CR Hebdo — '+(proj.name||'Projet');
+  pptx.author='Rivas Architecture';
+  const makeShadow=()=>({type:'outer',blur:4,offset:2,angle:135,color:'000000',opacity:0.10});
+  const addSb=(sl,lbl)=>{
+    sl.addShape(pptx.shapes.RECTANGLE,{x:W-SB,y:0,w:SB,h:H,fill:{color:DARK}});
+    sl.addText('RIVAS ARCHITECTURE',{x:W-SB+0.01,y:H-0.32,w:SB-0.02,h:0.22,fontFace:'Century Gothic',fontSize:4.5,color:ALAB,align:'center',charSpacing:1.5});
+    sl.addText(lbl,{x:W-SB+0.01,y:0.4,w:SB-0.02,h:H-0.8,rotate:90,fontFace:'Century Gothic',fontSize:6,color:OWHT,align:'center',charSpacing:3});
+  };
+  const addHdr=(sl,num,title)=>{
+    sl.addShape(pptx.shapes.RECTANGLE,{x:0.35,y:0.22,w:W-SB-0.5,h:0.28,fill:{color:DARK}});
+    sl.addText([{text:num+'  ',options:{color:ALAB,charSpacing:2}},{text:title,options:{color:OWHT,charSpacing:2}}],{x:0.48,y:0.23,w:W-SB-0.65,h:0.26,fontFace:'Century Gothic',fontSize:6.5,valign:'middle',margin:0});
+  };
+  const addFoot=(sl)=>{
+    sl.addText('SARL TRI  ·  3 rue de Parme 75009 Paris  ·  01 48 74 82 11  ·  contact@rivasarchitecture.com',{x:0.35,y:H-0.28,w:W-SB-0.5,h:0.22,fontFace:'Century Gothic',fontSize:4.5,color:MID,align:'center'});
+  };
+
+  // ── SLIDE 1 : COUVERTURE ──
+  const s1=pptx.addSlide();
+  s1.background={color:DARK};
+  s1.addShape(pptx.shapes.RECTANGLE,{x:W*0.62,y:0,w:W*0.38-SB,h:H,fill:{color:ALAB}});
+  s1.addShape(pptx.shapes.RECTANGLE,{x:0.35,y:0.92,w:0.70,h:0.035,fill:{color:GOLD}});
+  s1.addText('RIVAS ARCHITECTURE',{x:0.35,y:0.38,w:5,h:0.22,fontFace:'Century Gothic',fontSize:6.5,color:OWHT,charSpacing:4});
+  s1.addText((proj.name||'CHANTIER').toUpperCase(),{x:0.35,y:1.0,w:W*0.60,h:2.2,fontFace:'Calibri',fontSize:30,bold:true,color:OWHT,valign:'top'});
+  s1.addText('COMPTE RENDU DE CHANTIER  ·  HEBDOMADAIRE',{x:0.35,y:3.3,w:W*0.60,h:0.28,fontFace:'Century Gothic',fontSize:6,color:OWHT,charSpacing:1.5});
+  s1.addText(dateStrLong.toUpperCase(),{x:W*0.62+0.15,y:0.38,w:W*0.38-SB-0.22,h:0.28,fontFace:'Century Gothic',fontSize:6.5,bold:true,color:DARK});
+  s1.addShape(pptx.shapes.RECTANGLE,{x:0,y:H-0.32,w:W*0.62,h:0.32,fill:{color:'1C1208'}});
+  s1.addText('SARL TRI  ·  3 RUE DE PARME 75009 PARIS  ·  01 48 74 82 11',{x:0.35,y:H-0.27,w:W*0.62-0.4,h:0.22,fontFace:'Century Gothic',fontSize:5,color:MID});
+  s1.addShape(pptx.shapes.RECTANGLE,{x:W-SB,y:0,w:SB,h:H,fill:{color:'1C1208'}});
+  s1.addText('CR  ·  '+dateStr,{x:W-SB+0.01,y:0.5,w:SB-0.02,h:H-1,rotate:90,fontFace:'Century Gothic',fontSize:6.5,color:ALAB,align:'center',charSpacing:3});
+
+  // ── SLIDE 2 : INTERVENANTS ──
+  const s2=pptx.addSlide();s2.background={color:OWHT};addSb(s2,'INTERVENANTS');addHdr(s2,'01','COMPTE RENDU HEBDOMADAIRE — INTERVENANTS');
+  const mHdr=[{text:'PARTICIPANT(S)',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT,align:'left'}},{text:'RÔLE',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT,align:'center'}},{text:'INV.',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT,align:'center'}},{text:'PRÉS.',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT,align:'center'}},{text:'ABS.',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT,align:'center'}}];
+  const mRows=members.length?members.map((m,i)=>{const bg=i%2===0?OWHT:ALAB;const isp=m.present!==false;return [{text:(m.name||'')+(m.company?' — '+m.company:''),options:{fontSize:7.5,fill:{color:bg},color:DARK,bold:false}},{text:m.type||'',options:{fontSize:6.5,fill:{color:bg},color:'706050',align:'center'}},{text:'×',options:{fontSize:7,fill:{color:bg},color:'C0B8A8',align:'center'}},{text:isp?'✓':'',options:{fontSize:8,fill:{color:bg},color:'2B7A4B',bold:true,align:'center'}},{text:!isp?'✕':'',options:{fontSize:8,fill:{color:bg},color:'8B2020',bold:true,align:'center'}}];}):[{text:'—',options:{colspan:5,fontSize:8,color:MID}}].map(o=>[o]);
+  s2.addTable([mHdr,...mRows],{x:0.35,y:0.62,w:W-SB-0.5,colW:[3.4,1.5,0.75,0.75,0.75],border:{pt:0.3,color:ALAB},autoPage:true});
+  s2.addText('Prochaine réunion :',{x:0.35,y:H-0.95,w:1.8,h:0.26,fontFace:'Century Gothic',fontSize:7,color:MID,margin:0});
+  s2.addText(nextDateStr,{x:2.2,y:H-0.95,w:W-SB-2.4,h:0.26,fontFace:'Century Gothic',fontSize:7.5,bold:true,color:DARK,margin:0});
+  s2.addText('Le présent compte-rendu est contractuel et sera considéré comme accepté sauf contestation dans les huit jours.',{x:0.35,y:H-0.62,w:W-SB-0.5,h:0.24,fontFace:'Calibri',fontSize:6,italic:true,color:MID});
+  addFoot(s2);
+
+  // ── SLIDES RIDA ──
+  if(activeLines.length){
+    const PER=9;
+    const chunks=[];for(let i=0;i<activeLines.length;i+=PER)chunks.push(activeLines.slice(i,i+PER));
+    chunks.forEach((chunk,ci)=>{
+      const sr=pptx.addSlide();sr.background={color:OWHT};addSb(sr,'RIDA');
+      addHdr(sr,'02','ÉLÉMENTS CLEFS — RIDA'+(chunks.length>1?' ('+(ci+1)+'/'+chunks.length+')':''));
+      const rHdr=[{text:'#',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT,align:'center'}},{text:'RIDA*',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT,align:'center'}},{text:'THÈME',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT}},{text:'DÉTAIL',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT}},{text:'DATE',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT,align:'center'}},{text:'RESP.',options:{bold:true,fontSize:6,fill:{color:DARK},color:OWHT,align:'center'}}];
+      const rRows=chunk.map((l,idx)=>{const rc=RIDA_C[l.rida]||'555555';const bg=(ci*PER+idx)%2===0?OWHT:ALAB;const det=(l.detail||'').replace(/\n/g,' · ').substring(0,220);return [{text:String(ci*PER+idx+1),options:{fontSize:6.5,fill:{color:bg},color:MID,align:'center'}},{text:l.rida||'',options:{fontSize:10,bold:true,fill:{color:bg},color:rc,align:'center'}},{text:l.lot||l.theme||'—',options:{fontSize:7,bold:true,fill:{color:bg},color:rc}},{text:det,options:{fontSize:7.5,fill:{color:bg},color:DARK}},{text:(l.date||'—').replace(/\//g,'.'),options:{fontSize:7,bold:true,fill:{color:bg},color:DARK,align:'center'}},{text:l.resp||'—',options:{fontSize:7,bold:true,fill:{color:bg},color:rc,align:'center'}}];});
+      sr.addTable([rHdr,...rRows],{x:0.35,y:0.62,w:W-SB-0.5,colW:[0.38,0.52,1.55,4.45,0.72,0.83],rowH:0.40,border:{pt:0.3,color:ALAB},autoPage:true});
+      sr.addText('*RIDA : Risque / Information / Décision / Action',{x:0.35,y:H-0.28,w:W-SB-0.5,h:0.22,fontFace:'Calibri',fontSize:5.5,italic:true,color:MID});
+    });
+  }
+
+  // ── SLIDE CLEFS + STRUCTURANTS ──
+  if(clefs.length||structurants.length){
+    const sc=pptx.addSlide();sc.background={color:OWHT};addSb(sc,'SYNTHÈSE');
+    let cy=0.22;
+    if(clefs.length){
+      addHdr(sc,'03','POINTS CLEFS');cy=0.62;
+      clefs.slice(0,7).forEach((c,i)=>{
+        sc.addShape(pptx.shapes.RECTANGLE,{x:0.35,y:cy+0.06,w:0.04,h:0.36,fill:{color:c.urgent?'8B2020':'C0B098'}});
+        sc.addText((c.ref?c.ref+'  ·  ':'')+c.text,{x:0.47,y:cy,w:W-SB-0.62,h:0.45,fontFace:'Calibri',fontSize:8,color:c.urgent?'8B2020':DARK,margin:0});
+        cy+=0.50;
+      });
+      cy+=0.15;
+    }
+    if(structurants.length&&cy<H-0.8){
+      sc.addShape(pptx.shapes.RECTANGLE,{x:0.35,y:cy,w:W-SB-0.5,h:0.28,fill:{color:DARK}});
+      sc.addText([{text:'04  ',options:{color:ALAB,charSpacing:2}},{text:'RAPPEL DES ÉLÉMENTS STRUCTURANTS — DÉCISIONS',options:{color:OWHT,charSpacing:2}}],{x:0.48,y:cy+0.01,w:W-SB-0.65,h:0.26,fontFace:'Century Gothic',fontSize:6.5,valign:'middle',margin:0});
+      cy+=0.38;
+      structurants.slice(0,5).forEach((l,i)=>{
+        if(cy>H-0.5)return;
+        sc.addShape(pptx.shapes.RECTANGLE,{x:0.35,y:cy+0.05,w:0.04,h:0.36,fill:{color:'1E4A7A'}});
+        const det=(l.detail||'').replace(/\n/g,' · ').substring(0,180);
+        sc.addText((l.lot||l.theme?'['+( l.lot||l.theme)+']  ':'') +det,{x:0.47,y:cy,w:W-SB-0.62,h:0.45,fontFace:'Calibri',fontSize:8,color:DARK,margin:0});
+        cy+=0.50;
+      });
+    }
+    addFoot(sc);
+  }
+
+  const fname='CR_Rivas_'+(proj.name||'projet').replace(/\s+/g,'_')+'_'+dateStr+'.pptx';
+  await pptx.writeFile({fileName:fname});
+  showToast('✓ PPT exporté — '+members.length+' intervenants · '+activeLines.length+' points RIDA');
+}
+
+// ── Inline editing helpers ──
+function crSaveInline(el){
+  const id=el.dataset.id;const field=el.dataset.field;
+  const l=(S.statLines||[]).find(x=>String(x.id)===String(id));
+  if(!l)return;
+  el.style.borderBottomColor='transparent';
+  const val=el.innerText.trim();
+  if(String(l[field]||'')===val)return;
+  l[field]=val;
+  saveS();
+}
+function crCycleRida(id){
+  const l=(S.statLines||[]).find(x=>String(x.id)===String(id));
+  if(!l)return;
+  const types=['R','I','D','A'];
+  l.rida=types[(types.indexOf(l.rida)+1)%4];
+  saveS();renderCR();
+}
+function crEditDetail(id){
+  const el=document.getElementById('cr-det-'+id);if(!el)return;
+  const l=(S.statLines||[]).find(x=>String(x.id)===String(id));if(!l)return;
+  // Toggle textarea
+  const existing=document.getElementById('cr-det-ta-'+id);
+  if(existing){existing.remove();return;}
+  const ta=document.createElement('textarea');
+  ta.id='cr-det-ta-'+id;
+  ta.value=l.detail||'';
+  ta.rows=3;
+  ta.placeholder='Rédigez une phrase complète…';
+  ta.style.cssText='width:100%;margin-top:6px;padding:6px 8px;font-family:var(--fm);font-size:.65rem;line-height:1.55;border:1px solid rgba(39,28,20,.25);border-radius:3px;background:#FFFFF8;color:#271C14;resize:vertical;box-sizing:border-box';
+  ta.onblur=function(){
+    const v=this.value.trim();
+    if(v&&v!==l.detail){l.detail=v;saveS();renderCR();}
+    else this.remove();
+  };
+  ta.onkeydown=function(e){if(e.key==='Escape'){this.remove();}};
+  el.after(ta);ta.focus();ta.select();
 }
 
 function renderCRPdfList(){
